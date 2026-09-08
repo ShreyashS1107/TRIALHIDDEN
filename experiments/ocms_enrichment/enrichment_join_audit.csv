@@ -1,0 +1,66 @@
+feature_name,feature_family,total_snapshots,non_null_count,overall_coverage_pct,missing_rate_pct,train_coverage_pct,val_coverage_pct,oot_coverage_pct,join_key
+hist_agency_completed_count_lifetime_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_delay_count_lifetime_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_delay_rate_raw_lifetime_t,Agency Prior,15769,9741,61.77,38.23,55.56,63.88,74.24,agency+prediction_month
+hist_agency_delay_rate_smoothed_lifetime_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_mean_delay_months_lifetime_t,Agency Prior,15769,9741,61.77,38.23,55.56,63.88,74.24,agency+prediction_month
+hist_agency_median_delay_months_lifetime_t,Agency Prior,15769,9741,61.77,38.23,55.56,63.88,74.24,agency+prediction_month
+hist_agency_cost_obs_count_lifetime_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_cost_overrun_count_lifetime_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_cost_overrun_rate_raw_lifetime_t,Agency Prior,15769,8170,51.81,48.19,40.31,59.79,71.64,agency+prediction_month
+hist_agency_cost_overrun_rate_smoothed_lifetime_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_mean_cost_overrun_pct_lifetime_t,Agency Prior,15769,8170,51.81,48.19,40.31,59.79,71.64,agency+prediction_month
+hist_agency_completed_count_5y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_delay_count_5y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_delay_rate_raw_5y_t,Agency Prior,15769,9371,59.43,40.57,51.66,63.49,73.88,agency+prediction_month
+hist_agency_delay_rate_smoothed_5y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_mean_delay_months_5y_t,Agency Prior,15769,9371,59.43,40.57,51.66,63.49,73.88,agency+prediction_month
+hist_agency_median_delay_months_5y_t,Agency Prior,15769,9371,59.43,40.57,51.66,63.49,73.88,agency+prediction_month
+hist_agency_cost_obs_count_5y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_cost_overrun_count_5y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_cost_overrun_rate_raw_5y_t,Agency Prior,15769,8147,51.66,48.34,40.16,59.66,71.48,agency+prediction_month
+hist_agency_cost_overrun_rate_smoothed_5y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_mean_cost_overrun_pct_5y_t,Agency Prior,15769,8147,51.66,48.34,40.16,59.66,71.48,agency+prediction_month
+hist_agency_completed_count_3y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_delay_count_3y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_delay_rate_raw_3y_t,Agency Prior,15769,8948,56.74,43.26,47.84,62.13,72.72,agency+prediction_month
+hist_agency_delay_rate_smoothed_3y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_mean_delay_months_3y_t,Agency Prior,15769,8948,56.74,43.26,47.84,62.13,72.72,agency+prediction_month
+hist_agency_median_delay_months_3y_t,Agency Prior,15769,8948,56.74,43.26,47.84,62.13,72.72,agency+prediction_month
+hist_agency_cost_obs_count_3y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_cost_overrun_count_3y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_cost_overrun_rate_raw_3y_t,Agency Prior,15769,7955,50.45,49.55,38.87,58.43,70.45,agency+prediction_month
+hist_agency_cost_overrun_rate_smoothed_3y_t,Agency Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,agency+prediction_month
+hist_agency_mean_cost_overrun_pct_3y_t,Agency Prior,15769,7955,50.45,49.55,38.87,58.43,70.45,agency+prediction_month
+hist_sector_completed_count_lifetime_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_delay_count_lifetime_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_delay_rate_raw_lifetime_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_mean_delay_months_lifetime_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_median_delay_months_lifetime_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_obs_count_lifetime_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_overrun_count_lifetime_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_overrun_rate_raw_lifetime_t,Sector Prior,15769,0,0.0,100.0,0.0,0.0,0.0,sector+prediction_month
+hist_sector_mean_cost_overrun_pct_lifetime_t,Sector Prior,15769,0,0.0,100.0,0.0,0.0,0.0,sector+prediction_month
+hist_sector_completed_count_5y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_delay_count_5y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_delay_rate_raw_5y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_mean_delay_months_5y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_median_delay_months_5y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_obs_count_5y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_overrun_count_5y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_overrun_rate_raw_5y_t,Sector Prior,15769,0,0.0,100.0,0.0,0.0,0.0,sector+prediction_month
+hist_sector_mean_cost_overrun_pct_5y_t,Sector Prior,15769,0,0.0,100.0,0.0,0.0,0.0,sector+prediction_month
+hist_sector_completed_count_3y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_delay_count_3y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_delay_rate_raw_3y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_mean_delay_months_3y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_median_delay_months_3y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_obs_count_3y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_overrun_count_3y_t,Sector Prior,15769,15769,100.0,0.0,100.0,100.0,100.0,sector+prediction_month
+hist_sector_cost_overrun_rate_raw_3y_t,Sector Prior,15769,0,0.0,100.0,0.0,0.0,0.0,sector+prediction_month
+hist_sector_mean_cost_overrun_pct_3y_t,Sector Prior,15769,0,0.0,100.0,0.0,0.0,0.0,sector+prediction_month
+hist_linked_pre_paimana_observation_months_t,Linked Project History,15769,11919,75.59,24.41,82.74,73.64,60.84,project_id+prediction_month
+hist_linked_pre_paimana_schedule_revision_count_t,Linked Project History,15769,11919,75.59,24.41,82.74,73.64,60.84,project_id+prediction_month
+hist_linked_pre_paimana_cost_revision_count_t,Linked Project History,15769,11919,75.59,24.41,82.74,73.64,60.84,project_id+prediction_month
+hist_linked_pre_paimana_max_cost_escalation_pct_t,Linked Project History,15769,11919,75.59,24.41,82.74,73.64,60.84,project_id+prediction_month
+hist_linked_pre_paimana_max_schedule_slippage_months_t,Linked Project History,15769,11919,75.59,24.41,82.74,73.64,60.84,project_id+prediction_month

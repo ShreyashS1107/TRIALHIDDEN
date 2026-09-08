@@ -1,0 +1,19 @@
+target,model_name,model_family,feature_count,val_pr_auc,val_roc_auc,val_brier,val_logloss,val_precision_top10,val_recall_top10,oot_pr_auc,oot_roc_auc,oot_brier,oot_logloss,oot_precision_top10,oot_recall_top10,delta_val_pr_auc,delta_val_roc_auc,delta_oot_pr_auc,delta_oot_roc_auc,delta_oot_brier
+schedule_delay_3m,Model A (PAIMANA-Only),RandomForest_RF02,76,0.9908,0.9893,0.0518,0.2112,0.9934,0.154,0.9699,0.97,0.0686,0.2519,0.9947,0.1688,0.0,0.0,0.0,0.0,0.0
+schedule_delay_3m,Model B (PAIMANA + Agency Priors),RandomForest_RF02,109,0.988,0.9865,0.0861,0.2869,0.9901,0.1535,0.9657,0.9653,0.0983,0.3198,0.9894,0.1679,-0.0028,-0.0028,-0.0042,-0.0047,0.0297
+schedule_delay_3m,Model C (PAIMANA + Sector Priors),RandomForest_RF02,103,0.9899,0.9888,0.0485,0.203,0.9934,0.154,0.9675,0.9684,0.066,0.2467,0.9894,0.1679,-0.0009,-0.0005,-0.0024,-0.0016,-0.0026
+schedule_delay_3m,Model D (PAIMANA + Linked Project History),RandomForest_RF02,81,0.9909,0.9895,0.0506,0.207,0.9967,0.1545,0.9696,0.9697,0.0684,0.2509,0.9921,0.1684,0.0001,0.0002,-0.0003,-0.0003,-0.0002
+schedule_delay_3m,Model E (PAIMANA + Agency + Sector),RandomForest_RF02,136,0.9876,0.9864,0.0863,0.2873,0.9934,0.154,0.9668,0.9665,0.1018,0.3269,0.9921,0.1684,-0.0032,-0.0029,-0.0031,-0.0035,0.0332
+schedule_delay_3m,Model F (PAIMANA + All OCMS Priors),RandomForest_RF02,141,0.9884,0.9873,0.0774,0.2695,0.9901,0.1535,0.9677,0.9673,0.0921,0.3071,0.9921,0.1684,-0.0024,-0.002,-0.0022,-0.0027,0.0235
+cost_overrun_state_3m,Model A (PAIMANA-Only),RandomForest_Balanced,76,0.991,0.9919,0.0357,0.1801,1.0,0.3262,0.9885,0.9898,0.0405,0.1968,0.9974,0.3121,0.0,0.0,0.0,0.0,0.0
+cost_overrun_state_3m,Model B (PAIMANA + Agency Priors),RandomForest_Balanced,109,0.9904,0.9908,0.0452,0.209,1.0,0.3262,0.9869,0.9884,0.0536,0.238,0.9974,0.3121,-0.0006,-0.0011,-0.0016,-0.0014,0.0131
+cost_overrun_state_3m,Model C (PAIMANA + Sector Priors),RandomForest_Balanced,103,0.9912,0.9917,0.0349,0.1774,1.0,0.3262,0.9878,0.989,0.0398,0.1947,0.9974,0.3121,0.0002,-0.0002,-0.0007,-0.0008,-0.0007
+cost_overrun_state_3m,Model D (PAIMANA + Linked Project History),RandomForest_Balanced,81,0.991,0.9916,0.034,0.1742,1.0,0.3262,0.9877,0.9887,0.0389,0.1913,1.0,0.3129,0.0,-0.0003,-0.0008,-0.0011,-0.0016
+cost_overrun_state_3m,Model E (PAIMANA + Agency + Sector),RandomForest_Balanced,136,0.9904,0.9907,0.0502,0.2205,1.0,0.3262,0.9864,0.9879,0.0585,0.2497,0.9974,0.3121,-0.0006,-0.0012,-0.0021,-0.0019,0.018
+cost_overrun_state_3m,Model F (PAIMANA + All OCMS Priors),RandomForest_Balanced,141,0.9901,0.9903,0.0471,0.2141,1.0,0.3262,0.9863,0.9872,0.0557,0.2435,0.9974,0.3121,-0.0009,-0.0016,-0.0022,-0.0026,0.0152
+schedule_revision_3m,Model A (PAIMANA-Only),LogisticRegression,76,0.1833,0.8125,0.0607,0.1926,0.0625,0.4634,0.068,0.8525,0.0368,0.124,0.0608,0.5111,0.0,0.0,0.0,0.0,0.0
+schedule_revision_3m,Model B (PAIMANA + Agency Priors),LogisticRegression,109,0.0564,0.7304,0.1765,0.658,0.0296,0.2195,0.0151,0.6291,0.2997,1.4982,0.0,0.0,-0.1269,-0.0821,-0.0529,-0.2234,0.2629
+schedule_revision_3m,Model C (PAIMANA + Sector Priors),LogisticRegression,103,0.1031,0.8068,0.0455,0.1517,0.0592,0.439,0.0379,0.7985,0.026,0.1002,0.0423,0.3556,-0.0802,-0.0057,-0.0301,-0.054,-0.0108
+schedule_revision_3m,Model D (PAIMANA + Linked Project History),LogisticRegression,81,0.1665,0.8178,0.0602,0.1917,0.0625,0.4634,0.0672,0.8518,0.0364,0.1236,0.0582,0.4889,-0.0168,0.0053,-0.0008,-0.0007,-0.0004
+schedule_revision_3m,Model E (PAIMANA + Agency + Sector),LogisticRegression,136,0.0558,0.7734,0.0744,0.2507,0.0461,0.3415,0.022,0.716,0.0918,0.3246,0.0212,0.1778,-0.1275,-0.0391,-0.046,-0.1365,0.055
+schedule_revision_3m,Model F (PAIMANA + All OCMS Priors),LogisticRegression,141,0.0738,0.7886,0.0757,0.2431,0.0461,0.3415,0.0258,0.7461,0.0921,0.3191,0.0291,0.2444,-0.1095,-0.0239,-0.0422,-0.1064,0.0553

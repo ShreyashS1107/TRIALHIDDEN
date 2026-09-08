@@ -1,0 +1,174 @@
+==========================================================================================
+STRICT POINT-IN-TIME TEMPORAL INTEGRITY & LEAKAGE AUDIT REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+==========================================================================================
+
+1. EXECUTIVE AUDIT SUMMARY
+--------------------------------------------------
+A rigorous point-in-time audit was conducted across all 13 candidate execution-risk signals,
+engineered features, and the proposed Operational Execution-Stress Index (ESI).
+
+AUDIT VERDICT:
+  * Total Signals Audited              : 13
+  * Strict Point-in-Time Compliant     : 13 (100.0%)
+  * Future Lookahead Leakage Detected  : 0 (0.0%)
+  * Forward Filling Across t Detected : 0 (0.0%)
+  * Target Contamination Detected     : 0 (0.0%)
+
+OVERALL LEAKAGE AUDIT STATUS: PASSED (ZERO LEAKAGE DETECTED)
+
+==========================================================================================
+2. AUDIT METHODOLOGY & VERIFICATION CHECKS
+--------------------------------------------------
+Every feature and signal evaluated at prediction month t was verified against 5 strict criteria:
+
+  1. Temporal Ceiling Rule: Source evidence date must satisfy: evidence_date <= month_t.
+     Verified: No feature references data from month t+1, t+2, or later.
+
+  2. Revised Date Anti-Leakage Rule:
+     If a project receives a schedule revision in month t+2, that revision date is NOT visible
+     at month t. The feature 'schedule_slippage_months_t' uses strictly the revised date published
+     in the official monthly flash report at or before month t.
+
+  3. Progress Velocity Window Bounding:
+     Rolling velocities (1m, 3m) are computed strictly backward using historical lags:
+     velocity_3m_t = (progress_t - progress_t-3) / 3. Forward lookahead is strictly impossible.
+
+  4. Expenditure Divergence Synchronicity:
+     'divergence_spread_t' compares cumulative expenditure at month t against physical progress
+     at month t. Both inputs originate synchronously from the exact same monthly reporting cycle.
+
+  5. Cross-Sectional Independence:
+     Agency-level and state-level context statistics are computed cross-sectionally within each
+     individual month t, completely isolated from future monthly cohorts.
+
+==========================================================================================
+3. DETAILED SIGNAL LEAKAGE AUDIT TABLE
+==========================================================================================
+
+SIGNAL / FEATURE     : physical_progress_t
+Source Dataset       : data/paimana_master_dataset.csv (physical_progress_percent)
+Time Horizon         : Observed strictly at month t
+Future Dependency    : NONE (t+1..t+n values never referenced)
+Forward-Fill Check   : STRICTLY PROHIBITED
+Aggregation Scope    : Point-in-time snapshot as of month t
+Verification Method  : Verified against raw monthly report for prediction_month
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : progress_velocity_1m_t
+Source Dataset       : features/feature_dataset_v1.csv (physical_progress_t - physical_progress_lag1)
+Time Horizon         : Uses month t and month t-1
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Historical window [t-1, t]
+Verification Method  : Lagged difference verified against historical sequence
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : progress_velocity_3m_t
+Source Dataset       : features/feature_dataset_v1.csv (rolling 3m mean delta)
+Time Horizon         : Uses historical window [t-3, t]
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Historical rolling window <= t
+Verification Method  : Rolling window strictly bounded by t
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : stagnant_3m_t
+Source Dataset       : features/feature_dataset_v1.csv
+Time Horizon         : Historical window [t-2, t]
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Historical rolling window <= t
+Verification Method  : Verified no future month progress inspected
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : months_since_last_progress_increase_t
+Source Dataset       : features/feature_dataset_v1.csv
+Time Horizon         : Cumulative historical sequence <= t
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Monotonic backward scan from t to t_0
+Verification Method  : Verified backward-only pointer search
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : schedule_slippage_months_t
+Source Dataset       : features/feature_dataset_v1.csv (revised_doc_t - original_completion_date)
+Time Horizon         : Revised date as published in month t report
+Future Dependency    : NONE (Future date revisions in t+1..t+n ignored)
+Forward-Fill Check   : NO
+Aggregation Scope    : Point-in-time revised date as of month t
+Verification Method  : Cross-checked with revised_doc_t against raw report t
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : months_to_original_doc_t
+Source Dataset       : features/feature_dataset_v1.csv (original_completion_date - prediction_month)
+Time Horizon         : Static charter original date vs prediction month t
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Static charter date relative to month t
+Verification Method  : Mathematical date subtraction verified
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : cumulative_expenditure_t
+Source Dataset       : data/paimana_master_dataset.csv (cumulative_expenditure_crore)
+Time Horizon         : Reported cumulative spend at month t
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Point-in-time financial snapshot <= t
+Verification Method  : Verified against raw monthly report for prediction_month
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : expenditure_ratio_pct_t
+Source Dataset       : features/feature_dataset_v1.csv (cum_exp_t / original_cost * 100)
+Time Horizon         : Point-in-time calculation at month t
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Point-in-time snapshot <= t
+Verification Method  : Verified no future revised cost or future spend used in ratio
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : divergence_spread_t
+Source Dataset       : Derived PIT signal (expenditure_ratio_pct_t - physical_progress_t)
+Time Horizon         : Synchronous point-in-time evaluation at month t
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Point-in-time snapshot at month t
+Verification Method  : Verified both inputs strictly observed at month t
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : observation_gap_flag_t
+Source Dataset       : features/feature_dataset_v1.csv
+Time Horizon         : Historical observation continuity <= t
+Future Dependency    : NONE
+Forward-Fill Check   : NO
+Aggregation Scope    : Historical reporting sequence [t_first, t]
+Verification Method  : Verified gap flag only checks historical months <= t
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : agency_mean_progress_t
+Source Dataset       : features/feature_dataset_v1.csv
+Time Horizon         : Cross-sectional mean across active projects at month t
+Future Dependency    : NONE (No future months included in agency cross-section)
+Forward-Fill Check   : NO
+Aggregation Scope    : Cross-sectional slice strictly within month t
+Verification Method  : Verified cross-section grouping performed strictly within month t
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+SIGNAL / FEATURE     : execution_stress_index (ESI)
+Source Dataset       : experiments/execution_risk/execution_stress_scores.csv
+Time Horizon         : Deterministic linear combination of point-in-time components at month t
+Future Dependency    : NONE
+Forward-Fill Check   : STRICTLY PROHIBITED
+Aggregation Scope    : Point-in-time composite index at month t
+Verification Method  : Verified all 5 component inputs are strictly <= t
+Compliance Status    : STRICT_POINT_IN_TIME_COMPLIANT
+--------------------------------------------------------------------------------
+
+
+==========================================================================================
+4. CONCLUSION
+==========================================================================================
+
+All analytical signals and the Operational Execution-Stress Index (ESI) are fully compliant
+with production point-in-time constraints. No future leakage exists in the analytics pipeline.
+==========================================================================================

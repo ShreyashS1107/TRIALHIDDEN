@@ -1,0 +1,88 @@
+==========================================================================================
+STANDARDIZED OPERATIONAL PROJECT AUDIT CARDS ('WHY IS THIS PROJECT FLAGGED?')
+==========================================================================================
+
+--------------------------------------------------------------------------------
+PROJECT ID          : 400178
+PROJECT NAME        : Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 85 DINESH[MAKARDHOKRA-III] OC
+AGENCY / STATE      : PAIMANA | MAHARASHTRA
+REPORTING MONTH     : 2025-08
+EXECUTION STRESS    : ATTENTION (ESI = 0.6812)
+INTEGRATED RISK     : MODERATE (Score = 0.3499)
+DOMINANT STRESSOR   : Progress Velocity Collapse
+
+OBSERVABLE SITE INDICATORS:
+  * Physical Progress Recorded  : nan%
+  * Cumulative Expenditure Ratio: 100.0%
+  * Expenditure/Progress Spread : +100.00% pts
+  * Months Stagnant (0% change) : 3 months
+  * Schedule Slippage Incurred  : nan months
+  * Active Stress Flags Count   : 4 / 5 flags
+
+SUGGESTED MoSPI / IPMD MONITORING ACTION:
+  -> FINANCIAL-PHYSICAL AUDIT: Significant expenditure divergence. Verify contractor bills vs physical progress.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+PROJECT ID          : 606431
+PROJECT NAME        : Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 318 CONSTRUCTION OF PERMANENT CAMPUS FOR IIT PALAKKAD UNDER PHASE 1A
+AGENCY / STATE      : PAIMANA | KERALA
+REPORTING MONTH     : 2025-08
+EXECUTION STRESS    : HIGH_PRIORITY (ESI = 0.7512)
+INTEGRATED RISK     : VERY_HIGH (Score = 0.8502)
+DOMINANT STRESSOR   : Progress Velocity Collapse
+
+OBSERVABLE SITE INDICATORS:
+  * Physical Progress Recorded  : nan%
+  * Cumulative Expenditure Ratio: 82.67208805651389%
+  * Expenditure/Progress Spread : +82.67% pts
+  * Months Stagnant (0% change) : 3 months
+  * Schedule Slippage Incurred  : nan months
+  * Active Stress Flags Count   : 5 / 5 flags
+
+SUGGESTED MoSPI / IPMD MONITORING ACTION:
+  -> INTER-MINISTERIAL ESCALATION: Multi-dimensional deadlock detected. Convene high-level review.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+PROJECT ID          : 400077
+PROJECT NAME        : GRASS ROOT POL TERMINAL AT VALLUR, CHENNAI 1-2022 7/2024
+AGENCY / STATE      : IOCL | PETROLEUM
+REPORTING MONTH     : 2025-05
+EXECUTION STRESS    : NOMINAL (ESI = 0.2369)
+INTEGRATED RISK     : VERY_HIGH (Score = 0.8466)
+DOMINANT STRESSOR   : Progress Velocity Collapse
+
+OBSERVABLE SITE INDICATORS:
+  * Physical Progress Recorded  : 85.4%
+  * Cumulative Expenditure Ratio: 64.95702425341608%
+  * Expenditure/Progress Spread : -20.44% pts
+  * Months Stagnant (0% change) : 0 months
+  * Schedule Slippage Incurred  : 17.0 months
+  * Active Stress Flags Count   : 2 / 5 flags
+
+SUGGESTED MoSPI / IPMD MONITORING ACTION:
+  -> NOMINAL SURVEILLANCE: Continue automated tracking on monthly dashboard.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+PROJECT ID          : 060100093
+PROJECT NAME        : GEVRA EXPANSION OCP (SECL) (35-70) MTY 6-2010 3/2023
+AGENCY / STATE      : SECL | CHHATTISGARH COAL
+REPORTING MONTH     : 2025-04
+EXECUTION STRESS    : WATCH (ESI = 0.4400)
+INTEGRATED RISK     : HIGH (Score = 0.6518)
+DOMINANT STRESSOR   : Progress Velocity Collapse
+
+OBSERVABLE SITE INDICATORS:
+  * Physical Progress Recorded  : nan%
+  * Cumulative Expenditure Ratio: nan%
+  * Expenditure/Progress Spread : +0.00% pts
+  * Months Stagnant (0% change) : 0 months
+  * Schedule Slippage Incurred  : 36.0 months
+  * Active Stress Flags Count   : 3 / 5 flags
+
+SUGGESTED MoSPI / IPMD MONITORING ACTION:
+  -> RESOURCE MOBILIZATION QUERY: Execution velocity lagging planned pace. Review machinery/labor deploy.
+--------------------------------------------------------------------------------
+

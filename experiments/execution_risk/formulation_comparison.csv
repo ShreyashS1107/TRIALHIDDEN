@@ -1,0 +1,4 @@
+,index_rule_based,index_equal_weighted,execution_stress_index
+index_rule_based,1.0,0.8507015652224613,0.7791476408126576
+index_equal_weighted,0.8507015652224613,1.0,0.9718592530543345
+execution_stress_index,0.7791476408126576,0.9718592530543345,1.0

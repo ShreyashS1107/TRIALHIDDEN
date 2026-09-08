@@ -1,0 +1,10 @@
+Metric,Value,Percentage
+Total Unique Historical OCMS Identifiers Discovered,3877,100.0%
+Total Unique Legacy OCMS Codes in PAIMANA Dataset,1677,100.0%
+Exact Identifier Matches (Historical OCMS <-> PAIMANA),962,57.36% of PAIMANA Legacy Codes
+Historical Linkage Rate to PAIMANA Active Portfolio,962,24.81% of Historical OCMS Codes
+Unmatched Historical OCMS Projects (Completed/Dropped/Historical Churn),2915,75.19%
+Unmatched PAIMANA Legacy Codes (Not Found in Sampled OCMS PDFs),715,42.64%
+Total Unique PAIMANA Projects (Apr 2025 - Jun 2026),2741,100.0%
+PAIMANA Projects with Legacy OCMS Code Present,1736,63.33%
+PAIMANA Projects without Legacy OCMS Code (New PAIMANA-Era Inceptions),1005,36.67%

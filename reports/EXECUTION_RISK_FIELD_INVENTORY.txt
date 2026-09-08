@@ -1,0 +1,462 @@
+==========================================================================================
+EXECUTION / IMPLEMENTATION RISK FIELD INVENTORY & SIGNAL AUDIT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+==========================================================================================
+
+1. EXECUTIVE SUMMARY
+--------------------------------------------------
+This audit systematically reviews all candidate signals, features, and raw fields across the
+PAIMANA master dataset (21,555 records, Apr 2025 - Jun 2026), the frozen feature dataset
+(15,769 records, 98 columns), auxiliary datasets, and published monthly Flash Reports.
+
+Key Audit Findings:
+1. Physical Progress Signals: 11 distinct point-in-time features exist, capturing instantaneous
+   progress, rolling velocity (1m/3m/6m), multi-month stagnation, and stagnation duration.
+2. Schedule Behaviour Signals: 7 point-in-time features capture schedule slippage magnitude,
+   overdue status, deadline proximity, and revision volatility.
+3. Expenditure & Divergence Signals: 6 features quantify financial burn, monthly delta, and
+   critically, the divergence spread between expenditure ratio and physical progress.
+4. Lifecycle & Governance Context: 7 features capture project age, planned duration, size tier,
+   state, and agency portfolio workload / mean execution rate.
+5. Data & Reporting Quality: 5 features capture observation gaps, reporting consistency, and
+   missing data indicators.
+6. Structured Milestones & Qualitative Bottlenecks: A rigorous PDF text and schema audit confirms
+   that PAIMANA Flash Reports DO NOT contain structured milestone tables, contractor performance
+   scorecards, contractual dispute fields, or project-level bottleneck remark columns.
+
+==========================================================================================
+2. COMPLETE FIELD INVENTORY & SIGNAL CLASSIFICATION TABLE
+==========================================================================================
+
+
+################################################################################
+CATEGORY: 1. Physical Progress
+################################################################################
+
+Field / Signal       : physical_progress_t
+Source Dataset       : features/feature_dataset_v1.csv (derived from data/paimana_master_dataset.csv: physical_progress_percent)
+Type                 : Raw / Cleaned PIT observation
+PIT Availability     : Month t (published flash report)
+Interpretation       : Current reported cumulative physical progress percentage [0, 100]
+Execution Meaning    : Low absolute progress relative to project age indicates severe initial/ongoing implementation friction.
+Known Limitations    : Self-reported by implementing agencies; 6.1% missingness in raw reports; subject to reporting quantization (e.g. 0%, 5%, 10%).
+Leakage Risk         : None (strictly observed at month t).
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : remaining_physical_progress_t
+Source Dataset       : features/feature_dataset_v1.csv (100 - physical_progress_t)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Physical work remaining to complete [0, 100]
+Execution Meaning    : Quantifies scale of physical execution still pending. If high near deadline, indicates high implementation stress.
+Known Limitations    : Direct linear transform of physical_progress_t.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : progress_velocity_1m_t
+Source Dataset       : features/feature_dataset_v1.csv (physical_progress_t - physical_progress_lag1)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t (requires t-1)
+Interpretation       : 1-month physical progress change (% pts / month)
+Execution Meaning    : Immediate monthly execution momentum. Negative or zero velocity indicates current work stoppage or reset.
+Known Limitations    : 22.4% missingness due to new projects or observation gaps; high month-to-month volatility.
+Leakage Risk         : None (uses t and t-1).
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : progress_velocity_3m_t
+Source Dataset       : features/feature_dataset_v1.csv (average monthly progress change over 3 months)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t (requires t-3)
+Interpretation       : Rolling 3-month physical progress velocity (% pts / month)
+Execution Meaning    : Smoothed medium-term execution velocity. Low/zero 3m velocity signifies persistent implementation bottlenecks.
+Known Limitations    : 51.5% missingness for projects with < 3 prior monthly observations.
+Leakage Risk         : None (uses t-3 to t).
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : progress_velocity_6m_t
+Source Dataset       : features/feature_dataset_v1.csv (average monthly progress change over 6 months)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t (requires t-6)
+Interpretation       : Rolling 6-month physical progress velocity (% pts / month)
+Execution Meaning    : Long-term sustained physical execution rate.
+Known Limitations    : 78.1% missingness across the 15-month dataset due to limited history.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : stagnant_2m_t
+Source Dataset       : features/feature_dataset_v1.csv (indicator: progress_change_1m == 0)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Binary flag (1 if 0% progress change in last month, else 0)
+Execution Meaning    : Early alert for physical work stall.
+Known Limitations    : 20.1% missingness.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : stagnant_3m_t
+Source Dataset       : features/feature_dataset_v1.csv (indicator: progress unchanged for 2 consecutive months)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Binary flag (1 if progress stagnant across 3 consecutive reports)
+Execution Meaning    : Established operational deadlock / construction stoppage indicator.
+Known Limitations    : 36.1% missingness in early project life.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : stagnant_6m_t
+Source Dataset       : features/feature_dataset_v1.csv (indicator: progress unchanged across 6 reports)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Binary flag (1 if chronic stagnation for 6 months)
+Execution Meaning    : Chronic stalled project / abandoned site risk.
+Known Limitations    : 69.1% missingness.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : months_since_last_progress_increase_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Count of consecutive observed months where progress did not increase
+Execution Meaning    : Direct monotonic measurement of progress stagnation duration.
+Known Limitations    : Capped at total observed history for newly added projects.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : longest_stagnation_to_date_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Maximum historical run of consecutive stagnant months observed up to t
+Execution Meaning    : Structural propensity of project/agency toward chronic stalls.
+Known Limitations    : Monotonically increasing historical summary.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : progress_std_to_date_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Standard deviation of historical progress observations up to month t
+Execution Meaning    : Measures volatility and irregularity in physical reporting.
+Known Limitations    : 0 for single-observation projects.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+
+################################################################################
+CATEGORY: 2. Schedule Behaviour
+################################################################################
+
+Field / Signal       : schedule_slippage_months_t
+Source Dataset       : features/feature_dataset_v1.csv (revised_doc_t - original_completion_date)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Months of formal schedule extension granted/reported as of month t
+Execution Meaning    : Magnitude of formal time delay already incurred. High slippage reflects compound implementation failure.
+Known Limitations    : NaN if project has no formal revised completion date (imputed as 0 in tree models).
+Leakage Risk         : None (uses revised date reported at month t).
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : months_to_original_doc_t
+Source Dataset       : features/feature_dataset_v1.csv (original_completion_date - prediction_month)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Remaining months to original scheduled completion (negative = past original deadline)
+Execution Meaning    : Overdue severity relative to baseline charter. Deep negative values indicate severe multi-year delay.
+Known Limitations    : 2.7% missing original completion dates.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : months_to_revised_doc_t
+Source Dataset       : features/feature_dataset_v1.csv (revised_doc_t - prediction_month)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Remaining months to revised scheduled completion
+Execution Meaning    : Proximity to current working deadline. If low while physical progress is low, indicates imminent deadline breach.
+Known Limitations    : Missing for projects without revised dates.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : has_revised_schedule_as_of_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Binary flag (1 if revised completion date exists as of t, else 0)
+Execution Meaning    : Indicates project has breached or officially modified its original timeline.
+Known Limitations    : Coarse binary flag.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : schedule_revision_count_to_date_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Cumulative count of schedule revisions observed in PAIMANA history up to t
+Execution Meaning    : Frequent revisions indicate unstable planning, recurring scope changes, or ongoing execution disruptions.
+Known Limitations    : Limited by PAIMANA observation window (15 months).
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : months_since_last_schedule_revision_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Elapsed months since most recent schedule revision was introduced
+Execution Meaning    : Recency of schedule disruption. Recent revisions indicate active contractual renegotiation.
+Known Limitations    : Arbitrary large constant if no revision observed.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : current_schedule_status_as_of_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature (Categorical)
+PIT Availability     : Month t
+Interpretation       : Current operational schedule state (ON_TIME, DELAYED, WITHIN_REVISED_TIMELINE, OVERDUE_REVISED, UNKNOWN)
+Execution Meaning    : Operational risk stratification directly used in MoSPI monitoring.
+Known Limitations    : Categorical string encoding required.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+
+################################################################################
+CATEGORY: 3. Expenditure Behaviour
+################################################################################
+
+Field / Signal       : cumulative_expenditure_t
+Source Dataset       : features/feature_dataset_v1.csv (data/paimana_master_dataset.csv: cumulative_expenditure_crore)
+Type                 : Raw / Cleaned PIT feature
+PIT Availability     : Month t
+Interpretation       : Cumulative financial expenditure in Crore INR reported as of month t
+Execution Meaning    : Absolute scale of financial resources deployed.
+Known Limitations    : 1.0% missingness.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : expenditure_ratio_pct_t
+Source Dataset       : features/feature_dataset_v1.csv (cumulative_expenditure_t / original_cost_crore * 100)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Cumulative spend as percentage of original sanctioned cost (%)
+Execution Meaning    : Budget consumption pace. Expenditure ratio > 100% signifies active cost overrun.
+Known Limitations    : Sensitive to original cost denominator errors.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : monthly_expenditure_delta_t
+Source Dataset       : features/feature_dataset_v1.csv (cum_exp_t - cum_exp_t-1)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Net financial burn in month t (Crore INR)
+Execution Meaning    : Monthly cash flow and contractor disbursement intensity.
+Known Limitations    : 17.6% missingness; occasional negative deltas due to accounting corrections.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : expenditure_velocity_3m_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : 3-month average monthly expenditure (Crore/month)
+Execution Meaning    : Sustained financial execution velocity.
+Known Limitations    : 47.5% missingness for newly tracked projects.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : negative_expenditure_delta_flag_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Binary flag (1 if monthly expenditure delta < 0)
+Execution Meaning    : Indicates financial audit clawbacks, billing dispute adjustments, or data entry corrections.
+Known Limitations    : Rare event (~2% of records).
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : expenditure_to_progress_divergence (derived: expenditure_ratio_pct_t - physical_progress_t)
+Source Dataset       : Derived analytical signal from features/feature_dataset_v1.csv
+Type                 : Analytical Signal / Composite metric
+PIT Availability     : Month t
+Interpretation       : Spread between financial consumption (%) and physical execution (%)
+Execution Meaning    : PRIMARY IMPLEMENTATION ANOMALY SIGNAL: High positive divergence (e.g. 80% spent, 25% built) indicates extreme cost inefficiency, advance disbursement risk, or unverified contractor billing.
+Known Limitations    : Can be noisy if land acquisition expenditure occurs upfront before physical construction begins.
+Leakage Risk         : None.
+Suitability Decision : ANALYTICAL_SIGNAL_ONLY
+--------------------------------------------------------------------------------
+
+################################################################################
+CATEGORY: 4. Project Lifecycle & Context
+################################################################################
+
+Field / Signal       : project_age_months_t
+Source Dataset       : features/feature_dataset_v1.csv (prediction_month - approval_start_date)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Elapsed age of project in months since government approval / sanction
+Execution Meaning    : Lifecycle stage. Prolonged age with low progress indicates structural inertia and legacy stalling.
+Known Limitations    : 1.1% missing approval dates.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : planned_duration_months
+Source Dataset       : features/feature_dataset_v1.csv (original_completion_date - approval_start_date)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Originally scheduled total project duration in months
+Execution Meaning    : Baseline project complexity and planning horizon.
+Known Limitations    : 2.9% missingness.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : project_size_category
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature (Categorical)
+PIT Availability     : Month t
+Interpretation       : Classification by sanctioned cost (Mega: >= Rs 1000 Cr, Major: Rs 150-1000 Cr, Medium: < Rs 150 Cr)
+Execution Meaning    : Scale and systemic institutional risk.
+Known Limitations    : Coarse 3-level categorical.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : agency
+Source Dataset       : features/feature_dataset_v1.csv (data/paimana_master_dataset.csv: agency)
+Type                 : Raw PIT feature (Categorical)
+PIT Availability     : Month t
+Interpretation       : Executing ministry, department, or central public sector undertaking (e.g. NHAI, MoR, MoPNG, NTPC)
+Execution Meaning    : Captures institutional execution capacity, administrative overhead, and agency governance performance.
+Known Limitations    : High cardinality (459 distinct agency strings in master dataset).
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : state
+Source Dataset       : features/feature_dataset_v1.csv (data/paimana_master_dataset.csv: state)
+Type                 : Raw PIT feature (Categorical)
+PIT Availability     : Month t
+Interpretation       : Geographic jurisdiction / state location of project site
+Execution Meaning    : Reflects regional right-of-way complexity, state land acquisition regulations, and local environmental friction.
+Known Limitations    : Multi-state projects categorized as 'MULTI-STATE' or compound strings.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : agency_mean_progress_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Cross-sectional mean physical progress across all active projects of this agency at month t
+Execution Meaning    : Portfolio-level execution health of the implementing agency.
+Known Limitations    : Small sample size for agencies with 1-2 projects.
+Leakage Risk         : None (calculated strictly within month t).
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : agency_active_project_count_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Total active project load being managed concurrently by the agency at month t
+Execution Meaning    : Agency capacity strain / managerial bandwidth bottleneck.
+Known Limitations    : None.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+
+################################################################################
+CATEGORY: 5. Data & Reporting Quality
+################################################################################
+
+Field / Signal       : observation_gap_flag_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Binary flag (1 if project experienced missed reporting months between first observation and t)
+Execution Meaning    : Signals administrative non-compliance, portal blackout, or operational distress leading to lapsed reporting.
+Known Limitations    : Binary summary.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : observation_coverage_ratio_t
+Source Dataset       : features/feature_dataset_v1.csv (consecutive_obs / total_possible_obs)
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Proportion of active months in which the project successfully filed a monthly report
+Execution Meaning    : Continuous index of reporting reliability and monitoring visibility.
+Known Limitations    : Bounded [0, 1].
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : missing_physical_progress_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Binary flag (1 if physical progress was omitted in report at month t)
+Execution Meaning    : Direct data opacity indicator; impedes progress-based risk evaluation.
+Known Limitations    : None.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : missing_revised_doc_t
+Source Dataset       : features/feature_dataset_v1.csv
+Type                 : Engineered PIT feature
+PIT Availability     : Month t
+Interpretation       : Binary flag (1 if revised completion date is missing despite being delayed)
+Execution Meaning    : Indicates unscheduled / un-remedied schedule slippage without formal milestone recalibration.
+Known Limitations    : None.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+Field / Signal       : table_source_t
+Source Dataset       : features/feature_dataset_v1.csv (data/paimana_master_dataset.csv: source_table)
+Type                 : Raw PIT feature (Categorical)
+PIT Availability     : Month t
+Interpretation       : Specific PAIMANA report table source (Table 1, Table 2, Table 6, etc.)
+Execution Meaning    : Identifies reporting format transitions and cohort inclusion rules across PAIMANA releases.
+Known Limitations    : Table schemas changed in mid-2025 as PAIMANA portal matured.
+Leakage Risk         : None.
+Suitability Decision : SAFE_FEATURE
+--------------------------------------------------------------------------------
+
+################################################################################
+CATEGORY: 6. Structured Milestones, Contracts & Remarks
+################################################################################
+
+Field / Signal       : milestone_completion_dates / milestone_names
+Source Dataset       : PAIMANA Portal Flash Reports (audited: FlashReport_*.pdf)
+Type                 : Field Audit (ABSENT)
+PIT Availability     : NOT AVAILABLE IN PUBLISHED DATA
+Interpretation       : Granular physical milestone tracking (e.g. EPC package awards, foundation, superstructure, commissioning)
+Execution Meaning    : Would provide early intermediate bottleneck detection before terminal schedule slippage occurs.
+Known Limitations    : Completely absent from monthly PAIMANA flash reports and OCMS PDF archives. Not captured in tabular data.
+Leakage Risk         : N/A
+Suitability Decision : UNSAFE / EXCLUDE
+--------------------------------------------------------------------------------
+Field / Signal       : contractor_name / contractual_dispute_status
+Source Dataset       : PAIMANA Portal Flash Reports (audited: FlashReport_*.pdf)
+Type                 : Field Audit (ABSENT)
+PIT Availability     : NOT AVAILABLE IN PUBLISHED DATA
+Interpretation       : Identity of EPC contractors, concessionaires, arbitration filings, or liquidated damages notices
+Execution Meaning    : Direct contractual execution risk indicator.
+Known Limitations    : Not published in PAIMANA flash reports.
+Leakage Risk         : N/A
+Suitability Decision : UNSAFE / EXCLUDE
+--------------------------------------------------------------------------------
+Field / Signal       : bottleneck_remarks / delay_reasons_text
+Source Dataset       : PAIMANA Portal Flash Reports (audited: FlashReport_*.pdf)
+Type                 : Field Audit (ABSENT IN TABULAR DATA)
+PIT Availability     : NOT AVAILABLE IN PUBLISHED DATA
+Interpretation       : Free-text explanations of delay causes (e.g., land acquisition delays, forest clearances, law and order, utility shifting)
+Execution Meaning    : Qualitative root-cause attribution.
+Known Limitations    : PAIMANA flash reports only provide tabular numerical project summaries without project-level text remark columns (unlike legacy 1990s OCMS annexures).
+Leakage Risk         : N/A
+Suitability Decision : UNSAFE / EXCLUDE
+--------------------------------------------------------------------------------
+
+
+==========================================================================================
+3. SIGNAL SUITABILITY SUMMARY
+==========================================================================================
+
+  * ANALYTICAL_SIGNAL_ONLY   :  1 fields
+  * SAFE_FEATURE             : 35 fields
+  * UNSAFE / EXCLUDE         :  3 fields
+
+TOTAL AUDITED SIGNALS: 39
+==========================================================================================

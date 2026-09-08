@@ -1,0 +1,17 @@
+ocms_field,paimana_field,comparability_class,confidence,definition_consistency,notes
+Project Name,project_name,A. Directly comparable,High (95%),Identical semantic meaning; string cleaning required to strip embedded agency/brackets.,Directly matchable with whitespace/casing normalization.
+Date of Approval (DOA),date_of_approval,A. Directly comparable,High (99%),Identical government approval month/year.,Requires standard date parsing (MM/YYYY -> YYYY-MM).
+Original Date of Commissioning (DOC),original_doc,A. Directly comparable,High (99%),Identical original target deadline.,Requires standard date parsing (MM/YYYY -> YYYY-MM).
+Anticipated / Revised Date of Commissioning,anticipated_doc / revised_doc,A. Directly comparable,High (95%),Identical operational forecast deadline.,"In earlier reports, anticipated DOC captures both revised and anticipated."
+Original Cost,original_cost,A. Directly comparable,High (99%),Identical sanctioned cost in Rs. Crore.,Monetary values consistently reported in Rs. Crore.
+Anticipated Cost,anticipated_cost,A. Directly comparable,High (99%),Identical projected completion cost in Rs. Crore.,Monetary values consistently reported in Rs. Crore.
+Cumulative Expenditure,cumulative_expenditure,A. Directly comparable,High (95%),Identical incurred financial expenditure in Rs. Crore.,Subject to reporting lags by agencies in both systems.
+OCMS Project Code,legacy_ocms_code,A. Directly comparable,High (98%),Exact primary key mapping for 2011-2025 projects.,1:1 identifier match across system boundary.
+Physical Progress (%),physical_progress,B. Potentially comparable,Medium (70%),"Self-reported progress percentage [0, 100].",Absent in 2001-2008 summary tables; sparse in 2009-2013; standard in 2014-2024. Subject to definition shifts across agencies.
+Implementing Agency / PSU,agency_name,B. Potentially comparable,Medium-High (85%),Executing public sector enterprise / agency.,Embedded in project name in 2001-2014; requires regex extraction; normalized into agency_name in PAIMANA.
+Sector / Ministry,sector / ministry_name,B. Potentially comparable,Medium-High (85%),Sectoral classification.,"Sectors underwent minor reorganizations (e.g., Road Transport vs Highways; Telecommunications split)."
+State / Location,state_name,B. Potentially comparable,Medium (75%),Geographical state location.,Multi-state projects categorized as Multi-State / Regional / Central in varying ways across eras.
+Revised Cost,revised_cost,B. Potentially comparable,Medium (70%),Approved revised cost vs anticipated expenditure.,Combined with Anticipated Cost in 2001-2010; split in 2014-2026.
+Milestones (Granular),milestones_total / milestones_achieved,C. Not comparable,Low (25%),Varies drastically between PDF monographs and PAIMANA summary tables.,"Milestone definitions, weights, and reporting standards changed completely between Web-OCMS and PAIMANA."
+Remarks / Reasons for Delay,delay_reasons / remarks,C. Not comparable,Low (20%),Unstructured free text narrative vs structured dropdown categories.,"Historical text remarks contain non-standard abbreviations, OCR artifacts, and inconsistent categorization."
+Serial Number (Sl. No.),project_id,C. Not comparable,Zero (0%),Completely different concept.,"Sl. No. is a per-page/per-sector counter, while PAIMANA project_id is a global database surrogate key."

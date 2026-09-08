@@ -1,0 +1,71 @@
+==========================================================================================
+IMPLEMENTATION / EXECUTION RISK ARCHITECTURE: FINAL SCIENTIFIC DECISION
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+==========================================================================================
+
+FINAL CLASSIFICATION:
+========================================================================================
+CLASSIFICATION: PRODUCTION_ANALYTICAL_INDEX_SUPPORTED
+========================================================================================
+
+1. SCIENTIFIC & EMPIRICAL JUSTIFICATION
+--------------------------------------------------
+Based on a rigorous 10-phase empirical audit of the PAIMANA dataset (21,555 master records,
+15,769 frozen feature records, 15 reporting months from April 2025 to June 2026), the senior ML
+research team concludes that:
+
+A. SUPERVISED ML TARGET IS NOT SUPPORTED:
+   - Candidate supervised targets (e.g. future progress stagnation delta <= 0% over t -> t+3)
+     suffer from a severe 2.5x base rate collapse (37.3% in Train to 16.1% in Validation) caused by
+     administrative reporting regime shifts (PAIMANA Table 1 to Table 6 transition) rather than
+     real-world project acceleration.
+   - Published PAIMANA reports contain NO official ground-truth qualitative bottleneck labels,
+     milestone tables, contractor scorecards, or contractual dispute fields.
+   - Empirical classifiers fitted on candidate stagnation targets exhibit poor generalization on
+     Out-of-Time test data (Logistic Regression ROC-AUC = 0.5585, RF PR-AUC = 0.4739).
+   - Manufacturing synthetic labels to train a 4th ML model would violate scientific integrity,
+     introduce circular logic, and degrade platform credibility.
+
+B. OPERATIONAL EXECUTION-STRESS INDEX (ESI) IS STRONGLY SUPPORTED:
+   - 13 point-in-time compliant execution signals exist with 100% temporal audit compliance
+     and zero future lookahead leakage.
+   - The 5-dimensional Operational Execution-Stress Index (ESI) combines:
+       1. S_stag (30%): Physical Progress Stagnation Stress
+       2. S_vel  (25%): Progress Velocity Deterioration Stress
+       3. S_div  (20%): Expenditure/Progress Divergence Stress
+       4. S_sched(15%): Schedule Slippage Magnitude & Overdue Debt
+       5. S_rep  (10%): Observation Quality & Revision Volatility
+   - ESI exhibits low rank correlation with Integrated Predictive Risk (Spearman rho = 0.1360),
+     proving it captures non-redundant, distinct operational information.
+   - Crucially, 65.4% of high-stress execution alerts (809 project-months) occur on projects
+     classified as Low or Moderate by predictive outcome models (e.g. early-stage stalled projects).
+   - ESI powers a robust 4-tier Early Warning Framework (Nominal, Watch, Attention, High Priority)
+     and a deterministic Prescriptive Monitoring Action Logic Matrix for MoSPI / IPMD.
+
+==========================================================================================
+2. ARCHITECTURAL INTEGRATION SUMMARY
+--------------------------------------------------
+The MoSPI / IPMD Integrated Platform operates with two complementary, non-overlapping pillars:
+
+  PILLAR 1: PREDICTIVE OUTCOME ENGINE (Frozen Production ML Models)
+    - Champion Schedule Delay : RF_02 + Platt Sigmoid Calibration (OOT ROC-AUC = 0.9723)
+    - Champion Cost Overrun   : RF Balanced (OOT ROC-AUC = 0.9895)
+    - Schedule Revision Signal: Logistic Regression (OOT ROC-AUC = 0.8264)
+    - Integrated Risk Index   : 50% Schedule + 35% Cost + 15% Revision
+    - Purpose                 : Long-term terminal outcome probability forecasting.
+
+  PILLAR 2: OPERATIONAL SURVEILLANCE & EARLY WARNING (Execution-Stress Index)
+    - Execution-Stress Index  : Deterministic Multi-Dimensional ESI [0.0 - 1.0]
+    - Alert Hierarchy         : Nominal (< 0.35), Watch (0.35-0.55), Attention (0.55-0.75), High Priority (>= 0.75)
+    - Prescriptive Logic      : Automated mapping from observed stress components to MoSPI administrative actions.
+    - Purpose                 : Real-time site friction detection and bottleneck early warning.
+
+==========================================================================================
+3. FUTURE DATA ENHANCEMENT RECOMMENDATIONS FOR MoSPI / IPMD
+--------------------------------------------------
+To support a future supervised ML model for implementation/contractual risk, MoSPI should capture:
+  1. Standardized Physical Milestone Schedules (e.g. EPC award date, foundation complete, trial run)
+  2. Standardized Categorical Delay Codes (e.g. Land Acquisition, Forest Clearance, Court Stay, Law & Order)
+  3. EPC Contractor Master Identification (Concessionaire Name, Contract Value, Past Performance Rating)
+  4. Contractual Dispute / Arbitration Tracking (Claims Filed, Liquidated Damages Imposed, Dispute Board Status)
+==========================================================================================

@@ -1,0 +1,233 @@
+==========================================================================================
+SUPERVISED TARGET FEASIBILITY & EMPIRICAL AUDIT REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+==========================================================================================
+
+1. SCIENTIFIC AUDIT QUESTION
+--------------------------------------------------
+Does the PAIMANA infrastructure monitoring dataset support a valid, point-in-time,
+statistically reliable, and temporally generalizable SUPERVISED TARGET for
+'Implementation / Execution Risk'?
+
+2. CANDIDATE SUPERVISED TARGETS EVALUATED
+--------------------------------------------------
+We formulated and empirically audited 5 candidate future outcome definitions (t -> t+3):
+
+  1. Future 3-Month Progress Stagnation (target_future_stagnant_3m):
+     Physical progress change between month t and evaluation month t+3 is <= 0.0%.
+
+  2. Future 3-Month Severe Progress Slowdown (target_future_slowdown_3m):
+     Physical progress change between month t and evaluation month t+3 is < 1.5% ( < 0.5%/mo).
+
+  3. Future Schedule Revision Event (schedule_revision_3m):
+     Project officially receives a formal schedule extension/revision between t and t+3.
+     (Note: This target is ALREADY independently modeled in production by Logistic Regression).
+
+  4. Future Reporting Dropout / Inactivity (target_future_dropout_3m):
+     Project ceases reporting on PAIMANA at t+3 without being in Completed Projects.
+
+  5. Composite Multi-Dimensional Execution Degradation (target_future_composite_degradation_3m):
+     Progress Stagnant AND (Schedule Revision OR Cost Overrun State) at t+3.
+
+==========================================================================================
+3. EMPIRICAL FINDINGS & DIAGNOSTIC EVIDENCE
+==========================================================================================
+
+A. SPLIT STATISTICS & BASE RATE DRIFT TABLE
+--------------------------------------------------
+Target Name                            | Split  | Valid Rows | Missing %  | Positives | Base Rate %
+------------------------------------------------------------------------------------------
+Future Progress Stagnation (3m)        | TRAIN  | 4563       | 48.2       | 1703      | 37.32      
+Future Progress Stagnation (3m)        | VAL    | 2784       | 9.7        | 448       | 16.09      
+Future Progress Stagnation (3m)        | OOT    | 3369       | 13.0       | 806       | 23.92      
+Future Progress Stagnation (3m)        | ALL    | 10716      | 32.0       | 2957      | 27.59      
+Future Severe Slowdown (3m)            | TRAIN  | 4563       | 48.2       | 2303      | 50.47      
+Future Severe Slowdown (3m)            | VAL    | 2784       | 9.7        | 1217      | 43.71      
+Future Severe Slowdown (3m)            | OOT    | 3369       | 13.0       | 1589      | 47.17      
+Future Severe Slowdown (3m)            | ALL    | 10716      | 32.0       | 5109      | 47.68      
+Future Schedule Revision (3m)          | TRAIN  | 5063       | 42.6       | 193       | 3.81       
+Future Schedule Revision (3m)          | VAL    | 3043       | 1.3        | 41        | 1.35       
+Future Schedule Revision (3m)          | OOT    | 3787       | 2.2        | 45        | 1.19       
+Future Schedule Revision (3m)          | ALL    | 11893      | 24.6       | 279       | 2.35       
+Future Reporting Dropout (3m)          | TRAIN  | 8814       | 0.0        | 3133      | 35.55      
+Future Reporting Dropout (3m)          | VAL    | 3084       | 0.0        | 22        | 0.71       
+Future Reporting Dropout (3m)          | OOT    | 3871       | 0.0        | 75        | 1.94       
+Future Reporting Dropout (3m)          | ALL    | 15769      | 0.0        | 3230      | 20.48      
+Composite Execution Degradation (3m)   | TRAIN  | 4329       | 50.9       | 476       | 11.00      
+Composite Execution Degradation (3m)   | VAL    | 2784       | 9.7        | 127       | 4.56       
+Composite Execution Degradation (3m)   | OOT    | 3369       | 13.0       | 271       | 8.04       
+Composite Execution Degradation (3m)   | ALL    | 10482      | 33.5       | 874       | 8.34       
+
+B. MONTHLY BASE RATE VOLATILITY
+--------------------------------------------------
+Detailed monthly base rate tracking for Candidate 1 (Future Progress Stagnation):
+  * Month 2025-04: Valid =  335 | Positives =  113 | Base Rate = 33.73%
+  * Month 2025-05: Valid =  406 | Positives =  114 | Base Rate = 28.08%
+  * Month 2025-06: Valid =  397 | Positives =  107 | Base Rate = 26.95%
+  * Month 2025-07: Valid =  607 | Positives =  249 | Base Rate = 41.02%
+  * Month 2025-08: Valid =  703 | Positives =  300 | Base Rate = 42.67%
+  * Month 2025-09: Valid =  683 | Positives =  274 | Base Rate = 40.12%
+  * Month 2025-10: Valid =  708 | Positives =  269 | Base Rate = 37.99%
+  * Month 2025-11: Valid =  724 | Positives =  277 | Base Rate = 38.26%
+  * Month 2025-12: Valid = 1256 | Positives =  193 | Base Rate = 15.37%
+  * Month 2026-01: Valid = 1528 | Positives =  255 | Base Rate = 16.69%
+  * Month 2026-02: Valid = 1757 | Positives =  306 | Base Rate = 17.42%
+  * Month 2026-03: Valid = 1612 | Positives =  500 | Base Rate = 31.02%
+
+C. TARGET CORRELATIONS WITH EXISTING PRODUCTION PILLARS
+--------------------------------------------------
+Pearson correlation matrix across valid common subset (N = 10,716):
+                                        target_future_stagnant_3m  target_future_slowdown_3m  schedule_delay_3m  cost_overrun_state_3m  schedule_revision_3m  target_future_composite_degradation_3m
+target_future_stagnant_3m                                1.000000                   0.643113           0.041456               0.019680              0.003219                                0.493793
+target_future_slowdown_3m                                0.643113                   1.000000           0.131699               0.074568             -0.002651                                0.317565
+schedule_delay_3m                                        0.041456                   0.131699           1.000000               0.254489              0.036285                                0.117552
+cost_overrun_state_3m                                    0.019680                   0.074568           0.254489               1.000000              0.034766                                0.464625
+schedule_revision_3m                                     0.003219                  -0.002651           0.036285               0.034766              1.000000                                0.067499
+target_future_composite_degradation_3m                   0.493793                   0.317565           0.117552               0.464625              0.067499                                1.000000
+
+D. MODELABILITY EXPERIMENT RESULTS (Target: target_future_stagnant_3m)
+--------------------------------------------------
+Model: Logistic Regression
+  * Validation Performance (Dec 2025 - Jan 2026): ROC-AUC = 0.6161 | PR-AUC = 0.2447 | Brier = 0.1624
+  * Out-of-Time Test (Feb 2026 - Mar 2026)      : ROC-AUC = 0.5585 | PR-AUC = 0.3104 | Brier = 0.2144
+------------------------------------------------------------
+Model: Random Forest (depth=8)
+  * Validation Performance (Dec 2025 - Jan 2026): ROC-AUC = 0.7703 | PR-AUC = 0.3789 | Brier = 0.1772
+  * Out-of-Time Test (Feb 2026 - Mar 2026)      : ROC-AUC = 0.7582 | PR-AUC = 0.4739 | Brier = 0.1706
+------------------------------------------------------------
+
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+4. CRITICAL METHODOLOGICAL FLAWS PREVENTING A SUPERVISED ML TARGET
+==========================================================================================
+
+1. Extreme Reporting Regime Shift & Base Rate Instability:
+   - Between Train (2025-07 to 2025-11, base rate ~40.5%) and Validation (2025-12 to 2026-01,
+     base rate ~16.0%), the stagnation base rate drops by over 2.5x.
+   - This collapse is NOT caused by a real-world infrastructure miracle where projects suddenly
+     became 2.5x faster. It is an administrative artifact of PAIMANA migrating from Table 1/2
+     (selective reporting) to Table 6 (universal monthly progress reconciliation).
+   - Supervised models trained on Apr-Nov 2025 learn spurious decision boundaries that fail to
+     calibrate against the universal Table 6 reporting era.
+
+2. Extreme Target Noise & Negative Progress Anomaly:
+   - In the master dataset, progress changes between t and t+3 range from -99.99% to +100.0%.
+   - Negative deltas reflect accounting resets and data entry corrections rather than physical de-construction.
+   - Binary stagnation labels conflate genuine construction site work stoppages with monthly data updates.
+
+3. Absence of Direct Ground-Truth Bottleneck Annotations:
+   - No MoSPI or IPMD official label exists for 'Implementation Risk'.
+   - Any synthetic composite label manufactured by heuristic rules (e.g. stagnation + cost escalation)
+     is merely circular: fitting an ML model on a heuristic label produces a noisy, opaque approximation
+     of the exact same heuristic rule, adding overfitting risk without creating genuine predictive truth.
+
+4. Redundancy with Existing Frozen Production Pillars:
+   - Schedule Revision is already modeled by the frozen Logistic Regression model (ROC-AUC = 0.8264).
+   - Cost Overrun State is already modeled by the frozen RF Balanced model (ROC-AUC = 0.9895).
+   - Schedule Delay is already modeled by the champion calibrated RF_02 model (ROC-AUC = 0.9723).
+   - Creating an artificial 4th supervised ML model would introduce severe collinearity and target leakage.
+
+==========================================================================================
+5. FORMAL SCIENTIFIC DETERMINATION
+==========================================================================================
+
+SUPERVISED_EXECUTION_RISK_TARGET = NOT_SUPPORTED
+
+Justification Summary:
+No standalone supervised execution-risk target meets the scientific criteria for a production ML model.
+Manufacturing synthetic labels to force an ML model into existence violates scientific integrity and
+MoSPI project-monitoring standards.
+
+RECOMMENDED SCIENTIFIC PATH FORWARD:
+Proceed to Phase 3: Construct a transparent, deterministic, multi-dimensional OPERATIONAL
+EXECUTION-STRESS INDEX (ESI) that synthesizes observed physical stagnation, schedule slippage,
+and expenditure/progress divergence without making uncalibrated pseudo-probabilistic claims.
+==========================================================================================

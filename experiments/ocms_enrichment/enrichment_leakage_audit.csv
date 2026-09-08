@@ -1,0 +1,66 @@
+feature_name,feature_family,point_in_time_condition,temporal_boundary_verified,target_leakage_status,future_aggregation_status,leakage_status
+hist_agency_completed_count_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_count_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_rate_raw_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_rate_smoothed_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_mean_delay_months_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_median_delay_months_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_obs_count_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_count_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_rate_raw_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_rate_smoothed_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_mean_cost_overrun_pct_lifetime_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_completed_count_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_count_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_rate_raw_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_rate_smoothed_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_mean_delay_months_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_median_delay_months_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_obs_count_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_count_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_rate_raw_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_rate_smoothed_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_mean_cost_overrun_pct_5y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_completed_count_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_count_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_rate_raw_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_delay_rate_smoothed_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_mean_delay_months_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_median_delay_months_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_obs_count_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_count_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_rate_raw_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_cost_overrun_rate_smoothed_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_agency_mean_cost_overrun_pct_3y_t,Agency Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_completed_count_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_delay_count_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_delay_rate_raw_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_mean_delay_months_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_median_delay_months_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_obs_count_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_overrun_count_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_overrun_rate_raw_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_mean_cost_overrun_pct_lifetime_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_completed_count_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_delay_count_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_delay_rate_raw_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_mean_delay_months_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_median_delay_months_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_obs_count_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_overrun_count_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_overrun_rate_raw_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_mean_cost_overrun_pct_5y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_completed_count_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_delay_count_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_delay_rate_raw_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_mean_delay_months_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_median_delay_months_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_obs_count_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_overrun_count_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_cost_overrun_rate_raw_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_sector_mean_cost_overrun_pct_3y_t,Sector Prior,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_linked_pre_paimana_observation_months_t,Linked Project History,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_linked_pre_paimana_schedule_revision_count_t,Linked Project History,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_linked_pre_paimana_cost_revision_count_t,Linked Project History,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_linked_pre_paimana_max_cost_escalation_pct_t,Linked Project History,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
+hist_linked_pre_paimana_max_schedule_slippage_months_t,Linked Project History,evidence_date < prediction_month,True,PASS (Zero target columns),PASS (Strictly as-of t),PASS
