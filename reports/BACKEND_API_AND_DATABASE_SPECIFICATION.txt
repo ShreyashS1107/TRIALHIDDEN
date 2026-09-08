@@ -4,6 +4,7 @@ SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring 
 Prepared by: System Architecture & Backend Engineering Team
 Target Audience: Backend Developers, Database Administrators, DevOps Engineers, API Consumers
 Target File: reports/BACKEND_API_AND_DATABASE_SPECIFICATION.txt
+Status: FINAL PRODUCTION SPECIFICATION
 ========================================================================================================================
 
 PURPOSE OF THIS SPECIFICATION:
@@ -18,6 +19,7 @@ SYSTEM ARCHITECTURE SUMMARY:
 - In-Memory Cache       : Redis 7 for sub-10ms portfolio aggregations and session/rate-limiting state.
 - Task Queue / Worker   : Celery / Redis (or APScheduler) for asynchronous PDF ingestion, feature extraction, and ML scoring.
 - ML Inference Bridge   : Local joblib/scikit-learn runtime inside isolated batch worker containers.
+- Analytical Pillars    : Clean separation between Pillar 1 (Predictive Outcome Engine) and Pillar 2 (Operational Execution Surveillance).
 
 
 ========================================================================================================================
@@ -25,7 +27,8 @@ PART 1 — RELATIONAL DATABASE SCHEMA & POSTGRESQL DDL SPECIFICATION
 ========================================================================================================================
 
 The database architecture employs a normalized relational structure separating permanent project identities, monthly
-longitudinal reporting snapshots, completed/intake tables, pre-computed ML risk scores, and data quality anomaly logs.
+longitudinal reporting snapshots, completed/intake tables, pre-computed predictive ML risk scores, operational execution-stress
+index (ESI) scores, OCMS historical benchmarking context, and data quality anomaly logs.
 
 ```sql
 -- ============================================================================
@@ -34,10 +37,31 @@ longitudinal reporting snapshots, completed/intake tables, pre-computed ML risk 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pg_trgm"; -- For fast full-text / trigram fuzzy search
 
+-- Predictive Risk Enums (Pillar 1)
 CREATE TYPE risk_band_enum AS ENUM ('LOW', 'MODERATE', 'HIGH', 'VERY_HIGH');
 CREATE TYPE dominant_component_enum AS ENUM ('Schedule Delay', 'Cost Overrun', 'Schedule Revision');
+
+-- Operational Execution Surveillance Enums (Pillar 2)
+CREATE TYPE esi_tier_enum AS ENUM ('NOMINAL', 'WATCH', 'ATTENTION', 'HIGH_PRIORITY');
+CREATE TYPE dominant_stressor_enum AS ENUM (
+    'Progress Velocity Collapse',
+    'Physical Progress Stagnation',
+    'Expenditure Divergence',
+    'Schedule Slippage Debt',
+    'Reporting Friction'
+);
+CREATE TYPE prescriptive_action_enum AS ENUM (
+    'SITE_OBSTACLE_AUDIT',
+    'FINANCIAL_PHYSICAL_ALIGNMENT_AUDIT',
+    'RESOURCE_MOBILIZATION_DIRECTIVE',
+    'CRITICAL_PATH_RECALIBRATION',
+    'DATA_COMPLIANCE_DIRECTIVE',
+    'INTER_MINISTERIAL_COMMITTEE_ESCALATION'
+);
+
+-- System & Governance Enums
 CREATE TYPE alert_severity_enum AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL');
-CREATE TYPE alert_source_enum AS ENUM ('ML_ENGINE', 'RULE_ENGINE');
+CREATE TYPE alert_source_enum AS ENUM ('PREDICTIVE_ML', 'EXECUTION_SURVEILLANCE', 'RULE_ENGINE');
 CREATE TYPE alert_status_enum AS ENUM ('ACTIVE', 'ACKNOWLEDGED', 'RESOLVED');
 CREATE TYPE user_role_enum AS ENUM ('MOSPI_ADMIN', 'NODAL_OFFICER', 'PUBLIC_VIEWER');
 
@@ -89,23 +113,24 @@ CREATE INDEX idx_snapshots_report_month ON monthly_snapshots (report_month);
 CREATE INDEX idx_snapshots_project_month ON monthly_snapshots (project_id, report_month);
 
 -- ============================================================================
--- 4. MACHINE LEARNING RISK SCORES TABLE (LAYER C PREDICTIONS)
+-- 4. MACHINE LEARNING RISK SCORES TABLE (PILLAR 1: PREDICTIVE OUTCOME ENGINE)
 -- ============================================================================
--- Stores multi-dimensional risk scores (15,769 pre-computed rows across 12 epochs).
+-- Stores multi-dimensional predictive outcome scores (15,769 pre-computed rows across 12 epochs).
 CREATE TABLE ml_risk_scores (
     score_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     project_id VARCHAR(32) NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
     report_month VARCHAR(7) NOT NULL,                -- Prediction snapshot epoch (YYYY-MM)
     schedule_delay_risk NUMERIC(6, 4) NOT NULL,      -- Platt-calibrated probability in [0.0000, 1.0000]
     cost_overrun_risk NUMERIC(6, 4) NOT NULL,        -- Continuous model score in [0.0000, 1.0000]
-    schedule_revision_risk NUMERIC(6, 4) NOT NULL,   -- Administrative warning score in [0.0000, 1.0000]
-    selected_integrated_risk NUMERIC(6, 4) NOT NULL, -- Weighted multi-dimensional index in [0.0000, 1.0000]
+    schedule_revision_risk NUMERIC(6, 4) NOT NULL,   -- Model probability / warning score in [0.0000, 1.0000]
+    selected_integrated_risk NUMERIC(6, 4) NOT NULL, -- Weighted multi-dimensional operational index [0.0000, 1.0000]
     risk_band risk_band_enum NOT NULL,               -- 'LOW', 'MODERATE', 'HIGH', 'VERY_HIGH'
     dominant_component dominant_component_enum NOT NULL, -- 'Schedule Delay', 'Cost Overrun', 'Schedule Revision'
     schedule_contribution NUMERIC(6, 4) NOT NULL,    -- 0.50 * schedule_delay_risk
     cost_contribution NUMERIC(6, 4) NOT NULL,        -- 0.35 * cost_overrun_risk
     schedule_revision_contribution NUMERIC(6, 4) NOT NULL, -- 0.15 * schedule_revision_risk
     model_version VARCHAR(32) NOT NULL DEFAULT 'v1.0.0-rf02-calibrated',
+    feature_version VARCHAR(32) NOT NULL DEFAULT 'v1.0.0-75features-pit',
     scored_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
 
     CONSTRAINT uq_ml_project_month UNIQUE (project_id, report_month)
@@ -116,7 +141,61 @@ CREATE INDEX idx_ml_scores_integrated ON ml_risk_scores (report_month, selected_
 CREATE INDEX idx_ml_scores_dominant ON ml_risk_scores (report_month, dominant_component);
 
 -- ============================================================================
--- 5. COMPLETED & NEWLY ADDED PROJECTS TABLES (AUXILIARY TABLES)
+-- 5. OPERATIONAL EXECUTION STRESS TABLE (PILLAR 2: EXECUTION SURVEILLANCE)
+-- ============================================================================
+-- Stores deterministic point-in-time execution stress index scores (15,769 pre-computed rows).
+-- Formula: ESI = 0.30 * S_stag + 0.25 * S_vel + 0.20 * S_div + 0.15 * S_sched + 0.10 * S_rep
+CREATE TABLE execution_stress_scores (
+    esi_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    project_id VARCHAR(32) NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+    report_month VARCHAR(7) NOT NULL,                -- Evaluation snapshot epoch (YYYY-MM)
+    s_stag NUMERIC(6, 4) NOT NULL,                   -- Physical progress stagnation stress [0.0000, 1.0000]
+    s_vel NUMERIC(6, 4) NOT NULL,                    -- Progress velocity deterioration stress [0.0000, 1.0000]
+    s_div NUMERIC(6, 4) NOT NULL,                    -- Expenditure/progress divergence stress [0.0000, 1.0000]
+    s_sched NUMERIC(6, 4) NOT NULL,                  -- Schedule slippage & overdue debt stress [0.0000, 1.0000]
+    s_rep NUMERIC(6, 4) NOT NULL,                    -- Observation quality & revision friction [0.0000, 1.0000]
+    flag_stag SMALLINT NOT NULL DEFAULT 0,           -- 1 if stagnation active
+    flag_vel SMALLINT NOT NULL DEFAULT 0,            -- 1 if severe velocity slowdown
+    flag_div SMALLINT NOT NULL DEFAULT 0,            -- 1 if capital divergence > 25%
+    flag_sched SMALLINT NOT NULL DEFAULT 0,          -- 1 if slippage >= 12m or overdue > 6m
+    flag_rep SMALLINT NOT NULL DEFAULT 0,            -- 1 if reporting gap / revision count >= 2
+    total_stress_flags SMALLINT NOT NULL DEFAULT 0,  -- Sum of active flags (0 to 5)
+    execution_stress_index NUMERIC(6, 4) NOT NULL,   -- Deterministic ESI score [0.0000, 1.0000]
+    esi_tier esi_tier_enum NOT NULL,                 -- 'NOMINAL', 'WATCH', 'ATTENTION', 'HIGH_PRIORITY'
+    dominant_stressor dominant_stressor_enum NOT NULL, -- Dominant observable site friction factor
+    suggested_action prescriptive_action_enum NOT NULL, -- Automated prescriptive administrative action
+    execution_index_version VARCHAR(32) NOT NULL DEFAULT 'v1.0.0-esi-5dim',
+    evaluated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+
+    CONSTRAINT uq_esi_project_month UNIQUE (project_id, report_month)
+);
+
+CREATE INDEX idx_esi_scores_month_tier ON execution_stress_scores (report_month, esi_tier);
+CREATE INDEX idx_esi_scores_index ON execution_stress_scores (report_month, execution_stress_index DESC);
+CREATE INDEX idx_esi_scores_dominant ON execution_stress_scores (report_month, dominant_stressor);
+
+-- ============================================================================
+-- 6. OCMS HISTORICAL BENCHMARKS TABLE (ANALYTICAL CONTEXT & BENCHMARKING ONLY)
+-- ============================================================================
+-- Strictly separated from production ML feature input. Provides historical benchmarking context.
+CREATE TABLE ocms_historical_benchmarks (
+    benchmark_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    project_id VARCHAR(32) REFERENCES projects(project_id) ON DELETE SET NULL,
+    legacy_ocms_code VARCHAR(32) NOT NULL,
+    agency VARCHAR(64) NOT NULL,
+    sector VARCHAR(64) NOT NULL,
+    historical_observation_months INT NOT NULL DEFAULT 0,
+    historical_mean_cost_escalation_pct NUMERIC(6, 2),
+    historical_mean_delay_months NUMERIC(6, 2),
+    historical_completion_rate_pct NUMERIC(6, 2),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_ocms_benchmarks_agency ON ocms_historical_benchmarks (agency);
+CREATE INDEX idx_ocms_benchmarks_legacy ON ocms_historical_benchmarks (legacy_ocms_code);
+
+-- ============================================================================
+-- 7. COMPLETED & NEWLY ADDED PROJECTS TABLES (AUXILIARY TABLES)
 -- ============================================================================
 CREATE TABLE completed_projects (
     project_id VARCHAR(32) PRIMARY KEY,
@@ -147,7 +226,7 @@ CREATE TABLE newly_added_projects (
 );
 
 -- ============================================================================
--- 6. DATA QUALITY & ANOMALIES AUDIT LOG (THE 1,868 ROWS POLICY)
+-- 8. DATA QUALITY & ANOMALIES AUDIT LOG (THE 1,868 ROWS POLICY)
 -- ============================================================================
 CREATE TABLE data_anomalies_log (
     anomaly_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -164,13 +243,13 @@ CREATE TABLE data_anomalies_log (
 CREATE INDEX idx_anomalies_project_month ON data_anomalies_log (project_id, report_month);
 
 -- ============================================================================
--- 7. SYSTEM ALERTS TABLE
+-- 9. SYSTEM ALERTS TABLE (PREDICTIVE ML + EXECUTION SURVEILLANCE + RULES)
 -- ============================================================================
 CREATE TABLE system_alerts (
     alert_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     project_id VARCHAR(32) NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
     report_month VARCHAR(7) NOT NULL,
-    alert_code VARCHAR(64) NOT NULL,                 -- e.g. 'ML_CRITICAL_RISK', 'RULE_CHRONIC_STAGNANT'
+    alert_code VARCHAR(64) NOT NULL,                 -- e.g. 'ML_CRITICAL_RISK', 'ESI_HIGH_PRIORITY', 'RULE_CHRONIC_STAGNANT'
     severity alert_severity_enum NOT NULL,
     alert_source alert_source_enum NOT NULL,
     message TEXT NOT NULL,
@@ -185,7 +264,7 @@ CREATE TABLE system_alerts (
 CREATE INDEX idx_alerts_month_status ON system_alerts (report_month, status, severity);
 
 -- ============================================================================
--- 8. USERS & RBAC TABLE
+-- 10. USERS & RBAC TABLE
 -- ============================================================================
 CREATE TABLE users (
     user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -204,9 +283,8 @@ CREATE TABLE users (
 PART 2 — DETERMINISTIC LAYER B DERIVED ANALYTICS ENGINE (SQL VIEWS & ENGINE)
 ========================================================================================================================
 
-The backend must provide high-performance computation of Layer B derived analytics. We define a PostgreSQL view
-`v_project_monthly_dossier` that combines Raw Facts (Layer A), Deterministic Analytics (Layer B), and ML Predictions (Layer C)
-using point-in-time window functions.
+The backend computes Layer B derived analytics and joins both Pillar 1 (Predictive ML Risk) and Pillar 2 (Execution Stress Index)
+using the optimized PostgreSQL view `v_project_monthly_dossier`.
 
 ```sql
 CREATE OR REPLACE VIEW v_project_monthly_dossier AS
@@ -307,7 +385,7 @@ SELECT
         ELSE 0.0 
     END AS expenditure_progress_divergence,
 
-    -- LAYER C: MACHINE LEARNING RISK SIGNALS (Joined from ml_risk_scores)
+    -- PILLAR 1: MACHINE LEARNING PREDICTIVE RISK SIGNALS (ml_risk_scores)
     m.schedule_delay_risk,
     m.cost_overrun_risk,
     m.schedule_revision_risk,
@@ -331,10 +409,31 @@ SELECT
         WHEN m.selected_integrated_risk > 0 
         THEN ROUND((m.schedule_revision_contribution / m.selected_integrated_risk * 100.0), 2)
         ELSE 0.0 
-    END AS schedule_rev_contrib_pct
+    END AS schedule_rev_contrib_pct,
+    m.model_version,
+    m.feature_version,
+
+    -- PILLAR 2: OPERATIONAL EXECUTION SURVEILLANCE SIGNALS (execution_stress_scores)
+    e.execution_stress_index,
+    e.esi_tier,
+    e.dominant_stressor,
+    e.suggested_action,
+    e.s_stag,
+    e.s_vel,
+    e.s_div,
+    e.s_sched,
+    e.s_rep,
+    e.flag_stag,
+    e.flag_vel,
+    e.flag_div,
+    e.flag_sched,
+    e.flag_rep,
+    e.total_stress_flags,
+    e.execution_index_version
 
 FROM ranked_snapshots r
-LEFT JOIN ml_risk_scores m ON r.project_id = m.project_id AND r.report_month = m.report_month;
+LEFT JOIN ml_risk_scores m ON r.project_id = m.project_id AND r.report_month = m.report_month
+LEFT JOIN execution_stress_scores e ON r.project_id = e.project_id AND r.report_month = e.report_month;
 ```
 
 
@@ -346,7 +445,7 @@ Base URL: `/api/v1`
 
 ------------------------------------------------------------------------------------------------------------------------
 1. GET `/api/v1/health`
-- Description : Returns system health status, DB connectivity, and Redis status.
+- Description : Returns system health status, DB connectivity, Redis status, and model versions.
 - Auth        : Public.
 - Response    : `200 OK`
   ```json
@@ -356,13 +455,16 @@ Base URL: `/api/v1`
     "database": "connected",
     "redis": "connected",
     "active_epoch": "2026-03",
-    "total_projects_monitored": 2741
+    "total_projects_monitored": 2741,
+    "model_version": "v1.0.0-rf02-calibrated",
+    "feature_version": "v1.0.0-75features-pit",
+    "execution_index_version": "v1.0.0-esi-5dim"
   }
   ```
 
 ------------------------------------------------------------------------------------------------------------------------
 2. GET `/api/v1/meta/epochs`
-- Description : Returns the list of all 15 available monthly reporting epochs and prediction coverage.
+- Description : Returns the list of all available monthly reporting epochs and prediction coverage.
 - Auth        : Public.
 - Response    : `200 OK`
   ```json
@@ -383,9 +485,8 @@ Base URL: `/api/v1`
 
 ------------------------------------------------------------------------------------------------------------------------
 3. GET `/api/v1/portfolio/summary`
-- Description : High-level portfolio KPI cards for the executive dashboard.
-- Query Params:
-  * `report_month` (Optional, String, default: `"2026-03"`).
+- Description : High-level portfolio KPI cards for the executive dashboard, spanning both pillars.
+- Query Params: `report_month` (Optional, String, default: `"2026-03"`).
 - Auth        : Public / Authenticated.
 - Response    : `200 OK`
   ```json
@@ -404,26 +505,44 @@ Base URL: `/api/v1`
       "completed_projects_archive_count": 350,
       "newly_added_projects_count": 743
     },
-    "risk_band_distribution": {
+    "predictive_risk_distribution": {
       "low": { "count": 718, "percentage": 32.83 },
       "moderate": { "count": 830, "percentage": 37.95 },
       "high": { "count": 384, "percentage": 17.55 },
       "very_high": { "count": 255, "percentage": 11.67 }
     },
-    "dominant_factor_breakdown": {
+    "execution_stress_distribution": {
+      "nominal": { "count": 1426, "percentage": 65.20 },
+      "watch": { "count": 588, "percentage": 26.89 },
+      "attention": { "count": 169, "percentage": 7.73 },
+      "high_priority": { "count": 4, "percentage": 0.18 }
+    },
+    "cross_quadrant_analysis": {
+      "group_a_early_site_stalls": {
+        "count": 98,
+        "description": "High Execution Stress (ESI >= 0.55) with Low/Moderate Predictive Risk (< 0.55)"
+      },
+      "group_b_legacy_recovering": {
+        "count": 482,
+        "description": "Low Execution Stress (ESI < 0.35) with High/Very High Predictive Risk (>= 0.55)"
+      }
+    },
+    "dominant_predictive_factor_breakdown": {
       "schedule_delay": { "count": 1398, "percentage": 63.94 },
       "cost_overrun": { "count": 782, "percentage": 35.78 },
       "schedule_revision": { "count": 7, "percentage": 0.28 }
+    },
+    "dominant_execution_stressor_breakdown": {
+      "velocity_collapse": { "count": 97, "percentage": 56.26 },
+      "physical_stagnation": { "count": 76, "percentage": 43.74 }
     }
   }
   ```
 
 ------------------------------------------------------------------------------------------------------------------------
 4. GET `/api/v1/portfolio/breakdown/agency` & `/state`
-- Description : Aggregated risk, project counts, and cost escalations grouped by agency or state.
-- Query Params:
-  * `report_month` (Optional, String, default: `"2026-03"`).
-  * `limit` (Optional, Integer, default: 20).
+- Description : Aggregated risk, execution stress, project counts, and cost escalations grouped by agency or state.
+- Query Params: `report_month` (default: `"2026-03"`), `limit` (default: 20).
 - Response    : `200 OK`
   ```json
   {
@@ -435,24 +554,30 @@ Base URL: `/api/v1`
         "total_cost_crore": 854200.0,
         "total_cost_escalation_crore": 124500.0,
         "mean_progress_percent": 68.4,
-        "mean_integrated_risk": 0.442,
-        "high_very_high_count": 178
+        "mean_integrated_risk": 0.4420,
+        "mean_execution_stress_index": 0.2840,
+        "high_risk_count": 178,
+        "high_execution_stress_count": 48
       }
     ]
   }
   ```
 
 ------------------------------------------------------------------------------------------------------------------------
-5. GET `/api/v1/projects` (Project Roster with Search, Multi-Filter, Sorting & Pagination)
-- Description : Main table / search endpoint for projects.
+5. GET `/api/v1/projects` (Project Roster with Dual-Pillar Search, Multi-Filter & Pagination)
+- Description : Main table / search endpoint for projects supporting both predictive risk and execution surveillance filters.
 - Query Params:
   * `search`            : String (Project ID, Name, Legacy OCMS Code prefix/substring).
   * `state`             : String / List (Comma-separated states, e.g. `"ANDHRA PRADESH,MAHARASHTRA"`).
   * `agency`            : String / List (Comma-separated agencies, e.g. `"NHAI,MoRTH,NTPC"`).
   * `risk_band`         : String / List (e.g. `"HIGH,VERY_HIGH"`).
+  * `esi_tier`          : String / List (e.g. `"ATTENTION,HIGH_PRIORITY"`).
   * `dominant_component`: String (`"Schedule Delay" | "Cost Overrun" | "Schedule Revision"`).
+  * `dominant_stressor` : String (`"Progress Velocity Collapse" | "Physical Progress Stagnation" | "Expenditure Divergence" | "Schedule Slippage Debt"`).
   * `min_risk`          : Float (0.00 to 1.00).
   * `max_risk`          : Float (0.00 to 1.00).
+  * `min_esi`           : Float (0.00 to 1.00).
+  * `max_esi`           : Float (0.00 to 1.00).
   * `min_progress`      : Float (0.0 to 100.0).
   * `max_progress`      : Float (0.0 to 100.0).
   * `min_cost`          : Float (in ₹ Crore).
@@ -462,7 +587,7 @@ Base URL: `/api/v1`
   * `report_month`      : String (default: `"2026-03"`).
   * `sort_by`           : String (default: `"selected_integrated_risk"`, options: `"project_id"`, `"project_name"`,
                           `"original_cost_crore"`, `"physical_progress_percent"`, `"months_to_original_doc"`,
-                          `"schedule_delay_risk"`, `"cost_overrun_risk"`).
+                          `"selected_integrated_risk"`, `"execution_stress_index"`).
   * `sort_order`        : String (`"desc"` | `"asc"`, default: `"desc"`).
   * `page`              : Integer (1-indexed, default: 1).
   * `page_size`         : Integer (default: 20, max: 100).
@@ -477,7 +602,8 @@ Base URL: `/api/v1`
     },
     "filters_applied": {
       "report_month": "2026-03",
-      "risk_band": ["HIGH", "VERY_HIGH"]
+      "risk_band": ["HIGH", "VERY_HIGH"],
+      "esi_tier": ["ATTENTION", "HIGH_PRIORITY"]
     },
     "data": [
       {
@@ -496,15 +622,20 @@ Base URL: `/api/v1`
         "schedule_revision_risk": 0.0130,
         "selected_integrated_risk": 0.6256,
         "risk_band": "HIGH",
-        "dominant_component": "Schedule Delay"
+        "dominant_component": "Schedule Delay",
+        "execution_stress_index": 0.3800,
+        "esi_tier": "WATCH",
+        "dominant_stressor": "Progress Velocity Collapse",
+        "suggested_action": "RESOURCE_MOBILIZATION_DIRECTIVE"
       }
     ]
   }
   ```
 
 ------------------------------------------------------------------------------------------------------------------------
-6. GET `/api/v1/projects/{project_id}` (Comprehensive Project Dossier Contract)
-- Description : Detailed project dossier matching the exact contract required by `FRONTEND_REQUIREMENTS_FROM_ML.txt` (Part 15).
+6. GET `/api/v1/projects/{project_id}` (Comprehensive Two-Pillar Project Dossier Contract)
+- Description : Detailed project dossier providing full Layer A facts, Layer B analytics, Pillar 1 Predictive Risk,
+  Pillar 2 Execution Surveillance, observable indicators, and prescriptive monitoring actions.
 - Path Params : `project_id` (String, e.g. `"105236"`).
 - Query Params: `report_month` (Optional, String, default: latest available epoch).
 - Response    : `200 OK`
@@ -538,9 +669,10 @@ Base URL: `/api/v1`
       "progress_velocity_1m": 1.20,
       "progress_velocity_3m": 1.50,
       "stagnant_3m_flag": 0,
-      "months_since_last_progress_increase": 0
+      "months_since_last_progress_increase": 0,
+      "expenditure_progress_divergence": 9.52
     },
-    "ml_risk_profile": {
+    "predictive_risk_profile": {
       "schedule_delay_risk": 0.7025,
       "cost_overrun_risk": 0.7784,
       "schedule_revision_risk": 0.0130,
@@ -552,7 +684,38 @@ Base URL: `/api/v1`
       "schedule_revision_contribution": 0.0020,
       "schedule_contrib_pct": 56.14,
       "cost_contrib_pct": 43.54,
-      "schedule_rev_contrib_pct": 0.32
+      "schedule_rev_contrib_pct": 0.32,
+      "model_version": "v1.0.0-rf02-calibrated",
+      "feature_version": "v1.0.0-75features-pit"
+    },
+    "execution_surveillance_profile": {
+      "execution_stress_index": 0.3800,
+      "esi_tier": "WATCH",
+      "dominant_stressor": "Progress Velocity Collapse",
+      "stress_components": {
+        "stagnation_stress": 0.0000,
+        "velocity_stress": 1.0000,
+        "divergence_stress": 0.0000,
+        "schedule_stress": 0.8000,
+        "reporting_stress": 0.1000
+      },
+      "stress_flags": {
+        "flag_stag": 0,
+        "flag_vel": 1,
+        "flag_div": 0,
+        "flag_sched": 1,
+        "flag_rep": 0,
+        "total_active_flags": 2
+      },
+      "observable_indicators": [
+        "Recent 3-month construction velocity is below planned momentum (<0.5%/mo).",
+        "Accumulated schedule slippage exceeds 12 months."
+      ],
+      "suggested_monitoring_action": {
+        "action_code": "RESOURCE_MOBILIZATION_DIRECTIVE",
+        "directive": "Request joint review of contractor plant, machinery, and skilled labor deployment on critical path packages."
+      },
+      "execution_index_version": "v1.0.0-esi-5dim"
     },
     "data_quality_flags": []
   }
@@ -560,7 +723,7 @@ Base URL: `/api/v1`
 
 ------------------------------------------------------------------------------------------------------------------------
 7. GET `/api/v1/projects/{project_id}/trajectory` (Full Longitudinal Time-Series)
-- Description : Returns all historical monthly snapshots (up to 15 reporting epochs) for rendering trend lines.
+- Description : Returns all historical monthly snapshots for rendering multi-pillar trend lines.
 - Path Params : `project_id` (String).
 - Response    : `200 OK`
   ```json
@@ -577,7 +740,9 @@ Base URL: `/api/v1`
         "revised_completion_date": "2024-09",
         "progress_velocity_1m": 1.20,
         "selected_integrated_risk": 0.6120,
-        "risk_band": "HIGH"
+        "risk_band": "HIGH",
+        "execution_stress_index": 0.3650,
+        "esi_tier": "WATCH"
       },
       {
         "report_month": "2025-05",
@@ -587,7 +752,9 @@ Base URL: `/api/v1`
         "revised_completion_date": "2024-09",
         "progress_velocity_1m": 1.64,
         "selected_integrated_risk": 0.6256,
-        "risk_band": "HIGH"
+        "risk_band": "HIGH",
+        "execution_stress_index": 0.3800,
+        "esi_tier": "WATCH"
       }
     ]
   }
@@ -597,12 +764,13 @@ Base URL: `/api/v1`
 8. GET `/api/v1/projects/compare`
 - Description : Side-by-side comparison of 2 to 5 infrastructure projects.
 - Query Params: `project_ids` (Comma-separated string, e.g. `"105236,120250,132664"`), `report_month` (default: `"2026-03"`).
-- Response    : `200 OK` (Array of project dossier objects).
+- Response    : `200 OK` (Array of comprehensive project dossier objects).
 
 ------------------------------------------------------------------------------------------------------------------------
 9. GET `/api/v1/alerts`
-- Description : Retrieves active ML-driven and rule-based system alerts.
-- Query Params: `report_month`, `severity`, `status` (`"ACTIVE" | "ACKNOWLEDGED" | "RESOLVED"`), `page`, `page_size`.
+- Description : Retrieves active system alerts categorized into Predictive ML, Execution Surveillance, and Rule-Based flags.
+- Query Params: `report_month`, `alert_source` (`"PREDICTIVE_ML" | "EXECUTION_SURVEILLANCE" | "RULE_ENGINE"`),
+  `severity`, `status` (`"ACTIVE" | "ACKNOWLEDGED" | "RESOLVED"`), `page`, `page_size`.
 - Response    : `200 OK`
   ```json
   {
@@ -616,8 +784,22 @@ Base URL: `/api/v1`
         "report_month": "2026-03",
         "alert_code": "ML_CRITICAL_RISK",
         "severity": "CRITICAL",
-        "alert_source": "ML_ENGINE",
-        "message": "Very High Multi-Dimensional Risk detected (Score: 0.84). Priority intervention required.",
+        "alert_source": "PREDICTIVE_ML",
+        "message": "Very High Predictive Risk detected (Score: 0.84). Priority intervention required.",
+        "status": "ACTIVE",
+        "created_at": "2026-03-01T06:00:00Z"
+      },
+      {
+        "alert_id": "7a2c3b4d-1e0f-4a3b-8c7d-0f1e2d3c4b5a",
+        "project_id": "400178",
+        "project_name": "DINESH[MAKARDHOKRA-III] OC",
+        "agency": "PAIMANA",
+        "report_month": "2026-03",
+        "alert_code": "ESI_ATTENTION",
+        "severity": "HIGH",
+        "alert_source": "EXECUTION_SURVEILLANCE",
+        "message": "High Execution Stress detected (ESI: 0.68). Severe progress stagnation observed.",
+        "suggested_action": "SITE_OBSTACLE_AUDIT",
         "status": "ACTIVE",
         "created_at": "2026-03-01T06:00:00Z"
       }
@@ -633,7 +815,7 @@ Base URL: `/api/v1`
 
 ------------------------------------------------------------------------------------------------------------------------
 11. GET `/api/v1/export/projects/csv`
-- Description : Streams filtered project list to CSV format for Excel/reporting export.
+- Description : Streams filtered project list to CSV format for reporting export.
 - Query Params: Same filter parameters as `GET /api/v1/projects`.
 - Response    : `200 OK` (`Content-Type: text/csv`, `Content-Disposition: attachment; filename="mospi_projects_2026_03.csv"`).
 
@@ -648,7 +830,7 @@ Base URL: `/api/v1`
     "task_id": "b18a24c5-e6a3-490b-9d41-9876543210ab",
     "status": "QUEUED",
     "report_month": "2026-07",
-    "message": "Flash Report ingestion and ML scoring pipeline queued for execution."
+    "message": "Flash Report ingestion, 75-feature extraction, ML scoring, and ESI calculation queued for execution."
   }
   ```
 
@@ -660,17 +842,15 @@ PART 4 — CACHING ARCHITECTURE & QUERY OPTIMIZATION (REDIS 7)
 To meet sub-50ms web response latency SLAs, the backend employs a layered Redis caching architecture:
 
 4.1 REDIS KEY TAXONOMY:
------------------------
-- Portfolio KPIs     : `mospi:portfolio:summary:{report_month}` (TTL: 24 hours, refreshed on new ingestion).
+- Portfolio KPIs     : `mospi:portfolio:summary:{report_month}` (TTL: 24 hours).
 - Agency Breakdown   : `mospi:portfolio:agency:{report_month}` (TTL: 24 hours).
 - State Breakdown    : `mospi:portfolio:state:{report_month}` (TTL: 24 hours).
 - Project Dossier    : `mospi:project:dossier:{project_id}:{report_month}` (TTL: 12 hours).
 - Project Trajectory : `mospi:project:trajectory:{project_id}` (TTL: 24 hours).
 - Meta Epochs List   : `mospi:meta:epochs` (TTL: 7 days).
 
-4.2 CACHE INVALIDATION HOOKS:
------------------------------
-When a new monthly report is ingested or an alert is acknowledged:
+4.2 CACHE INVALIDATION:
+When a new monthly report is ingested or an alert acknowledged:
 - Flush keys matching pattern `mospi:portfolio:*` and `mospi:meta:*`.
 - Selectively invalidate updated project dossiers.
 
@@ -679,25 +859,27 @@ When a new monthly report is ingested or an alert is acknowledged:
 PART 5 — ASYNCHRONOUS WORKER & INGESTION PIPELINE (CELERY / REDIS)
 ========================================================================================================================
 
-The asynchronous pipeline (`tasks/ingestion_tasks.py`) executes the end-to-end processing pipeline when a new PDF is received:
+The asynchronous pipeline (`tasks/ingestion_tasks.py`) executes end-to-end processing when a new Flash Report PDF is received:
 
 ```python
 # tasks/ingestion_tasks.py (Architectural Blueprint)
 
 from celery import Celery
 import joblib
+import numpy as np
 import pandas as pd
 from scripts.extract_pdfs import extract_tables_from_pdf
 from scripts.normalize_data import normalize_raw_records
 from features.build_features_v1 import compute_point_in_time_features
+from scripts.execution_risk.esi_calculator import compute_point_in_time_esi
 
 celery_app = Celery("mospi_tasks", broker="redis://localhost:6379/1")
 
 @celery_app.task(bind=True, name="tasks.ingest_flash_report_pdf")
 def ingest_flash_report_pdf(self, pdf_file_path: str, report_month: str):
     """
-    Executes end-to-end PDF parsing, database insertion, feature calculation,
-    and batch ML inference for a newly published monthly Flash Report.
+    Executes end-to-end PDF parsing, database insertion, 75-feature calculation,
+    batch predictive ML inference, and deterministic ESI scoring for a new report.
     """
     # Step 1: Extract tables using PyMuPDF
     raw_tables = extract_tables_from_pdf(pdf_file_path)
@@ -708,15 +890,15 @@ def ingest_flash_report_pdf(self, pdf_file_path: str, report_month: str):
     # Step 3: Insert into monthly_snapshots in PostgreSQL (Transaction)
     db_insert_monthly_snapshots(cleaned_records, report_month)
     
-    # Step 4: Compute 79 Point-in-Time features strictly using data <= report_month
+    # Step 4: Compute 75 Point-in-Time features strictly using data <= report_month
     features_df = compute_point_in_time_features(as_of_month=report_month)
     
-    # Step 5: Load serialized production ML models
+    # Step 5: Load serialized production ML models (Pillar 1)
     rf_schedule = joblib.load("ml/calibration_final/rf02_calibrated.pkl")
     rf_cost = joblib.load("ml/secondary_targets/best_model_rf_cost_overrun_balanced.joblib")
     lr_srev = joblib.load("ml/secondary_targets/best_model_logreg_schedule_revision.joblib")
     
-    # Step 6: Generate predictions
+    # Step 6: Generate predictive risk scores
     sched_risk = rf_schedule.predict_proba(features_df)[:, 1]
     cost_risk = rf_cost.predict_proba(features_df)[:, 1]
     srev_risk = lr_srev.predict_proba(features_df)[:, 1]
@@ -724,11 +906,17 @@ def ingest_flash_report_pdf(self, pdf_file_path: str, report_month: str):
     # Step 7: Candidate B Integrated Risk synthesis
     integrated_risk = (0.50 * sched_risk) + (0.35 * cost_risk) + (0.15 * srev_risk)
     
-    # Step 8: Bulk insert into ml_risk_scores and trigger alerts
-    db_bulk_insert_risk_scores(features_df["project_id"], report_month, sched_risk, cost_risk, srev_risk, integrated_risk)
+    # Step 8: Compute Pillar 2 Operational Execution-Stress Index (ESI)
+    esi_results = compute_point_in_time_esi(features_df, report_month)
+    
+    # Step 9: Bulk insert into ml_risk_scores and execution_stress_scores
+    db_bulk_insert_ml_risk_scores(features_df["project_id"], report_month, sched_risk, cost_risk, srev_risk, integrated_risk)
+    db_bulk_insert_execution_stress_scores(features_df["project_id"], report_month, esi_results)
+    
+    # Step 10: Trigger predictive, execution & rule-based alerts
     evaluate_and_insert_alerts(report_month)
     
-    # Step 9: Invalidate Redis portfolio caches
+    # Step 11: Invalidate Redis portfolio caches
     redis_client.flush_matching_keys("mospi:portfolio:*")
     
     return {"status": "SUCCESS", "report_month": report_month, "scored_count": len(features_df)}
@@ -744,7 +932,7 @@ The platform enforces Role-Based Access Control using JWT Bearer tokens:
 ------------------------------------------------------------------------------------------------------------------------
 USER ROLE         PERMISSIONS & ACCESS SCOPE
 ------------------------------------------------------------------------------------------------------------------------
-`PUBLIC_VIEWER`   - Read-only access to portfolio KPIs, project roster, project dossiers, and trajectories.
+`PUBLIC_VIEWER`   - Read-only access to portfolio KPIs, project roster, project dossiers, trajectories, and ESI.
                   - Cannot view internal data anomaly logs or trigger report ingestions.
                   - Subject to public rate-limiting (100 requests / minute).
 
@@ -769,13 +957,14 @@ PHASE            TASK DESCRIPTION                                               
 Database Setup   Deploy PostgreSQL 16 instance & execute DDL schema from Part 1             Tables, indexes, ENUMs created
 Historical Load  Ingest 21,555 master rows, 350 completed rows, 743 newly added rows        0 duplicate keys verified
 ML Matrix Load   Ingest 15,769 scored rows from `integrated_risk_scores.csv` into DB        Risk scores match CSV exactly
-View Creation    Deploy `v_project_monthly_dossier` SQL view for Layer B analytics          Derived metrics match formulas
+ESI Matrix Load  Ingest 15,769 scored rows from `execution_stress_scores.csv` into DB       ESI scores match CSV exactly
+View Creation    Deploy `v_project_monthly_dossier` SQL view for Layer B + Two Pillars      View returns full 4-layer JSON
 API Endpoints    Implement FastAPI routes: Health, Meta, Portfolio, Projects, Trajectory    JSON schemas match Part 3
-Project Dossier  Implement `GET /api/v1/projects/{id}` returning complete 3-layer JSON      Payload matches Frontend Spec Part 15
-Filtering Engine Implement multi-criteria search, state/agency multi-select, and pagination Query response time < 50ms
+Project Dossier  Implement `GET /api/v1/projects/{id}` returning complete two-pillar JSON   Payload matches Part 3 Schema
+Filtering Engine Implement multi-criteria search with risk_band, esi_tier, and pagination   Query response time < 50ms
 Caching Layer    Configure Redis 7 caching for portfolio KPIs and meta endpoints            Cache hit response < 10ms
-Worker Queue     Configure Celery worker for background PDF ingestion and batch inference   Worker successfully extracts PDF
-Alerts Engine    Implement ML & rule-based alert evaluation on batch insertion              Alerts generated with correct severity
+Worker Queue     Configure Celery worker for background PDF ingestion and batch inference   Worker extracts 75 features & scores
+Alerts Engine    Implement Predictive & Execution alert evaluation on batch insertion       Alerts generated with correct severity
 Security & RBAC  Implement JWT auth with PUBLIC_VIEWER, NODAL_OFFICER, MOSPI_ADMIN roles    Protected routes enforce roles
 Data Export      Implement CSV streaming exporter for filtered project queries              Exports valid CSV with correct headers
 ------------------------------------------------------------------------------------------------------------------------

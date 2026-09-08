@@ -1,0 +1,319 @@
+========================================================================================================================
+FINAL AUDIT & SPECIFICATION RECONCILIATION REPORT: BACKEND AI/ML ARCHITECTURE
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Prepared by: Senior AI/ML & System Architecture Engineering Team
+Target File: reports/BACKEND_ML_SPECIFICATION_RECONCILIATION.txt
+Status: BACKEND_ML_SPECIFICATION_STATUS = CONSISTENT
+Date of Audit: September 2026
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+EXECUTIVE SUMMARY
+------------------------------------------------------------------------------------------------------------------------
+A comprehensive, non-destructive audit and reconciliation was conducted across the backend documentation suite:
+1. `reports/BACKEND_API_AND_DATABASE_SPECIFICATION.txt`
+2. `reports/BACKEND_REQUIREMENTS_FROM_ML.txt`
+3. `reports/FRONTEND_REQUIREMENTS_FROM_ML.txt`
+4. `reports/EXECUTION_RISK_FINAL_DECISION.txt` & `reports/EXECUTION_RISK_COMPLETE_AUDIT.txt`
+5. `reports/OCMS_ENRICHMENT_RECONCILIATION.txt`
+
+The primary objective was to align all backend architectural specifications, PostgreSQL DDL schemas, derived analytics
+definitions, REST API contracts, and background ingestion workflows with the FINALIZED AI/ML two-pillar architecture
+(Predictive Outcome Engine + Operational Execution Surveillance), certified 75-feature point-in-time universe,
+OCMS historical benchmarking policy, deterministic prescriptive monitoring action matrix, and end-to-end model versioning.
+
+FINAL VERDICT:
+========================================================================================================================
+BACKEND_ML_SPECIFICATION_STATUS = CONSISTENT
+========================================================================================================================
+All three core technical specifications (`BACKEND_API_AND_DATABASE_SPECIFICATION.txt`, `BACKEND_REQUIREMENTS_FROM_ML.txt`,
+and `FRONTEND_REQUIREMENTS_FROM_ML.txt`) are now 100% mathematically, conceptually, and architecturally aligned.
+
+
+========================================================================================================================
+SECTION 1 — EXISTING SPECIFICATION ISSUES FOUND & RESOLVED
+========================================================================================================================
+
+Prior to this reconciliation, the following discrepancies and omissions existed in the backend specifications:
+
+1. Absence of Pillar 2 (Operational Execution Surveillance):
+   - The original backend specifications documented only predictive machine learning risk scores and basic Layer B
+     engineering metrics.
+   - The finalized Operational Execution-Stress Index (ESI), its 5 constituent stress components ($S_{\text{stag}},
+     S_{\text{vel}}, S_{\text{sched}}, S_{\text{div}}, S_{\text{rep}}$), discrete warning flags, and alert hierarchy were missing.
+
+2. Feature Universe Discrepancy (79 vs. 75 Features):
+   - The specifications previously cited "79 point-in-time features" from an earlier exploratory inventory.
+   - The certified modeling universe contains exactly 75 features (71 numerical + 4 categorical) because four raw date strings
+     (`approval_start_date`, `original_completion_date`, `revised_doc_t`, `first_observed_month`) were excluded from the
+     modeling matrix as their numerical transforms were already engineered.
+
+3. OCMS Historical Data Role Ambiguity:
+   - The specifications lacked an explicit boundary preventing OCMS historical priors from being ingested into the ML pipeline.
+   - The empirical finding (`OCMS_EXPERIMENT_VALIDITY = VALID_AFTER_DOCUMENTATION_CORRECTION`) proved that adding OCMS priors
+     degraded Out-of-Time predictive PR-AUC. The backend spec needed explicit separation of OCMS data into an analytics/context table.
+
+4. Ambiguity Between Probabilities and Operational Indices:
+   - `selected_integrated_risk` and `execution_stress_index` required explicit qualification as composite operational indices,
+     distinguishing them from the calibrated statistical probability produced by the primary schedule delay model (`schedule_delay_risk`).
+
+5. Lack of Standardized Prescriptive Monitoring Actions:
+   - Automated mapping from observable execution stressors to formal MoSPI/IPMD administrative directives (`SITE_OBSTACLE_AUDIT`,
+     `FINANCIAL_PHYSICAL_ALIGNMENT_AUDIT`, `RESOURCE_MOBILIZATION_DIRECTIVE`, `CRITICAL_PATH_RECALIBRATION`, `DATA_COMPLIANCE_DIRECTIVE`,
+     `INTER_MINISTERIAL_COMMITTEE_ESCALATION`) was not codified in the API or database schemas.
+
+6. Missing Execution-Specific Versioning Metadata:
+   - Tables and API responses lacked `execution_index_version` and `feature_version` tracking alongside `model_version`.
+
+
+========================================================================================================================
+SECTION 2 — CHANGES MADE TO BACKEND_API_AND_DATABASE_SPECIFICATION.TXT
+========================================================================================================================
+
+1. PostgreSQL DDL Schema (Part 1):
+   - Added new ENUM types: `esi_tier_enum` ('NOMINAL', 'WATCH', 'ATTENTION', 'HIGH_PRIORITY'), `dominant_stressor_enum`,
+     `prescriptive_action_enum`, and updated `alert_source_enum` ('PREDICTIVE_ML', 'EXECUTION_SURVEILLANCE', 'RULE_ENGINE').
+   - Created dedicated `execution_stress_scores` table with primary key UUID, composite unique constraint on `(project_id, report_month)`,
+     individual columns for all 5 stress dimensions ($S_{\text{stag}}, S_{\text{vel}}, S_{\text{div}}, S_{\text{sched}}, S_{\text{rep}}$),
+     5 binary stress flags, `total_stress_flags`, `execution_stress_index`, `esi_tier`, `dominant_stressor`, `suggested_action`, and `execution_index_version`.
+   - Created `ocms_historical_benchmarks` table clearly isolated from operational tables to hold historical agency and sector profiles.
+   - Added `feature_version` to `ml_risk_scores`.
+
+2. Deterministic SQL View Engine (Part 2):
+   - Updated `v_project_monthly_dossier` view to join `monthly_snapshots` with both `ml_risk_scores` (Pillar 1) and
+     `execution_stress_scores` (Pillar 2), exposing the full 4-layer project state in a single performant view.
+
+3. REST API Endpoint Contracts (Part 3):
+   - `GET /api/v1/health`: Added `feature_version` and `execution_index_version` to health payload.
+   - `GET /api/v1/portfolio/summary`: Added execution stress distribution, cross-quadrant breakdown (Group A early site stalls vs
+     Group B recovering legacy projects), and dominant execution stressor breakdown.
+   - `GET /api/v1/projects`: Added query filters for `esi_tier`, `min_esi`, `max_esi`, `dominant_stressor`, and sorting by `execution_stress_index`.
+   - `GET /api/v1/projects/{project_id}`: Updated dossier contract to return both `predictive_risk_profile` (Pillar 1) and
+     `execution_surveillance_profile` (Pillar 2) including observable site indicators and suggested prescriptive monitoring actions.
+   - `GET /api/v1/projects/{project_id}/trajectory`: Updated longitudinal array to include both `selected_integrated_risk` and
+     `execution_stress_index` across all historical monthly epochs.
+   - `GET /api/v1/alerts`: Enhanced payload to support `PREDICTIVE_ML`, `EXECUTION_SURVEILLANCE`, and `RULE_ENGINE` alert sources.
+
+4. Asynchronous Ingestion Blueprint (Part 5):
+   - Updated Celery task `ingest_flash_report_pdf` to extract 75 point-in-time features, score the 3 predictive models,
+     synthesize Candidate B integrated risk, calculate the 5 ESI stress dimensions, assign ESI tiers, and persist results to PostgreSQL.
+
+
+========================================================================================================================
+SECTION 3 — CHANGES MADE TO BACKEND_REQUIREMENTS_FROM_ML.TXT
+========================================================================================================================
+
+1. Two-Pillar Architecture Formalization (Part 1):
+   - Added exhaustive specifications for Pillar 1 (Predictive Outcome Engine) and Pillar 2 (Operational Execution Surveillance).
+   - Documented exact mathematical formulas, champion models, calibration methods, and Out-of-Time performance metrics.
+   - Explicitly documented the formal finding: `SUPERVISED_EXECUTION_RISK_TARGET = NOT_SUPPORTED`.
+   - Documented the non-redundancy proof: Spearman rank correlation $\rho = 0.1360$ and $65.4\%$ off-diagonal alert distribution.
+
+2. Master Datasets & Matrices (Part 2):
+   - Added `experiments/execution_risk/execution_stress_scores.csv` (15,769 records) to the core ingestion dataset catalog.
+
+3. 75 Point-in-Time Feature Engine (Part 6):
+   - Corrected feature count from 79 to the certified 75 production modeling features (71 numerical + 4 categorical).
+   - Documented the exact composition across all 7 taxonomy groups and the explicit exclusion of 4 raw date strings.
+
+4. Dedicated OCMS Governance Policy (Part 7):
+   - Codified `OCMS_EXPERIMENT_VALIDITY = VALID_AFTER_DOCUMENTATION_CORRECTION`.
+   - Established strict production rule banning OCMS priors from ML feature vectors and authorizing OCMS data strictly for
+     historical benchmarking and contextual analytics.
+
+5. Explainability & Prescriptive Monitoring Action Matrix (Part 9):
+   - Formulated the dual explainability contract: Predictive attribution vs. Observable site indicators.
+   - Codified the complete 6-action Prescriptive Monitoring Matrix mapping stress triggers to MoSPI administrative directives.
+   - Reasserted strict prohibitions against unsupported causal claims.
+
+6. Versioning & Master Requirements Checklist (Parts 11 & 12):
+   - Added provenance invariants (`model_version`, `feature_version`, `execution_index_version`).
+   - Expanded the Master Backend Requirements Checklist to 18 mandatory acceptance criteria (REQ-01 through REQ-18).
+
+
+========================================================================================================================
+SECTION 4 — NEW ML & ANALYTICAL OUTPUTS ADDED
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+OUTPUT FIELD                     PILLAR / LAYER    TYPE            RANGE / VALUES       DESCRIPTION / NATURE
+------------------------------------------------------------------------------------------------------------------------
+`execution_stress_index` (ESI)   Pillar 2 (Exec)   Float64         [0.0000, 1.0000]     Deterministic composite site stress index
+`esi_tier`                       Pillar 2 (Exec)   Enum / String   NOMINAL/WATCH/ATTN/HIGH Triage category for site friction
+`s_stag`                         Pillar 2 (Exec)   Float64         [0.0000, 1.0000]     Physical progress stagnation stress
+`s_vel`                          Pillar 2 (Exec)   Float64         [0.0000, 1.0000]     Progress velocity collapse stress
+`s_div`                          Pillar 2 (Exec)   Float64         [0.0000, 1.0000]     Expenditure/progress divergence stress
+`s_sched`                        Pillar 2 (Exec)   Float64         [0.0000, 1.0000]     Schedule slippage & overdue debt stress
+`s_rep`                          Pillar 2 (Exec)   Float64         [0.0000, 1.0000]     Observation quality & revision friction
+`flag_stag`                      Pillar 2 (Exec)   SmallInt        0 or 1               Binary flag: Active stagnation
+`flag_vel`                       Pillar 2 (Exec)   SmallInt        0 or 1               Binary flag: Severe velocity slowdown (<0.5%)
+`flag_div`                       Pillar 2 (Exec)   SmallInt        0 or 1               Binary flag: Divergence spread > 25% pts
+`flag_sched`                     Pillar 2 (Exec)   SmallInt        0 or 1               Binary flag: Slippage >= 12m or overdue > 6m
+`flag_rep`                       Pillar 2 (Exec)   SmallInt        0 or 1               Binary flag: Reporting gap or revision >= 2
+`total_stress_flags`             Pillar 2 (Exec)   SmallInt        0 to 5               Count of active operational stress flags
+`dominant_stressor`              Pillar 2 (Exec)   Enum / String   5 Stressor Types     Largest weighted execution stress component
+`suggested_action`               Pillar 2 (Exec)   Enum / String   6 Action Codes       Prescriptive administrative action code
+`feature_version`                Audit Metadata    String          e.g. 'v1.0.0-75pit'  Feature pipeline version
+`execution_index_version`        Audit Metadata    String          e.g. 'v1.0.0-esi-5d' Execution index version
+------------------------------------------------------------------------------------------------------------------------
+
+
+========================================================================================================================
+SECTION 5 — DEPRECATED & EXCLUDED OUTPUTS (STRICTLY BANNED)
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+EXCLUDED ITEM / CAPABILITY       REASON FOR EXCLUSION & SCIENTIFIC FINDING
+------------------------------------------------------------------------------------------------------------------------
+`cost_revision_event_3m`         Collapsed on Out-of-Time holdout (OOT ROC-AUC = 0.4394 < 0.50, Lift = 0.56x) due to a 10x
+                                 fiscal base-rate collapse (21.9% -> 0.9%). Relegated to offline research only.
+Supervised Execution ML Target   No qualitative bottleneck ground truth in PAIMANA data; candidate stagnation labels suffer
+                                 2.5x base-rate collapse. Formally classified as `SUPERVISED_EXECUTION_RISK_TARGET = NOT_SUPPORTED`.
+OCMS Priors in ML Features       Temporal enrichment tests showed consistent OOT metric degradation (PR-AUC dropped to 0.9680).
+                                 Banned from ML feature vector; retained strictly for historical benchmarking context.
+LLM Causal Hallucinations        Source datasets contain no contractor dispute records, litigation logs, or land acquisition
+                                 inventories. Synthetic root-cause narratives are strictly prohibited.
+Arbitrary Threshold Overrides    Risk bands and ESI tiers must adhere strictly to validated mathematical thresholds.
+------------------------------------------------------------------------------------------------------------------------
+
+
+========================================================================================================================
+SECTION 6 — TWO-PILLAR ARCHITECTURAL INTEGRATION
+========================================================================================================================
+
+The platform achieves comprehensive surveillance by integrating two non-overlapping analytical engines:
+
+                               +-------------------------------------------------------+
+                               |            MoSPI FLASH REPORT PDF (Month t)           |
+                               +-------------------------------------------------------+
+                                                          |
+                                                          v
+                               +-------------------------------------------------------+
+                               |      75 Certified Point-in-Time Features (<= t)       |
+                               +-------------------------------------------------------+
+                                             /                           \
+                                            /                             \
+                                           v                               v
+    +----------------------------------------------------+   +----------------------------------------------------+
+    |         PILLAR 1: PREDICTIVE OUTCOME ENGINE        |   |    PILLAR 2: OPERATIONAL EXECUTION SURVEILLANCE    |
+    |----------------------------------------------------|   |----------------------------------------------------|
+    | 1. Calibrated Schedule Delay Risk (RF_02): 50% wt  |   | 1. Progress Stagnation Stress (S_stag): 30% wt     |
+    | 2. Balanced Cost Overrun Risk (RF Balanced): 35% wt|   | 2. Velocity Deterioration Stress (S_vel): 25% wt   |
+    | 3. Schedule Revision Warning (LogReg): 15% wt      |   | 3. Expenditure Divergence Stress (S_div): 20% wt   |
+    |----------------------------------------------------|   | 4. Schedule Slippage & Debt (S_sched): 15% wt      |
+    | Multi-Dimensional Integrated Risk Index [0.0 - 1.0]|   | 5. Observation & Reporting Stress (S_rep): 10% wt  |
+    | Operational Risk Bands: LOW / MOD / HIGH / VERY_HI |   |----------------------------------------------------|
+    | Dominant Pillar Attribution Breakdown              |   | Operational Execution-Stress Index (ESI) [0.0-1.0] |
+    | Question: "Will the project fail at horizon t+3?"  |   | Alert Tiers: NOMINAL / WATCH / ATTENTION / HIGH_PRI|
+    +----------------------------------------------------+   | Deterministic Prescriptive Action Directives       |
+                                           \                 | Question: "Is the site experiencing friction now?" |
+                                            \                +----------------------------------------------------+
+                                             \                           /
+                                              \                         /
+                                               v                       v
+                               +-------------------------------------------------------+
+                               |       UNIFIED POSTGRESQL DOSSIER & REST API V1        |
+                               |    (Raw Facts + Layer B Analytics + Dual Pillars)     |
+                               +-------------------------------------------------------+
+
+Key Statistical Proofs:
+- Correlation: Spearman $\rho = 0.1360$, Pearson $r = 0.1590$. Unexplained variance $\approx 66\%$.
+- 65.4% Off-Diagonal Alerts: 809 project-months exhibit high site friction (ESI $\ge 0.55$) despite low/moderate predictive
+  risk (early-stage projects whose deadlines are years away, but whose construction sites are actively stalled).
+
+
+========================================================================================================================
+SECTION 7 — OCMS HISTORICAL DATA POLICY & RECONCILIATION
+========================================================================================================================
+
+- Audit Decision: `OCMS_EXPERIMENT_VALIDITY = VALID_AFTER_DOCUMENTATION_CORRECTION`.
+- Preprocessing Alignment: When tested with `StandardScaler` on 75 features, the PAIMANA-only baseline exactly reproduced the
+  frozen production metrics (RF_02 OOT PR-AUC = 0.9722, ROC-AUC = 0.9723, Brier = 0.0694 / 0.0389 calibrated; Balanced RF OOT
+  PR-AUC = 0.9881, ROC-AUC = 0.9895, Brier = 0.0386).
+- Population Counts:
+  * Total PAIMANA projects with legacy OCMS tags: 1,736 projects (1,677 unique code strings).
+  * Projects with multi-year pre-PAIMANA longitudinal records (2014–2025): 1,442 linked projects.
+  * Preliminary exploratory sample match: 1,026 codes.
+- Architectural Boundary: Stored exclusively in `ocms_historical_benchmarks` for executive benchmarking and trajectory curves.
+  Zero OCMS columns are required or permitted in the production ML inference feature vector.
+
+
+========================================================================================================================
+SECTION 8 — THRESHOLD CLASSIFICATION & STANDARDIZATION
+========================================================================================================================
+
+The backend specifications clearly distinguish between:
+
+1. Candidate B Integrated Predictive Risk Thresholds (Historical Frozen ML Matrix):
+   - Defined and validated in `ml/risk_engine/build_integrated_risk_score.py` and `integrated_risk_scores.csv`:
+     * `LOW`       : $< 0.30$       (Empirical delay failure rate: 0.08%)
+     * `MODERATE`  : $0.30\text{–}<0.60$ (Empirical delay failure rate: 83.73%)
+     * `HIGH`      : $0.60\text{–}<0.80$ (Empirical delay failure rate: 90.58%)
+     * `VERY_HIGH` : $\ge 0.80$       (Empirical delay failure rate: 97.73%)
+
+2. Operational Execution-Stress Alert Tiers (Finalized ESI Architecture):
+   - Defined and finalized in `EXECUTION_RISK_FINAL_DECISION.txt` and `03_execution_stress_index.py`:
+     * `NOMINAL`       : $< 0.35$          (~65.2% portfolio share)
+     * `WATCH`         : $0.35\text{–}<0.55$ (~26.9% portfolio share)
+     * `ATTENTION`     : $0.55\text{–}<0.75$ (~7.6% portfolio share)
+     * `HIGH_PRIORITY` : $\ge 0.75$         (~0.2% portfolio share)
+
+3. Standardized Cross-Quadrant Operational Monitoring Grid:
+   - When cross-tabulating Integrated Predictive Risk against Execution Stress, the $0.55$ / $0.60$ threshold boundary cleanly
+     separates standard surveillance from critical multi-ministerial escalation.
+
+
+========================================================================================================================
+SECTION 9 — REST API & DATABASE PAYLOAD COMPATIBILITY
+========================================================================================================================
+
+The updated backend API and database schemas fully satisfy the frontend contract defined in `FRONTEND_REQUIREMENTS_FROM_ML.txt`:
+1. Dual-Pillar Project Dossier (`GET /api/v1/projects/{project_id}`):
+   - `project_identity` (ID, Name, Agency, State, Legacy Code, Epoch).
+   - `project_facts` (Sanction dates, costs, expenditure, progress).
+   - `derived_analytics` (12 Layer B deterministic metrics).
+   - `predictive_risk_profile` (Pillar 1 ML scores, weights, attributions, version).
+   - `execution_surveillance_profile` (Pillar 2 ESI score, tier, 5 stress dimensions, 5 flags, observable indicators, prescriptive action, version).
+   - `data_quality_flags` (The 1,868 rows audit flags).
+2. Longitudinal Multi-Pillar Trajectories (`GET /api/v1/projects/{project_id}/trajectory`):
+   - Trajectory array with both `selected_integrated_risk` and `execution_stress_index` per historical month.
+3. Portfolio Summaries (`GET /api/v1/portfolio/summary`):
+   - Separate distributions for predictive risk bands and execution stress tiers + cross-quadrant stats.
+4. Tri-Source Alerting (`GET /api/v1/alerts`):
+   - Distinct alert codes for Predictive Risk (`ML_CRITICAL_RISK`), Execution Stress (`ESI_HIGH_PRIORITY`), and Rules (`RULE_CHRONIC_STAGNANT`).
+
+
+========================================================================================================================
+SECTION 10 — AUTOMATED CONSISTENCY AUDIT RESULTS
+========================================================================================================================
+
+The verification script `scripts/backend_spec_audit/audit_specs.py` was executed across all specification files:
+
+------------------------------------------------------------------------------------------------------------------------
+AUDIT CHECK ITEM                                                     STATUS    VERIFICATION DETAILS
+------------------------------------------------------------------------------------------------------------------------
+Feature Universe: 75 features (71 numerical + 4 categorical)         PASS      Certified in both specs & tuning reports
+Integrated Risk Weights: 0.50 Sched / 0.35 Cost / 0.15 SRev          PASS      Exact formula verified across DDL and code
+ESI Weights: 0.30 Stag / 0.25 Vel / 0.20 Div / 0.15 Sched / 0.10 Rep PASS      Exact formula verified in DDL, view & code
+Non-Redundancy & Overlap Metrics: rho = 0.1360, 65.4%                PASS      Matches empirical correlation audit
+Target Exclusion: cost_revision_event_3m & ML execution prob banned  PASS      Explicitly banned across all active schemas
+OCMS Historical Data: Analytics context only, banned from ML         PASS      Isolated to ocms_historical_benchmarks table
+OOT Model Metrics (RF_02: 0.9723, Balanced: 0.9895, LogReg: 0.8264)  PASS      All metrics match frozen ML baselines
+Versioning & Provenance Metadata Fields                              PASS      model_version, feature_version, esi_version
+Prescriptive Monitoring Actions Matrix                               PASS      All 6 standardized actions codified
+PostgreSQL DDL Table Definitions                                     PASS      execution_stress_scores & ml_risk_scores
+------------------------------------------------------------------------------------------------------------------------
+
+AUDIT SUMMARY: 10 / 10 CHECKS PASSED (100% COMPLIANCE).
+
+
+========================================================================================================================
+SECTION 11 — FINAL CONSISTENCY STATUS
+========================================================================================================================
+
+All specifications, contracts, and schemas have been successfully updated, reconciled, and audited against the
+underlying scientific artifacts and empirical findings.
+
+========================================================================================================================
+BACKEND_ML_SPECIFICATION_STATUS = CONSISTENT
+========================================================================================================================
