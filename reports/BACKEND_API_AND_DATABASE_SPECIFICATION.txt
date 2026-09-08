@@ -1,0 +1,785 @@
+========================================================================================================================
+BACKEND SYSTEM ARCHITECTURE, DATABASE SCHEMA & REST API CONTRACT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Prepared by: System Architecture & Backend Engineering Team
+Target Audience: Backend Developers, Database Administrators, DevOps Engineers, API Consumers
+Target File: reports/BACKEND_API_AND_DATABASE_SPECIFICATION.txt
+========================================================================================================================
+
+PURPOSE OF THIS SPECIFICATION:
+This document defines the production-ready technical architecture, relational database schema (PostgreSQL 16),
+derived analytics engine (Layer B calculations), comprehensive RESTful API endpoints, request/response JSON schemas,
+indexing strategies, caching policies, background ingestion tasks, and security controls required to implement the
+backend service for SIH26103 (MoSPI/IPMD Integrated Project-Monitoring Platform).
+
+SYSTEM ARCHITECTURE SUMMARY:
+- Application Framework : FastAPI (Python 3.11+) / Node.js (Express / Fastify) with asynchronous I/O.
+- Primary Database      : PostgreSQL 16 with B-Tree composite indexes and JSONB metadata storage.
+- In-Memory Cache       : Redis 7 for sub-10ms portfolio aggregations and session/rate-limiting state.
+- Task Queue / Worker   : Celery / Redis (or APScheduler) for asynchronous PDF ingestion, feature extraction, and ML scoring.
+- ML Inference Bridge   : Local joblib/scikit-learn runtime inside isolated batch worker containers.
+
+
+========================================================================================================================
+PART 1 — RELATIONAL DATABASE SCHEMA & POSTGRESQL DDL SPECIFICATION
+========================================================================================================================
+
+The database architecture employs a normalized relational structure separating permanent project identities, monthly
+longitudinal reporting snapshots, completed/intake tables, pre-computed ML risk scores, and data quality anomaly logs.
+
+```sql
+-- ============================================================================
+-- 1. EXTENSIONS & ENUM TYPES
+-- ============================================================================
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pg_trgm"; -- For fast full-text / trigram fuzzy search
+
+CREATE TYPE risk_band_enum AS ENUM ('LOW', 'MODERATE', 'HIGH', 'VERY_HIGH');
+CREATE TYPE dominant_component_enum AS ENUM ('Schedule Delay', 'Cost Overrun', 'Schedule Revision');
+CREATE TYPE alert_severity_enum AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL');
+CREATE TYPE alert_source_enum AS ENUM ('ML_ENGINE', 'RULE_ENGINE');
+CREATE TYPE alert_status_enum AS ENUM ('ACTIVE', 'ACKNOWLEDGED', 'RESOLVED');
+CREATE TYPE user_role_enum AS ENUM ('MOSPI_ADMIN', 'NODAL_OFFICER', 'PUBLIC_VIEWER');
+
+-- ============================================================================
+-- 2. CANONICAL PROJECTS MASTER TABLE
+-- ============================================================================
+-- Holds immutable or slowly-changing project identity attributes across all reporting months.
+CREATE TABLE projects (
+    project_id VARCHAR(32) PRIMARY KEY,              -- Canonical 6-digit PAIMANA ID (e.g. '105236', '612786')
+    project_name TEXT NOT NULL,                      -- Official full infrastructure project title
+    agency VARCHAR(64) NOT NULL,                     -- Implementing CPSU / Agency (e.g. 'NHAI', 'MoRTH', 'NTPC')
+    state VARCHAR(128) NOT NULL,                     -- State, UT, or Multi-State location
+    legacy_ocms_code VARCHAR(32),                    -- Cross-referenced 8-character OCMS code (e.g. 'N24001476')
+    approval_start_date VARCHAR(7) NOT NULL,         -- Sanction approval date in ISO YYYY-MM (e.g. '2021-09')
+    original_completion_date VARCHAR(7) NOT NULL,    -- Sanctioned original DOC in ISO YYYY-MM (e.g. '2022-09')
+    original_cost_crore NUMERIC(14, 2) NOT NULL,     -- Sanctioned capital budget in ₹ Crore
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,         -- Active ongoing status flag
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_projects_agency ON projects (agency);
+CREATE INDEX idx_projects_state ON projects (state);
+CREATE INDEX idx_projects_legacy_code ON projects (legacy_ocms_code) WHERE legacy_ocms_code IS NOT NULL;
+CREATE INDEX idx_projects_name_trgm ON projects USING gin (project_name gin_trgm_ops);
+
+-- ============================================================================
+-- 3. MONTHLY LONGITUDINAL SNAPSHOTS TABLE (LAYER A RAW FACTS)
+-- ============================================================================
+-- Stores monthly time-series records (21,555 rows). One row per project per report_month.
+CREATE TABLE monthly_snapshots (
+    snapshot_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    project_id VARCHAR(32) NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+    report_month VARCHAR(7) NOT NULL,                -- Snapshot epoch in ISO YYYY-MM (e.g. '2025-04')
+    revised_completion_date VARCHAR(7),              -- Current anticipated DOC in YYYY-MM (Null if unrevised)
+    revised_cost_crore NUMERIC(14, 2) NOT NULL,      -- Current anticipated cost in ₹ Crore
+    cumulative_expenditure_crore NUMERIC(14, 2) NOT NULL, -- Total expenditure to date in ₹ Crore
+    physical_progress_percent NUMERIC(5, 2) NOT NULL,-- Cumulative physical completion percentage [0.00, 100.00]
+    source_file VARCHAR(128) NOT NULL,               -- Source Flash Report PDF filename
+    source_table VARCHAR(64) NOT NULL,               -- e.g. 'Table 6: All Ongoing Projects'
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    CONSTRAINT uq_project_month UNIQUE (project_id, report_month),
+    CONSTRAINT chk_progress_bounds CHECK (physical_progress_percent >= 0.0 AND physical_progress_percent <= 100.0),
+    CONSTRAINT chk_costs_positive CHECK (revised_cost_crore >= 0.0 AND cumulative_expenditure_crore >= 0.0)
+);
+
+CREATE INDEX idx_snapshots_report_month ON monthly_snapshots (report_month);
+CREATE INDEX idx_snapshots_project_month ON monthly_snapshots (project_id, report_month);
+
+-- ============================================================================
+-- 4. MACHINE LEARNING RISK SCORES TABLE (LAYER C PREDICTIONS)
+-- ============================================================================
+-- Stores multi-dimensional risk scores (15,769 pre-computed rows across 12 epochs).
+CREATE TABLE ml_risk_scores (
+    score_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    project_id VARCHAR(32) NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+    report_month VARCHAR(7) NOT NULL,                -- Prediction snapshot epoch (YYYY-MM)
+    schedule_delay_risk NUMERIC(6, 4) NOT NULL,      -- Platt-calibrated probability in [0.0000, 1.0000]
+    cost_overrun_risk NUMERIC(6, 4) NOT NULL,        -- Continuous model score in [0.0000, 1.0000]
+    schedule_revision_risk NUMERIC(6, 4) NOT NULL,   -- Administrative warning score in [0.0000, 1.0000]
+    selected_integrated_risk NUMERIC(6, 4) NOT NULL, -- Weighted multi-dimensional index in [0.0000, 1.0000]
+    risk_band risk_band_enum NOT NULL,               -- 'LOW', 'MODERATE', 'HIGH', 'VERY_HIGH'
+    dominant_component dominant_component_enum NOT NULL, -- 'Schedule Delay', 'Cost Overrun', 'Schedule Revision'
+    schedule_contribution NUMERIC(6, 4) NOT NULL,    -- 0.50 * schedule_delay_risk
+    cost_contribution NUMERIC(6, 4) NOT NULL,        -- 0.35 * cost_overrun_risk
+    schedule_revision_contribution NUMERIC(6, 4) NOT NULL, -- 0.15 * schedule_revision_risk
+    model_version VARCHAR(32) NOT NULL DEFAULT 'v1.0.0-rf02-calibrated',
+    scored_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+
+    CONSTRAINT uq_ml_project_month UNIQUE (project_id, report_month)
+);
+
+CREATE INDEX idx_ml_scores_month_band ON ml_risk_scores (report_month, risk_band);
+CREATE INDEX idx_ml_scores_integrated ON ml_risk_scores (report_month, selected_integrated_risk DESC);
+CREATE INDEX idx_ml_scores_dominant ON ml_risk_scores (report_month, dominant_component);
+
+-- ============================================================================
+-- 5. COMPLETED & NEWLY ADDED PROJECTS TABLES (AUXILIARY TABLES)
+-- ============================================================================
+CREATE TABLE completed_projects (
+    project_id VARCHAR(32) PRIMARY KEY,
+    project_name TEXT NOT NULL,
+    agency VARCHAR(64) NOT NULL,
+    state VARCHAR(128) NOT NULL,
+    original_cost_crore NUMERIC(14, 2) NOT NULL,
+    actual_cost_crore NUMERIC(14, 2) NOT NULL,
+    cumulative_expenditure_crore NUMERIC(14, 2) NOT NULL,
+    actual_completion_date VARCHAR(7) NOT NULL,       -- ISO YYYY-MM
+    report_month VARCHAR(7) NOT NULL,
+    source_file VARCHAR(128) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE newly_added_projects (
+    intake_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    project_id VARCHAR(32) NOT NULL,
+    project_name TEXT NOT NULL,
+    agency VARCHAR(64) NOT NULL,
+    state VARCHAR(128) NOT NULL,
+    original_cost_crore NUMERIC(14, 2) NOT NULL,
+    approval_start_date VARCHAR(7) NOT NULL,
+    original_completion_date VARCHAR(7) NOT NULL,
+    report_month VARCHAR(7) NOT NULL,
+    source_file VARCHAR(128) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- ============================================================================
+-- 6. DATA QUALITY & ANOMALIES AUDIT LOG (THE 1,868 ROWS POLICY)
+-- ============================================================================
+CREATE TABLE data_anomalies_log (
+    anomaly_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    project_id VARCHAR(32) NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+    report_month VARCHAR(7) NOT NULL,
+    flag_code VARCHAR(64) NOT NULL,                  -- e.g. 'PROGRESS_DROP_GT_25', 'EXPENDITURE_DROP_GT_50'
+    severity alert_severity_enum NOT NULL DEFAULT 'MEDIUM',
+    metric_value NUMERIC(14, 2),
+    prior_value NUMERIC(14, 2),
+    details TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_anomalies_project_month ON data_anomalies_log (project_id, report_month);
+
+-- ============================================================================
+-- 7. SYSTEM ALERTS TABLE
+-- ============================================================================
+CREATE TABLE system_alerts (
+    alert_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    project_id VARCHAR(32) NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+    report_month VARCHAR(7) NOT NULL,
+    alert_code VARCHAR(64) NOT NULL,                 -- e.g. 'ML_CRITICAL_RISK', 'RULE_CHRONIC_STAGNANT'
+    severity alert_severity_enum NOT NULL,
+    alert_source alert_source_enum NOT NULL,
+    message TEXT NOT NULL,
+    status alert_status_enum NOT NULL DEFAULT 'ACTIVE',
+    acknowledged_by VARCHAR(64),
+    acknowledged_at TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+
+    CONSTRAINT uq_alert_project_code_month UNIQUE (project_id, report_month, alert_code)
+);
+
+CREATE INDEX idx_alerts_month_status ON system_alerts (report_month, status, severity);
+
+-- ============================================================================
+-- 8. USERS & RBAC TABLE
+-- ============================================================================
+CREATE TABLE users (
+    user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(128) NOT NULL,
+    role user_role_enum NOT NULL DEFAULT 'PUBLIC_VIEWER',
+    agency_affiliation VARCHAR(64),                  -- Optional filtering by agency
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
+
+
+========================================================================================================================
+PART 2 — DETERMINISTIC LAYER B DERIVED ANALYTICS ENGINE (SQL VIEWS & ENGINE)
+========================================================================================================================
+
+The backend must provide high-performance computation of Layer B derived analytics. We define a PostgreSQL view
+`v_project_monthly_dossier` that combines Raw Facts (Layer A), Deterministic Analytics (Layer B), and ML Predictions (Layer C)
+using point-in-time window functions.
+
+```sql
+CREATE OR REPLACE VIEW v_project_monthly_dossier AS
+WITH ranked_snapshots AS (
+    SELECT 
+        s.snapshot_id,
+        s.project_id,
+        s.report_month,
+        s.revised_completion_date,
+        s.revised_cost_crore,
+        s.cumulative_expenditure_crore,
+        s.physical_progress_percent,
+        s.source_file,
+        s.source_table,
+        p.project_name,
+        p.agency,
+        p.state,
+        p.legacy_ocms_code,
+        p.approval_start_date,
+        p.original_completion_date,
+        p.original_cost_crore,
+        
+        -- Window lag functions strictly bounded to <= report_month
+        LAG(s.physical_progress_percent, 1) OVER (
+            PARTITION BY s.project_id ORDER BY s.report_month ASC
+        ) AS prev_prog_1m,
+        LAG(s.physical_progress_percent, 3) OVER (
+            PARTITION BY s.project_id ORDER BY s.report_month ASC
+        ) AS prev_prog_3m,
+        LAG(s.cumulative_expenditure_crore, 1) OVER (
+            PARTITION BY s.project_id ORDER BY s.report_month ASC
+        ) AS prev_exp_1m
+    FROM monthly_snapshots s
+    JOIN projects p ON s.project_id = p.project_id
+)
+SELECT 
+    r.*,
+    
+    -- LAYER B: DETERMINISTIC DERIVED METRICS
+    -- 1. Cost Escalation in ₹ Cr
+    (r.revised_cost_crore - r.original_cost_crore) AS cost_escalation_crore,
+    
+    -- 2. Cost Escalation in %
+    CASE 
+        WHEN r.original_cost_crore > 0 
+        THEN ROUND(((r.revised_cost_crore - r.original_cost_crore) / r.original_cost_crore * 100.0), 2)
+        ELSE 0.0 
+    END AS cost_escalation_percent,
+    
+    -- 3. Expenditure Ratio %
+    CASE 
+        WHEN r.original_cost_crore > 0 
+        THEN ROUND((r.cumulative_expenditure_crore / r.original_cost_crore * 100.0), 2)
+        ELSE 0.0 
+    END AS expenditure_ratio_percent,
+    
+    -- 4. Remaining Physical Progress %
+    (100.0 - r.physical_progress_percent) AS remaining_physical_progress,
+    
+    -- 5. Schedule Slippage in Months
+    CASE 
+        WHEN r.revised_completion_date IS NOT NULL 
+        THEN (
+            (CAST(SUBSTRING(r.revised_completion_date, 1, 4) AS INT) - CAST(SUBSTRING(r.original_completion_date, 1, 4) AS INT)) * 12 +
+            (CAST(SUBSTRING(r.revised_completion_date, 6, 2) AS INT) - CAST(SUBSTRING(r.original_completion_date, 6, 2) AS INT))
+        )
+        ELSE 0.0 
+    END AS schedule_slippage_months,
+    
+    -- 6. Months Remaining to Original Sanctioned Deadline (Negative = Past Due)
+    (
+        (CAST(SUBSTRING(r.original_completion_date, 1, 4) AS INT) - CAST(SUBSTRING(r.report_month, 1, 4) AS INT)) * 12 +
+        (CAST(SUBSTRING(r.original_completion_date, 6, 2) AS INT) - CAST(SUBSTRING(r.report_month, 6, 2) AS INT))
+    ) AS months_to_original_doc,
+    
+    -- 7. 1-Month Progress Velocity (% delta)
+    CASE 
+        WHEN r.prev_prog_1m IS NOT NULL THEN (r.physical_progress_percent - r.prev_prog_1m)
+        ELSE NULL 
+    END AS progress_velocity_1m,
+    
+    -- 8. 3-Month Rolling Average Progress Velocity (% / month)
+    CASE 
+        WHEN r.prev_prog_3m IS NOT NULL THEN ROUND(((r.physical_progress_percent - r.prev_prog_3m) / 3.0), 2)
+        ELSE NULL 
+    END AS progress_velocity_3m,
+    
+    -- 9. 3-Month Stagnation Indicator Flag (1 = Stagnant)
+    CASE 
+        WHEN r.prev_prog_3m IS NOT NULL AND (r.physical_progress_percent - r.prev_prog_3m = 0.0) THEN 1
+        ELSE 0 
+    END AS stagnant_3m_flag,
+    
+    -- 10. Capital Burn vs Physical Progress Divergence (%)
+    CASE 
+        WHEN r.original_cost_crore > 0 
+        THEN ROUND(((r.cumulative_expenditure_crore / r.original_cost_crore * 100.0) - r.physical_progress_percent), 2)
+        ELSE 0.0 
+    END AS expenditure_progress_divergence,
+
+    -- LAYER C: MACHINE LEARNING RISK SIGNALS (Joined from ml_risk_scores)
+    m.schedule_delay_risk,
+    m.cost_overrun_risk,
+    m.schedule_revision_risk,
+    m.selected_integrated_risk,
+    m.risk_band,
+    m.dominant_component,
+    m.schedule_contribution,
+    m.cost_contribution,
+    m.schedule_revision_contribution,
+    CASE 
+        WHEN m.selected_integrated_risk > 0 
+        THEN ROUND((m.schedule_contribution / m.selected_integrated_risk * 100.0), 2)
+        ELSE 0.0 
+    END AS schedule_contrib_pct,
+    CASE 
+        WHEN m.selected_integrated_risk > 0 
+        THEN ROUND((m.cost_contribution / m.selected_integrated_risk * 100.0), 2)
+        ELSE 0.0 
+    END AS cost_contrib_pct,
+    CASE 
+        WHEN m.selected_integrated_risk > 0 
+        THEN ROUND((m.schedule_revision_contribution / m.selected_integrated_risk * 100.0), 2)
+        ELSE 0.0 
+    END AS schedule_rev_contrib_pct
+
+FROM ranked_snapshots r
+LEFT JOIN ml_risk_scores m ON r.project_id = m.project_id AND r.report_month = m.report_month;
+```
+
+
+========================================================================================================================
+PART 3 — COMPLETE RESTFUL API ENDPOINT SPECIFICATION
+========================================================================================================================
+
+Base URL: `/api/v1`
+
+------------------------------------------------------------------------------------------------------------------------
+1. GET `/api/v1/health`
+- Description : Returns system health status, DB connectivity, and Redis status.
+- Auth        : Public.
+- Response    : `200 OK`
+  ```json
+  {
+    "status": "healthy",
+    "timestamp": "2026-09-08T11:25:00Z",
+    "database": "connected",
+    "redis": "connected",
+    "active_epoch": "2026-03",
+    "total_projects_monitored": 2741
+  }
+  ```
+
+------------------------------------------------------------------------------------------------------------------------
+2. GET `/api/v1/meta/epochs`
+- Description : Returns the list of all 15 available monthly reporting epochs and prediction coverage.
+- Auth        : Public.
+- Response    : `200 OK`
+  ```json
+  {
+    "total_epochs": 15,
+    "available_epochs": [
+      "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09",
+      "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03",
+      "2026-04", "2026-05", "2026-06"
+    ],
+    "prediction_epochs": [
+      "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09",
+      "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03"
+    ],
+    "default_epoch": "2026-03"
+  }
+  ```
+
+------------------------------------------------------------------------------------------------------------------------
+3. GET `/api/v1/portfolio/summary`
+- Description : High-level portfolio KPI cards for the executive dashboard.
+- Query Params:
+  * `report_month` (Optional, String, default: `"2026-03"`).
+- Auth        : Public / Authenticated.
+- Response    : `200 OK`
+  ```json
+  {
+    "report_month": "2026-03",
+    "kpis": {
+      "total_monitored_projects": 2187,
+      "total_sanctioned_cost_crore": 2714580.45,
+      "total_revised_cost_crore": 3145920.10,
+      "total_cost_escalation_crore": 431339.65,
+      "portfolio_cost_escalation_percent": 15.89,
+      "total_cumulative_expenditure_crore": 1845200.75,
+      "portfolio_mean_progress_percent": 64.32,
+      "stagnant_projects_count": 512,
+      "past_due_projects_count": 894,
+      "completed_projects_archive_count": 350,
+      "newly_added_projects_count": 743
+    },
+    "risk_band_distribution": {
+      "low": { "count": 718, "percentage": 32.83 },
+      "moderate": { "count": 830, "percentage": 37.95 },
+      "high": { "count": 384, "percentage": 17.55 },
+      "very_high": { "count": 255, "percentage": 11.67 }
+    },
+    "dominant_factor_breakdown": {
+      "schedule_delay": { "count": 1398, "percentage": 63.94 },
+      "cost_overrun": { "count": 782, "percentage": 35.78 },
+      "schedule_revision": { "count": 7, "percentage": 0.28 }
+    }
+  }
+  ```
+
+------------------------------------------------------------------------------------------------------------------------
+4. GET `/api/v1/portfolio/breakdown/agency` & `/state`
+- Description : Aggregated risk, project counts, and cost escalations grouped by agency or state.
+- Query Params:
+  * `report_month` (Optional, String, default: `"2026-03"`).
+  * `limit` (Optional, Integer, default: 20).
+- Response    : `200 OK`
+  ```json
+  {
+    "report_month": "2026-03",
+    "breakdown": [
+      {
+        "group_name": "NHAI",
+        "total_projects": 642,
+        "total_cost_crore": 854200.0,
+        "total_cost_escalation_crore": 124500.0,
+        "mean_progress_percent": 68.4,
+        "mean_integrated_risk": 0.442,
+        "high_very_high_count": 178
+      }
+    ]
+  }
+  ```
+
+------------------------------------------------------------------------------------------------------------------------
+5. GET `/api/v1/projects` (Project Roster with Search, Multi-Filter, Sorting & Pagination)
+- Description : Main table / search endpoint for projects.
+- Query Params:
+  * `search`            : String (Project ID, Name, Legacy OCMS Code prefix/substring).
+  * `state`             : String / List (Comma-separated states, e.g. `"ANDHRA PRADESH,MAHARASHTRA"`).
+  * `agency`            : String / List (Comma-separated agencies, e.g. `"NHAI,MoRTH,NTPC"`).
+  * `risk_band`         : String / List (e.g. `"HIGH,VERY_HIGH"`).
+  * `dominant_component`: String (`"Schedule Delay" | "Cost Overrun" | "Schedule Revision"`).
+  * `min_risk`          : Float (0.00 to 1.00).
+  * `max_risk`          : Float (0.00 to 1.00).
+  * `min_progress`      : Float (0.0 to 100.0).
+  * `max_progress`      : Float (0.0 to 100.0).
+  * `min_cost`          : Float (in ₹ Crore).
+  * `max_cost`          : Float (in ₹ Crore).
+  * `stagnant_only`     : Boolean (true to filter for `stagnant_3m_flag == 1`).
+  * `past_due_only`     : Boolean (true to filter for `months_to_original_doc < 0`).
+  * `report_month`      : String (default: `"2026-03"`).
+  * `sort_by`           : String (default: `"selected_integrated_risk"`, options: `"project_id"`, `"project_name"`,
+                          `"original_cost_crore"`, `"physical_progress_percent"`, `"months_to_original_doc"`,
+                          `"schedule_delay_risk"`, `"cost_overrun_risk"`).
+  * `sort_order`        : String (`"desc"` | `"asc"`, default: `"desc"`).
+  * `page`              : Integer (1-indexed, default: 1).
+  * `page_size`         : Integer (default: 20, max: 100).
+- Response            : `200 OK`
+  ```json
+  {
+    "pagination": {
+      "total_records": 184,
+      "page": 1,
+      "page_size": 20,
+      "total_pages": 10
+    },
+    "filters_applied": {
+      "report_month": "2026-03",
+      "risk_band": ["HIGH", "VERY_HIGH"]
+    },
+    "data": [
+      {
+        "project_id": "105236",
+        "project_name": "CONSTRUCTION OF 4 LANE ACCESS CONTROLLED NEW GREENFIELD HIGHWAY SECTION OF NH 365BG...",
+        "agency": "NHAI",
+        "state": "ANDHRA PRADESH",
+        "legacy_ocms_code": "N24001476",
+        "original_cost_crore": 517.05,
+        "revised_cost_crore": 655.06,
+        "physical_progress_percent": 90.14,
+        "months_to_original_doc": -31.0,
+        "stagnant_3m_flag": 0,
+        "schedule_delay_risk": 0.7025,
+        "cost_overrun_risk": 0.7784,
+        "schedule_revision_risk": 0.0130,
+        "selected_integrated_risk": 0.6256,
+        "risk_band": "HIGH",
+        "dominant_component": "Schedule Delay"
+      }
+    ]
+  }
+  ```
+
+------------------------------------------------------------------------------------------------------------------------
+6. GET `/api/v1/projects/{project_id}` (Comprehensive Project Dossier Contract)
+- Description : Detailed project dossier matching the exact contract required by `FRONTEND_REQUIREMENTS_FROM_ML.txt` (Part 15).
+- Path Params : `project_id` (String, e.g. `"105236"`).
+- Query Params: `report_month` (Optional, String, default: latest available epoch).
+- Response    : `200 OK`
+  ```json
+  {
+    "project_identity": {
+      "project_id": "105236",
+      "project_name": "CONSTRUCTION OF 4 LANE ACCESS CONTROLLED NEW GREENFIELD HIGHWAY SECTION OF NH 365BG...",
+      "agency": "NHAI",
+      "state": "ANDHRA PRADESH",
+      "legacy_ocms_code": "N24001476",
+      "report_month": "2025-04"
+    },
+    "project_facts": {
+      "approval_start_date": "2021-09",
+      "original_completion_date": "2022-09",
+      "revised_completion_date": "2024-09",
+      "actual_completion_date": null,
+      "original_cost_crore": 517.05,
+      "revised_cost_crore": 655.06,
+      "cumulative_expenditure_crore": 515.30,
+      "physical_progress_percent": 90.14
+    },
+    "derived_analytics": {
+      "cost_escalation_crore": 138.01,
+      "cost_escalation_percent": 26.69,
+      "expenditure_ratio_percent": 99.66,
+      "remaining_physical_progress": 9.86,
+      "schedule_slippage_months": 24.0,
+      "months_to_original_doc": -31.0,
+      "progress_velocity_1m": 1.20,
+      "progress_velocity_3m": 1.50,
+      "stagnant_3m_flag": 0,
+      "months_since_last_progress_increase": 0
+    },
+    "ml_risk_profile": {
+      "schedule_delay_risk": 0.7025,
+      "cost_overrun_risk": 0.7784,
+      "schedule_revision_risk": 0.0130,
+      "selected_integrated_risk": 0.6256,
+      "risk_band": "HIGH",
+      "dominant_component": "Schedule Delay",
+      "schedule_contribution": 0.3512,
+      "cost_contribution": 0.2724,
+      "schedule_revision_contribution": 0.0020,
+      "schedule_contrib_pct": 56.14,
+      "cost_contrib_pct": 43.54,
+      "schedule_rev_contrib_pct": 0.32
+    },
+    "data_quality_flags": []
+  }
+  ```
+
+------------------------------------------------------------------------------------------------------------------------
+7. GET `/api/v1/projects/{project_id}/trajectory` (Full Longitudinal Time-Series)
+- Description : Returns all historical monthly snapshots (up to 15 reporting epochs) for rendering trend lines.
+- Path Params : `project_id` (String).
+- Response    : `200 OK`
+  ```json
+  {
+    "project_id": "105236",
+    "project_name": "CONSTRUCTION OF 4 LANE...",
+    "total_snapshots": 12,
+    "trajectory": [
+      {
+        "report_month": "2025-04",
+        "physical_progress_percent": 88.50,
+        "cumulative_expenditure_crore": 490.10,
+        "revised_cost_crore": 655.06,
+        "revised_completion_date": "2024-09",
+        "progress_velocity_1m": 1.20,
+        "selected_integrated_risk": 0.6120,
+        "risk_band": "HIGH"
+      },
+      {
+        "report_month": "2025-05",
+        "physical_progress_percent": 90.14,
+        "cumulative_expenditure_crore": 515.30,
+        "revised_cost_crore": 655.06,
+        "revised_completion_date": "2024-09",
+        "progress_velocity_1m": 1.64,
+        "selected_integrated_risk": 0.6256,
+        "risk_band": "HIGH"
+      }
+    ]
+  }
+  ```
+
+------------------------------------------------------------------------------------------------------------------------
+8. GET `/api/v1/projects/compare`
+- Description : Side-by-side comparison of 2 to 5 infrastructure projects.
+- Query Params: `project_ids` (Comma-separated string, e.g. `"105236,120250,132664"`), `report_month` (default: `"2026-03"`).
+- Response    : `200 OK` (Array of project dossier objects).
+
+------------------------------------------------------------------------------------------------------------------------
+9. GET `/api/v1/alerts`
+- Description : Retrieves active ML-driven and rule-based system alerts.
+- Query Params: `report_month`, `severity`, `status` (`"ACTIVE" | "ACKNOWLEDGED" | "RESOLVED"`), `page`, `page_size`.
+- Response    : `200 OK`
+  ```json
+  {
+    "total_alerts": 42,
+    "alerts": [
+      {
+        "alert_id": "8f3b4c1a-2e1d-4b5a-9a8c-1e2d3f4a5b6c",
+        "project_id": "105236",
+        "project_name": "CONSTRUCTION OF 4 LANE...",
+        "agency": "NHAI",
+        "report_month": "2026-03",
+        "alert_code": "ML_CRITICAL_RISK",
+        "severity": "CRITICAL",
+        "alert_source": "ML_ENGINE",
+        "message": "Very High Multi-Dimensional Risk detected (Score: 0.84). Priority intervention required.",
+        "status": "ACTIVE",
+        "created_at": "2026-03-01T06:00:00Z"
+      }
+    ]
+  }
+  ```
+
+------------------------------------------------------------------------------------------------------------------------
+10. PATCH `/api/v1/alerts/{alert_id}/acknowledge`
+- Description : Acknowledges an active alert.
+- Auth        : Authenticated (`MOSPI_ADMIN` or `NODAL_OFFICER`).
+- Response    : `200 OK` (`{"status": "ACKNOWLEDGED", "acknowledged_by": "user@mospi.gov.in"}`).
+
+------------------------------------------------------------------------------------------------------------------------
+11. GET `/api/v1/export/projects/csv`
+- Description : Streams filtered project list to CSV format for Excel/reporting export.
+- Query Params: Same filter parameters as `GET /api/v1/projects`.
+- Response    : `200 OK` (`Content-Type: text/csv`, `Content-Disposition: attachment; filename="mospi_projects_2026_03.csv"`).
+
+------------------------------------------------------------------------------------------------------------------------
+12. POST `/api/v1/ingest/flash-report` (Asynchronous Batch Intake)
+- Description : Uploads and triggers background ingestion of a new monthly MoSPI Flash Report PDF.
+- Auth        : Authenticated (`MOSPI_ADMIN` only).
+- Request     : `multipart/form-data` with `file: <pdf_file>` and `report_month: "2026-07"`.
+- Response    : `202 Accepted`
+  ```json
+  {
+    "task_id": "b18a24c5-e6a3-490b-9d41-9876543210ab",
+    "status": "QUEUED",
+    "report_month": "2026-07",
+    "message": "Flash Report ingestion and ML scoring pipeline queued for execution."
+  }
+  ```
+
+
+========================================================================================================================
+PART 4 — CACHING ARCHITECTURE & QUERY OPTIMIZATION (REDIS 7)
+========================================================================================================================
+
+To meet sub-50ms web response latency SLAs, the backend employs a layered Redis caching architecture:
+
+4.1 REDIS KEY TAXONOMY:
+-----------------------
+- Portfolio KPIs     : `mospi:portfolio:summary:{report_month}` (TTL: 24 hours, refreshed on new ingestion).
+- Agency Breakdown   : `mospi:portfolio:agency:{report_month}` (TTL: 24 hours).
+- State Breakdown    : `mospi:portfolio:state:{report_month}` (TTL: 24 hours).
+- Project Dossier    : `mospi:project:dossier:{project_id}:{report_month}` (TTL: 12 hours).
+- Project Trajectory : `mospi:project:trajectory:{project_id}` (TTL: 24 hours).
+- Meta Epochs List   : `mospi:meta:epochs` (TTL: 7 days).
+
+4.2 CACHE INVALIDATION HOOKS:
+-----------------------------
+When a new monthly report is ingested or an alert is acknowledged:
+- Flush keys matching pattern `mospi:portfolio:*` and `mospi:meta:*`.
+- Selectively invalidate updated project dossiers.
+
+
+========================================================================================================================
+PART 5 — ASYNCHRONOUS WORKER & INGESTION PIPELINE (CELERY / REDIS)
+========================================================================================================================
+
+The asynchronous pipeline (`tasks/ingestion_tasks.py`) executes the end-to-end processing pipeline when a new PDF is received:
+
+```python
+# tasks/ingestion_tasks.py (Architectural Blueprint)
+
+from celery import Celery
+import joblib
+import pandas as pd
+from scripts.extract_pdfs import extract_tables_from_pdf
+from scripts.normalize_data import normalize_raw_records
+from features.build_features_v1 import compute_point_in_time_features
+
+celery_app = Celery("mospi_tasks", broker="redis://localhost:6379/1")
+
+@celery_app.task(bind=True, name="tasks.ingest_flash_report_pdf")
+def ingest_flash_report_pdf(self, pdf_file_path: str, report_month: str):
+    """
+    Executes end-to-end PDF parsing, database insertion, feature calculation,
+    and batch ML inference for a newly published monthly Flash Report.
+    """
+    # Step 1: Extract tables using PyMuPDF
+    raw_tables = extract_tables_from_pdf(pdf_file_path)
+    
+    # Step 2: Normalize and validate records
+    cleaned_records = normalize_raw_records(raw_tables, report_month)
+    
+    # Step 3: Insert into monthly_snapshots in PostgreSQL (Transaction)
+    db_insert_monthly_snapshots(cleaned_records, report_month)
+    
+    # Step 4: Compute 79 Point-in-Time features strictly using data <= report_month
+    features_df = compute_point_in_time_features(as_of_month=report_month)
+    
+    # Step 5: Load serialized production ML models
+    rf_schedule = joblib.load("ml/calibration_final/rf02_calibrated.pkl")
+    rf_cost = joblib.load("ml/secondary_targets/best_model_rf_cost_overrun_balanced.joblib")
+    lr_srev = joblib.load("ml/secondary_targets/best_model_logreg_schedule_revision.joblib")
+    
+    # Step 6: Generate predictions
+    sched_risk = rf_schedule.predict_proba(features_df)[:, 1]
+    cost_risk = rf_cost.predict_proba(features_df)[:, 1]
+    srev_risk = lr_srev.predict_proba(features_df)[:, 1]
+    
+    # Step 7: Candidate B Integrated Risk synthesis
+    integrated_risk = (0.50 * sched_risk) + (0.35 * cost_risk) + (0.15 * srev_risk)
+    
+    # Step 8: Bulk insert into ml_risk_scores and trigger alerts
+    db_bulk_insert_risk_scores(features_df["project_id"], report_month, sched_risk, cost_risk, srev_risk, integrated_risk)
+    evaluate_and_insert_alerts(report_month)
+    
+    # Step 9: Invalidate Redis portfolio caches
+    redis_client.flush_matching_keys("mospi:portfolio:*")
+    
+    return {"status": "SUCCESS", "report_month": report_month, "scored_count": len(features_df)}
+```
+
+
+========================================================================================================================
+PART 6 — SECURITY, AUTHENTICATION & ROLE-BASED ACCESS CONTROL (RBAC)
+========================================================================================================================
+
+The platform enforces Role-Based Access Control using JWT Bearer tokens:
+
+------------------------------------------------------------------------------------------------------------------------
+USER ROLE         PERMISSIONS & ACCESS SCOPE
+------------------------------------------------------------------------------------------------------------------------
+`PUBLIC_VIEWER`   - Read-only access to portfolio KPIs, project roster, project dossiers, and trajectories.
+                  - Cannot view internal data anomaly logs or trigger report ingestions.
+                  - Subject to public rate-limiting (100 requests / minute).
+
+`NODAL_OFFICER`   - Read access to all public data + agency-specific operational drilldowns.
+                  - Can acknowledge alerts for projects belonging to their designated agency.
+                  - Rate limit: 500 requests / minute.
+
+`MOSPI_ADMIN`     - Full unrestricted system access.
+                  - Can upload Flash Report PDFs (`POST /api/v1/ingest/flash-report`).
+                  - Can inspect data anomaly logs (`data_anomalies_log`), manage users, and re-run batch scoring.
+                  - Rate limit: Unlimited.
+------------------------------------------------------------------------------------------------------------------------
+
+
+========================================================================================================================
+PART 7 — MASTER BACKEND DEVELOPER IMPLEMENTATION CHECKLIST
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+PHASE            TASK DESCRIPTION                                                           VERIFICATION CHECK
+------------------------------------------------------------------------------------------------------------------------
+Database Setup   Deploy PostgreSQL 16 instance & execute DDL schema from Part 1             Tables, indexes, ENUMs created
+Historical Load  Ingest 21,555 master rows, 350 completed rows, 743 newly added rows        0 duplicate keys verified
+ML Matrix Load   Ingest 15,769 scored rows from `integrated_risk_scores.csv` into DB        Risk scores match CSV exactly
+View Creation    Deploy `v_project_monthly_dossier` SQL view for Layer B analytics          Derived metrics match formulas
+API Endpoints    Implement FastAPI routes: Health, Meta, Portfolio, Projects, Trajectory    JSON schemas match Part 3
+Project Dossier  Implement `GET /api/v1/projects/{id}` returning complete 3-layer JSON      Payload matches Frontend Spec Part 15
+Filtering Engine Implement multi-criteria search, state/agency multi-select, and pagination Query response time < 50ms
+Caching Layer    Configure Redis 7 caching for portfolio KPIs and meta endpoints            Cache hit response < 10ms
+Worker Queue     Configure Celery worker for background PDF ingestion and batch inference   Worker successfully extracts PDF
+Alerts Engine    Implement ML & rule-based alert evaluation on batch insertion              Alerts generated with correct severity
+Security & RBAC  Implement JWT auth with PUBLIC_VIEWER, NODAL_OFFICER, MOSPI_ADMIN roles    Protected routes enforce roles
+Data Export      Implement CSV streaming exporter for filtered project queries              Exports valid CSV with correct headers
+------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+END OF BACKEND API AND DATABASE SPECIFICATION
+========================================================================================================================
