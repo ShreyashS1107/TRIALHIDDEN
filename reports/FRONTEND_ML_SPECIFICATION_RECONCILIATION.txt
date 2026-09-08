@@ -1,0 +1,199 @@
+========================================================================================================================
+FRONTEND & AI/ML SPECIFICATION RECONCILIATION REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Prepared by: Senior AI/ML Engineering & UI/UX Architecture Team
+Target File: reports/FRONTEND_ML_SPECIFICATION_RECONCILIATION.txt
+Status: FRONTEND_ML_SPECIFICATION_STATUS = CONSISTENT
+Date of Audit: September 2026
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+EXECUTIVE SUMMARY
+------------------------------------------------------------------------------------------------------------------------
+A comprehensive reconciliation audit was conducted on `reports/FRONTEND_REQUIREMENTS_FROM_ML.txt` to align the frontend
+data specification, dashboard contracts, explainability rules, and user interaction requirements with the finalized
+AI/ML architecture, backend API endpoints, and database schemas.
+
+STATUS:
+========================================================================================================================
+FRONTEND_ML_SPECIFICATION_STATUS = CONSISTENT
+========================================================================================================================
+All frontend requirements have been fully verified against the frozen production models, execution risk audits,
+OCMS enrichment findings, and backend REST API contracts. Zero unsupported features, causal hallucinations, or
+obsolete ML targets remain in the specification.
+
+
+========================================================================================================================
+SECTION 1 — FILES INSPECTED & SOURCE-OF-TRUTH HIERARCHY
+========================================================================================================================
+
+1.1 FILES INSPECTED:
+- `reports/FRONTEND_REQUIREMENTS_FROM_ML.txt` (Existing Frontend Specification)
+- `reports/BACKEND_API_AND_DATABASE_SPECIFICATION.txt` (Backend API & PostgreSQL DDL Spec)
+- `reports/BACKEND_REQUIREMENTS_FROM_ML.txt` (Backend Data & ML Requirements Contract)
+- `reports/AI_ML_COMPLETE_JOURNEY.txt` (Complete End-to-End AI/ML Technical Journey)
+- `reports/EXECUTION_RISK_FINAL_DECISION.txt` & `reports/EXECUTION_RISK_COMPLETE_AUDIT.txt` (Execution Risk Audits)
+- `reports/EXECUTION_RISK_OVERLAP_ANALYSIS.txt` & `reports/EXECUTION_RISK_PRESCRIPTIVE_LOGIC.txt` (ESI & Prescriptive Logic)
+- `reports/OCMS_ENRICHMENT_RECONCILIATION.txt` (OCMS Historical Data Audit)
+- `ml/risk_engine/integrated_risk_scores.csv` (15,769 Frozen Scored Records)
+- `experiments/execution_risk/execution_stress_scores.csv` (15,769 ESI Scored Records)
+
+1.2 SOURCE-OF-TRUTH RESOLUTION HIERARCHY:
+1. Frozen production ML model artifacts and final evaluation reports (`ml/`, `experiments/execution_risk/`)
+2. Execution Risk final decision and audit reports (`EXECUTION_RISK_FINAL_DECISION.txt`, `EXECUTION_RISK_COMPLETE_AUDIT.txt`)
+3. OCMS enrichment reconciliation report (`OCMS_ENRICHMENT_RECONCILIATION.txt`)
+4. Backend API & database specification (`BACKEND_API_AND_DATABASE_SPECIFICATION.txt`)
+5. Backend requirements from ML (`BACKEND_REQUIREMENTS_FROM_ML.txt`)
+6. Frontend requirements from ML (`FRONTEND_REQUIREMENTS_FROM_ML.txt`)
+
+
+========================================================================================================================
+SECTION 2 — SUMMARY OF CORRECTIONS & ENHANCEMENTS MADE
+========================================================================================================================
+
+1. Integration of Pillar 2 (Operational Execution Surveillance):
+   - Problem in Prior Spec: The frontend specification previously focused exclusively on Predictive ML Risk and Layer B
+     derived metrics, completely omitting the Execution-Stress Index (ESI).
+   - Correction: Added comprehensive specifications for the deterministic Operational Execution-Stress Index (ESI),
+     its 5 constituent stress dimensions ($S_{\text{stag}}, S_{\text{vel}}, S_{\text{div}}, S_{\text{sched}}, S_{\text{rep}}$),
+     5 discrete operational flags, alert tiers ('NOMINAL', 'WATCH', 'ATTENTION', 'HIGH_PRIORITY'), and dominant stressor.
+
+2. Cross-Quadrant & Non-Redundancy Justification:
+   - Problem in Prior Spec: Did not explain the critical operational relationship between predictive risk and execution stress.
+   - Correction: Formulated the 2x2 dual-perspective surveillance grid and documented the empirical evidence ($\rho = 0.1360$,
+     $65.4\%$ off-diagonal high-stress alerts occurring on Low/Moderate predictive risk projects).
+
+3. Prescriptive Monitoring Action Logic Framework:
+   - Problem in Prior Spec: Lacked standardized prescriptive monitoring recommendations for monitoring officers.
+   - Correction: Codified the 6 approved administrative action directives (`SITE_OBSTACLE_AUDIT`, `FINANCIAL_PHYSICAL_ALIGNMENT_AUDIT`,
+     `RESOURCE_MOBILIZATION_DIRECTIVE`, `CRITICAL_PATH_RECALIBRATION`, `DATA_COMPLIANCE_DIRECTIVE`, `INTER_MINISTERIAL_COMMITTEE_ESCALATION`).
+
+4. Tri-Source Alerting Architecture:
+   - Problem in Prior Spec: Alerting rules merged ML predictions and operational rules without clear categorical separation.
+   - Correction: Formally separated alerts into **Predictive ML Alerts**, **Execution Surveillance Alerts**, and **Rule-Based Flags**.
+
+5. OCMS Historical Data Context Policy:
+   - Problem in Prior Spec: Did not clearly delineate OCMS historical data from real-time ML inputs.
+   - Correction: Codified `OCMS_EXPERIMENT_VALIDITY = VALID_AFTER_DOCUMENTATION_CORRECTION`, strictly banning OCMS priors from ML
+     inference features and restricting OCMS data to historical benchmarking cards and context curves.
+
+6. Provenance & Versioning Metadata:
+   - Problem in Prior Spec: Lacked explicit requirements for displaying snapshot epochs and model/pipeline versions.
+   - Correction: Added `report_month`, `scored_at`, `model_version`, `feature_version`, and `execution_index_version`.
+
+7. Unified Frontend-to-Backend JSON Contract & Field Traceability Matrix:
+   - Problem in Prior Spec: JSON schema lacked Pillar 2 execution fields and full field traceability.
+   - Correction: Updated Part 18 JSON contract and added Part 19 Master Field Traceability & Reconciliation Matrix.
+
+
+========================================================================================================================
+SECTION 3 — VERIFICATION OF FINAL AI/ML OUTPUTS
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+OUTPUT FIELD                     PILLAR / LAYER    TYPE            RANGE / VALUES       FINALIZED MODEL / SOURCE & METRICS
+------------------------------------------------------------------------------------------------------------------------
+`schedule_delay_risk`            Pillar 1 (Pred)   Calibrated Prob [0.0000, 1.0000]     RF_02 + Platt Scaling (OOT ROC: 0.9723, PR: 0.9722, Brier: 0.0389)
+`cost_overrun_risk`              Pillar 1 (Pred)   Model Score     [0.0000, 1.0000]     Balanced RF (OOT ROC: 0.9895, PR: 0.9881, Brier: 0.0386)
+`schedule_revision_risk`         Pillar 1 (Pred)   Warning Score   [0.0000, 1.0000]     Logistic Regression (OOT ROC: 0.8264, PR: 0.0519, Brier: 0.0176)
+`selected_integrated_risk`       Pillar 1 (Pred)   Oper. Index     [0.0000, 1.0000]     Candidate B: 0.50*Sched + 0.35*Cost + 0.15*SRev
+`risk_band`                      Pillar 1 (Pred)   Enum Badge      LOW/MOD/HIGH/VERY_HI Candidate B Thresholds ([0, 0.30), [0.30, 0.60), [0.60, 0.80), >=0.80)
+`dominant_component`             Pillar 1 (Pred)   Enum Label      3 Pillar Names       Pillar contributing largest weighted share
+`schedule_contribution`          Pillar 1 (Pred)   Float           [0.0000, 0.5000]     0.50 * schedule_delay_risk
+`cost_contribution`              Pillar 1 (Pred)   Float           [0.0000, 0.3500]     0.35 * cost_overrun_risk
+`schedule_revision_contribution` Pillar 1 (Pred)   Float           [0.0000, 0.1500]     0.15 * schedule_revision_risk
+`execution_stress_index` (ESI)   Pillar 2 (Exec)   Analytical Idx  [0.0000, 1.0000]     Deterministic: 0.30*Stag+0.25*Vel+0.20*Div+0.15*Sched+0.10*Rep
+`esi_tier`                       Pillar 2 (Exec)   Enum Badge      NOMINAL/WATCH/ATTN/HI Thresholds: <0.35, 0.35-<0.55, 0.55-<0.75, >=0.75
+`dominant_stressor`              Pillar 2 (Exec)   Enum Label      5 Stressor Types     Dominant observable site friction factor
+`s_stag, s_vel, s_div, s_sched, s_rep` Pillar 2    Float Sub-scores[0.0000, 1.0000]     Standardized dimension scores
+`flag_stag, flag_vel, flag_div, flag_sched, flag_rep` Pillar 2     SmallInt 0 or 1      Discrete binary operational flags
+`total_stress_flags`             Pillar 2 (Exec)   SmallInt        0 to 5               Count of active operational stress flags
+`suggested_action`               Pillar 2 (Exec)   Prescriptive    6 Action Codes       Deterministic mapping from stress triggers
+------------------------------------------------------------------------------------------------------------------------
+
+
+========================================================================================================================
+SECTION 4 — VERIFICATION OF PRODUCTION EXCLUSIONS & GUARDRAILS
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+EXCLUDED CAPABILITY              ENFORCEMENT MECHANISM IN FRONTEND SPECIFICATION
+------------------------------------------------------------------------------------------------------------------------
+`cost_revision_event_3m`         Permanently excluded from all charts, tables, risk metrics, and filter dropdowns.
+Supervised Execution ML Prob     Explicitly prohibited. ESI is presented exclusively as an observable analytical index.
+LLM Natural Language Excuses     Prohibited. UI cards must display mathematical dimensions and factual indicators only.
+Future Multi-Year Forecasting    Prohibited. Time-series charts display historical curves; no multi-year forward projections.
+OCMS Priors in Real-Time ML      Prohibited. OCMS data is labeled strictly as "Historical Context / Benchmark Reference".
+Causal Blame (Contractor/Legal)  Prohibited. Terminology enforced: "Observable Indicator", "Estimated Risk", "Suggested Action".
+------------------------------------------------------------------------------------------------------------------------
+
+
+========================================================================================================================
+SECTION 5 — FRONTEND-TO-BACKEND FIELD TRACEABILITY MATRIX
+========================================================================================================================
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FRONTEND REQUIREMENT          BACKEND API SOURCE            ML / ANALYTICAL SOURCE          DATA TYPE      REQ/OPT   STATUS                          TRACEABILITY NOTES
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Project Identity              `project_identity`            `projects` Master Table         Object         REQ       SUPPORTED                       ID, Name, Agency, State, Code
+Report Month (Epoch)          `project_identity.report_month``monthly_snapshots.report_month`String        REQ       SUPPORTED                       ISO YYYY-MM
+Reported Facts (Layer A)      `project_facts`               `monthly_snapshots` Table       Object         REQ       SUPPORTED                       Cost, Spend, Progress, DOCs
+Derived Analytics (Layer B)   `derived_analytics`           `v_project_monthly_dossier` View Object        REQ       SUPPORTED                       12 Engineering Metrics
+Schedule Delay Risk           `predictive_risk.schedule_risk`RF_02 Platt Calibrated Model   Float          REQ       SUPPORTED                       Calibrated Probability %
+Cost Overrun Risk             `predictive_risk.cost_risk`   Balanced Random Forest Model    Float          REQ       SUPPORTED                       Model Score [0.0, 1.0]
+Schedule Revision Risk        `predictive_risk.srev_risk`   Logistic Regression Model       Float          REQ       SUPPORTED                       Warning Score [0.0, 1.0]
+Integrated Risk Index         `predictive_risk.integrated`  Candidate B Formula (50/35/15)  Float          REQ       SUPPORTED                       Operational Index [0.0, 1.0]
+Predictive Risk Band          `predictive_risk.risk_band`   Thresholded Risk Tier           Enum           REQ       SUPPORTED                       LOW/MODERATE/HIGH/VERY_HIGH
+Dominant Risk Pillar          `predictive_risk.dominant`    Pillar Argmax Attribution       Enum           REQ       SUPPORTED                       Schedule Delay / Cost / Revision
+Component Risk Breakdown      `predictive_risk.contrib`     Exact Weight Contributions      Float          REQ       SUPPORTED                       0.50*S, 0.35*C, 0.15*R
+Execution-Stress Index (ESI)  `execution_profile.esi`       Deterministic ESI Formula       Float          REQ       SUPPORTED                       Composite Index [0.0, 1.0]
+ESI Surveillance Tier         `execution_profile.esi_tier`  Thresholded ESI Tier            Enum           REQ       SUPPORTED                       NOMINAL/WATCH/ATTN/HIGH_PRI
+Dominant Execution Stressor   `execution_profile.dominant`  Stressor Argmax Attribution     Enum           REQ       SUPPORTED                       Velocity/Stag/Div/Sched
+5 ESI Stress Components       `execution_profile.components`$S_{\text{stag}}, S_{\text{vel}}, S_{\text{div}}, S_{\text{sched}}, S_{\text{rep}}$ Float REQ SUPPORTED Sub-scores in [0.0, 1.0]
+5 Active Stress Flags         `execution_profile.flags`     Binary Stress Thresholds        SmallInt       REQ       SUPPORTED                       Discrete 0/1 flags
+Observable Site Indicators    `execution_profile.indicators`Deterministic Text Engine       Array[String]  REQ       SUPPORTED                       Factual bullet points
+Prescriptive Monitoring Action`execution_profile.action`    Prescriptive Action Matrix      Object         REQ       SUPPORTED                       Directive & Action Code
+Provenance & Versions         `predictive_risk.version`     Registry & Pipeline Metadata    String         REQ       SUPPORTED                       model, feature, esi versions
+Historical Trajectories       `historical_series`           Monthly Snapshots + Scores DB   Array[Object]  REQ       SUPPORTED                       15-month history
+Data Quality Anomaly Flags    `data_quality_flags`          `data_anomalies_log` Table      Array[String]  REQ       SUPPORTED                       The 1,868 rows policy
+OCMS Historical Benchmarks    `GET /api/v1/benchmarks/ocms` `ocms_historical_benchmarks`    Object         OPT       SUPPORTED_WITH_CLARIFICATION    Context only; NO ML
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+========================================================================================================================
+SECTION 6 — 3-WAY AUTOMATED CONSISTENCY AUDIT RESULTS
+========================================================================================================================
+
+Executed `python scripts/backend_spec_audit/audit_specs.py` across all three specification files:
+
+------------------------------------------------------------------------------------------------------------------------
+AUDIT CHECK ITEM                                                     STATUS    VERIFICATION DETAILS
+------------------------------------------------------------------------------------------------------------------------
+Feature Universe (75 features: 71 num + 4 cat) in all specs          PASS      Consistent in frontend, backend & ML docs
+Integrated Risk Formula (0.50/0.35/0.15) in all specs                PASS      Consistent in frontend, backend & ML docs
+ESI Formula (0.30/0.25/0.20/0.15/0.10) in all specs                  PASS      Consistent in frontend, backend & ML docs
+ESI Alert Tiers (NOMINAL, WATCH, ATTENTION, HIGH_PRIORITY)           PASS      Consistent in frontend, backend & ML docs
+Non-Redundancy Overlap Metrics (rho = 0.1360, 65.4%)                 PASS      Consistent in frontend, backend & ML docs
+Target Exclusion: cost_revision_event_3m & ML execution prob banned  PASS      Consistent in frontend, backend & ML docs
+OCMS Historical Data: Analytics context only, banned from ML         PASS      Consistent in frontend, backend & ML docs
+OOT Model Metrics (0.9723, 0.9895, 0.8264)                           PASS      Consistent in frontend, backend & ML docs
+Versioning & Provenance Fields in all specs                          PASS      Consistent in frontend, backend & ML docs
+Prescriptive Monitoring Actions Matrix (6 directives)                PASS      Consistent in frontend, backend & ML docs
+PostgreSQL DDL Table Definitions (Pillar 1, Pillar 2, OCMS)          PASS      Verified DDL tables and view joins
+Frontend-Backend Dossier Payload Symmetry                            PASS      Exact payload structure match
+------------------------------------------------------------------------------------------------------------------------
+
+AUDIT SUMMARY: 12 / 12 CHECKS PASSED (100% COMPLIANCE).
+
+
+========================================================================================================================
+SECTION 7 — FINAL ACCEPTANCE & STATUS
+========================================================================================================================
+
+The frontend requirements specification now accurately, rigorously, and exhaustively reflects the finalized AI/ML
+architecture. Developers building frontend screens can rely on `reports/FRONTEND_REQUIREMENTS_FROM_ML.txt` with zero
+ambiguity regarding ML outputs, statistical natures, operational tiers, or backend integration endpoints.
+
+========================================================================================================================
+FRONTEND_ML_SPECIFICATION_STATUS = CONSISTENT
+========================================================================================================================

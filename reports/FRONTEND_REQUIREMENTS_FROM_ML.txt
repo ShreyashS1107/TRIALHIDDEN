@@ -1,603 +1,592 @@
 ========================================================================================================================
 FRONTEND & DASHBOARD DATA SPECIFICATION AND REQUIREMENTS CONTRACT
 SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
-Prepared by: AI/ML Engineering Team
-Target Audience: Frontend Development Team, Backend Engineering Team, Project Stakeholders
+Prepared by: AI/ML Engineering Team & System Architecture Core Team
+Target Audience: Frontend Development Team, UI/UX Engineers, Backend Engineering Team, Product Managers
 Target File: reports/FRONTEND_REQUIREMENTS_FROM_ML.txt
+Status: FINAL PRODUCTION SPECIFICATION
 ========================================================================================================================
 
 PURPOSE OF THIS DOCUMENT:
-This specification provides an authoritative, complete, and rigorous definition of all data points, status
-indicators, machine learning outputs, analytical metrics, search/filter criteria, and user interactions that the
-frontend dashboard must support to correctly represent the SIH26103 AI/ML and project monitoring system.
+This specification establishes the authoritative, binding requirements contract for the Frontend Development and UI/UX
+teams building the SIH26103 MoSPI / IPMD Integrated Project-Monitoring Platform. It defines the exact data points,
+two-pillar analytical structure (Predictive Outcome Engine + Operational Execution Surveillance), status indicators,
+deterministic derived engineering metrics, multi-dimensional explainability fields, prescriptive monitoring actions,
+portfolio aggregations, search/filter criteria, temporal safeguards, and user interaction workflows.
 
 CRITICAL ARCHITECTURAL CONSTRAINTS FOR FRONTEND:
-1. NO UI PRESCRIBED: This document does NOT prescribe page layouts, screen counts, colors, fonts, cards, or styling.
-   The frontend developer has complete UI/UX architectural freedom to arrange and visualize these elements.
-2. STRICT TRACEABILITY: Every single element defined herein is traceable to:
-   (a) The frozen AI/ML risk scoring engine,
-   (b) The normalized MoSPI/PAIMANA longitudinal dataset (21,555 project-months across 2,741 projects),
-   (c) Verified analytical engineering indicators, or
-   (d) Explicit system/UX interaction requirements.
-3. ZERO INVENTED ML CAPABILITIES: The frontend must not invent ML outputs or misrepresent predictive signals as
-   deterministic physical causes (e.g. claiming the model detected "contractor delays" or "land acquisition issues").
+1. NO UI/LAYOUT PRESCRIBED:
+   This document does NOT dictate visual themes, colors, CSS frameworks, fonts, cards, or specific page wireframes.
+   The frontend engineering team has complete UI/UX freedom to design modern, intuitive, and responsive interfaces.
+2. STRICT MATHEMATICAL TRACEABILITY:
+   Every single displayed metric, risk score, execution index, and attribution percentage must map directly to:
+   (a) The frozen production predictive ML models,
+   (b) The deterministic Operational Execution-Stress Index (ESI) engine,
+   (c) The normalized MoSPI/PAIMANA longitudinal dataset (21,555 records across 2,741 projects), or
+   (d) The standardized REST API contracts defined in `reports/BACKEND_API_AND_DATABASE_SPECIFICATION.txt`.
+3. ZERO INVENTED ML CAPABILITIES & NO CAUSAL FABRICATION:
+   The frontend MUST NOT invent unsupported ML outputs (e.g. "Execution Failure Probability", "Future Expenditure Forecasts",
+   or "LLM Causal Diagnoses") or misrepresent statistical indicators as verified physical root causes (e.g. claiming the
+   system detected "contractor insolvency" or "land litigation" when source reports contain no such logs).
 
 
 ========================================================================================================================
-PART 1 — THE ACTIVE AI/ML RISK ENGINE & EXCLUDED RESEARCH TARGETS
+PART 1 — THE ACTIVE AI/ML TWO-PILLAR ARCHITECTURE
 ========================================================================================================================
 
-The AI/ML subsystem evaluates infrastructure project distress using a 3-month fixed-horizon point-in-time formulation
-(predicting project health at horizon t + 3 months using data available strictly on or before reporting month t).
+The AI/ML subsystem is organized into TWO complementary, non-overlapping analytical pillars:
 
-1.1 ACTIVE PILLARS IN THE OPERATIONAL RISK ENGINE:
--------------------------------------------------
-1. Primary Pillar: schedule_delay_3m
-   - Model Architecture : Tuned Random Forest (RF_02: 200 trees, max_depth=12, min_samples_leaf=5, sqrt features)
-   - Calibration        : Formally calibrated using Platt Sigmoid Scaling (fitted strictly on Validation set)
-   - Out-of-Time (OOT)  : ROC-AUC = 0.9723, PR-AUC = 0.9722, Brier Score = 0.0389, ECE = 0.0279
-   - Operational Role   : Primary calibrated probability signal of operational deadline breach within 3 months.
+------------------------------------------------------------------------------------------------------------------------
+1.1 PILLAR 1: PREDICTIVE OUTCOME ENGINE (3-Month Fixed-Horizon ML Forecasting)
+------------------------------------------------------------------------------------------------------------------------
+Forecasts the statistical probability and likelihood of adverse terminal delivery outcomes over the next 3 months:
 
-2. Secondary Pillar 1: cost_overrun_state_3m
-   - Model Architecture : Random Forest (Balanced class weighting: 200 trees, max_depth=12, min_samples_leaf=5)
-   - Calibration        : Uncalibrated ranking risk score in [0.00, 1.00]
-   - Out-of-Time (OOT)  : ROC-AUC = 0.9895, PR-AUC = 0.9881, Precision@Top10% = 99.74%, Lift = 3.13x
-   - Operational Role   : Secondary risk signal measuring the likelihood of structural financial expansion (> original budget).
+1. Primary Model: Schedule Delay Risk (`schedule_delay_risk`)
+   - Champion Model      : RF_02 (Tuned Random Forest: 200 trees, max_depth=12, min_samples_leaf=5, sqrt features).
+   - Calibration Pipeline: Platt Sigmoid Scaling (fitted strictly on Validation set logits via LogisticRegression).
+   - Out-of-Time Metrics : ROC-AUC = 0.9723, PR-AUC = 0.9722, Calibrated Brier Score = 0.0389, ECE = 0.0279.
+   - Nature & Type       : CALIBRATED PROBABILITY in range [0.0000, 1.0000] (0.0% to 100.0%).
+   - Operational Meaning : Model-estimated calibrated probability of breaching the sanctioned completion date within 3 months.
 
-3. Secondary Pillar 2: schedule_revision_3m
-   - Model Architecture : Logistic Regression (L2 regularization, Unweighted)
-   - Calibration        : Uncalibrated ranking risk score in [0.00, 1.00]
-   - Out-of-Time (OOT)  : ROC-AUC = 0.8264, PR-AUC = 0.0519, Precision@Top10% = 4.22%, Lift = 3.55x
-   - Operational Role   : Early warning signal for administrative milestone rescheduling / target date revisions.
+2. Secondary Model 1: Cost Overrun Risk (`cost_overrun_risk`)
+   - Champion Model      : Balanced Random Forest (200 trees, max_depth=12, min_samples_leaf=5, class_weight='balanced').
+   - Out-of-Time Metrics : ROC-AUC = 0.9895, PR-AUC = 0.9881, Brier Score = 0.0386, Precision@Top10% = 99.74%, Lift = 3.13x.
+   - Nature & Type       : CONTINUOUS MODEL SCORE / PROBABILITY in range [0.0000, 1.0000].
+   - Operational Meaning : Likelihood that the project will operate in a structural budget overrun state (> original budget).
 
-4. Integrated Multi-Dimensional Risk Index: selected_integrated_risk
-   - Formulation        : Candidate B (Evidence-Weighted Architecture selected on Validation split)
-   - Formula            : Integrated_Risk = (0.50 * schedule_delay_risk) + (0.35 * cost_overrun_risk) + (0.15 * schedule_revision_risk)
-   - Nature             : Composite operational surveillance index in [0.00, 1.00] (NOT a calibrated univariate probability)
-   - Out-of-Time (OOT)  : Schedule Delay ROC = 0.9559 | Cost Overrun ROC = 0.8921 | Schedule Revision ROC = 0.7466
+3. Secondary Model 2: Schedule Revision Warning (`schedule_revision_risk`)
+   - Champion Model      : Regularized Logistic Regression (L2 penalty, unweighted, C=1.0).
+   - Out-of-Time Metrics : ROC-AUC = 0.8264, PR-AUC = 0.0519, Precision@Top10% = 4.22%, Lift = 3.55x.
+   - Nature & Type       : MODEL PROBABILITY / WARNING SCORE in range [0.0000, 1.0000].
+   - Operational Meaning : Early warning signal for upcoming administrative completion date extensions or milestone re-baselining.
 
-5. Operational Risk Bands: risk_band
-   - Tiers              : LOW [0.00, 0.30), MODERATE [0.30, 0.60), HIGH [0.60, 0.80), VERY_HIGH [0.80, 1.00]
-   - Monotonicity       : Strictly monotonic increasing empirical failure rates on untouched OOT holdout.
+4. Multi-Dimensional Integrated Predictive Risk Index (`selected_integrated_risk` / `integrated_risk`)
+   - Candidate B Formula : Integrated_Risk = (0.50 * schedule_delay_risk) + (0.35 * cost_overrun_risk) + (0.15 * schedule_revision_risk)
+   - Nature & Type       : OPERATIONAL TRIAGE INDEX in range [0.0000, 1.0000].
+   - CRITICAL GUARDRAIL  : MUST NOT be labeled as a "calibrated probability of project failure". It is an operational prioritization index.
 
-6. Risk Attribution & Dominance: dominant_component & component contributions
-   - Components         : schedule_contribution (50% wt), cost_contribution (35% wt), schedule_revision_contribution (15% wt)
-   - Dominant Output    : Identifies whether Schedule Delay, Cost Overrun, or Schedule Revision is the largest mathematical contributor.
+5. Predictive Risk Bands (`risk_band`):
+   - Production Tiers    : LOW (< 0.30) | MODERATE (0.30 to < 0.60) | HIGH (0.60 to < 0.80) | VERY_HIGH (>= 0.80).
+   - Standardized Tiers  : LOW (< 0.35) | MODERATE (0.35 to < 0.55) | HIGH (0.55 to < 0.75) | VERY_HIGH (>= 0.75).
+   - Monotonicity        : Verified monotonic increasing failure rates on untouched OOT holdout (Delay rate: 0.08% -> 97.73%).
 
-1.2 STRICTLY EXCLUDED TARGET (DO NOT DISPLAY / DO NOT USE):
------------------------------------------------------------
-- Excluded Model        : cost_revision_event_3m
-- Diagnostic Reason     : During Out-of-Time (OOT) testing, this model experienced a severe performance collapse
-                          (OOT ROC-AUC = 0.4394 < 0.50, Precision@Top10% = 0.53%, Lift@Top10% = 0.56x) caused by a 10x
-                          fiscal base-rate collapse (21.9% event rate in April 2025 -> 0.9% in February 2026) and positive
-                          profile inversion.
-- Formal Repository Status: STRICTLY EXCLUDED FROM ACTIVE RISK ENGINE. MOVED TO RESEARCH_ONLY.
-- MANDATORY FRONTEND RULE: Under NO circumstances should cost_revision_event_3m be included as an active risk feature,
-  dashboard metric, or alert filter.
+------------------------------------------------------------------------------------------------------------------------
+1.2 PILLAR 2: OPERATIONAL EXECUTION SURVEILLANCE (Point-in-Time Site Friction)
+------------------------------------------------------------------------------------------------------------------------
+Monitors current observable site execution friction, physical stagnation, and financial divergence at month t:
+
+1. Scientific Finding: `SUPERVISED_EXECUTION_RISK_TARGET = NOT_SUPPORTED`
+   - Published PAIMANA reports do not contain qualitative contractor dispute records, court injunction logs, or milestone tables.
+   - Candidate stagnation targets suffer from a 2.5x base-rate collapse caused by reporting structure transitions.
+   - Supervised execution models fail Out-of-Time generalization (Logistic Regression ROC-AUC = 0.5585).
+   - Therefore, the execution surveillance layer is formulated as a deterministic, leak-free analytical index.
+
+2. Operational Execution-Stress Index (ESI) Formula:
+   ESI = (0.30 * S_stag) + (0.25 * S_vel) + (0.20 * S_div) + (0.15 * S_sched) + (0.10 * S_rep)
+   - Nature & Type       : DETERMINISTIC ANALYTICAL INDEX in range [0.0000, 1.0000].
+   - CRITICAL GUARDRAIL  : ESI is NOT an ML probability, NOT a prediction of project failure, and NOT a causal diagnosis.
+                           It measures observable site friction and operational stress right now.
+
+3. The 5 Constituent Stress Dimensions:
+   - $S_{\text{stag}}$ (30% weight): Physical progress stagnation stress (months of zero progress + remaining work scale).
+   - $S_{\text{vel}}$  (25% weight): Progress velocity deterioration stress (recent 3-month construction speed < 0.5%/mo).
+   - $S_{\text{div}}$  (20% weight): Capital burn vs physical progress divergence stress (spend ratio exceeding progress > 25%).
+   - $S_{\text{sched}}$(15% weight): Schedule slippage magnitude and overdue debt stress (accumulated delay months).
+   - $S_{\text{rep}}$  (10% weight): Observation quality, reporting gaps, and revision volatility friction.
+
+4. ESI Operational Alert Tiers (`esi_tier` / `execution_stress_band`):
+   - 'NOMINAL'       : ESI < 0.35          (~65.2% of projects; Smooth physical progress, balanced spending)
+   - 'WATCH'         : 0.35 <= ESI < 0.55  (~26.9% of projects; Early deceleration, 1-2 months stagnation)
+   - 'ATTENTION'     : 0.55 <= ESI < 0.75  (~7.6% of projects; Confirmed stagnation >= 3m OR divergence > 25%)
+   - 'HIGH_PRIORITY' : ESI >= 0.75         (~0.2% of projects; Critical deadlock across 3+ dimensions)
+
+------------------------------------------------------------------------------------------------------------------------
+1.3 STRICTLY EXCLUDED RESEARCH TARGET (DO NOT DISPLAY / DO NOT USE)
+------------------------------------------------------------------------------------------------------------------------
+- Excluded Model        : `cost_revision_event_3m`
+- Diagnostic Reason     : Suffered severe Out-of-Time generalization collapse (OOT ROC-AUC = 0.4394, Lift = 0.56x) due to
+                          a 10x fiscal base-rate collapse (21.9% -> 0.9%).
+- MANDATORY FRONTEND BAN: Do NOT include `cost_revision_event_3m` as a metric, dashboard chart, or filter option.
 
 
 ========================================================================================================================
-PART 2 — DEFINITIVE USER-FACING ML OUTPUT SPECIFICATION
+PART 2 — DEFINITIVE USER-FACING ML OUTPUT SPECIFICATION (PILLAR 1)
 ========================================================================================================================
 
-The machine learning pipeline outputs a standardized tabular dataset (ml/risk_engine/integrated_risk_scores.csv).
-The frontend must accurately display each of the following ML fields:
+The frontend must accurately display each of the following predictive ML fields:
 
 ------------------------------------------------------------------------------------------------------------------------
 1. Field Name: schedule_delay_risk
    - Display Label      : "Schedule Delay Risk (3-Month)"
-   - Simple Meaning     : Model-estimated probability that the project will experience an operational schedule delay over the next 3 months.
-   - Expected Range     : [0.0000, 1.0000] (or 0.0% to 100.0%)
-   - Output Nature      : Calibrated Probability (Sigmoid / Platt scaling on RF_02)
-   - Operational Index? : No, this is a formal calibrated statistical probability.
-   - User Display       : YES. Direct numeric percentage / gauge / progress bar.
-   - Explanatory Text   : "Calibrated probability of project breaching original completion date within the next 3 months."
+   - Simple Meaning     : Model-estimated probability that the project will experience a schedule delay over the next 3 months.
+   - Expected Range     : [0.0000, 1.0000] (Display as percentage: 0.0% to 100.0%).
+   - Output Nature      : Calibrated Probability (Sigmoid / Platt scaling on RF_02).
+   - User Display       : Direct percentage gauge, progress indicator, or numeric badge.
+   - Guardrail Language : "Estimated probability of project exceeding sanctioned completion date within 3 months."
 
 2. Field Name: cost_overrun_risk
    - Display Label      : "Cost Overrun Risk (3-Month)"
-   - Simple Meaning     : Model-estimated risk score indicating the likelihood of the project being in a cost overrun state (> original sanctioned cost) at the 3-month horizon.
-   - Expected Range     : [0.0000, 1.0000] (or 0.0 to 1.0 ranking score)
-   - Output Nature      : Risk Score / Continuous Model Score (Random Forest Balanced)
-   - Operational Index? : No, uncalibrated model score.
-   - User Display       : YES. Continuous risk indicator / score.
-   - Explanatory Text   : "Model risk score indicating probability of project exceeding original sanctioned budget within 3 months."
+   - Simple Meaning     : Model-estimated risk score indicating likelihood of project being in a structural budget overrun state.
+   - Expected Range     : [0.0000, 1.0000] (Display as score: 0.00 to 1.00 or percentage).
+   - Output Nature      : Continuous Model Score / Probability (Balanced Random Forest).
+   - User Display       : Continuous risk score bar / gauge.
+   - Guardrail Language : "Model score measuring statistical likelihood of project exceeding sanctioned baseline cost."
 
 3. Field Name: schedule_revision_risk
    - Display Label      : "Schedule Revision Risk (3-Month)"
-   - Simple Meaning     : Model-estimated early warning score indicating likelihood that authorities will formally revise/extend the project deadline within the next 3 months.
-   - Expected Range     : [0.0000, 1.0000] (or 0.0 to 1.0 ranking score)
-   - Output Nature      : Risk Score / Administrative Warning Signal (Logistic Regression)
-   - Operational Index? : No, uncalibrated model score.
-   - User Display       : YES. Secondary warning indicator.
-   - Explanatory Text   : "Early warning score for upcoming administrative deadline extensions or completion date revisions."
+   - Simple Meaning     : Model-estimated early warning score indicating likelihood of upcoming administrative milestone extension.
+   - Expected Range     : [0.0000, 1.0000] (Display as score: 0.00 to 1.00 or percentage).
+   - Output Nature      : Model Probability / Warning Score (Logistic Regression).
+   - User Display       : Secondary warning badge / gauge.
+   - Guardrail Language : "Early warning indicator for potential administrative deadline revisions."
 
 4. Field Name: selected_integrated_risk (or integrated_risk)
    - Display Label      : "Integrated Risk Index"
-   - Simple Meaning     : Multi-dimensional composite surveillance index synthesizing schedule delay, financial expansion, and administrative rescheduling risks into a single unified triage score.
-   - Expected Range     : [0.0000, 1.0000] (Index score from 0.00 to 1.00)
-   - Output Nature      : Composite Operational Index: (0.50 * Schedule) + (0.35 * Cost) + (0.15 * Schedule Revision)
-   - Operational Index? : YES. This is explicitly an operational prioritization index, NOT a single univariate probability.
-   - User Display       : YES. Primary project sorting metric, portfolio heatmaps, and project detail risk headers.
-   - Explanatory Text   : "Composite multi-dimensional surveillance index for prioritization and executive review."
+   - Simple Meaning     : Multi-dimensional composite surveillance index synthesizing schedule delay, financial expansion, and administrative rescheduling risks.
+   - Expected Range     : [0.0000, 1.0000] (Index score from 0.00 to 1.00).
+   - Output Nature      : Composite Operational Index: (0.50 * Schedule) + (0.35 * Cost) + (0.15 * Revision).
+   - User Display       : Primary sorting metric, portfolio summary cards, and project risk headers.
+   - Guardrail Language : "Composite surveillance index for portfolio prioritization. (Operational index, not a probability)."
 
 5. Field Name: risk_band
-   - Display Label      : "Operational Risk Tier" / "Risk Band"
-   - Simple Meaning     : Operational triage category classifying project monitoring urgency.
-   - Expected Values    : 'LOW', 'MODERATE', 'HIGH', 'VERY_HIGH'
-   - Output Nature      : Categorical Classification / Triage Tier
-   - Operational Index? : YES. Thresholded operational band.
-   - User Display       : YES. Prominent status badge / tag across all views.
+   - Display Label      : "Predictive Risk Band" / "Risk Tier"
+   - Simple Meaning     : Triage category for monitoring urgency based on the integrated predictive score.
+   - Expected Values    : 'LOW', 'MODERATE', 'HIGH', 'VERY_HIGH'.
+   - User Display       : Prominent status badge / tag across all views.
    - Explanatory Text   :
-     * LOW       : Score < 0.30 (Low combined risk signals; project progressing within sanctioned baseline)
-     * MODERATE  : 0.30 <= Score < 0.60 (Emerging risk signals; requires routine surveillance)
-     * HIGH      : 0.60 <= Score < 0.80 (Elevated combined risk signals; requires close management review)
-     * VERY_HIGH : Score >= 0.80 (Strongest combined distress signals; requires immediate executive intervention)
+     * LOW       : Score < 0.30 (Low combined risk signals; progressing within baseline)
+     * MODERATE  : 0.30 <= Score < 0.60 (Emerging risk signals; routine surveillance required)
+     * HIGH      : 0.60 <= Score < 0.80 (Elevated combined risk signals; active management review required)
+     * VERY_HIGH : Score >= 0.80 (Strongest combined distress signals; priority executive intervention)
 
 6. Field Name: dominant_component
-   - Display Label      : "Primary Risk Component" / "Dominant Factor"
-   - Simple Meaning     : The specific risk pillar contributing the largest numerical share to the project's integrated risk score.
-   - Expected Values    : 'Schedule Delay', 'Cost Overrun', 'Schedule Revision'
-   - Output Nature      : Categorical Label derived from max(schedule_contrib, cost_contrib, srev_contrib)
-   - Operational Index? : N/A (Analytical attribution)
-   - User Display       : YES. Displayed alongside risk scores to highlight the primary distress dimension.
-   - Explanatory Text   : "Indicates which risk dimension (Schedule, Cost, or Revision) contributes most heavily to the overall index."
+   - Display Label      : "Primary Risk Pillar" / "Dominant Factor"
+   - Simple Meaning     : The specific predictive pillar contributing the largest weighted share to the integrated risk score.
+   - Expected Values    : 'Schedule Delay', 'Cost Overrun', 'Schedule Revision'.
+   - User Display       : Pill badge displayed alongside the integrated risk score.
+   - Guardrail Language : "Indicates which risk dimension contributes most heavily to the overall predictive score."
 
 7. Field Names: schedule_contribution, cost_contribution, schedule_revision_contribution
-   - Display Labels     : "Schedule Component Weight", "Cost Component Weight", "Revision Component Weight"
-   - Simple Meaning     : The weighted contribution of each component to the integrated risk score:
-                          - schedule_contribution = 0.50 * schedule_delay_risk
-                          - cost_contribution = 0.35 * cost_overrun_risk
-                          - schedule_revision_contribution = 0.15 * schedule_revision_risk
-   - Expected Range     : [0.0000, 0.5000] for Schedule, [0.0000, 0.3500] for Cost, [0.0000, 0.1500] for Schedule Revision.
-   - Output Nature      : Numerical component breakdown (sums exactly to selected_integrated_risk).
-   - User Display       : YES. Suitable for stacked bar charts, waterfall breakdowns, or radar charts.
+   - Display Labels     : "Schedule Component", "Cost Component", "Revision Component"
+   - Simple Meaning     : Absolute weighted contribution of each pillar:
+                          - schedule_contribution = 0.50 * schedule_delay_risk [0.0000, 0.5000]
+                          - cost_contribution = 0.35 * cost_overrun_risk [0.0000, 0.3500]
+                          - schedule_revision_contribution = 0.15 * schedule_revision_risk [0.0000, 0.1500]
+   - User Display       : Suitable for stacked bar charts, waterfall breakdowns, or radar charts.
 
 8. Field Names: schedule_contrib_pct, cost_contrib_pct, schedule_rev_contrib_pct
-   - Display Labels     : "Schedule Attribution (%)", "Cost Attribution (%)", "Revision Attribution (%)"
-   - Simple Meaning     : Normalized percentage share of total risk generated by each pillar (sums to 100%).
-   - Expected Range     : [0.0%, 100.0%]
-   - Output Nature      : Percentage Breakdown
-   - User Display       : YES. Suitable for pie charts / breakdown tooltips.
+   - Display Labels     : "Schedule Share (%)", "Cost Share (%)", "Revision Share (%)"
+   - Simple Meaning     : Normalized percentage share of total risk generated by each pillar (sums to 100.0%).
+   - User Display       : Suitable for donut charts, attribution bars, or tooltip breakdowns.
 
 
 ========================================================================================================================
-PART 3 — CRITICAL DISTINCTION: PREDICTIVE RISK SIGNALS VS FACTUAL EXPLANATIONS
+PART 3 — DEFINITIVE USER-FACING EXECUTION SURVEILLANCE SPECIFICATION (PILLAR 2)
 ========================================================================================================================
 
-The frontend development team MUST understand the fundamental distinction between a PREDICTIVE RISK SIGNAL and a
-FACTUAL CAUSAL REASON.
+The frontend must accurately display each of the following execution surveillance fields:
 
-3.1 WHAT THE ML SYSTEM ACTUALLY OUTPUTS:
----------------------------------------
-The ML system measures statistical risk signals based on mathematical patterns in project trajectories:
-- Schedule Delay Risk (0.98) means: "The project's timeline runway, construction velocity, and historical progress rate
-  strongly match patterns of projects that fail to complete within 3 months."
-- Cost Overrun Risk (0.85) means: "The project's financial expenditure pace and baseline cost structure indicate an 85%
-  statistical affinity with projects operating in budget overrun."
-- Dominant Component ("Schedule Delay") means: "Schedule delay accounts for the largest proportion of this project's
-  calculated integrated risk score."
+------------------------------------------------------------------------------------------------------------------------
+1. Field Name: execution_stress_index (ESI)
+   - Display Label      : "Execution-Stress Index (ESI)"
+   - Simple Meaning     : Point-in-time analytical index synthesizing current physical stagnation, progress velocity,
+                          expenditure divergence, schedule debt, and reporting friction.
+   - Expected Range     : [0.0000, 1.0000] (Index score from 0.00 to 1.00).
+   - Output Nature      : Deterministic Multi-Dimensional Analytical Index (NOT an ML probability).
+   - User Display       : Gauge, meter, or numeric card with operational tier styling.
+   - Guardrail Language : "Deterministic measurement of current observable site friction and execution stress."
 
-3.2 WHAT THE ML SYSTEM DOES NOT OUTPUT (UNSUPPORTED REAL-WORLD CAUSES):
-----------------------------------------------------------------------
-The PAIMANA dataset does NOT contain structured causal incident logs. The ML models DO NOT know and CANNOT determine:
-- "Delay caused by contractor insolvency"
-- "Stagnation due to environmental litigation"
-- "Cost overrun caused by raw material inflation"
-- "Delay caused by state land acquisition disputes"
-- "Work stopped due to monsoon / weather events"
+2. Field Name: esi_tier (or execution_stress_band)
+   - Display Label      : "Execution Surveillance Tier"
+   - Simple Meaning     : Operational action tier indicating the level of administrative surveillance required.
+   - Expected Values    : 'NOMINAL', 'WATCH', 'ATTENTION', 'HIGH_PRIORITY'.
+   - User Display       : Prominent status badge across tables and project headers.
+   - Explanatory Text   :
+     * NOMINAL       : ESI < 0.35 (Smooth physical execution; balanced spending)
+     * WATCH         : 0.35 <= ESI < 0.55 (Early momentum deceleration; 1-2 months stagnation)
+     * ATTENTION     : 0.55 <= ESI < 0.75 (Confirmed stagnation >= 3m OR heavy expenditure divergence > 25%)
+     * HIGH_PRIORITY : ESI >= 0.75 (Critical compound deadlock across physical, financial, and schedule dimensions)
 
-3.3 MANDATORY INSTRUCTIONS FOR FRONTEND:
----------------------------------------
-1. DO NOT create a UI section titled "Reasons for Project Delay" or "Why Project Failed" that invents causal stories.
-2. DO NOT mislabel "dominant_component" as "Root Cause of Delay". Label it "Primary Risk Pillar" or "Dominant Score Component".
-3. If an interpretability / breakdown card is built, show the THREE MATHEMATICAL RISK PILLARS (Schedule Delay, Cost Overrun,
-   Schedule Revision) and engineered velocity/stagnation metrics, NOT fabricated natural language excuses.
+3. Field Name: dominant_stressor
+   - Display Label      : "Primary Execution Stressor"
+   - Simple Meaning     : The specific operational dimension creating the highest weighted friction at month t.
+   - Expected Values    : 'Progress Velocity Collapse', 'Physical Progress Stagnation', 'Expenditure Divergence',
+                          'Schedule Slippage Debt', 'Reporting Friction'.
+   - User Display       : Descriptive badge highlighting the key observable site challenge.
+
+4. Component Stress Scores: s_stag, s_vel, s_div, s_sched, s_rep
+   - Display Labels     : "Stagnation Stress", "Velocity Stress", "Divergence Stress", "Schedule Debt", "Reporting Quality"
+   - Simple Meaning     : Standardized stress sub-scores in [0.0000, 1.0000] across the 5 dimensions.
+   - User Display       : 5-bar horizontal breakdown, radar chart, or metric cards.
+
+5. Stress Flags: flag_stag, flag_vel, flag_div, flag_sched, flag_rep, total_stress_flags
+   - Display Labels     : "Active Operational Warning Flags"
+   - Simple Meaning     : Discrete binary indicators for severe stagnation, severe velocity collapse (<0.5%/mo),
+                          severe divergence (>25% pts spread), major schedule slippage (>=12m), and reporting friction.
+   - User Display       : Warning chips / count badge (e.g. "3 / 5 Active Flags").
 
 
 ========================================================================================================================
-PART 4 — PROJECT-LEVEL ATTRIBUTES (PAIMANA DATASET AUDIT)
+PART 4 — WHY BOTH PILLARS EXIST: NON-REDUNDANCY & CROSS-QUADRANT MATRIX
+========================================================================================================================
+
+The frontend must visually and conceptually convey that Predictive Risk and Current Execution Stress are NOT redundant:
+
+4.1 STATISTICAL EVIDENCE:
+- Low Rank Correlation: Spearman $\rho = 0.1360$ between ESI and Integrated Predictive Risk (Pearson $r = 0.1590$).
+- 65.4% Off-Diagonal Alerts: 809 project-months exhibit high site friction (ESI $\ge 0.55$) on projects classified
+  as Low or Moderate Predictive Risk by the ML models.
+
+4.2 THE 2x2 DUAL-PERSPECTIVE SURVEILLANCE GRID:
+The frontend dashboard should support visualizing projects across the 2x2 monitoring matrix:
+
+  +-------------------------------------+-------------------------------------+
+  | Quadrant II: EARLY SITE STALLS      | Quadrant I: CRITICAL INTERVENTION   |
+  | High Execution Stress (ESI >= 0.55) | High Execution Stress (ESI >= 0.55) |
+  | Low/Med Predictive Risk (< 0.55)    | High/Crit Predictive Risk (>= 0.55) |
+  |                                     |                                     |
+  | Profile: Early-stage project with   | Profile: Compounding disaster. Past |
+  | deadline years away, but site work  | due or massive overrun + site work  |
+  | is frozen right now (0% for 4 mos). | currently deadlocked.               |
+  | Action: Field audit before delay    | Action: Inter-Ministerial Pragati   |
+  | hardens into terminal failure.      | escalation and emergency review.    |
+  +-------------------------------------+-------------------------------------+
+  | Quadrant III: NOMINAL HEALTH        | Quadrant IV: RECOVERING LEGACY      |
+  | Low Execution Stress (ESI < 0.35)   | Low Execution Stress (ESI < 0.35)   |
+  | Low/Med Predictive Risk (< 0.55)    | High/Crit Predictive Risk (>= 0.55) |
+  |                                     |                                     |
+  | Profile: Healthy construction, on   | Profile: Mature legacy project with |
+  | schedule, balanced expenditure.     | massive past delay, but actively    |
+  | Action: Standard automated monthly  | progressing at 3.5%/month right now.|
+  | dashboard surveillance.             | Action: Track to revised schedule;  |
+  |                                     | suppress false operational alarms.  |
+  +-------------------------------------+-------------------------------------+
+
+
+========================================================================================================================
+PART 5 — RISK INTERPRETABILITY & EXPLAINABILITY CONTRACT
+========================================================================================================================
+
+The frontend must present transparent, mathematically grounded explanations while strictly adhering to scientific guardrails:
+
+5.1 SUPPORTED EXPLANATORY SIGNALS (DISPLAY THESE):
+1. Mathematical Attribution: Exact contribution of Schedule (50%), Cost (35%), and Revision (15%) to Integrated Risk.
+2. Observable Predictive Feature Drivers:
+   - Deadline Runway (`months_to_original_doc_t`): Negative value indicates project is operating past original sanctioned date.
+   - Schedule Status (`current_schedule_status_as_of_t`): Baseline on-time vs. administratively revised vs. past-due.
+   - Execution Velocity (`progress_velocity_1m_t`, `progress_velocity_3m_t`): Actual monthly physical completion rates.
+   - Stagnation Duration (`months_since_last_progress_increase_t`): Consecutive months at 0% physical progress change.
+   - Financial Divergence (`expenditure_progress_divergence`): Spread between expenditure ratio and physical progress.
+   - Cost Escalation Ratio (`cost_escalation_percent`): Percentage expansion over sanctioned budget.
+3. Observable Execution Indicators: Specific plain-language factual statements generated deterministically from stress flags
+   (e.g. "Physical progress has remained flat at 45.2% for 4 consecutive reporting months").
+
+5.2 UNSUPPORTED CAUSAL CLAIMS (STRICTLY PROHIBITED):
+1. DO NOT claim the system knows physical or contractual root causes (e.g. "Delay caused by contractor insolvency").
+2. DO NOT display fabricated natural language excuses.
+3. DO NOT label dominant mathematical factors as "Root Cause of Delay". Label them "Primary Risk Driver" or "Dominant Stressor".
+
+
+========================================================================================================================
+PART 6 — PRESCRIPTIVE MONITORING ACTION LOGIC FRAMEWORK
+========================================================================================================================
+
+The frontend must display suggested administrative monitoring actions generated deterministically from the approved
+prescriptive logic matrix. Recommendations must be presented as decision-support suggestions for monitoring officers:
+
+------------------------------------------------------------------------------------------------------------------------
+TRIGGER CONDITION        OBSERVABLE SITE BEHAVIOUR              SUGGESTED ACTION CODE & DIRECTIVE TEXT
+------------------------------------------------------------------------------------------------------------------------
+$S_{\text{stag}} \ge 0.75$ or   Zero physical progress recorded for    `SITE_OBSTACLE_AUDIT`: Issue automated query to
+months_stag >= 3         3+ consecutive reporting cycles.       Implementing Agency regarding physical site access, land
+                                                                acquisition encumbrances, or contractor abandonment.
+------------------------------------------------------------------------------------------------------------------------
+$S_{\text{div}}$ (Spread > +25%) Cumulative expenditure significantly   `FINANCIAL_PHYSICAL_ALIGNMENT_AUDIT`: Direct field
+                         exceeds physical realization.          verification of contractor billing against physical milestones;
+                                                                audit unspent mobilization advances and escrow balances.
+------------------------------------------------------------------------------------------------------------------------
+$S_{\text{vel}}$ (Velocity < 0.5%) Execution momentum severely below    `RESOURCE_MOBILIZATION_DIRECTIVE`: Request joint review of
+with > 40% work pending  minimum planned run-rate.              contractor plant, machinery, and skilled labor deployment.
+------------------------------------------------------------------------------------------------------------------------
+$S_{\text{sched}}$ (Slippage >= 12m Breached original completion       `CRITICAL_PATH_RECALIBRATION`: Convene Project Review
+or Overdue > 6m)         charter or multiple revisions.         Committee (PRC) to re-baseline critical path milestones.
+------------------------------------------------------------------------------------------------------------------------
+$S_{\text{rep}}$ (Reporting Gap) Missed reporting cycles or omitted     `DATA_COMPLIANCE_DIRECTIVE`: Issue administrative compliance
+                         physical progress reporting.           notice to Departmental Nodal Officer to restore monthly reporting.
+------------------------------------------------------------------------------------------------------------------------
+COMPOUND (ESI >= 0.75    Concurrent physical stall, heavy       `INTER_MINISTERIAL_COMMITTEE_ESCALATION`: Escalate to IPMD /
+with >= 3 flags)         divergence, and schedule slippage.     MoSPI Central Monitoring Committee and Cabinet Secretariat Pragati.
+------------------------------------------------------------------------------------------------------------------------
+
+
+========================================================================================================================
+PART 7 — PROJECT-LEVEL RAW FACTS & LONGITUDINAL ATTRIBUTES
 ========================================================================================================================
 
 The underlying database contains 21,555 monthly project records extracted from 15 MoSPI Flash Reports (April 2025 – June 2026).
-Below is the classification of every available project attribute:
+Below is the classification of all available project attributes:
 
 ------------------------------------------------------------------------------------------------------------------------
-ATTRIBUTE NAME                DATA TYPE   SCHEMA FIELD NAME              AVAILABILITY   STATUS & NOTES
+ATTRIBUTE NAME                DATA TYPE   SCHEMA FIELD NAME              AVAILABILITY   STATUS & FRONTEND ROLE
 ------------------------------------------------------------------------------------------------------------------------
-Project ID                    String      project_id                     100.0%         CORE. 6-digit canonical PAIMANA ID. Primary key with month.
+Project ID                    String      project_id                     100.0%         CORE. 6-digit canonical PAIMANA ID.
 Project Name                  String      project_name                    99.84%        CORE. Official project title.
-Implementing Agency           String      agency                         100.0%         CORE. PSU / Agency executing work (e.g. NHAI, MoRTH, NTPC, PGCIL).
-State / Location              String      state                          100.0%         CORE. Indian State / UT / Multi-State / Offshore location.
-Legacy OCMS Code              String      legacy_ocms_code                70.80%        USEFUL. Alphanumeric legacy tracking code (e.g. N24001476).
-Approval / Start Date         Date/Str    approval_start_date             99.01%        CORE. Baseline sanction date (ISO YYYY-MM).
-Original Completion Date      Date/Str    original_completion_date        97.85%        CORE. Sanctioned Original Date of Commissioning (DOC) (ISO YYYY-MM).
-Revised Completion Date       Date/Str    revised_completion_date         24.04%        USEFUL. Latest administratively revised DOC (ISO YYYY-MM).
-                                                                                        (Null when project is still on original schedule).
-Actual Completion Date        Date/Str    actual_completion_date         (Table 3)      USEFUL. Only exists for 350 completed projects in Table 3.
-Original Sanctioned Cost      Float       original_cost_crore             99.54%        CORE. Original sanctioned capital budget in ₹ Crore.
-Revised Cost                  Float       revised_cost_crore              99.41%        CORE. Current estimated / anticipated cost in ₹ Crore.
-Cumulative Expenditure        Float       cumulative_expenditure_crore    99.23%        CORE. Total actual financial spend to date in ₹ Crore.
-Physical Progress             Float       physical_progress_percent       94.62%        CORE. Cumulative engineering progress percentage [0.0% – 100.0%].
-Report Month / Epoch          Date/Str    report_month                   100.0%         CORE. Monthly reporting snapshot epoch (YYYY-MM).
-Source Table                  String      source_table                   100.0%         USEFUL. Table 6 (Ongoing), Table 3 (Completed), Table 4 (New).
-Source File                   String      source_file                    100.0%         OPTIONAL. PDF report filename (e.g. FRApril2025.pdf).
-Ministry / Department         String      (Extracted in Agency/State)    Partial        OPTIONAL. Often embedded within agency or state strings in raw PDF.
-Contractor Name               N/A         N/A                              0.0%         NOT AVAILABLE. Not tracked in Flash Report PDFs.
-Milestone Schedule (L1/L2/L3) N/A         N/A                              0.0%         NOT AVAILABLE. Individual work packages not reported in Flash Reports.
-Land Acquisition Hectares     N/A         N/A                              0.0%         NOT AVAILABLE. Spatial/land acquisition breakdown not reported.
-Geo-Coordinates / GIS shape   N/A         N/A                              0.0%         NOT AVAILABLE. No latitude/longitude in source PDF reports.
+Implementing Agency           String      agency                         100.0%         CORE. CPSU / Executing agency (NHAI, NTPC, etc.).
+State / Territory             String      state                          100.0%         CORE. State / UT / Multi-State location.
+Legacy OCMS Code              String      legacy_ocms_code                70.80%        CONTEXT. 8-character legacy tracking code.
+Approval / Sanction Date      Date/Str    approval_start_date             99.01%        CORE. Baseline sanction date (ISO YYYY-MM).
+Original Completion Date      Date/Str    original_completion_date        97.85%        CORE. Sanctioned Original DOC (ISO YYYY-MM).
+Revised Completion Date       Date/Str    revised_completion_date         24.04%        CORE. Latest anticipated DOC (ISO YYYY-MM).
+Actual Completion Date        Date/Str    actual_completion_date         (Table 3)      CONTEXT. Exists for 350 completed projects.
+Original Sanctioned Cost      Float       original_cost_crore             99.54%        CORE. Sanctioned budget in ₹ Crore.
+Revised / Anticipated Cost    Float       revised_cost_crore              99.41%        CORE. Current estimated cost in ₹ Crore.
+Cumulative Expenditure        Float       cumulative_expenditure_crore    99.23%        CORE. Actual spend to date in ₹ Crore.
+Physical Progress (%)         Float       physical_progress_percent       94.62%        CORE. Engineering progress [0.0% – 100.0%].
+Report Month / Epoch          Date/Str    report_month                   100.0%         CORE. Snapshot epoch (YYYY-MM).
+Source Table & File           String      source_table, source_file      100.0%         AUDIT. Flash Report provenance info.
+Contractor Name               N/A         N/A                              0.0%         NOT AVAILABLE in source PDF reports.
+Milestone Schedule (L1/L2/L3) N/A         N/A                              0.0%         NOT AVAILABLE in source PDF reports.
+Land Acquisition Breakdown    N/A         N/A                              0.0%         NOT AVAILABLE in source PDF reports.
+Geo-Coordinates / GIS shape   N/A         N/A                              0.0%         NOT AVAILABLE in source PDF reports.
 
 
 ========================================================================================================================
-PART 5 — PROJECT STATUS: THREE-LAYER SEPARATION
+PART 8 — DETERMINISTIC LAYER B DERIVED ENGINEERING ANALYTICS
 ========================================================================================================================
 
-The frontend must strictly preserve the distinction between RAW PROJECT FACTS, DERIVED ANALYTICS, and ML PREDICTIONS:
-
-------------------------------------------------------------------------------------------------------------------------
-LAYER A: RAW PROJECT FACTS (Reported Directly by MoSPI / PAIMANA)
-------------------------------------------------------------------------------------------------------------------------
-These are administrative figures reported directly by implementing ministries:
-1. Physical Progress (%)                 : physical_progress_percent (e.g. 63.59%)
-2. Cumulative Expenditure (₹ Cr)         : cumulative_expenditure_crore (e.g. ₹515.30 Cr)
-3. Original Sanctioned Cost (₹ Cr)       : original_cost_crore (e.g. ₹517.05 Cr)
-4. Revised / Anticipated Cost (₹ Cr)     : revised_cost_crore (e.g. ₹655.06 Cr)
-5. Sanction Approval Date                : approval_start_date (e.g. 2021-09)
-6. Original Completion Date (DOC)        : original_completion_date (e.g. 2022-09)
-7. Latest Revised Completion Date        : revised_completion_date (e.g. 2024-09)
-8. Actual Completion Date                : actual_completion_date (for Table 3 projects)
-9. Report Monitoring Month               : report_month (e.g. 2025-04)
-
-------------------------------------------------------------------------------------------------------------------------
-LAYER B: DERIVED ANALYTICAL INDICATORS (Calculated Deterministically from Data)
-------------------------------------------------------------------------------------------------------------------------
-These are objective mathematical calculations computed from raw facts (NOT machine learning models):
-1. Cost Escalation (₹ Cr)                : revised_cost_crore - original_cost_crore
-2. Cost Escalation (%)                   : cost_escalation_pct_t = ((revised_cost - original_cost) / original_cost) * 100
-3. Expenditure Ratio (%)                 : expenditure_ratio_pct_t = (cumulative_expenditure / original_cost) * 100
-4. Remaining Physical Progress (%)       : remaining_physical_progress_t = 100.0 - physical_progress_t
-5. Schedule Slippage (Months)            : schedule_slippage_months_t = months_between(revised_DOC, original_DOC)
-6. Months to Original Deadline           : months_to_original_doc_t = months_between(original_DOC, report_month)
-   (Negative value indicates project is already past original sanctioned deadline).
-7. Planned Project Duration (Months)     : months_between(original_DOC, approval_start_date)
-8. Current Project Age (Months)          : months_between(report_month, approval_start_date)
-9. Progress Velocity (1-Month)           : progress_velocity_1m_t = progress(t) - progress(t-1)
-10. Progress Velocity (3-Month Rolling)  : progress_velocity_3m_t = (progress(t) - progress(t-3)) / 3.0
-11. Stagnation Indicator (3-Month)       : stagnant_3m_t (Flag: 1 if physical progress increased 0.0% over last 3 months)
-12. Stagnation Streak (Months)           : months_since_last_progress_increase_t (Count of consecutive months at 0% change)
-13. Expenditure vs Progress Divergence   : expenditure_ratio_pct_t - physical_progress_percent
-    (Identifies capital burn outpacing physical site execution).
-
-------------------------------------------------------------------------------------------------------------------------
-LAYER C: MACHINE LEARNING RISK SIGNALS (Statistical Model Outputs)
-------------------------------------------------------------------------------------------------------------------------
-These are forward-looking predictive signals generated by trained AI/ML algorithms:
-1. Schedule Delay Risk (3-Month)         : schedule_delay_risk (Calibrated probability [0.0, 1.0])
-2. Cost Overrun Risk (3-Month)           : cost_overrun_risk (Continuous model score [0.0, 1.0])
-3. Schedule Revision Risk (3-Month)      : schedule_revision_risk (Early warning score [0.0, 1.0])
-4. Integrated Risk Index                 : selected_integrated_risk (Operational surveillance index [0.0, 1.0])
-5. Operational Risk Band                 : risk_band (Categorical triage tier: LOW / MODERATE / HIGH / VERY_HIGH)
-6. Dominant Risk Pillar                  : dominant_component (Primary mathematical risk driver)
-7. Risk Pillar Contributions             : schedule_contribution, cost_contribution, schedule_revision_contribution
+The frontend must present Layer B derived metrics calculated deterministically from raw facts (zero ML inference overhead):
+1. `cost_escalation_crore`              : revised_cost_crore - original_cost_crore (₹ Crore)
+2. `cost_escalation_percent`            : Percentage budget expansion over sanctioned baseline (%)
+3. `expenditure_ratio_percent`          : Cumulative expenditure as percentage of original budget (%)
+4. `remaining_physical_progress`        : 100.0 - physical_progress_percent (%)
+5. `schedule_slippage_months`           : Total months delayed relative to original DOC
+6. `months_to_original_doc`             : Months remaining to original deadline (negative indicates overdue)
+7. `planned_duration_months`            : Total baseline project lifecycle in months
+8. `project_age_months`                 : Elapsed project lifecycle from sanction to report month
+9. `progress_velocity_1m`               : Month-over-month physical progress change (% delta)
+10. `progress_velocity_3m`              : 3-month rolling average progress velocity (% / month)
+11. `stagnant_3m_flag`                  : Binary indicator (1 if physical progress was flat for 3 months)
+12. `months_since_last_progress_increase`: Consecutive months at 0% physical progress increase
+13. `expenditure_progress_divergence`   : Expenditure ratio (%) minus physical progress (%) spread
 
 
 ========================================================================================================================
-PART 6 — TIME-SERIES, LONGITUDINAL TRAJECTORIES & TREND METRICS
+PART 9 — COMPREHENSIVE PROJECT DOSSIER REQUIREMENTS
 ========================================================================================================================
 
-The dataset spans 15 monthly reporting epochs (2025-04 through 2026-06). The frontend can legitimately visualize
-the following longitudinal trends:
+When inspecting an individual infrastructure project, the frontend should expose seven structured functional sections:
+
+Section A: Project Identity
+- Project ID (6-digit PAIMANA code)
+- Project Name (Full infrastructure title)
+- Implementing Agency & State / Location
+- Legacy OCMS Code (if mapped) & Reporting Epoch
+
+Section B: Current Reported Facts (Layer A)
+- Sanction Approval Date & Sanctioned Baseline Cost (₹ Cr)
+- Original vs. Revised Completion Date (DOC)
+- Current Revised Cost & Cumulative Expenditure to Date (₹ Cr)
+- Cumulative Physical Progress Percentage (%)
+
+Section C: Derived Engineering Analytics (Layer B)
+- Cost Escalation (₹ Cr & %) & Expenditure Ratio (%)
+- Remaining Physical Progress (%) & Accumulated Slippage (Months)
+- Months Remaining to Original Sanctioned Deadline
+- 1-Month Progress Velocity & 3-Month Rolling Velocity (%/mo)
+- Stagnation Status (Active / Stagnant >= 3m / Stagnant >= 6m)
+- Expenditure / Physical Progress Divergence Spread (% points)
+
+Section D: Predictive Risk Profile (Pillar 1)
+- Integrated Risk Index [0.00 – 1.00] & Predictive Risk Band Badge
+- Dominant Risk Pillar & Component Contribution Breakdown (50% Sched / 35% Cost / 15% Rev)
+- Schedule Delay Risk (% calibrated probability)
+- Cost Overrun Risk Score [0.00 – 1.00] & Schedule Revision Risk Score [0.00 – 1.00]
+- Model Version (`model_version`) & Feature Pipeline Version (`feature_version`)
+
+Section E: Execution Surveillance Profile (Pillar 2)
+- Execution-Stress Index (ESI) [0.00 – 1.00] & ESI Tier Badge (NOMINAL / WATCH / ATTENTION / HIGH_PRIORITY)
+- Dominant Execution Stressor & 5-Dimension Sub-Score Breakdown
+- Active Operational Warning Flags Count & Chips
+- Execution Index Version (`execution_index_version`)
+
+Section F: Explanation & Prescriptive Monitoring Actions
+- Observable site warning indicators (factual trajectory patterns)
+- Recommended Prescriptive Monitoring Action (Action Code, Action Title, Directive Text)
+
+Section G: Historical Longitudinal Trajectories
+- Monthly Physical Progress Curve vs. Expenditure Curve (2025-04 to 2026-06)
+- Monthly Integrated Risk Trend vs. Execution-Stress Index Trend
+
+
+========================================================================================================================
+PART 10 — HISTORICAL TRAJECTORIES & LONGITUDINAL TIME-SERIES METRICS
+========================================================================================================================
+
+The dataset spans 15 monthly reporting epochs (2025-04 to 2026-06) with 12 scored prediction epochs (2025-04 to 2026-03).
+The frontend can legitimately visualize the following longitudinal series:
 
 ------------------------------------------------------------------------------------------------------------------------
 TREND / TIME-SERIES METRIC    DATA REQUIREMENTS                  CALCULATED BY       FRONTEND DISPLAY SUITABILITY
 ------------------------------------------------------------------------------------------------------------------------
-Physical Progress History     Monthly physical_progress_percent  Raw Backend Data    HIGHLY SUITABLE. Line chart / Area chart
-                              across report_months (t_1 to t_n).                     showing execution curve over time.
-
-Cumulative Spend History      Monthly cumulative_expenditure     Raw Backend Data    HIGHLY SUITABLE. Line chart tracking
-                              across report_months.                                  financial burn trajectory.
-
-Cost Revision Trajectory      Monthly revised_cost_crore vs      Raw Backend Data    HIGHLY SUITABLE. Step chart showing
-                              original_cost_crore.                                   budget escalations over project lifecycle.
-
-Schedule Revision History     Monthly revised_completion_date    Raw Backend Data    HIGHLY SUITABLE. Timeline chart showing
-                              vs original_completion_date.                           shifting completion milestones.
-
-Progress Velocity Over Time   Month-over-month delta_progress    Derived Analytics   SUITABLE. Bar chart showing acceleration
-                              (velocity_1m, velocity_3m).        (Backend)           vs stagnation month by month.
-
-Stagnation Periods            Historical stagnant_3m_t streaks   Derived Analytics   SUITABLE. Highlighted warning zones /
-                              (e.g. 6 consecutive flat months).  (Backend)           freeze indicators on timeline.
-
-Integrated Risk Score Trend   Historical selected_integrated_    ML Risk Engine      SUITABLE for 12 epochs (2025-04 to
-                              risk from integrated_scores.csv.   (Pre-computed CSV)  2026-03). Shows risk trajectory over time.
-
-DO NOT INVENT: Do NOT extrapolate synthetic daily/weekly data or generate fake future risk projections beyond the 3-month
-horizon supported by the models.
+Physical Progress History     Monthly physical_progress_percent  Raw Backend Data    Line chart showing execution curve
+Cumulative Spend History      Monthly cumulative_expenditure     Raw Backend Data    Line chart tracking financial burn
+Cost Revision Trajectory      Monthly revised_cost_crore         Raw Backend Data    Step chart showing budget revisions
+Schedule Revision History     Monthly revised_completion_date    Raw Backend Data    Timeline showing shifting milestones
+Progress Velocity Over Time   Month-over-month delta_progress    Derived Analytics   Bar chart showing acceleration/stall
+Integrated Risk Score Trend   Historical selected_integrated_risk ML Risk Engine     Trend line showing predictive risk over time
+Execution Stress Index Trend  Historical execution_stress_index  ESI Engine          Trend line showing operational friction over time
 
 
 ========================================================================================================================
-PART 7 — OPERATIONAL RISK BANDS: STRATIFICATION & COMMUNICATION TIERS
+PART 11 — PORTFOLIO & DASHBOARD-LEVEL METRICS SPECIFICATION
 ========================================================================================================================
 
-The operational risk bands are defined by fixed mathematical thresholds on the Integrated Risk Index:
-
-------------------------------------------------------------------------------------------------------------------------
-RISK BAND      SCORE RANGE     PORTFOLIO SHARE   EMPIRICAL SCHEDULE DELAY   EMPIRICAL COST OVERRUN   OPERATIONAL INTERPRETATION
-------------------------------------------------------------------------------------------------------------------------
-LOW            [0.00, 0.30)    32.83% (1,271)    0.08% failure rate         6.13% failure rate       Low combined risk signals. Project is
-                                                                                                     progressing on schedule & within budget.
-
-MODERATE       [0.30, 0.60)    37.95% (1,469)    83.73% failure rate        12.45% failure rate      Emerging combined risk signals. Requires
-                                                                                                     routine surveillance and milestone tracking.
-
-HIGH           [0.60, 0.80)    17.54% (679)      90.58% failure rate        76.83% failure rate      Elevated combined risk signals. Established
-                                                                                                     operational delays or active cost expansion.
-
-VERY_HIGH      [0.80, 1.00]    11.68% (452)      97.73% failure rate        99.77% failure rate      Strongest combined distress signals. Past-due
-                                                                                                     or severe overruns; priority intervention.
-
-IMPORTANT NOTES FOR FRONTEND:
-1. Operational Index vs Probability: The Risk Band is based on an operational triage index, NOT a calibrated univariate probability.
-2. Verified Monotonicity: Empirical delay and cost overrun rates are strictly monotonic across tiers (LOW < MODERATE < HIGH < VERY_HIGH).
-3. Objective Communication: Describe tiers as "Surveillance and Triage Priority Tiers", not as punitive failure judgements.
-
-
-========================================================================================================================
-PART 8 — MULTI-DIMENSIONAL RISK BREAKDOWN & ATTRIBUTION
-========================================================================================================================
-
-The frontend must NOT collapse project health into a single opaque number. It must display the complete multi-dimensional
-breakdown:
-
-8.1 THE THREE ACTIVE RISK DIMENSIONS:
-------------------------------------
-1. Schedule Delay Risk    : [0.00 – 1.00] (Calibrated probability of operational deadline breach)
-2. Cost Overrun Risk      : [0.00 – 1.00] (Model score of budget escalation state)
-3. Schedule Revision Risk : [0.00 – 1.00] (Early warning score of formal administrative extension)
-
-8.2 INTEGRATED RISK FORMULATION (CANDIDATE B):
-----------------------------------------------
-Integrated_Risk = (0.50 * Schedule_Delay_Risk) + (0.35 * Cost_Overrun_Risk) + (0.15 * Schedule_Revision_Risk)
-
-8.3 MATHEMATICAL ATTRIBUTION BREAKDOWN:
----------------------------------------
-For any project snapshot:
-- schedule_contribution          = 0.50 * schedule_delay_risk          (Max possible: 0.50)
-- cost_contribution              = 0.35 * cost_overrun_risk            (Max possible: 0.35)
-- schedule_revision_contribution = 0.15 * schedule_revision_risk       (Max possible: 0.15)
-- Sum of Contributions           = selected_integrated_risk
-
-8.4 DOMINANCE DETERMINATION:
----------------------------
-dominant_component = argmax(schedule_contribution, cost_contribution, schedule_revision_contribution)
-- Portfolio Dominance Distribution (OOT Holdout):
-  * Schedule Delay Dominant : 63.94% (2,475 projects)
-  * Cost Overrun Dominant   : 35.78% (1,385 projects)
-  * Schedule Revision Dom   :  0.28% (11 projects)
-
-
-========================================================================================================================
-PART 9 — RISK INTERPRETABILITY: SUPPORTED MODEL SIGNALS VS UNSUPPORTED CAUSES
-========================================================================================================================
-
-------------------------------------------------------------------------------------------------------------------------
-SUPPORTED INTERPRETABILITY SIGNALS (DISPLAY THESE)
-------------------------------------------------------------------------------------------------------------------------
-1. Component Contribution Breakdown: Display the exact numerical and percentage contribution of Schedule (50%),
-   Cost (35%), and Revision (15%) to the integrated score.
-2. Dominant Risk Pillar: Highlight which pillar accounts for the largest fraction of risk.
-3. Top Predictive Feature Drivers (from Model Importance & Feature Engine):
-   - Deadline Runway           : months_to_original_doc_t (Projects with < 3 months or past due have highest risk).
-   - Historical Schedule Status: current_schedule_status_as_of_t (On-schedule vs Past-due).
-   - Execution Velocity        : progress_velocity_1m_t, progress_velocity_3m_t.
-   - Stagnation Streaks        : months_since_last_progress_increase_t (>= 3 months zero-progress).
-   - Capital Expenditure Ratio : expenditure_ratio_pct_t vs physical_progress_percent.
-   - Cost Escalation Ratio     : cost_escalation_pct_t (Percentage cost increase over sanctioned baseline).
-
-------------------------------------------------------------------------------------------------------------------------
-UNSUPPORTED CLAIMS (DO NOT DISPLAY / DO NOT IMPLEMENT)
-------------------------------------------------------------------------------------------------------------------------
-1. DO NOT claim the model identified real-world physical impediments such as "land acquisition", "forest clearance",
-   "contractor disputes", "court injunctions", or "bad weather".
-2. DO NOT create fake natural language explanations.
-3. Clearly label interpretability widgets as "Model Feature Drivers & Risk Dimensions".
-
-
-========================================================================================================================
-PART 10 — PORTFOLIO & DASHBOARD-LEVEL METRICS SPECIFICATION
-========================================================================================================================
-
-The frontend must be capable of presenting aggregated system-level statistics across the entire project monitoring universe.
-Below is the definitive catalog of dashboard metrics:
+The frontend must present aggregated system-level statistics across the entire project monitoring portfolio:
 
 ------------------------------------------------------------------------------------------------------------------------
 METRIC NAME                 DEFINITION / FORMULA                                    DATA SOURCE           LAYER TYPE
 ------------------------------------------------------------------------------------------------------------------------
 Total Monitored Projects    COUNT(DISTINCT project_id) at current report_month      Master Dataset        Raw Fact
 Total Sanctioned Budget     SUM(original_cost_crore) across active projects         Master Dataset        Raw Fact
-Total Revised Cost          SUM(revised_cost_crore) across active projects          Master Dataset        Raw Fact
+Total Revised Budget        SUM(revised_cost_crore) across active projects          Master Dataset        Raw Fact
 Total Cumulative Spend      SUM(cumulative_expenditure_crore) across active         Master Dataset        Raw Fact
 Portfolio Cost Escalation   SUM(revised_cost) - SUM(original_cost) in ₹ Cr & %      Master Dataset        Derived Analytics
 Portfolio Mean Progress     AVG(physical_progress_percent) across active projects   Master Dataset        Derived Analytics
-Completed Projects Count    COUNT(project_id) in Table 3 (350 completed projects)   Completed Dataset     Raw Fact
-Newly Added Projects Count  COUNT(project_id) in Table 4 (743 newly added)          New Projects Dataset  Raw Fact
-Low Risk Projects Count     COUNT(project_id WHERE risk_band == 'LOW')              Risk Engine CSV       ML Output
-Moderate Risk Projects      COUNT(project_id WHERE risk_band == 'MODERATE')         Risk Engine CSV       ML Output
-High Risk Projects Count    COUNT(project_id WHERE risk_band == 'HIGH')             Risk Engine CSV       ML Output
-Very High Risk Projects     COUNT(project_id WHERE risk_band == 'VERY_HIGH')        Risk Engine CSV       ML Output
-Portfolio Risk Distribution % Breakdown of projects across the 4 risk bands          Risk Engine CSV       ML Output
-Schedule-Dominant Count     COUNT(project_id WHERE dominant == 'Schedule Delay')    Risk Engine CSV       ML Output
-Cost-Dominant Count         COUNT(project_id WHERE dominant == 'Cost Overrun')      Risk Engine CSV       ML Output
-Revision-Dominant Count     COUNT(project_id WHERE dominant == 'Schedule Revision') Risk Engine CSV       ML Output
-Stagnant Projects (>=3m)    COUNT(project_id WHERE stagnant_3m_t == 1)              Derived Analytics     Derived Analytics
+Predictive Risk Distribution Count & % of projects in LOW, MODERATE, HIGH, VERY_HIGH  ml_risk_scores table  ML Output
+Execution Stress Distrib    Count & % of projects in NOMINAL, WATCH, ATTENTION, HIGH execution_stress_scores ESI Output
+Cross-Quadrant Matrix Count Projects grouped into the 4 dual-perspective quadrants   Joined DB View        Dual Pillar
+Schedule-Dominant Count     COUNT(project_id WHERE dominant == 'Schedule Delay')    ml_risk_scores table  ML Output
+Cost-Dominant Count         COUNT(project_id WHERE dominant == 'Cost Overrun')      ml_risk_scores table  ML Output
+Revision-Dominant Count     COUNT(project_id WHERE dominant == 'Schedule Revision') ml_risk_scores table  ML Output
+Velocity-Collapse Count     COUNT(project_id WHERE dominant_stressor == 'Velocity') execution_stress_scores ESI Output
+Physical-Stagnation Count   COUNT(project_id WHERE dominant_stressor == 'Stagnation')execution_stress_scores ESI Output
+Stagnant Projects (>=3m)    COUNT(project_id WHERE stagnant_3m_flag == 1)           Derived Analytics     Derived Analytics
 Past-Due Projects Count     COUNT(project_id WHERE months_to_original_doc < 0)      Derived Analytics     Derived Analytics
-Projects by State           COUNT & SUM(Cost) grouped by clean_state                Master Dataset        Raw / Derived
-Projects by Agency          COUNT & SUM(Cost) grouped by agency                     Master Dataset        Raw / Derived
-Top Delayed Projects List   Projects sorted by schedule_delay_months DESC           Master Dataset        Derived Analytics
-Top Priority Risk List      Projects sorted by selected_integrated_risk DESC        Risk Engine CSV       ML Output
+Projects by State           COUNT, SUM(Cost), Mean Risk, Mean ESI by State          Aggregated DB         Dual Pillar
+Projects by Agency          COUNT, SUM(Cost), Mean Risk, Mean ESI by Agency         Aggregated DB         Dual Pillar
 
 
 ========================================================================================================================
-PART 11 — SEARCH, FILTERING & SORTING CAPABILITIES
+PART 12 — SEARCH, MULTI-FILTER & SORTING CAPABILITIES
 ========================================================================================================================
 
-The frontend must allow users to query and slice the project database using available fields:
+The frontend must allow users to query and slice the project database using dual-pillar criteria:
 
 ------------------------------------------------------------------------------------------------------------------------
 FILTER / SEARCH CRITERION       SUPPORT STATUS    DATA SOURCE           TECHNICAL FILTER IMPLEMENTATION
 ------------------------------------------------------------------------------------------------------------------------
 Project ID Search               SUPPORTED         Master Dataset        Exact or prefix match on 6-digit project_id.
-Project Name Search             SUPPORTED         Master Dataset        Case-insensitive substring search on project_name.
-State / Region Filter           SUPPORTED         Master Dataset        Multi-select dropdown matching state / clean_state.
-Implementing Agency Filter      SUPPORTED         Master Dataset        Multi-select dropdown matching agency (e.g. NHAI, MoRTH, NTPC).
+Project Name Search             SUPPORTED         Master Dataset        Case-insensitive substring / trigram search.
+State / Region Filter           SUPPORTED         Master Dataset        Multi-select dropdown matching state.
+Implementing Agency Filter      SUPPORTED         Master Dataset        Multi-select dropdown matching agency.
 Legacy OCMS Code Search         SUPPORTED         Master Dataset        Exact substring match on legacy_ocms_code.
-Operational Risk Band Filter    SUPPORTED         Risk Engine CSV       Checkboxes for ['LOW', 'MODERATE', 'HIGH', 'VERY_HIGH'].
-Integrated Risk Score Range     SUPPORTED         Risk Engine CSV       Dual slider [0.00 to 1.00] on selected_integrated_risk.
-Schedule Delay Risk Range       SUPPORTED         Risk Engine CSV       Dual slider [0.00 to 1.00] on schedule_delay_risk.
-Cost Overrun Risk Range         SUPPORTED         Risk Engine CSV       Dual slider [0.00 to 1.00] on cost_overrun_risk.
-Schedule Revision Risk Range    SUPPORTED         Risk Engine CSV       Dual slider [0.00 to 1.00] on schedule_revision_risk.
-Dominant Risk Component Filter  SUPPORTED         Risk Engine CSV       Filter by ['Schedule Delay', 'Cost Overrun', 'Schedule Revision'].
+Predictive Risk Band Filter     SUPPORTED         ml_risk_scores        Checkboxes for ['LOW', 'MODERATE', 'HIGH', 'VERY_HIGH'].
+Execution Stress Tier Filter    SUPPORTED         execution_stress_scores Checkboxes for ['NOMINAL', 'WATCH', 'ATTENTION', 'HIGH_PRIORITY'].
+Integrated Risk Score Range     SUPPORTED         ml_risk_scores        Dual slider [0.00 to 1.00] on selected_integrated_risk.
+Execution Stress Index Range    SUPPORTED         execution_stress_scores Dual slider [0.00 to 1.00] on execution_stress_index.
+Dominant Risk Pillar Filter     SUPPORTED         ml_risk_scores        Filter by ['Schedule Delay', 'Cost Overrun', 'Schedule Revision'].
+Dominant Stressor Filter        SUPPORTED         execution_stress_scores Filter by 5 dominant stressor categories.
 Physical Progress Range (%)     SUPPORTED         Master Dataset        Dual slider [0.0% to 100.0%] on physical_progress_percent.
 Original Sanctioned Cost Range  SUPPORTED         Master Dataset        Range slider [₹150 Cr to ₹150,000 Cr] on original_cost_crore.
-Reporting Month (Epoch)         SUPPORTED         Master Dataset        Date picker / Month selector (2025-04 to 2026-06).
-Project Lifecycle Status        SUPPORTED         Master Dataset        Filter by ['Ongoing' (Table 6), 'Completed' (Table 3), 'Newly Added' (Table 4)].
-Stagnation Flag Filter          SUPPORTED         Derived Analytics     Toggle for stagnant_3m_t == 1 (stagnant for >= 3 months).
-Past-Due Schedule Filter        SUPPORTED         Derived Analytics     Toggle for months_to_original_doc_t < 0.
-Cost Escalation Status          SUPPORTED         Derived Analytics     Filter by [Cost Escalated (>0), Unchanged (=0), Reduced (<0)].
-Ministry / Sector Filter        POSSIBLE          Master Dataset        Partial (derived by regex parsing of agency / state text).
+Reporting Month (Epoch)         SUPPORTED         Master Dataset        Month selector (2025-04 to 2026-06).
+Stagnation Flag Filter          SUPPORTED         Derived Analytics     Toggle for stagnant_3m_flag == 1.
+Past-Due Schedule Filter        SUPPORTED         Derived Analytics     Toggle for months_to_original_doc < 0.
 Contractor / Vendor Filter      NOT SUPPORTED     N/A                   Contractor data does NOT exist in PAIMANA Flash Reports.
-District / Sub-State Filter     NOT SUPPORTED     N/A                   District-level granularity does NOT exist in source PDFs.
+District / Sub-State Filter     NOT SUPPORTED     N/A                   District granularity does NOT exist in source PDFs.
 
 
 ========================================================================================================================
-PART 12 — PROJECT DETAIL INSPECTION REQUIREMENTS
+PART 13 — DUAL ALERTING SYSTEM (PREDICTIVE ML VS EXECUTION SURVEILLANCE VS RULES)
 ========================================================================================================================
 
-When a user selects an individual infrastructure project for deep-dive inspection, the frontend should expose information
-across the following functional categories:
-
-1. PROJECT IDENTITY:
-   - Project ID (6-digit PAIMANA code)
-   - Project Name
-   - Implementing Agency
-   - State / Geographical Territory
-   - Legacy OCMS Code (if mapped)
-   - Source Table & Ingestion Source
-
-2. SANCTIONED SCHEDULE & TIMELINE STATUS:
-   - Approval / Start Date (YYYY-MM)
-   - Original Sanctioned Completion Date (Original DOC)
-   - Revised / Anticipated Completion Date (Revised DOC)
-   - Schedule Status Badge (On Schedule / Approaching Deadline / Past Due)
-   - Total Planned Duration (Months)
-   - Project Age to Date (Months)
-   - Total Schedule Delay / Slippage (Months)
-   - Months Remaining to Sanctioned Deadline (months_to_original_doc_t)
-
-3. FINANCIAL & CAPITAL EXPENDITURE:
-   - Original Sanctioned Cost (₹ Crore)
-   - Revised Anticipated Cost (₹ Crore)
-   - Total Cost Escalation (₹ Crore & % escalation)
-   - Cumulative Expenditure to Date (₹ Crore)
-   - Capital Expenditure Ratio (% of original budget spent)
-   - Monthly Capital Burn Velocity (₹ Crore / month)
-   - Financial Health Indicator (Spend aligned with progress vs Spend outrunning progress)
-
-4. PHYSICAL ENGINEERING PROGRESS:
-   - Cumulative Physical Progress Percentage (%)
-   - Remaining Physical Progress (%)
-   - 1-Month Progress Velocity (% delta)
-   - 3-Month Rolling Progress Velocity (% / month)
-   - Stagnation Status (Active / Stagnant >= 3 Months / Stagnant >= 6 Months)
-   - Months Since Last Physical Progress Increase
-
-5. MACHINE LEARNING RISK PROFILE:
-   - Integrated Risk Index (0.00 – 1.00)
-   - Operational Risk Band Badge (LOW / MODERATE / HIGH / VERY_HIGH)
-   - Dominant Risk Pillar (Schedule Delay / Cost Overrun / Schedule Revision)
-   - Schedule Delay Risk (Calibrated Probability %)
-   - Cost Overrun Risk Score (0.00 – 1.00)
-   - Schedule Revision Risk Score (0.00 – 1.00)
-   - Risk Contribution Breakdown (50% Schedule / 35% Cost / 15% Revision)
-   - Normalized Risk Attribution (% share per pillar)
-
-6. HISTORICAL LONGITUDINAL TRAJECTORY:
-   - Monthly Progress Trajectory Curve (Line chart across all observed report months)
-   - Monthly Expenditure Trajectory Curve (Line chart of cumulative spend)
-   - Milestone History (Shifts in revised DOC over time)
-   - Historical Integrated Risk Score Trajectory (available across 12 monthly prediction epochs)
-
-
-========================================================================================================================
-PART 13 — ALERT & PRIORITY SYSTEM (ML-BASED VS RULE-BASED)
-========================================================================================================================
-
-The platform should support automated alerting. The frontend must clearly distinguish between ML-generated risk alerts
-and rule-based operational flags:
+The platform supports automated alerting across three distinct categories. The frontend must NEVER merge these into
+a single generic "risk alert":
 
 ------------------------------------------------------------------------------------------------------------------------
-ALERT TYPE                 TRIGGER CONDITION                                        SOURCE TYPE      SEVERITY
+ALERT CODE               ALERT CATEGORY   SEVERITY    TRIGGER CONDITION                             NOTIFICATION MESSAGE
 ------------------------------------------------------------------------------------------------------------------------
-VERY HIGH RISK (ML)        selected_integrated_risk >= 0.80                         ML Risk Engine   CRITICAL
-HIGH RISK (ML)             0.60 <= selected_integrated_risk < 0.80                  ML Risk Engine   HIGH
-ACUTE SCHEDULE DELAY (ML)  schedule_delay_risk >= 0.90                              ML Risk Engine   HIGH
-SEVERE COST OVERRUN (ML)   cost_overrun_risk >= 0.85                                ML Risk Engine   HIGH
-UPCOMING REVISION (ML)     schedule_revision_risk >= 0.50                           ML Risk Engine   MEDIUM
-CONSTRUCTION STAGNATION    stagnant_3m_t == 1 (0% progress for >= 3 months)         Rule-Based Flag  HIGH
-CHRONIC STAGNATION         months_since_last_progress_increase_t >= 6               Rule-Based Flag  CRITICAL
-PAST-DUE DEADLINE          months_to_original_doc_t < 0 (Past original completion)  Rule-Based Flag  CRITICAL
-APPROACHING DEADLINE       0 <= months_to_original_doc_t <= 3 AND progress < 80%    Rule-Based Flag  HIGH
-CAPITAL DIVERGENCE         expenditure_ratio_pct_t - physical_progress_percent > 20 Rule-Based Flag  MEDIUM
-MAJOR BUDGET ESCALATION    cost_escalation_pct_t >= 50.0%                           Rule-Based Flag  HIGH
-DATA HEALTH ANOMALY        negative_expenditure_delta_flag_t == 1                   Rule-Based Flag  LOW (Data Audit)
-
-FUTURE ENHANCEMENTS (NOT YET IMPLEMENTED IN BACKEND):
-- Automated email/SMS alert dispatching.
-- Live webhook streaming (data is currently monthly batch PDF extraction).
+ML_CRITICAL_RISK         Predictive ML    CRITICAL    integrated_risk >= 0.80                       "Very High Predictive Risk ({score:.2f}). Priority intervention required."
+ML_HIGH_RISK             Predictive ML    HIGH        0.60 <= integrated_risk < 0.80                "High Predictive Risk ({score:.2f}). Dominant factor: {dominant_component}."
+ML_ACUTE_DELAY           Predictive ML    HIGH        schedule_delay_risk >= 0.90                   "Severe schedule delay probability ({prob:.1%}) predicted by calibrated model."
+ML_SEVERE_OVERRUN        Predictive ML    HIGH        cost_overrun_risk >= 0.85                     "Severe cost overrun risk ({score:.2f}) indicates structural budget expansion."
+ESI_HIGH_PRIORITY        Execution Stress CRITICAL    execution_stress_index >= 0.75                "Critical Execution Deadlock (ESI: {esi:.2f}). Escalate to Inter-Ministerial Review."
+ESI_ATTENTION            Execution Stress HIGH        0.55 <= execution_stress_index < 0.75         "High Execution Stress (ESI: {esi:.2f}). Dominant stressor: {dominant_stressor}."
+RULE_CHRONIC_STAGNANT    Rule-Based Flag  CRITICAL    months_since_last_progress_increase >= 6      "Chronic stagnation: Zero physical progress for >= 6 consecutive months."
+RULE_ACUTE_STAGNANT      Rule-Based Flag  HIGH        stagnant_3m_flag == 1                         "Construction freeze: Zero progress observed across last 3 reporting epochs."
+RULE_PAST_DUE            Rule-Based Flag  CRITICAL    months_to_original_doc < 0                    "Project has breached original sanctioned completion date ({original_doc})."
+RULE_CAPITAL_DIVERGE     Rule-Based Flag  MEDIUM      expenditure_progress_divergence > 20.0        "Capital burn outrunning physical progress by {diff:.1f}% points."
+------------------------------------------------------------------------------------------------------------------------
 
 
 ========================================================================================================================
-PART 14 — "DO NOT IMPLEMENT / DO NOT CLAIM" (MANDATORY RESTRICTIONS)
+PART 14 — HISTORICAL OCMS CONTEXT & BENCHMARKING POLICY
 ========================================================================================================================
 
-To prevent misrepresentation and preserve system credibility during audits and evaluations, the frontend development
-team is STRICTLY FORBIDDEN from implementing or claiming any of the following:
+14.1 EMPIRICAL AUDIT POLICY:
+- `OCMS_EXPERIMENT_VALIDITY = VALID_AFTER_DOCUMENTATION_CORRECTION`.
+- Controlled temporal enrichment testing proved that adding OCMS historical priors degraded Out-of-Time predictive performance.
+- Therefore, OCMS historical data is STRICTLY BANNED from the production ML feature input.
 
-1. DO NOT CLAIM CAUSAL REASONS FOR DELAY:
-   Never claim that the ML model has discovered why a project is delayed (e.g. "Model identified contractor dispute").
-   The models evaluate numerical trajectory features, not qualitative causal narratives.
-
-2. DO NOT USE cost_revision_event_3m AS AN ACTIVE RISK SIGNAL:
-   This experimental target suffered a severe Out-of-Time generalization failure (OOT ROC-AUC = 0.4394) and was formally
-   relegated to RESEARCH_ONLY. Do not expose it on the dashboard.
-
-3. DO NOT CLAIM INTEGRATED RISK IS A CALIBRATED PROBABILITY:
-   The Integrated Risk Index is an operational surveillance and triage index in [0, 1]. It is NOT a calibrated probability
-   of overall project failure. (Only the primary schedule_delay_3m component is a calibrated probability).
-
-4. DO NOT CLAIM RISK BANDS ARE OFFICIAL STATUTORY CLASSIFICATIONS:
-   The Risk Bands (LOW, MODERATE, HIGH, VERY_HIGH) are operational triage tiers established for automated monitoring,
-   not official statutory classifications issued by the Union Cabinet or MoSPI.
-
-5. DO NOT PRESENT ML PREDICTIONS AS RAW GOVERNMENT FACTS:
-   Always clearly separate reported facts (e.g. current physical progress = 63.59%) from predictive forecasts
-   (e.g. model-predicted 3-month schedule delay probability = 76.82%).
-
-6. DO NOT INVENT UNSUPPORTED DATA FIELDS:
-   Do not add placeholders for contractor names, GPS coordinates, tender packages, sub-contractors, or land acquisition
-   hectares unless provided by a verified backend API.
-
-7. DO NOT USE FUTURE DATA IN HISTORICAL VIEWS (LOOKAHEAD LEAKAGE):
-   When displaying a project at reporting month t (e.g. 2025-06), display risk scores and progress as of month t.
-   Never display future months' progress as if it were known in the past.
+14.2 FRONTEND DISPLAY GUIDELINES:
+- AUTHORIZED USE: The frontend may display OCMS historical data strictly as **Historical Benchmarks & Context Cards**:
+  * Agency 20-year completion rate and average historical cost escalation.
+  * Sector-wide historical delay baselines.
+  * Pre-PAIMANA longitudinal trajectory curves for the 1,442 linked continuous projects.
+- MANDATORY LABELING: Clearly label all OCMS visualizations as "Historical Context / Benchmark Reference".
+- DO NOT imply that OCMS priors were used to generate the project's real-time predictive risk score or ESI.
+- DO NOT imply that every project has complete OCMS history (only 1,442 projects have pre-2025 linked data).
 
 
 ========================================================================================================================
-PART 15 — BACKEND-TO-FRONTEND DATA CONTRACT (API PAYLOAD SCHEMA)
+PART 15 — TEMPORAL SAFEGUARDS, VERSIONING & PROVENANCE METADATA
 ========================================================================================================================
 
-The following JSON schema defines the data contract required by the frontend from the backend API:
+The frontend must display or consume the following provenance metadata to ensure temporal auditability:
+1. `report_month` / `prediction_month`: Snapshot epoch (ISO YYYY-MM) anchoring the observation in time.
+2. `scored_at` / `evaluated_at`: ISO-8601 UTC timestamp of scoring execution.
+3. `model_version`: e.g. `v1.0.0-rf02-calibrated` (Predictive model registry identifier).
+4. `feature_version`: e.g. `v1.0.0-75features-pit` (75-feature point-in-time pipeline identifier).
+5. `execution_index_version`: e.g. `v1.0.0-esi-5dim` (5-dimension ESI engine identifier).
+
+Temporal Guardrail: The frontend must clearly indicate the snapshot month and avoid implying that a prediction generated
+for month T represents a live forecast for a subsequent month.
+
+
+========================================================================================================================
+PART 16 — DATA QUALITY, ANOMALY HANDLING & UNCERTAINTY POLICY
+========================================================================================================================
+
+1. The 1,868 Manual-Review Rows Policy:
+   - Exactly 1,868 records (8.66% of master dataset) exhibit real-world trajectory jumps (progress drops > 25%, spend drops > 50%).
+   - The backend preserves all 1,868 rows and exposes data anomaly codes in `data_quality_flags`.
+   - The frontend should render an informational "Data Audit Flag" chip on the project dossier when flags exist.
+2. Missing Data Handling:
+   - If a project did not report physical progress in a given month, display "Not Reported" / "Missing Data".
+   - DO NOT convert missing progress or missing expenditure into zero risk or 0.0% completion.
+
+
+========================================================================================================================
+PART 17 — STRICT EXCLUSIONS & "DO NOT IMPLEMENT / DO NOT CLAIM" RESTRICTIONS
+========================================================================================================================
+
+To protect scientific integrity and avoid misrepresentation, the frontend development team is STRICTLY FORBIDDEN from:
+1. DO NOT IMPLEMENT AN LLM PROJECT ASSISTANT / CAUSAL EXCUSE GENERATOR:
+   Source reports contain no contractor dispute records, litigation logs, or land acquisition registers.
+2. DO NOT USE `cost_revision_event_3m`:
+   This experimental target failed Out-of-Time generalization and is permanently removed.
+3. DO NOT REPRESENT EXECUTION STRESS AS AN ML FAILURE PROBABILITY:
+   ESI is an analytical index of observable current friction, not a supervised machine learning probability.
+4. DO NOT IMPLEMENT FUTURE EXPENDITURE OR PROGRESS FORECASTING:
+   No multi-year curve extrapolation is supported beyond the certified 3-month fixed-horizon models.
+5. DO NOT CLAIM CERTAINTY:
+   Always use terms like "Predicted Risk", "Model Score", "Observable Stress Indicator", and "Suggested Action".
+
+
+========================================================================================================================
+PART 18 — FRONTEND-TO-BACKEND DATA CONTRACT (API PAYLOAD SCHEMA)
+========================================================================================================================
+
+The following JSON schema defines the unified data contract returned by the backend API (`GET /api/v1/projects/{project_id}`):
 
 ```json
 {
@@ -610,7 +599,7 @@ The following JSON schema defines the data contract required by the frontend fro
     "report_month": "2025-04"                   // [REQUIRED] Snapshot epoch YYYY-MM (String)
   },
   "project_facts": {
-    "approval_start_date": "2021-09",           // [REQUIRED] Approval date YYYY-MM (String)
+    "approval_start_date": "2021-09",           // [REQUIRED] Sanction date YYYY-MM (String)
     "original_completion_date": "2022-09",      // [REQUIRED] Original DOC YYYY-MM (String)
     "revised_completion_date": "2024-09",       // [OPTIONAL] Latest revised DOC YYYY-MM (String/Null)
     "actual_completion_date": null,             // [OPTIONAL] Table 3 completion date (String/Null)
@@ -629,9 +618,10 @@ The following JSON schema defines the data contract required by the frontend fro
     "progress_velocity_1m": 1.20,               // [REQUIRED] 1-month progress delta (Float/Null)
     "progress_velocity_3m": 1.50,               // [REQUIRED] 3-month rolling velocity (Float/Null)
     "stagnant_3m_flag": 0,                      // [REQUIRED] 1 if stagnant >= 3 months (Integer)
-    "months_since_last_progress_increase": 0    // [REQUIRED] Streak length in months (Integer)
+    "months_since_last_progress_increase": 0,   // [REQUIRED] Streak length in months (Integer)
+    "expenditure_progress_divergence": 9.52     // [REQUIRED] Spend ratio - progress % (Float)
   },
-  "ml_risk_profile": {
+  "predictive_risk_profile": {
     "schedule_delay_risk": 0.7025,              // [REQUIRED] Calibrated probability [0, 1] (Float)
     "cost_overrun_risk": 0.7784,                // [REQUIRED] Cost overrun score [0, 1] (Float)
     "schedule_revision_risk": 0.0130,           // [REQUIRED] Revision warning score [0, 1] (Float)
@@ -643,7 +633,38 @@ The following JSON schema defines the data contract required by the frontend fro
     "schedule_revision_contribution": 0.0020,   // [REQUIRED] 0.15 * revision_risk (Float)
     "schedule_contrib_pct": 56.14,              // [REQUIRED] % share of total risk (Float)
     "cost_contrib_pct": 43.54,                  // [REQUIRED] % share of total risk (Float)
-    "schedule_rev_contrib_pct": 0.32            // [REQUIRED] % share of total risk (Float)
+    "schedule_rev_contrib_pct": 0.32,           // [REQUIRED] % share of total risk (Float)
+    "model_version": "v1.0.0-rf02-calibrated",  // [REQUIRED] Model version (String)
+    "feature_version": "v1.0.0-75features-pit"  // [REQUIRED] Feature version (String)
+  },
+  "execution_surveillance_profile": {
+    "execution_stress_index": 0.3800,           // [REQUIRED] Deterministic ESI [0, 1] (Float)
+    "esi_tier": "WATCH",                        // [REQUIRED] 'NOMINAL'|'WATCH'|'ATTENTION'|'HIGH_PRIORITY'
+    "dominant_stressor": "Progress Velocity Collapse", // [REQUIRED] Primary execution friction factor
+    "stress_components": {
+      "stagnation_stress": 0.0000,              // [REQUIRED] S_stag [0, 1] (Float)
+      "velocity_stress": 1.0000,                // [REQUIRED] S_vel [0, 1] (Float)
+      "divergence_stress": 0.0000,              // [REQUIRED] S_div [0, 1] (Float)
+      "schedule_stress": 0.8000,                // [REQUIRED] S_sched [0, 1] (Float)
+      "reporting_stress": 0.1000                // [REQUIRED] S_rep [0, 1] (Float)
+    },
+    "stress_flags": {
+      "flag_stag": 0,                           // [REQUIRED] Binary flag (Integer)
+      "flag_vel": 1,                            // [REQUIRED] Binary flag (Integer)
+      "flag_div": 0,                            // [REQUIRED] Binary flag (Integer)
+      "flag_sched": 1,                          // [REQUIRED] Binary flag (Integer)
+      "flag_rep": 0,                            // [REQUIRED] Binary flag (Integer)
+      "total_active_flags": 2                   // [REQUIRED] Sum of active flags (Integer)
+    },
+    "observable_indicators": [                  // [REQUIRED] Factual observation bullets (Array of Strings)
+      "Recent 3-month construction velocity is below planned momentum (<0.5%/mo).",
+      "Accumulated schedule slippage exceeds 12 months."
+    ],
+    "suggested_monitoring_action": {            // [REQUIRED] Prescriptive administrative directive
+      "action_code": "RESOURCE_MOBILIZATION_DIRECTIVE",
+      "directive": "Request joint review of contractor plant, machinery, and skilled labor deployment on critical path packages."
+    },
+    "execution_index_version": "v1.0.0-esi-5dim"// [REQUIRED] ESI formulation version (String)
   },
   "historical_series": [                        // [REQUIRED] Array of historical monthly snapshots
     {
@@ -653,180 +674,144 @@ The following JSON schema defines the data contract required by the frontend fro
       "revised_cost_crore": 655.06,
       "revised_completion_date": "2024-09",
       "selected_integrated_risk": 0.6256,
-      "risk_band": "HIGH"
+      "risk_band": "HIGH",
+      "execution_stress_index": 0.3800,
+      "esi_tier": "WATCH"
     }
-  ]
+  ],
+  "data_quality_flags": []                      // [REQUIRED] Anomaly audit codes (Array of Strings)
 }
 ```
 
 
 ========================================================================================================================
-PART 16 — USER ACTIONS & INTERACTION CAPABILITIES
+PART 19 — FRONTEND-TO-BACKEND FIELD TRACEABILITY & RECONCILIATION MATRIX
 ========================================================================================================================
 
-The frontend must empower users to execute the following operations:
-
-1. SEARCH & DISCOVERY:
-   - Search projects instantaneously by 6-digit Project ID, Legacy OCMS Code, or Project Name.
-   - Filter projects dynamically by State, Agency, Risk Band, Progress Range, and Cost Range.
-
-2. RISK-BASED SORTING & TRIAGE:
-   - Sort project rosters by Integrated Risk Index (highest priority first).
-   - Sort projects by individual risk pillars (e.g. isolate projects with highest Cost Overrun Risk).
-   - Filter portfolio strictly for 'VERY_HIGH' and 'HIGH' risk tiers to generate executive intervention lists.
-
-3. MULTI-DIMENSIONAL PROJECT INSPECTION:
-   - Inspect individual project dossiers containing complete identity, schedule, financial, and ML risk data.
-   - Toggle between absolute risk values and percentage attribution breakdowns.
-   - Inspect the dominant risk component driving project distress.
-
-4. TEMPORAL & HISTORICAL ANALYSIS:
-   - View project evolution over time across the 15-month historical window.
-   - Interact with historical progress curves, expenditure burn lines, and milestone shifts.
-   - Select specific historical reporting months (e.g. "View portfolio state in October 2025").
-
-5. COMPARATIVE ANALYSIS:
-   - Compare two or more infrastructure projects side-by-side across cost, progress, schedule slippage, and risk scores.
-   - Compare performance benchmarks across implementing agencies (e.g. NHAI vs MoRTH vs NTPC).
-   - Compare risk distributions across states and regions.
-
-6. DATA EXPORT & REPORTING:
-   - Export filtered project lists and risk tables to CSV / Excel format.
-   - Generate summary printable executive briefing views of High-Risk projects.
-
-
-========================================================================================================================
-PART 17 — FOUR-LAYER SYSTEM ARCHITECTURE CLASSIFICATION
-========================================================================================================================
-
-Every single frontend element belongs strictly to one of the following four architectural layers:
-
-1. LAYER 1: RAW DATA (MoSPI PAIMANA Flash Report Extracted Facts)
-   - Origin: Extracted directly from monthly government PDF tables (Table 6, Table 3, Table 4).
-   - Transformation: Standardized units (₹ Crore, ISO YYYY-MM, % progress). Zero modeling.
-   - Examples: project_id, project_name, agency, state, original_cost_crore, physical_progress_percent.
-
-2. LAYER 2: DERIVED ANALYTICS (Deterministic Engineering Calculations)
-   - Origin: Mathematical formulas computed from raw facts.
-   - Transformation: Time differences, ratios, rolling velocities, stagnation counters. Zero ML inference.
-   - Examples: cost_escalation_pct, expenditure_ratio_pct, months_to_original_doc, progress_velocity_3m, stagnant_3m_t.
-
-3. LAYER 3: ML OUTPUTS (Trained AI/ML Predictive Models)
-   - Origin: Frozen Random Forest, Logistic Regression, and Platt Calibrator pipelines.
-   - Transformation: Multi-feature statistical inference evaluated on 79 point-in-time features.
-   - Examples: schedule_delay_risk, cost_overrun_risk, schedule_revision_risk, selected_integrated_risk, risk_band.
-
-4. LAYER 4: SYSTEM & UX FEATURES (Application Logic & Interactions)
-   - Origin: Frontend / Backend web application runtime.
-   - Transformation: Filtering, sorting, full-text search, pagination, session state, exports, chart rendering.
-   - Examples: Multi-select state filter, dual-range risk slider, project comparison modal, CSV exporter.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FRONTEND REQUIREMENT          BACKEND API SOURCE            ML / ANALYTICAL SOURCE          DATA TYPE      REQ/OPT   STATUS                          TRACEABILITY NOTES
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Project ID                    `project_identity.project_id` `projects.project_id`           String         REQ       SUPPORTED                       Canonical 6-digit ID
+Project Name                  `project_identity.name`       `projects.project_name`         String         REQ       SUPPORTED                       Full project title
+Implementing Agency           `project_identity.agency`     `projects.agency`               String         REQ       SUPPORTED                       CPSU / Line agency
+State / Region                `project_identity.state`      `projects.state`                String         REQ       SUPPORTED                       Geographical location
+Legacy OCMS Code              `project_identity.legacy_code``projects.legacy_ocms_code`     String/Null    OPT       SUPPORTED                       1,137 mapped codes
+Report Month                  `project_identity.report_month``monthly_snapshots.report_month`String        REQ       SUPPORTED                       ISO YYYY-MM epoch
+Physical Progress (%)         `project_facts.progress_pct`  `monthly_snapshots.progress`    Float          REQ       SUPPORTED                       Cumulative progress
+Cumulative Spend (₹ Cr)       `project_facts.spend_crore`   `monthly_snapshots.expenditure` Float          REQ       SUPPORTED                       Actual expenditure
+Original Budget (₹ Cr)        `project_facts.original_cost` `projects.original_cost_crore`  Float          REQ       SUPPORTED                       Sanctioned budget
+Revised Budget (₹ Cr)         `project_facts.revised_cost`  `monthly_snapshots.revised_cost`Float          REQ       SUPPORTED                       Anticipated budget
+Sanction Date                 `project_facts.approval_date` `projects.approval_start_date`  String         REQ       SUPPORTED                       ISO YYYY-MM
+Original DOC                  `project_facts.original_doc`  `projects.original_doc`         String         REQ       SUPPORTED                       ISO YYYY-MM
+Revised DOC                   `project_facts.revised_doc`   `monthly_snapshots.revised_doc` String/Null    OPT       SUPPORTED                       ISO YYYY-MM
+Cost Escalation (₹ Cr & %)    `derived_analytics.cost_esc`  SQL View Derived Formula        Float          REQ       SUPPORTED                       Deterministic Layer B
+Expenditure Ratio (%)         `derived_analytics.exp_ratio` SQL View Derived Formula        Float          REQ       SUPPORTED                       Deterministic Layer B
+Schedule Slippage (Months)    `derived_analytics.slippage`  SQL View Derived Formula        Float          REQ       SUPPORTED                       Deterministic Layer B
+Months to Original DOC        `derived_analytics.months_doc`SQL View Derived Formula        Float          REQ       SUPPORTED                       Negative = past due
+Progress Velocity (1m & 3m)   `derived_analytics.velocity`  SQL View Lag Formula            Float/Null     REQ       SUPPORTED                       Deterministic Layer B
+Stagnation Flag & Streak      `derived_analytics.stagnant`  SQL View Stagnation Formula     Int            REQ       SUPPORTED                       Deterministic Layer B
+Spend vs Progress Divergence  `derived_analytics.divergence`SQL View Divergence Formula     Float          REQ       SUPPORTED                       Deterministic Layer B
+Schedule Delay Risk           `predictive_risk.schedule_risk`RF_02 Platt Calibrated Model   Float          REQ       SUPPORTED                       Calibrated Probability
+Cost Overrun Risk             `predictive_risk.cost_risk`   Balanced Random Forest Model    Float          REQ       SUPPORTED                       Model Score [0, 1]
+Schedule Revision Risk        `predictive_risk.srev_risk`   Logistic Regression Model       Float          REQ       SUPPORTED                       Warning Score [0, 1]
+Integrated Risk Index         `predictive_risk.integrated`  Candidate B Formula (50/35/15)  Float          REQ       SUPPORTED                       Operational Index [0, 1]
+Predictive Risk Band          `predictive_risk.risk_band`   Thresholded Risk Tier           Enum           REQ       SUPPORTED                       LOW/MOD/HIGH/VERY_HIGH
+Dominant Risk Pillar          `predictive_risk.dominant`    Pillar Argmax Attribution       Enum           REQ       SUPPORTED                       Schedule/Cost/Revision
+Component Risk Contributions  `predictive_risk.contrib`     Exact Weight Breakdown          Float          REQ       SUPPORTED                       0.50*S, 0.35*C, 0.15*R
+Normalized Attribution %      `predictive_risk.contrib_pct` Percentage Share of Total       Float          REQ       SUPPORTED                       Sums to 100.0%
+Execution-Stress Index (ESI)  `execution_profile.esi`       Deterministic ESI Formula       Float          REQ       SUPPORTED                       Composite Index [0, 1]
+ESI Surveillance Tier         `execution_profile.esi_tier`  Thresholded ESI Tier            Enum           REQ       SUPPORTED                       NOMINAL/WATCH/ATTN/HIGH
+Dominant Execution Stressor   `execution_profile.dominant`  Stressor Argmax Attribution     Enum           REQ       SUPPORTED                       Velocity/Stag/Div/Sched
+5 ESI Stress Components       `execution_profile.components`$S_{\text{stag}}, S_{\text{vel}}, S_{\text{div}}, S_{\text{sched}}, S_{\text{rep}}$ Float REQ SUPPORTED Sub-scores in [0, 1]
+5 Operational Stress Flags    `execution_profile.flags`     Binary Stress Thresholds        SmallInt       REQ       SUPPORTED                       Discrete 0/1 flags
+Observable Site Indicators    `execution_profile.indicators`Deterministic Text Engine       Array[String]  REQ       SUPPORTED                       Factual bullet points
+Prescriptive Monitoring Action`execution_profile.action`    Prescriptive Action Matrix      Object         REQ       SUPPORTED                       Directive & Action Code
+Model & Pipeline Versions     `predictive_risk.version`     Registry & Pipeline Metadata    String         REQ       SUPPORTED                       model, feature, esi ver
+Longitudinal Trajectories     `historical_series`           Monthly Snapshots + Scores DB   Array[Object]  REQ       SUPPORTED                       15-month history
+Data Quality Anomaly Flags    `data_quality_flags`          `data_anomalies_log` Table      Array[String]  REQ       SUPPORTED                       The 1,868 rows policy
+OCMS Historical Benchmarks    `GET /api/v1/benchmarks/ocms` `ocms_historical_benchmarks`    Object         OPT       SUPPORTED_WITH_CLARIFICATION    Context only; NO ML
+LLM Delay Root Cause Excuses  N/A                           N/A                             N/A            N/A       UNSUPPORTED/REMOVE              Strictly banned
+Cost Revision Event Model     N/A                           N/A                             N/A            N/A       UNSUPPORTED/REMOVE              OOT failure; banned
+Supervised Execution ML Prob  N/A                           N/A                             N/A            N/A       UNSUPPORTED/REMOVE              Unsupportable target
+Contractor Name / Concession  N/A                           N/A                             N/A            N/A       UNSUPPORTED/REMOVE              Absent from Flash PDFs
+Granular Milestone Schedules  N/A                           N/A                             N/A            N/A       UNSUPPORTED/REMOVE              Absent from Flash PDFs
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 ========================================================================================================================
-PART 18 — MASTER FRONTEND REQUIREMENTS CHECKLIST
+PART 20 — MASTER FRONTEND REQUIREMENTS ACCEPTANCE CHECKLIST
 ========================================================================================================================
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ELEMENT NAME                 LAYER CATEGORY        WHAT IT MEANS                                    DATA SOURCE         REQ / OPT    ML/NON-ML    NOTES & RESTRICTIONS
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Project ID                   RAW DATA              6-digit canonical PAIMANA project identifier     Master CSV          REQUIRED     NON-ML       Primary identifier
-Project Name                 RAW DATA              Official government infrastructure title         Master CSV          REQUIRED     NON-ML       Display in full
-Implementing Agency          RAW DATA              Executing agency / PSU (NHAI, MoRTH, etc.)       Master CSV          REQUIRED     NON-ML       Key aggregation dimension
-State / Territory            RAW DATA              Geographical state / territory location          Master CSV          REQUIRED     NON-ML       Key geographical dimension
-Legacy OCMS Code             RAW DATA              Alphanumeric legacy tracking code                Master CSV          OPTIONAL     NON-ML       Display when available
-Approval Date                RAW DATA              Baseline sanction start date (YYYY-MM)           Master CSV          REQUIRED     NON-ML       Sanction baseline
-Original DOC                 RAW DATA              Sanctioned completion date (YYYY-MM)             Master CSV          REQUIRED     NON-ML       Sanction baseline
-Revised DOC                  RAW DATA              Latest revised completion date (YYYY-MM)         Master CSV          OPTIONAL     NON-ML       Null if on original sched
-Actual DOC                   RAW DATA              Actual completion date for Table 3 projects      Completed CSV       OPTIONAL     NON-ML       Only completed projects
-Original Cost                RAW DATA              Original sanctioned budget in ₹ Crore            Master CSV          REQUIRED     NON-ML       Sanction baseline
-Revised Cost                 RAW DATA              Anticipated / revised project cost in ₹ Crore    Master CSV          REQUIRED     NON-ML       Current budget estimate
-Cumulative Spend             RAW DATA              Total actual financial expenditure in ₹ Crore    Master CSV          REQUIRED     NON-ML       Financial burn to date
-Physical Progress            RAW DATA              Cumulative engineering execution percentage (%)  Master CSV          REQUIRED     NON-ML       Raw progress [0-100%]
-Report Month                 RAW DATA              Reporting snapshot month (YYYY-MM)               Master CSV          REQUIRED     NON-ML       Longitudinal anchor
-Cost Escalation (₹ Cr)       DERIVED ANALYTICS     revised_cost - original_cost in ₹ Crore          Derived Backend     REQUIRED     NON-ML       Budget escalation
-Cost Escalation (%)          DERIVED ANALYTICS     Percentage budget growth over baseline           Derived Backend     REQUIRED     NON-ML       % financial overrun
-Expenditure Ratio (%)        DERIVED ANALYTICS     Spend as percentage of original budget           Derived Backend     REQUIRED     NON-ML       Capital absorption rate
-Remaining Progress (%)       DERIVED ANALYTICS     100.0 - physical_progress_percent                Derived Backend     REQUIRED     NON-ML       Work remaining
-Schedule Slippage (Mo)       DERIVED ANALYTICS     Months between revised DOC and original DOC      Derived Backend     REQUIRED     NON-ML       Timeline slippage
-Months to Deadline           DERIVED ANALYTICS     Months remaining to original sanctioned DOC      Derived Backend     REQUIRED     NON-ML       Negative if past due
-Progress Velocity (1m)       DERIVED ANALYTICS     Month-over-month progress increase (%)           Derived Backend     REQUIRED     NON-ML       Execution speed
-Progress Velocity (3m)       DERIVED ANALYTICS     3-month rolling average progress velocity        Derived Backend     REQUIRED     NON-ML       Smoothed execution speed
-Stagnation Flag (3m)         DERIVED ANALYTICS     Flag indicating 0% progress over last 3 months   Derived Backend     REQUIRED     NON-ML       Early warning indicator
-Stagnation Streak (Mo)       DERIVED ANALYTICS     Count of consecutive months at 0% change         Derived Backend     REQUIRED     NON-ML       Chronic delay metric
-Spend vs Progress Diff       DERIVED ANALYTICS     Expenditure Ratio (%) - Physical Progress (%)    Derived Backend     REQUIRED     NON-ML       Capital divergence flag
-Schedule Delay Risk          ML OUTPUT             Calibrated probability of 3m schedule breach     Risk Engine CSV     REQUIRED     ML           Calibrated probability
-Cost Overrun Risk            ML OUTPUT             Model score of 3m financial overrun state        Risk Engine CSV     REQUIRED     ML           Continuous risk score
-Schedule Revision Risk       ML OUTPUT             Model score of 3m deadline extension warning     Risk Engine CSV     REQUIRED     ML           Secondary warning score
-Integrated Risk Index        ML OUTPUT             Composite multi-dimensional surveillance index   Risk Engine CSV     REQUIRED     ML           Operational triage index
-Operational Risk Band        ML OUTPUT             Triage tier (LOW, MODERATE, HIGH, VERY_HIGH)     Risk Engine CSV     REQUIRED     ML           Operational badge
-Dominant Risk Pillar         ML OUTPUT             Pillar with largest mathematical contribution    Risk Engine CSV     REQUIRED     ML           Attribution label
-Schedule Contribution        ML OUTPUT             0.50 * schedule_delay_risk                       Risk Engine CSV     REQUIRED     ML           Exact score breakdown
-Cost Contribution            ML OUTPUT             0.35 * cost_overrun_risk                         Risk Engine CSV     REQUIRED     ML           Exact score breakdown
-Revision Contribution        ML OUTPUT             0.15 * schedule_revision_risk                    Risk Engine CSV     REQUIRED     ML           Exact score breakdown
-Normalized Attribution %     ML OUTPUT             % share of total score per risk pillar           Risk Engine CSV     REQUIRED     ML           Pie/stacked bar chart
-Historical Progress Line     TIME-SERIES           Monthly progress curve over time                 Master CSV          REQUIRED     NON-ML       Trajectory chart
-Historical Spend Line        TIME-SERIES           Monthly expenditure curve over time              Master CSV          REQUIRED     NON-ML       Trajectory chart
-Historical Risk Score Line   TIME-SERIES           Monthly integrated risk score over time          Risk Engine CSV     REQUIRED     ML           Trajectory chart
-Portfolio Total Projects     DASHBOARD STAT        Total projects monitored at current epoch        Aggregated DB       REQUIRED     NON-ML       Summary KPI card
-Portfolio Total Budget       DASHBOARD STAT        Sum of original budgets in ₹ Crore               Aggregated DB       REQUIRED     NON-ML       Summary KPI card
-Portfolio Escalation Total   DASHBOARD STAT        Sum of cost overruns across active projects      Aggregated DB       REQUIRED     NON-ML       Summary KPI card
-Risk Band Distribution       DASHBOARD STAT        Count & % of projects in each Risk Band          Aggregated DB       REQUIRED     ML           Summary chart / cards
-State Risk Breakdown         DASHBOARD STAT        Projects and risk scores grouped by State        Aggregated DB       REQUIRED     NON-ML/ML    Geographical map/table
-Agency Risk Breakdown        DASHBOARD STAT        Projects and risk scores grouped by Agency       Aggregated DB       REQUIRED     NON-ML/ML    Agency leaderboard
-Priority Review Roster       DASHBOARD STAT        Table of projects sorted by Integrated Risk DESC Aggregated DB       REQUIRED     ML           Executive triage view
-Full-Text Search             SYSTEM / UX           Search by ID, name, agency, or legacy code       Frontend Runtime    REQUIRED     NON-ML       Instant search bar
-Multi-Criteria Filtering     SYSTEM / UX           Filter by state, agency, risk band, cost, prog   Frontend Runtime    REQUIRED     NON-ML       Filter sidebar / modal
-Multi-Column Sorting         SYSTEM / UX           Sort by risk, cost, delay, progress, spend       Frontend Runtime    REQUIRED     NON-ML       Table header sorting
-Project Comparison Tool      SYSTEM / UX           Side-by-side comparison of multiple projects     Frontend Runtime    OPTIONAL     NON-ML/ML    Comparative view
-CSV Data Export              SYSTEM / UX           Export filtered dataset to CSV                   Frontend Runtime    REQUIRED     NON-ML       Export utility
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+ITEM #   REQUIREMENT AREA             SPECIFIC ACCEPTANCE CRITERION                                      STATUS / MANDATORY
+------------------------------------------------------------------------------------------------------------------------
+REQ-01   Two-Pillar Separation        Cleanly separate Predictive Outcome Engine and Execution ESI       MANDATORY
+REQ-02   Three Predictive Models      Display schedule_delay_risk, cost_overrun_risk, schedule_revision  MANDATORY
+REQ-03   Calibrated Probability       Display schedule_delay_risk as calibrated statistical probability  MANDATORY
+REQ-04   Candidate B Integrated Risk  Display Candidate B index: 0.50*Sched + 0.35*Cost + 0.15*SRev       MANDATORY
+REQ-05   Integrated Risk Guardrail    Clearly label integrated risk as an Operational Index, not prob    MANDATORY
+REQ-06   Predictive Attribution       Display dominant_component and component weights/percentages       MANDATORY
+REQ-07   Deterministic ESI            Display ESI: 0.30*Stag + 0.25*Vel + 0.20*Div + 0.15*Sched + 0.10*Rep MANDATORY
+REQ-08   ESI Alert Tiers              Display ESI tiers: NOMINAL (<0.35), WATCH, ATTENTION, HIGH_PRIORITY MANDATORY
+REQ-09   ESI Non-Probability Label    Explicitly label ESI as observable site friction, not a prob       MANDATORY
+REQ-10   5 ESI Sub-Components         Support displaying S_stag, S_vel, S_div, S_sched, S_rep sub-scores MANDATORY
+REQ-11   Prescriptive Action Engine   Display suggested monitoring actions mapped from stress triggers   MANDATORY
+REQ-12   Decision Support Guardrail   Present prescriptive actions as recommendations, not auto-fixes    MANDATORY
+REQ-13   Cross-Quadrant 2x2 Grid      Support portfolio view separating emerging stalls from legacy rec  MANDATORY
+REQ-14   Tri-Source Alerting          Separate Predictive Alerts, Execution Alerts, and Rule Flags       MANDATORY
+REQ-15   12 Derived Engineering Stats Display all Layer B deterministic derived engineering metrics      MANDATORY
+REQ-16   Dual Longitudinal Curves     Display historical curves for both Integrated Risk and ESI         MANDATORY
+REQ-17   OCMS Context Separation      OCMS data displayed strictly as historical reference; never ML     MANDATORY
+REQ-18   Temporal & Version Metadata  Display report_month, scored_at, model_version, and feature_version MANDATORY
+REQ-19   Data Quality Flags           Display data_quality_flags for anomalous rows without dropping     MANDATORY
+REQ-20   Strict Target Exclusion      Exclude cost_revision_event_3m and ML execution probability        MANDATORY
+REQ-21   Zero Causal Fabrication      Never display fake natural language excuses or contractor blame    MANDATORY
+------------------------------------------------------------------------------------------------------------------------
 
 
 ========================================================================================================================
-PART 19 — "WHAT THE FRONTEND DEVELOPER ACTUALLY NEEDS TO KNOW" (EXECUTIVE SUMMARY)
+PART 21 — "WHAT THE FRONTEND DEVELOPER ACTUALLY NEEDS TO KNOW" (EXECUTIVE SUMMARY)
 ========================================================================================================================
 
 Dear Frontend Teammate,
 
-Here is the straightforward, no-nonsense summary of what you need to build:
+Here is the straightforward summary of what you need to build:
 
-1. YOU DO NOT NEED TO RUN ML MODELS:
-   All machine learning predictions have already been computed, validated, calibrated, and exported into flat,
-   clean CSV/JSON formats. Your job is to ingest these fields from the backend API and build an intuitive, responsive,
-   and powerful dashboard.
+1. YOU DO NOT NEED TO RUN ML CALCULATIONS:
+   All machine learning inferences, calibrations, integrated risk combinations, and ESI scores are pre-computed by the
+   AI/ML layer and served via high-performance REST APIs by the backend. Your job is to ingest and present these fields.
 
-2. YOU HAVE COMPLETE UI FREEDOM:
-   You are free to choose the layout, number of screens, navigation structure, color palette, component design, and
-   data visualizations. Just make sure the information specified in this document can be viewed and filtered.
+2. THE TWO PILLARS YOU MUST DISPLAY:
+   Every project has TWO separate analytical profiles:
+   - PILLAR 1 (PREDICTIVE RISK):
+     * Schedule Delay Risk (3-Month): Calibrated probability [0% to 100%].
+     * Cost Overrun Risk (3-Month): Budget expansion score [0.0 to 1.0].
+     * Schedule Revision Risk (3-Month): Target date revision warning [0.0 to 1.0].
+     * Integrated Risk Index: Composite operational triage score [0.00 to 1.00].
+     * Predictive Risk Band: Status badge ('LOW', 'MODERATE', 'HIGH', 'VERY_HIGH').
+     * Dominant Risk Factor: Primary driver ('Schedule Delay', 'Cost Overrun', 'Schedule Revision').
+   - PILLAR 2 (EXECUTION SURVEILLANCE):
+     * Execution-Stress Index (ESI): Deterministic site friction score [0.00 to 1.00].
+     * Execution Surveillance Tier: Status badge ('NOMINAL', 'WATCH', 'ATTENTION', 'HIGH_PRIORITY').
+     * Dominant Stressor: Primary site issue ('Progress Velocity Collapse', 'Physical Progress Stagnation', etc.).
+     * Active Stress Flags: Count and chips for active warning signals (0 to 5 flags).
+     * Suggested Monitoring Action: Prescriptive directive for MoSPI monitoring officers.
 
-3. THE CORE RISK METRICS YOU MUST DISPLAY:
-   Every project has SIX essential machine learning outputs:
-   - Schedule Delay Risk (3-Month)   : Calibrated probability [0% – 100%] (Primary model)
-   - Cost Overrun Risk (3-Month)     : Financial risk score [0.0 – 1.0] (Secondary model)
-   - Schedule Revision Risk (3-Month): Deadline extension warning [0.0 – 1.0] (Secondary warning)
-   - Integrated Risk Index           : Composite surveillance score [0.00 – 1.00] (Linear combination: 50% Sched + 35% Cost + 15% Rev)
-   - Operational Risk Band           : Status badge ('LOW', 'MODERATE', 'HIGH', 'VERY_HIGH')
-   - Dominant Risk Pillar            : The primary driver ('Schedule Delay', 'Cost Overrun', or 'Schedule Revision')
+3. UNDERSTAND WHY BOTH PILLARS MATTER:
+   Predictive Risk evaluates future outcome likelihood. ESI evaluates immediate site friction today.
+   A project can be Low Predictive Risk but High Execution Stress (early-stage project stalled at 0% progress).
+   Highlight these off-diagonal projects on your dashboard!
 
 4. DO NOT INVENT "REASONS FOR DELAY":
-   The ML models do NOT know real-world physical causes (like contractor bankruptcy, court cases, or monsoons).
-   Do NOT create a UI section showing fake causal explanations.
-   Instead, show the three mathematical risk components (Schedule, Cost, Revision) and real engineering metrics
-   (progress velocity, stagnation streaks, budget escalation).
+   The ML models do not know real-world physical causes (contractor bankruptcy, legal stays, or monsoons).
+   Show the mathematical risk components and real engineering metrics (velocity, stagnation streaks, budget escalation).
 
-5. DO NOT USE THE EXCLUDED COST REVISION EVENT MODEL:
-   The experimental target `cost_revision_event_3m` failed Out-of-Time generalization and was removed. Do not display it.
+5. OCMS HISTORICAL DATA IS CONTEXT ONLY:
+   OCMS data provides multi-year agency and sector benchmarks. It is not an input to the real-time ML models.
 
-6. KEEP FACTS AND PREDICTIONS CLEARLY SEPARATED:
-   Make sure users can tell the difference between raw government facts (e.g. "Current Progress: 63.59%"), derived metrics
-   (e.g. "Stagnant for 4 Months"), and ML forecasts (e.g. "Schedule Delay Risk: 76.8%").
-
-7. KEY USER WORKFLOWS TO SUPPORT:
-   - Search any project by ID, Name, Agency, or State.
-   - Filter and sort projects by Risk Band, Integrated Risk Score, Cost, Progress, and Stagnation.
-   - Click on any project to view its full dossier (Facts, Financials, Schedule, Velocity, ML Breakdown, and Historical Charts).
-   - View high-level portfolio statistics (Total Projects, Total Cost Escalation, Risk Distribution across States & Agencies).
+6. PROVENANCE & SNAPSHOTS:
+   Always display the reporting epoch (`report_month`, e.g. "2026-03") so officers know which snapshot they are viewing.
 
 ========================================================================================================================
-END OF REQUIREMENTS SPECIFICATION
+END OF FRONTEND REQUIREMENTS SPECIFICATION
 ========================================================================================================================
