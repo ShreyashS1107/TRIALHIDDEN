@@ -1,0 +1,2 @@
+model,split,threshold,TN,FP,FN,TP,Total
+Random Forest,TEST_OOT,0.3,1403,157,1,2226,3787

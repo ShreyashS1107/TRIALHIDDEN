@@ -1,0 +1,40 @@
+category,target,metric,value
+Prediction Architecture,General,Total Candidate Prediction Snapshots,"15,769"
+Prediction Architecture,General,Prediction Month Range,2025-04 to 2026-03
+Prediction Architecture,General,Evaluation Month Range,2025-07 to 2026-06
+Prediction Architecture,General,Unique Projects in Window,"2,635"
+Integrity Check,General,"Duplicate (project_id, pred_month) Keys",0
+Integrity Check,General,Temporal Logic Errors,0
+Integrity Check,General,Future Boundary Violations,0
+Primary Target,schedule_delay_3m,Labelled Snapshots,"11,893 (75.42%)"
+Primary Target,schedule_delay_3m,Unlabelled Snapshots,"3,876 (24.58%)"
+Primary Target,schedule_delay_3m,Positive Cases (Delayed = 1),"6,489 (54.56%)"
+Primary Target,schedule_delay_3m,Negative Cases (On-Time = 0),"5,404 (45.44%)"
+Administrative Target,schedule_revision_3m,Labelled Snapshots,"11,893 (75.42%)"
+Administrative Target,schedule_revision_3m,Unlabelled Snapshots,"3,876 (24.58%)"
+Administrative Target,schedule_revision_3m,Positive Cases (New Delayed Revision = 1),279 (2.35%)
+Administrative Target,schedule_revision_3m,Negative Cases (No New Revision = 0),"11,614 (97.65%)"
+Secondary Target (State),cost_overrun_state_3m,Labelled Snapshots,"12,154 (77.08%)"
+Secondary Target (State),cost_overrun_state_3m,Unlabelled Snapshots,"3,615 (22.92%)"
+Secondary Target (State),cost_overrun_state_3m,Positive Cases (Cost Above Orig = 1),"3,768 (31.00%)"
+Secondary Target (State),cost_overrun_state_3m,Negative Cases (Cost Compliant = 0),"8,386 (69.00%)"
+Secondary Target (Event),cost_revision_event_3m,Labelled Snapshots,"12,154 (77.08%)"
+Secondary Target (Event),cost_revision_event_3m,Unlabelled Snapshots,"3,615 (22.92%)"
+Secondary Target (Event),cost_revision_event_3m,Positive Cases (New Escalation = 1),543 (4.47%)
+Secondary Target (Event),cost_revision_event_3m,Negative Cases (No New Escalation = 0),"11,611 (95.53%)"
+Unresolved Exit Audit,Exit Analysis,Total Unresolved Exit Snapshots,"3,490 (22.13%)"
+Unresolved Exit Audit,Exit Analysis,Exits Evaluated in Jul-Nov 2025 (Focused Cohort),"3,321 (95.16%)"
+Unresolved Exit Audit,Exit Analysis,Exits that Reappear in Subsequent Reports,"1,901 (54.47%)"
+Unresolved Exit Audit,Exit Analysis,Genuinely Unresolved Disappearances,161 (4.61%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-04 Labelled (Pos / Total),198 / 544 (36.4%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-05 Labelled (Pos / Total),180 / 520 (34.6%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-06 Labelled (Pos / Total),182 / 471 (38.6%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-07 Labelled (Pos / Total),259 / 427 (60.7%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-08 Labelled (Pos / Total),356 / 765 (46.5%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-09 Labelled (Pos / Total),350 / 758 (46.2%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-10 Labelled (Pos / Total),390 / 785 (49.7%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-11 Labelled (Pos / Total),386 / 793 (48.7%)
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2025-12 Labelled (Pos / Total),"899 / 1,371 (65.6%)"
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2026-01 Labelled (Pos / Total),"1,062 / 1,672 (63.5%)"
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2026-02 Labelled (Pos / Total),"1,178 / 1,909 (61.7%)"
+Monthly Schedule Breakdown,schedule_delay_3m,Month 2026-03 Labelled (Pos / Total),"1,049 / 1,878 (55.9%)"

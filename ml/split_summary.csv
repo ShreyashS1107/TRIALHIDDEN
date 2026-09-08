@@ -1,0 +1,17 @@
+split,target_name,total_rows,labelled_rows,labelled_pct,unlabelled_rows,unlabelled_pct,positive_count,positive_pct,negative_count,negative_pct,imbalance_ratio_neg_to_pos
+TRAIN,schedule_delay_3m,8814,5063,57.44,3751,42.56,2301,45.45,2762,54.55,1.2
+VALIDATION,schedule_delay_3m,3084,3043,98.67,41,1.33,1961,64.44,1082,35.56,0.55
+TEST,schedule_delay_3m,3871,3787,97.83,84,2.17,2227,58.81,1560,41.19,0.7
+ALL,schedule_delay_3m,15769,11893,75.42,3876,24.58,6489,54.56,5404,45.44,0.83
+TRAIN,schedule_revision_3m,8814,5063,57.44,3751,42.56,193,3.81,4870,96.19,25.23
+VALIDATION,schedule_revision_3m,3084,3043,98.67,41,1.33,41,1.35,3002,98.65,73.22
+TEST,schedule_revision_3m,3871,3787,97.83,84,2.17,45,1.19,3742,98.81,83.16
+ALL,schedule_revision_3m,15769,11893,75.42,3876,24.58,279,2.35,11614,97.65,41.63
+TRAIN,cost_overrun_state_3m,8814,5324,60.4,3490,39.6,1628,30.58,3696,69.42,2.27
+VALIDATION,cost_overrun_state_3m,3084,3041,98.61,43,1.39,932,30.65,2109,69.35,2.26
+TEST,cost_overrun_state_3m,3871,3789,97.88,82,2.12,1208,31.88,2581,68.12,2.14
+ALL,cost_overrun_state_3m,15769,12154,77.08,3615,22.92,3768,31.0,8386,69.0,2.23
+TRAIN,cost_revision_event_3m,8814,5324,60.4,3490,39.6,485,9.11,4839,90.89,9.98
+VALIDATION,cost_revision_event_3m,3084,3041,98.61,43,1.39,22,0.72,3019,99.28,137.23
+TEST,cost_revision_event_3m,3871,3789,97.88,82,2.12,36,0.95,3753,99.05,104.25
+ALL,cost_revision_event_3m,15769,12154,77.08,3615,22.92,543,4.47,11611,95.53,21.38

@@ -1,0 +1,11 @@
+bin_or_category,count,positives,positive_rate,feature_analyzed
+on_schedule,1810,342.0,0.189,current_schedule_status_as_of_t
+past_due_breached,1977,1885.0,0.9535,current_schedule_status_as_of_t
+Past Due >24m,933,852.0,0.9132,months_to_original_doc_t
+Past Due 12-24m,602,558.0,0.9269,months_to_original_doc_t
+Past Due 3-12m,500,477.0,0.954,months_to_original_doc_t
+Past Due 0-3m,232,228.0,0.9828,months_to_original_doc_t
+Due 0-3m,173,111.0,0.6416,months_to_original_doc_t
+Due 3-12m,511,1.0,0.002,months_to_original_doc_t
+Due 12-24m,480,0.0,0.0,months_to_original_doc_t
+Due >24m,356,0.0,0.0,months_to_original_doc_t

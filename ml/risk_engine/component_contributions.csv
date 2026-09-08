@@ -1,0 +1,6 @@
+risk_band,snapshot_count,avg_raw_schedule_contribution,avg_raw_cost_contribution,avg_raw_schedule_rev_contribution,avg_normalized_schedule_pct,avg_normalized_cost_pct,avg_normalized_schedule_rev_pct,pct_dominant_schedule,pct_dominant_cost,pct_dominant_schedule_rev
+LOW,1271,0.0066,0.0596,0.0019,6.48,91.35,2.17,2.12,97.01,0.87
+MODERATE,1469,0.4317,0.0829,0.0026,80.65,18.83,0.52,89.65,10.35,0.0
+HIGH,679,0.4803,0.2345,0.0049,67.3,31.96,0.74,100.0,0.0,0.0
+VERY_HIGH,452,0.4982,0.3249,0.007,60.06,39.14,0.8,100.0,0.0,0.0
+OVERALL_OOT,3871,0.3084,0.1301,0.0033,51.55,47.32,1.13,63.94,35.78,0.28

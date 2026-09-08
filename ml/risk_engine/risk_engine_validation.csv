@@ -1,0 +1,16 @@
+candidate_name,weighting_scheme,target_outcome,target_label,val_roc_auc,val_pr_auc,val_prec_top_5pct,val_prec_top_10pct,val_prec_top_20pct,val_rec_top_10pct,val_lift_top_10pct
+Candidate_A_Equal_Weight,0.33/0.33/0.33,schedule_delay_3m,Primary: Schedule Delay (3m),0.9766,0.9791,0.9869,0.9869,0.9852,0.1535,1.53
+Candidate_A_Equal_Weight,0.33/0.33/0.33,cost_overrun_state_3m,Secondary: Cost Overrun State (3m),0.9072,0.8893,0.9804,0.9836,0.9819,0.3219,3.21
+Candidate_A_Equal_Weight,0.33/0.33/0.33,schedule_revision_3m,Secondary: Schedule Revision (3m),0.7669,0.096,0.0654,0.0525,0.0279,0.3902,3.89
+Candidate_B_Evidence_Weighted,0.50/0.35/0.15,schedule_delay_3m,Primary: Schedule Delay (3m),0.9858,0.9871,1.0,0.9934,0.9885,0.1545,1.54
+Candidate_B_Evidence_Weighted,0.50/0.35/0.15,cost_overrun_state_3m,Secondary: Cost Overrun State (3m),0.9009,0.8964,1.0,1.0,1.0,0.3273,3.26
+Candidate_B_Evidence_Weighted,0.50/0.35/0.15,schedule_revision_3m,Secondary: Schedule Revision (3m),0.7602,0.092,0.0654,0.0525,0.0263,0.3902,3.89
+Candidate_C1_Primary_Dominant_60_30_10,0.60/0.30/0.10,schedule_delay_3m,Primary: Schedule Delay (3m),0.9866,0.9879,1.0,0.9934,0.9885,0.1545,1.54
+Candidate_C1_Primary_Dominant_60_30_10,0.60/0.30/0.10,cost_overrun_state_3m,Secondary: Cost Overrun State (3m),0.8962,0.8917,1.0,1.0,1.0,0.3273,3.26
+Candidate_C1_Primary_Dominant_60_30_10,0.60/0.30/0.10,schedule_revision_3m,Secondary: Schedule Revision (3m),0.7623,0.0895,0.0654,0.0525,0.0263,0.3902,3.89
+Candidate_C2_Primary_Dominant_55_35_10,0.55/0.35/0.10,schedule_delay_3m,Primary: Schedule Delay (3m),0.9862,0.9875,1.0,0.9934,0.9885,0.1545,1.54
+Candidate_C2_Primary_Dominant_55_35_10,0.55/0.35/0.10,cost_overrun_state_3m,Secondary: Cost Overrun State (3m),0.8999,0.8953,1.0,1.0,1.0,0.3273,3.26
+Candidate_C2_Primary_Dominant_55_35_10,0.55/0.35/0.10,schedule_revision_3m,Secondary: Schedule Revision (3m),0.7575,0.0876,0.0588,0.0525,0.0263,0.3902,3.89
+Candidate_C3_Balanced_Dominant_50_40_10,0.50/0.40/0.10,schedule_delay_3m,Primary: Schedule Delay (3m),0.9844,0.9862,1.0,0.9934,0.9885,0.1545,1.54
+Candidate_C3_Balanced_Dominant_50_40_10,0.50/0.40/0.10,cost_overrun_state_3m,Secondary: Cost Overrun State (3m),0.9034,0.8992,1.0,1.0,1.0,0.3273,3.26
+Candidate_C3_Balanced_Dominant_50_40_10,0.50/0.40/0.10,schedule_revision_3m,Secondary: Schedule Revision (3m),0.7521,0.0864,0.0588,0.0525,0.0263,0.3902,3.89

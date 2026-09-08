@@ -1,0 +1,6 @@
+model,ROC_AUC,PR_AUC,Brier,Precision,Recall,F1,Accuracy,Precision_at_10pct,Recall_at_10pct
+Majority Baseline,0.5,0.6444,0.2652,0.0,0.0,0.0,0.3556,0.648,0.1005
+Rule-Based Persistence,0.5173,0.6527,0.2786,0.6698,0.3248,0.4375,0.4617,0.5592,0.0867
+Logistic Regression,0.9423,0.9674,0.1812,0.9874,0.641,0.7774,0.7634,0.9967,0.1545
+Random Forest,0.9884,0.9899,0.0488,0.9845,0.9745,0.9795,0.9737,0.9901,0.1535
+Gradient Boosted Trees,0.9864,0.9866,0.1724,0.9851,0.5716,0.7235,0.7184,0.9934,0.154

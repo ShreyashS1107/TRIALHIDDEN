@@ -1,0 +1,6 @@
+check_item,status,details
+Row count matching (feature_dataset_v1 vs target_dataset_v2),VERIFIED,"Exact 1:1 match across 15,769 snapshot rows."
+Target column value consistency across split CSVs,VERIFIED,"Train N=5324, Val N=3041, OOT N=3789 perfectly sum to total labelled N=12154."
+Duplicate project-month keys check,VERIFIED,"0 duplicate (project_id, prediction_month) keys across all files."
+Missing values policy check,VERIFIED,Median imputer strictly fitted on Train partition without leaking Val/OOT values.
+Join key integrity check,VERIFIED,"All 2,635 unique projects correctly mapped with zero missing joins."

@@ -1,0 +1,9 @@
+risk_band,project_id,project_name,prediction_month,selected_integrated_risk,schedule_delay_risk,cost_overrun_risk,schedule_revision_risk,dominant_component
+LOW,10080,Construction of Srinivasapura Bypass from exi,2026-02,0.0249,0.0015,0.0688,0.0004,Cost Overrun
+LOW,107850,4-Laning of Sethawn - N. Kawnpui section Pack,2026-02,0.0207,0.0002,0.057,0.0041,Cost Overrun
+MODERATE,101280,Widening to 2 Lane with Paved shoulder of lmp,2026-02,0.5253,0.9794,0.1018,0.0,Schedule Delay
+MODERATE,102000,Reconstruction and widening to 2 lane with pa,2026-02,0.5459,0.9613,0.1863,0.0,Schedule Delay
+HIGH,105236,Khammam-Devarapalle Pkg IV [4L Access Control,2026-02,0.7272,0.8806,0.8198,0.0,Schedule Delay
+HIGH,120250,Delhi-Amritsar-Katra Expressway Phase-I Pkg-V,2026-02,0.7847,0.9876,0.8311,0.0,Schedule Delay
+VERY_HIGH,134950,"Project Assessment, Infrastructure Monitoring",2026-02,0.816,0.9987,0.9047,0.0,Schedule Delay
+VERY_HIGH,165500,"Project Assessment, Infrastructure Monitoring",2026-02,0.8127,0.9982,0.8959,0.0001,Schedule Delay

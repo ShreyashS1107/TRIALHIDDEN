@@ -1,0 +1,81 @@
+========================================================================================
+POINT-IN-TIME FEATURE ENGINEERING & LEAKAGE AUDIT REPORT (v1)
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+========================================================================================
+
+1. EXECUTIVE SUMMARY & DATASET SCALE
+------------------------------------
+- Total Prediction Snapshots: 15,769 rows.
+- Prediction Month Range: 2025-04 to 2026-03 (12 monthly epochs: Apr 2025 to Mar 2026).
+- Unique Projects Monitored: 2,635 unique projects.
+- Total Columns in Dataset: 98 columns.
+  * Identification & Timing: 6 columns
+  * Engineered Features: 79 features
+  * Carried Target Labels: 13 columns (Isolated for training/evaluation)
+
+2. FEATURE TAXONOMY BREAKDOWN
+-----------------------------
+  * Current Snapshot                   : 32 features
+  * Dynamic Trajectory                 : 19 features
+  * Point-in-Time Context Aggregate    : 10 features
+  * Static Baseline                    :  6 features
+  * Stagnation Dynamics                :  4 features
+  * Observation History                :  4 features
+  * Data Health & Quality Flag         :  4 features
+
+3. POINT-IN-TIME METHODOLOGY & MATHEMATICAL FORMULATIONS
+--------------------------------------------------------
+A. Static Baseline Features:
+   * project_age_months_t = (prediction_month - approval_start_date) in months
+   * planned_duration_months = (original_completion_date - approval_start_date) in months
+   * original_cost_log = ln(1 + original_cost_crore)
+
+B. Snapshot State Features (As of t):
+   * cost_escalation_pct_t = ((revised_cost_t - original_cost) / original_cost) * 100
+   * expenditure_ratio_pct_t = (cumulative_expenditure_t / revised_cost_t) * 100
+   * remaining_physical_progress_t = 100 - physical_progress_t
+   * schedule_slippage_months_t = (revised_doc_t - original_doc) in months
+   * months_to_original_doc_t = (original_doc - prediction_month) in months
+
+C. Progress Dynamics (Strictly <= t):
+   * physical_progress_lag1, lag2, lag3 = Physical progress at previous 1, 2, 3 observed months
+   * progress_velocity_1m_t = P(t) - P(t-1)
+   * progress_velocity_3m_t = (P(t) - P(t-3)) / 3
+   * progress_std_to_date_t = Historical standard deviation of progress up to month t
+
+D. Expenditure Dynamics (Strictly <= t):
+   * monthly_expenditure_delta_t = E(t) - E(t-1) (Monthly capital burn in Crore)
+   * expenditure_velocity_3m_t = (E(t) - E(t-3)) / 3
+   * negative_expenditure_delta_flag_t = Indicator for audit correction (E(t) < E(t-1))
+
+E. Stagnation Dynamics (Strictly <= t):
+   * stagnant_2m_t, stagnant_3m_t, stagnant_6m_t = 1 if progress had zero increase over 2, 3, 6 consecutive observed months
+   * months_since_last_progress_increase_t = Months elapsed since progress last increased
+   * longest_stagnation_to_date_t = Max continuous zero-progress streak observed up to t
+
+F. Point-in-Time State & Agency Aggregates:
+   * Computed dynamically per prediction month t across projects active at month t.
+   * state_mean_progress_t, agency_mean_progress_t, state_mean_cost_t, agency_mean_cost_t.
+
+4. POINT-IN-TIME LEAKAGE AUDIT VERIFICATION
+-------------------------------------------
+  * Total Engineered Features Audited : 79 features
+  * Features Classified as SAFE       : 79 features (100.0%)
+  * Features Classified as REVIEW     :  0 features
+  * Features Classified as LEAKAGE    :  0 features
+
+Audit Proofs & Guardrails Enforced:
+  1. Future Observation Isolation: For prediction month t, max source report_month used <= t across 100% of rows.
+  2. Forward-Fill Prevention: Missing historical values are preserved as NaN; no forward filling across prediction boundary.
+  3. Global Aggregation Prohibition: State and agency aggregates are computed strictly per prediction month, never globally.
+  4. Target Isolation: All four frozen target labels are excluded from feature calculations.
+
+5. MISSING DATA POLICY
+----------------------
+  * Explicit Missingness: Legitimate gaps (e.g. newly entering projects with <3 months history)
+    preserve NaN values rather than being artificially imputed with zero.
+  * Tree-model compatibility: LightGBM / XGBoost natively handle NaN split routing.
+
+========================================================================================
+FEATURE ENGINEERING COMPLETE — LEAKAGE AUDIT PASSED
+========================================================================================

@@ -1,0 +1,151 @@
+========================================================================================
+ML DATASET PREPARATION & TEMPORAL VALIDATION READINESS REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+========================================================================================
+
+1. EXECUTIVE SUMMARY & TEMPORAL PARTITION SIZES
+------------------------------------------------
+- Total Master Prediction Snapshots : 15,769 rows
+- Total Features Engineered         : 79 features
+- Total Frozen Target Labels        : 4 targets
+- Total Unique Projects             : 2,635 projects
+
+Temporal Partition Allocation:
+  * TRAIN SET      : 8,814 rows (55.89%) | Months: 2025-04 to 2025-11 (8 months: Apr 2025 – Nov 2025)
+  * VALIDATION SET : 3,084 rows (19.56%) | Months: 2025-12 to 2026-01 (2 months: Dec 2025 – Jan 2026)
+  * TEST SET (OOT) : 3,871 rows (24.55%) | Months: 2026-02 to 2026-03 (2 months: Feb 2026 – Mar 2026)
+
+Temporal Partitioning Verification:
+  * Monotonic Non-Overlapping Invariant: max(Train)=2025-11 < min(Val)=2025-12 <= max(Val)=2026-01 < min(Test)=2026-02
+  * Zero Random Shuffling / Sampling: Chronological order strictly preserved.
+
+2. RATIONALE FOR TEMPORAL SPLITTING
+-----------------------------------
+Infrastructure project monitoring is intrinsically longitudinal. In production deployment, a predictive model
+trained on historical monitoring data up to month T must forecast future risk for ongoing projects in future
+unseen epochs T+1, T+2, etc. Standard random k-fold cross-validation or shuffled train-test splits cause massive
+data leakage by placing future snapshots of project P in the training set and past snapshots of project P in the test
+set. The chronological split (Train: Apr-Nov 2025 -> Val: Dec 2025-Jan 2026 -> Test: Feb-Mar 2026) faithfully simulates
+real-world production forecasting conditions without lookahead bias.
+
+3. PROJECT OVERLAP AUDIT ACROSS CHRONOLOGICAL SPLITS
+---------------------------------------------------
+- Unique Projects in Train Set      : 2,075 projects
+- Unique Projects in Validation Set : 1,700 projects
+- Unique Projects in Test Set       : 1,961 projects
+- Overlap (Train ∩ Validation)      : 1,416 projects (83.3% of Val projects)
+- Overlap (Train ∩ Test)            : 1,406 projects (71.7% of Test projects)
+- Overlap (Validation ∩ Test)       : 1,683 projects (85.8% of Test projects)
+- Persistent Projects (All 3 Splits): 1,404 projects
+
+Longitudinal Integrity Note:
+Project overlap across chronological splits is the EXPECTED and INTENDED structure of longitudinal monitoring.
+A project observed in Train (e.g. at month t=2025-05) that continues to be monitored in Validation (t=2025-12)
+is not a leakage risk because the Validation snapshot's features only use historical records <= 2025-12.
+The model in production will always evaluate currently active projects that have past historical observations.
+
+4. TARGET DISTRIBUTION & USABLE DATA BY MODEL
+---------------------------------------------
+Target: schedule_delay_3m
+  Split       | Total Rows | Labelled Rows (%) | Unlabelled (NaN) | Positive Count (%) | Negative Count (%) | Neg/Pos Ratio
+  ------------|------------|-------------------|------------------|--------------------|--------------------|--------------
+  TRAIN       |      8,814 |   5,063 ( 57.4%) |    3,751 (42.6%) |    2,301 ( 45.5%) |    2,762 ( 54.5%) |        1.20:1
+  VALIDATION  |      3,084 |   3,043 ( 98.7%) |       41 ( 1.3%) |    1,961 ( 64.4%) |    1,082 ( 35.6%) |        0.55:1
+  TEST        |      3,871 |   3,787 ( 97.8%) |       84 ( 2.2%) |    2,227 ( 58.8%) |    1,560 ( 41.2%) |        0.70:1
+  ALL         |     15,769 |  11,893 ( 75.4%) |    3,876 (24.6%) |    6,489 ( 54.6%) |    5,404 ( 45.4%) |        0.83:1
+
+Target: schedule_revision_3m
+  Split       | Total Rows | Labelled Rows (%) | Unlabelled (NaN) | Positive Count (%) | Negative Count (%) | Neg/Pos Ratio
+  ------------|------------|-------------------|------------------|--------------------|--------------------|--------------
+  TRAIN       |      8,814 |   5,063 ( 57.4%) |    3,751 (42.6%) |      193 (  3.8%) |    4,870 ( 96.2%) |       25.23:1
+  VALIDATION  |      3,084 |   3,043 ( 98.7%) |       41 ( 1.3%) |       41 (  1.4%) |    3,002 ( 98.7%) |       73.22:1
+  TEST        |      3,871 |   3,787 ( 97.8%) |       84 ( 2.2%) |       45 (  1.2%) |    3,742 ( 98.8%) |       83.16:1
+  ALL         |     15,769 |  11,893 ( 75.4%) |    3,876 (24.6%) |      279 (  2.4%) |   11,614 ( 97.7%) |       41.63:1
+
+Target: cost_overrun_state_3m
+  Split       | Total Rows | Labelled Rows (%) | Unlabelled (NaN) | Positive Count (%) | Negative Count (%) | Neg/Pos Ratio
+  ------------|------------|-------------------|------------------|--------------------|--------------------|--------------
+  TRAIN       |      8,814 |   5,324 ( 60.4%) |    3,490 (39.6%) |    1,628 ( 30.6%) |    3,696 ( 69.4%) |        2.27:1
+  VALIDATION  |      3,084 |   3,041 ( 98.6%) |       43 ( 1.4%) |      932 ( 30.6%) |    2,109 ( 69.3%) |        2.26:1
+  TEST        |      3,871 |   3,789 ( 97.9%) |       82 ( 2.1%) |    1,208 ( 31.9%) |    2,581 ( 68.1%) |        2.14:1
+  ALL         |     15,769 |  12,154 ( 77.1%) |    3,615 (22.9%) |    3,768 ( 31.0%) |    8,386 ( 69.0%) |        2.23:1
+
+Target: cost_revision_event_3m
+  Split       | Total Rows | Labelled Rows (%) | Unlabelled (NaN) | Positive Count (%) | Negative Count (%) | Neg/Pos Ratio
+  ------------|------------|-------------------|------------------|--------------------|--------------------|--------------
+  TRAIN       |      8,814 |   5,324 ( 60.4%) |    3,490 (39.6%) |      485 (  9.1%) |    4,839 ( 90.9%) |        9.98:1
+  VALIDATION  |      3,084 |   3,041 ( 98.6%) |       43 ( 1.4%) |       22 (  0.7%) |    3,019 ( 99.3%) |      137.23:1
+  TEST        |      3,871 |   3,789 ( 97.9%) |       82 ( 2.1%) |       36 (  0.9%) |    3,753 ( 99.0%) |      104.25:1
+  ALL         |     15,769 |  12,154 ( 77.1%) |    3,615 (22.9%) |      543 (  4.5%) |   11,611 ( 95.5%) |       21.38:1
+
+Model-Specific Usable Training Rows (Target is not NaN):
+  * schedule_delay_3m        -> Train: 5,063 (57.4%) | Val: 3,043 (98.7%) | Test: 3,787 (97.8%) | Total: 11,893 (75.4%)
+  * schedule_revision_3m     -> Train: 5,063 (57.4%) | Val: 3,043 (98.7%) | Test: 3,787 (97.8%) | Total: 11,893 (75.4%)
+  * cost_overrun_state_3m    -> Train: 5,324 (60.4%) | Val: 3,041 (98.6%) | Test: 3,789 (97.9%) | Total: 12,154 (77.1%)
+  * cost_revision_event_3m   -> Train: 5,324 (60.4%) | Val: 3,041 (98.6%) | Test: 3,789 (97.9%) | Total: 12,154 (77.1%)
+
+5. CLASS IMBALANCE ANALYSIS
+---------------------------
+1. Primary Operational Target (schedule_delay_3m):
+   - Train Positive Rate: 45.45% (Balanced: 1.20:1 Negative/Positive ratio).
+   - Val Positive Rate  : 64.44% (Reflecting winter 2025/26 operational slippage trends).
+   - Test Positive Rate : 58.81% (Consistent with active delays in Q1 2026).
+   - Assessment: Highly stable, no extreme class imbalance.
+
+2. Secondary Operational Target (cost_overrun_state_3m):
+   - Train Positive Rate: 30.58% (2.27:1 Negative/Positive ratio).
+   - Val Positive Rate  : 30.65% (2.26:1 Negative/Positive ratio).
+   - Test Positive Rate : 31.88% (2.14:1 Negative/Positive ratio).
+   - Assessment: Remarkable temporal stability across all 3 partitions (~31% positive rate).
+
+3. Administrative Revision Targets (schedule_revision_3m & cost_revision_event_3m):
+   - schedule_revision_3m : 3.81% positive in Train, 1.35% in Val, 1.19% in Test (~25:1 to 83:1 ratio).
+   - cost_revision_event_3m: 9.11% positive in Train, 0.72% in Val, 0.95% in Test (~10:1 to 104:1 ratio).
+   - Assessment: Significant class imbalance due to administrative rarity of formal project re-sanctioning.
+   - Modeling Strategy: Use scale_pos_weight / class_weight, optimize PR-AUC / F1-Score / Brier score,
+     avoid relying solely on raw accuracy or standard 0.5 classification threshold.
+
+6. FEATURE AVAILABILITY & ML READINESS AUDIT
+--------------------------------------------
+- Total Features Evaluated: 79
+- Features with PASS status: 77
+- Features with REVIEW status: 2
+- Features with Constant Flag (unique <= 1): 0
+
+Features Requiring Review:
+  * missing_expenditure_t: missing 0.0%, unique=2 (Near-constant feature (dominant value 99.01%))
+  * missing_revised_cost_t: missing 0.0%, unique=2 (Near-constant feature (dominant value 99.26%))
+  Note: missing_expenditure_t (0.99% True) and missing_revised_cost_t (0.74% True) are valid data-quality
+  indicator flags indicating rare reporting omissions. They are preserved for tree model evaluation.
+
+7. TEMPORAL & TARGET LEAKAGE AUDIT RESULTS
+------------------------------------------
+Point-in-Time Boundary Audit:
+  * 79 of 79 features (100.0%) verified to use strictly information where report_month <= prediction_month (t).
+  * Rolling window metrics, lag calculations, and stagnation streaks do not look ahead.
+  * State and agency aggregate features are computed dynamically per report month t across projects active at t.
+  * Forward-fill across prediction boundary: ZERO instances. Missing historical observations are kept as NaN.
+
+Target Isolation Audit:
+  * Frozen targets (schedule_delay_3m, schedule_revision_3m, cost_overrun_state_3m, cost_revision_event_3m)
+    are strictly separated from the feature matrix X.
+  * No target is used as an input feature for another target.
+  * Future outcome fields (e.g. actual_completion_date, future revised costs) are strictly excluded from X.
+
+8. PROPOSED EVALUATION METRICS & BASELINE STRATEGIES
+----------------------------------------------------
+Evaluation Framework (To be executed in ML modeling stage):
+  * Primary Metrics: ROC-AUC (ranking capability), PR-AUC / Average Precision (essential for imbalanced targets),
+    Brier Score (probabilistic calibration), Macro F1-Score, Precision@Top Decile (Precision@K).
+  * Secondary Metrics: Confusion Matrix, Recall at fixed precision thresholds (e.g. Precision=70%).
+
+Proposed Baseline Models for Comparison:
+  1. Majority Class Baseline: Always predicts the dominant class (sets baseline accuracy).
+  2. Persistence / State Baseline: Predicts future delay/cost risk if current schedule slippage > 0 or cost escalation > 0.
+  3. Logistic Regression Baseline: L2-regularized linear baseline with standard missing-value imputation.
+  4. Gradient Boosted Trees: LightGBM / XGBoost / CatBoost natively routing NaNs.
+
+========================================================================================
+FINAL READINESS DECISION:
+ML DATASET READY — NO LEAKAGE FOUND
+========================================================================================

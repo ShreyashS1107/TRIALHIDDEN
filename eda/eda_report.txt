@@ -1,0 +1,326 @@
+========================================================================================
+PAIMANA PROJECT-MONITORING EXPLORATORY DATA ANALYSIS (EDA) REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+========================================================================================
+
+1. DATASET OVERVIEW & STRUCTURAL INTEGRITY
+------------------------------------------
+- Total Monthly Observations (Rows): 21,555
+- Total Unique Projects Monitored: 2,741
+- Total Monthly Reporting Epochs: 15 (2025-04 to 2026-06)
+- Total Features / Columns: 35
+- In-Memory DataFrame Size: 21.09 MB
+- Primary Key Uniqueness: (project_id + report_month) is 100% unique (0 duplicates).
+
+Missing Value Distribution:
+  * project_id                    :      0 missing ( 0.00%)
+  * project_name                  :     35 missing ( 0.16%)
+  * agency                        :      0 missing ( 0.00%)
+  * legacy_ocms_code              :  6,294 missing (29.20%)
+  * state                         :      0 missing ( 0.00%)
+  * approval_start_date           :    214 missing ( 0.99%)
+  * original_completion_date      :    463 missing ( 2.15%)
+  * revised_completion_date       : 16,374 missing (75.96%)
+  * original_cost_crore           :    100 missing ( 0.46%)
+  * revised_cost_crore            :    128 missing ( 0.59%)
+  * cumulative_expenditure_crore  :    167 missing ( 0.77%)
+  * physical_progress_percent     :  1,160 missing ( 5.38%)
+  * report_month                  :      0 missing ( 0.00%)
+  * source_file                   :      0 missing ( 0.00%)
+  * source_table                  :      0 missing ( 0.00%)
+  * report_dt                     :      0 missing ( 0.00%)
+  * start_dt                      :    214 missing ( 0.99%)
+  * orig_comp_dt                  :    463 missing ( 2.15%)
+  * rev_comp_dt                   : 16,374 missing (75.96%)
+  * planned_duration_months       :    496 missing ( 2.30%)
+  * revised_duration_months       : 16,374 missing (75.96%)
+  * schedule_delay_months         : 16,383 missing (76.01%)
+  * cost_revision_ratio           :    128 missing ( 0.59%)
+  * cost_overrun_crore            :    128 missing ( 0.59%)
+  * cost_overrun_pct              :    128 missing ( 0.59%)
+  * expenditure_ratio_revised     :    174 missing ( 0.81%)
+  * expenditure_ratio_original    :    167 missing ( 0.77%)
+  * expenditure_pct_revised       :    174 missing ( 0.81%)
+  * prev_month                    :  2,741 missing (12.72%)
+  * prev_progress                 :  3,758 missing (17.43%)
+  * prev_expenditure              :  2,896 missing (13.44%)
+  * delta_progress                :  4,287 missing (19.89%)
+  * delta_expenditure             :  2,934 missing (13.61%)
+  * clean_state                   :      0 missing ( 0.00%)
+  * prog_exp_diff                 :  1,167 missing ( 5.41%)
+
+2. TEMPORAL COVERAGE & LONGITUDINAL CONTINUITY
+---------------------------------------------
+Active Projects Monitored per Monthly Report:
+  * 2025-04: 1,627 projects
+  * 2025-05: 1,606 projects
+  * 2025-06: 1,552 projects
+  * 2025-07:   791 projects
+  * 2025-08:   800 projects
+  * 2025-09:   794 projects
+  * 2025-10:   820 projects
+  * 2025-11:   824 projects
+  * 2025-12: 1,388 projects
+  * 2026-01: 1,696 projects
+  * 2026-02: 1,939 projects
+  * 2026-03: 1,932 projects
+  * 2026-04: 1,972 projects
+  * 2026-05: 1,978 projects
+  * 2026-06: 1,836 projects
+
+Project Longitudinal Persistence Breakdown:
+  * Projects tracked across all 15 months :   418 (15.25%)
+  * Projects tracked across 10-14 months  :   730 (26.63%)
+  * Projects tracked across 5-9 months    :   814 (29.70%)
+  * Projects tracked across 1-4 months    :   779 (28.42%)
+
+3. PROJECT COST DISTRIBUTION & REVISION DYNAMICS
+------------------------------------------------
+Original Sanctioned Cost Statistics (₹ Crore):
+  * Mean               : ₹1,663.60 Cr
+  * Median (50th pct)  : ₹636.10 Cr
+  * Standard Deviation : ₹5,247.40 Cr
+  * Min / Max          : ₹9.00 Cr / ₹150,000.00 Cr
+  * 25th / 75th pct    : ₹298.32 Cr / ₹1,388.59 Cr
+
+Cost Escalation / Revision Breakdown:
+  * Projects with Escalated Cost (>1.0x) :   822 (29.99%)
+  * Projects with Unchanged Cost (=1.0x) : 1,553 (56.66%)
+  * Projects with Reduced Cost   (<1.0x) :   361 (13.17%)
+
+Top 10 Most Expensive Projects (by Original Cost):
+  * [617321] Godhani-Kalumna Chord 13.7 km       | Agency: Ministry of Railways | State: OFFSHORE        | Orig: ₹150000.00 Cr | Rev: ₹150000.00 Cr | Ratio: 1.00x
+  * [705728] Mumbai-Ahmedabad High Speed Rail Pr | Agency: National High Speed Rail Corporation [NHSRC] | State: & DIU, GUJARAT, | Orig: ₹108000.00 Cr | Rev: ₹108000.00 Cr | Ratio: 1.00x
+  * [702668] Chennai Metro Rail Phase-II Develop | Agency: Chennai Metro Rail Limited [CMRL] | State: TAMIL NADU      | Orig: ₹63246.00 Cr | Rev: ₹63246.00 Cr | Ratio: 1.00x
+  * [706775] BharatNet                           | Agency: Department of Telecommunications [DoT] | State: PAN INDIA       | Orig: ₹61109.00 Cr | Rev: ₹188000.00 Cr | Ratio: 3.08x
+  * [705237] Western Dedicated Freight Corridor  | Agency: DFCCIL   | State: MAHARASHTRA, RA | Orig: ₹51101.00 Cr | Rev: ₹124005.00 Cr | Ratio: 2.43x
+  * [709798] Ethylene Cracker Project at Bina Re | Agency: MinistryofPetroleumNaturalGas | State: MADHYA PRADESH  | Orig: ₹43367.00 Cr | Rev: ₹43367.00 Cr | Ratio: 1.00x
+  * [701263] Rajasthan Refinery Project          | Agency: MinistryofPetroleumNaturalGas | State: RAJASTHAN       | Orig: ₹43129.00 Cr | Rev: ₹79459.00 Cr | Ratio: 1.84x
+  * [705429] Rishikesh-Karnaprayag New Rail Line | Agency: RVNL - II | State: UTTARAKHAND     | Orig: ₹38953.00 Cr | Rev: ₹38953.00 Cr | Ratio: 1.00x
+  * [N28000056] DELHI MRTS PHASE-III 9-2011 3/2016  | Agency: DMRC     | State: DELHI           | Orig: ₹38585.00 Cr | Rev: ₹43095.35 Cr | Ratio: 1.12x
+  * [701289] Capacity Expansion of Panipat Refin | Agency: Ministry of Petroleum & Natural Gas | State: HARYANA         | Orig: ₹34627.00 Cr | Rev: ₹36225.00 Cr | Ratio: 1.05x
+
+4. PHYSICAL PROGRESS DISTRIBUTION & VELOCITY DYNAMICS
+-----------------------------------------------------
+Physical Progress Statistics (%):
+  * Mean               : 57.89%
+  * Median (50th pct)  : 66.00%
+  * Standard Deviation : 34.86%
+  * 25th / 75th pct    : 25.00% / 91.00%
+  * Observations at 0% : 1,358 ( 6.66%)
+  * Observations >=90%: 5,519 (27.06%)
+
+Progress Bucket Breakdown (All Observations):
+  *  0% - 25%   :  5,097 (24.99%)
+  * 25% - 50%   :  2,791 (13.68%)
+  * 50% - 75%   :  3,678 (18.03%)
+  * 75% - 100%  :  8,829 (43.29%)
+  * Exactly 100%:    930 ( 4.56%)
+
+Month-over-Month Progress Velocity (Delta Progress):
+  * Mean Monthly Velocity   : +1.63% / month
+  * Median Monthly Velocity : +0.00% / month
+  * Positive Steps (>0%)    :  8,564 (49.59%)
+  * Stagnant Steps (=0%)    :  8,007 (46.37%)
+  * Negative Steps (<0%)    :    667 ( 3.86%) [Data revisions / audits]
+
+5. CUMULATIVE EXPENDITURE & CAPITAL ABSORPTION DYNAMICS
+------------------------------------------------------
+Cumulative Expenditure Statistics (₹ Crore):
+  * Mean               : ₹1,156.41 Cr
+  * Median             : ₹268.72 Cr
+  * Standard Deviation : ₹4,397.67 Cr
+  * Mean Monthly Burn  : ₹42.96 Cr / month
+
+6. PROGRESS VS EXPENDITURE DISCREPANCY & GOVERNANCE ANOMALIES
+------------------------------------------------------------
+  * Observations where Expenditure % exceeds Progress % by > 20%: 1,707 ( 7.92%)
+  * Observations where Progress % exceeds Expenditure % by > 20%: 6,781 (31.46%)
+  * High Capital Outlay with Low Physical Progress (>50% Exp, <10% Prog):   271 observations
+
+7. SCHEDULE DURATION & DELAY DYNAMICS
+-------------------------------------
+Schedule Delay Statistics (Revised Completion - Original Completion in Months):
+  * Projects with Schedule Delay (>0.5 mo) : 1,134 (62.69%)
+  * Projects On-Time (+/- 0.5 mo)          :   630 (34.83%)
+  * Projects Ahead of Schedule (<-0.5 mo)  :    45 ( 2.49%)
+  * Mean Delay Across Portfolio            : 19.1 months
+  * Median Delay                           : 10.0 months
+  * 75th Percentile Delay                  : 29.0 months
+  * Max Delay Recorded                     : 300.0 months
+
+8. STAGNANT PROJECT IDENTIFICATION
+----------------------------------
+  * Projects Stagnant for >= 3 consecutive months:   835 (30.46%)
+  * Projects Stagnant for >= 6 consecutive months:   235 ( 8.57%)
+  * Projects Stagnant for >= 9 consecutive months:    68 ( 2.48%)
+
+9. IMPLEMENTING AGENCY BENCHMARK (TOP 10)
+-----------------------------------------
+  * NHAI         | Projects:  616 | Budget: ₹ 788,401.7 Cr | Avg Prog:  69.7% | Avg Delay:  17.9 mo | Overrun:  +2.4%
+  * MoRTH        | Projects:  519 | Budget: ₹ 234,285.9 Cr | Avg Prog:  68.2% | Avg Delay:  19.8 mo | Overrun:  +1.5%
+  * NHIDCL       | Projects:  225 | Budget: ₹ 122,054.7 Cr | Avg Prog:  70.2% | Avg Delay:  22.1 mo | Overrun:  +4.7%
+  * PAIMANA      | Projects:  118 | Budget: ₹  12,583.0 Cr | Avg Prog:  57.9% | Avg Delay:  16.6 mo | Overrun: +1603.5%
+  * National Highways Authority of India [NHAI] | Projects:   80 | Budget: ₹  89,273.2 Cr | Avg Prog:  96.8% | Avg Delay:  18.1 mo | Overrun:  +6.2%
+  * Power Grid Corporation of India Limited [POWERGRID] | Projects:   63 | Budget: ₹ 112,402.6 Cr | Avg Prog:  57.7% | Avg Delay:   5.5 mo | Overrun:  +2.0%
+  * Ministry of Petroleum & Natural Gas | Projects:   52 | Budget: ₹ 216,834.8 Cr | Avg Prog:  70.0% | Avg Delay:  22.7 mo | Overrun: +442.4%
+  * WCL - CIL    | Projects:   31 | Budget: ₹  13,910.5 Cr | Avg Prog:  29.4% | Avg Delay:   6.2 mo | Overrun:  +0.0%
+  * MinistryofPetroleumNaturalGas | Projects:   27 | Budget: ₹ 135,902.6 Cr | Avg Prog:  53.0% | Avg Delay:  10.3 mo | Overrun:  +8.2%
+  * Medical Education, Ministry of Health and Family Welfare | Projects:   26 | Budget: ₹   7,306.0 Cr | Avg Prog:  34.2% | Avg Delay:   nan mo | Overrun: +32.8%
+
+10. STATE / REGIONAL BENCHMARK (TOP 10)
+---------------------------------------
+  * MAHARASHTRA          | Projects:  212 | Budget: ₹ 312,722.9 Cr | Avg Prog:  59.2% | Avg Delay:  17.8 mo | Overrun: +44.1%
+  * UTTAR PRADESH        | Projects:  164 | Budget: ₹ 250,110.8 Cr | Avg Prog:  61.5% | Avg Delay:   9.9 mo | Overrun: +204.1%
+  * ANDHRA PRADESH       | Projects:  144 | Budget: ₹ 172,629.9 Cr | Avg Prog:  69.1% | Avg Delay:  12.6 mo | Overrun: +58.4%
+  * GUJARAT              | Projects:  126 | Budget: ₹ 212,434.7 Cr | Avg Prog:  62.9% | Avg Delay:  18.1 mo | Overrun: +46.7%
+  * BIHAR                | Projects:  115 | Budget: ₹ 190,811.0 Cr | Avg Prog:  62.5% | Avg Delay:  25.8 mo | Overrun: +41.5%
+  * MADHYA PRADESH       | Projects:  112 | Budget: ₹ 200,280.5 Cr | Avg Prog:  62.5% | Avg Delay:  20.6 mo | Overrun: +54.3%
+  * KARNATAKA            | Projects:  107 | Budget: ₹ 181,556.9 Cr | Avg Prog:  59.6% | Avg Delay:  17.5 mo | Overrun: +27.1%
+  * ODISHA               | Projects:  101 | Budget: ₹ 173,234.2 Cr | Avg Prog:  53.5% | Avg Delay:  18.7 mo | Overrun: +25.7%
+  * ASSAM                | Projects:   88 | Budget: ₹  79,821.2 Cr | Avg Prog:  66.8% | Avg Delay:  15.5 mo | Overrun: +47.0%
+  * JHARKHAND            | Projects:   83 | Budget: ₹ 130,703.0 Cr | Avg Prog:  46.9% | Avg Delay:   7.8 mo | Overrun: +23.2%
+
+11. COMPLETED PROJECTS RECONCILIATION
+------------------------------------
+  * Total Completed Projects Logged: 350
+  * Completed Projects Monitored across: 13 report months
+
+12. NEWLY ADDED PROJECTS PROFILE
+--------------------------------
+  * Total Newly Added Projects Logged: 743
+  * New Project Additions Spread over: 13 report months
+
+13. LONGITUDINAL CONSISTENCY & DATA STABILITY
+---------------------------------------------
+  * 1,137 legacy OCMS codes (e.g. N04000106) successfully mapped to modern 6-digit PAIMANA IDs.
+  * 0 duplicate (project_id, report_month) records detected.
+  * 418 projects have perfectly complete 15-month continuous monthly trajectories.
+
+14. FEATURE CORRELATION MATRIX
+-----------------------------
+                              original_cost_crore  revised_cost_crore  cumulative_expenditure_crore  physical_progress_percent  planned_duration_months  revised_duration_months  schedule_delay_months  cost_revision_ratio
+original_cost_crore                      1.000000            0.868514                      0.682515                  -0.022210                 0.118596                 0.141882               0.015366            -0.020826
+revised_cost_crore                       0.868514            1.000000                      0.755050                   0.013307                 0.127818                 0.173383               0.077400             0.069201
+cumulative_expenditure_crore             0.682515            0.755050                      1.000000                   0.144365                 0.172064                 0.224624               0.140115             0.065915
+physical_progress_percent               -0.022210            0.013307                      0.144365                   1.000000                -0.027284                 0.056680               0.319905            -0.027101
+planned_duration_months                  0.118596            0.127818                      0.172064                  -0.027284                 1.000000                 0.845053              -0.134442             0.031203
+revised_duration_months                  0.141882            0.173383                      0.224624                   0.056680                 0.845053                 1.000000               0.416218             0.223188
+schedule_delay_months                    0.015366            0.077400                      0.140115                   0.319905                -0.134442                 0.416218               1.000000             0.218003
+cost_revision_ratio                     -0.020826            0.069201                      0.065915                  -0.027101                 0.031203                 0.223188               0.218003             1.000000
+
+15. 10 SAMPLE LONGITUDINAL PROJECTS METADATA
+-------------------------------------------
+  * PID: 400018 | HURA C OC 8-2022 3/2029 {3/2029} | Agency: ECL | State: JHARKHAND COAL
+    Orig Cost: ₹859.41 Cr | Prog: 62.0% -> 63.3% | Exp: ₹442.98 Cr -> ₹455.95 Cr
+  * PID: 400019 | DHULE (BORVIHIR)-NARDANA 1-2019 12/2026  | Agency: UMBRELLA WORK | State: MAHARASHTRA CIVIL AVIATION
+    Orig Cost: ₹492.76 Cr | Prog: 5.0% -> 38.0% | Exp: ₹198.13 Cr -> ₹560.32 Cr
+  * PID: 400022 | TARANGA HILL ABU ROAD VIA AMBAJI NEW LIN | Agency: NWR | State: GUJARAT CIVIL AVIATION
+    Orig Cost: ₹2798.16 Cr | Prog: 11.0% -> 45.0% | Exp: ₹1020.70 Cr -> ₹2616.51 Cr
+  * PID: 400033 | BHATADI EXPANSION OC 5-2022 3/2028 {3/20 | Agency: WCL | State: MAHARASHTRA CIVIL AVIATION
+    Orig Cost: ₹580.60 Cr | Prog: 17.0% -> 33.9% | Exp: ₹61.33 Cr -> ₹112.17 Cr
+  * PID: 400043 | LAYING OF POL PIPELINES IN COMMON CORRID | Agency: CHENNAI | State: TAMIL NADU CIVIL AVIATION
+    Orig Cost: ₹829.00 Cr | Prog: 58.7% -> 79.6% | Exp: ₹245.35 Cr -> ₹382.96 Cr
+  * PID: 400073 | EXPANSION OF KONAR OCP 1-2022 3/2032 {3/ | Agency: CCL | State: JHARKHAND COAL
+    Orig Cost: ₹799.34 Cr | Prog: 32.0% -> 50.8% | Exp: ₹416.73 Cr -> ₹172.30 Cr
+  * PID: 400074 | EXPANSION OF KARO OCP 1-2022 3/2029 {3/2 | Agency: CCL | State: JHARKHAND COAL
+    Orig Cost: ₹908.47 Cr | Prog: 20.0% -> 23.3% | Exp: ₹217.68 Cr -> ₹208.28 Cr
+  * PID: 400078 | NEW MUNDRA-PANIPAT CRUDE OIL PIPELINE 12 | Agency: IOCL | State: RAJASTHAN CIVIL AVIATION
+    Orig Cost: ₹9028.00 Cr | Prog: 80.0% -> 94.1% | Exp: ₹6597.37 Cr -> ₹7482.71 Cr
+  * PID: 400087 | REDEVELOPMENT OF SOBHASAN COMPLEX 8-2021 | Agency: ONGC | State: GUJARAT CIVIL AVIATION
+    Orig Cost: ₹885.63 Cr | Prog: 69.4% -> 94.3% | Exp: ₹547.42 Cr -> ₹1037.37 Cr
+  * PID: 400119 | LIFE EXTENSION OF WALL PLATFORMS OF MUMB | Agency: ONGC | State: MAHARASHTRA CIVIL AVIATION
+    Orig Cost: ₹3190.69 Cr | Prog: 88.4% -> 90.0% | Exp: ₹3006.09 Cr -> ₹3123.20 Cr
+
+16. 5 DETAILED MULTI-MONTH TRAJECTORY TABLES
+-------------------------------------------
+
+--- PROJECT ID: 400018 (HURA C OC 8-2022 3/2029 {3/2029}) ---
+report_month  physical_progress_percent  delta_progress  cumulative_expenditure_crore  delta_expenditure revised_completion_date  revised_cost_crore
+     2025-04                      62.00             NaN                        442.98                NaN                 2029-03              859.41
+     2025-05                      62.00            0.00                        448.60               5.62                 2029-03              859.41
+     2025-06                      62.00            0.00                        448.72               0.12                 2029-03              859.41
+     2025-07                      62.00            0.00                        450.47               1.75                     NaN              859.41
+     2025-08                      62.00            0.00                        450.76               0.29                     NaN              859.41
+     2025-09                      62.00            0.00                        451.61               0.85                     NaN              859.41
+     2025-10                      62.00            0.00                        451.62               0.01                     NaN              859.41
+     2025-11                      62.00            0.00                        451.93               0.31                     NaN              859.41
+     2025-12                      62.00            0.00                        453.00               1.07                     NaN              859.41
+     2026-01                      63.00            1.00                        454.68               1.68                     NaN              859.41
+     2026-02                      63.00            0.00                        455.31               0.63                     NaN              859.41
+     2026-03                      63.22            0.22                        455.31               0.00                     NaN              859.41
+     2026-04                      63.22            0.00                        455.25              -0.06                     NaN              859.41
+     2026-05                      63.22            0.00                        455.25               0.00                     NaN              859.41
+     2026-06                      63.30            0.08                        455.95               0.70                     NaN              859.41
+
+--- PROJECT ID: 400019 (DHULE (BORVIHIR)-NARDANA 1-2019 12/2026 {3/2028}) ---
+report_month  physical_progress_percent  delta_progress  cumulative_expenditure_crore  delta_expenditure revised_completion_date  revised_cost_crore
+     2025-04                        5.0             NaN                        198.13                NaN                 2028-03             1158.99
+     2025-05                        5.0             0.0                        198.74               0.61                 2028-03             1158.99
+     2025-06                        5.0             0.0                        234.48              35.74                 2028-03             1158.99
+     2025-07                        9.0             4.0                        234.48               0.00                 2027-09             1171.00
+     2025-08                       16.0             7.0                        245.11              10.63                     NaN             1170.83
+     2025-09                       16.0             0.0                        256.28              11.17                     NaN             1170.83
+     2025-10                       16.0             0.0                        276.86              20.58                     NaN             1170.83
+     2025-11                       17.0             1.0                        288.08              11.22                     NaN             1170.83
+     2025-12                       25.0             8.0                        415.47             127.39                     NaN             1170.83
+     2026-01                       25.0             0.0                        440.73              25.26                     NaN             1170.83
+     2026-02                       25.0             0.0                        476.12              35.39                     NaN             1170.83
+     2026-03                       25.0             0.0                        480.92               4.80                     NaN             1170.83
+     2026-04                       25.0             0.0                        519.29              38.37                     NaN             1170.83
+     2026-05                       25.0             0.0                        542.26              22.97                     NaN             1170.83
+     2026-06                       38.0            13.0                        560.32              18.06                     NaN             1170.83
+
+--- PROJECT ID: 400022 (TARANGA HILL ABU ROAD VIA AMBAJI NEW LINE 7-2022 7/2030 {12/2026}) ---
+report_month  physical_progress_percent  delta_progress  cumulative_expenditure_crore  delta_expenditure revised_completion_date  revised_cost_crore
+     2025-04                       11.0             NaN                       1020.70                NaN                 2026-12             2798.16
+     2025-05                       12.0             1.0                       1063.09              42.39                 2026-12             2798.16
+     2025-06                       12.5             0.5                       1103.16              40.07                 2026-12             2798.16
+     2025-07                        NaN             NaN                          7.00           -1096.16                     NaN             2022.00
+     2025-08                       15.0             NaN                       1915.38            1908.38                     NaN             2798.00
+     2025-09                       16.0             1.0                       1931.66              16.28                     NaN             2798.00
+     2025-10                       17.0             1.0                       2014.60              82.94                     NaN             2798.00
+     2025-11                       17.0             0.0                       2037.04              22.44                     NaN             2798.00
+     2025-12                       17.0             0.0                       2098.09              61.05                     NaN             2798.00
+     2026-01                       20.0             3.0                       2181.96              83.87                     NaN             2798.00
+     2026-02                       30.0            10.0                       2311.66             129.70                     NaN             2798.00
+     2026-03                       30.0             0.0                       2321.81              10.15                     NaN             2798.00
+     2026-04                       37.0             7.0                       2439.32             117.51                     NaN             2798.00
+     2026-05                       37.0             0.0                       2569.32             130.00                     NaN             2798.00
+     2026-06                       45.0             8.0                       2616.51              47.19                     NaN             2798.00
+
+--- PROJECT ID: 400033 (BHATADI EXPANSION OC 5-2022 3/2028 {3/2028}) ---
+report_month  physical_progress_percent  delta_progress  cumulative_expenditure_crore  delta_expenditure revised_completion_date  revised_cost_crore
+     2025-04                      17.00             NaN                         61.33                NaN                 2028-03              729.86
+     2025-05                      17.00            0.00                         61.33               0.00                 2028-03              729.86
+     2025-06                      17.00            0.00                         61.33               0.00                 2028-03              729.86
+     2025-07                      26.00            9.00                         20.52             -40.81                     NaN              580.61
+     2025-08                      26.00            0.00                         69.73              49.21                     NaN              580.61
+     2025-09                      28.00            2.00                         69.77               0.04                     NaN              580.61
+     2025-10                      28.00            0.00                         73.77               4.00                     NaN              580.61
+     2025-11                      31.00            3.00                         80.95               7.18                     NaN              580.61
+     2025-12                      31.00            0.00                         84.73               3.78                     NaN              580.61
+     2026-01                      33.00            2.00                         86.77               2.04                     NaN              580.61
+     2026-02                      33.00            0.00                        105.46              18.69                     NaN              580.61
+     2026-03                      33.15            0.15                        111.65               6.19                     NaN              580.61
+     2026-04                      33.91            0.76                        112.17               0.52                     NaN              580.61
+     2026-05                      33.91            0.00                        112.17               0.00                     NaN              580.61
+     2026-06                      33.91            0.00                        112.17               0.00                     NaN              580.61
+
+--- PROJECT ID: 400043 (LAYING OF POL PIPELINES IN COMMON CORRIDOR FOR PROPOSED GRASS ROOT TERMINAL AT VALLUR 1-2022 7/2024) ---
+report_month  physical_progress_percent  delta_progress  cumulative_expenditure_crore  delta_expenditure revised_completion_date  revised_cost_crore
+     2025-04                      58.70             NaN                        245.35                NaN                 2026-05               829.0
+     2025-05                      59.44            0.74                        257.54              12.19                 2026-05               829.0
+     2025-06                      60.16            0.72                        259.48               1.94                 2026-05               829.0
+     2025-07                      62.00            1.84                        297.77              38.29                 2026-05               829.0
+     2025-08                      63.00            1.00                        301.71               3.94                     NaN               829.0
+     2025-09                      66.00            3.00                        320.63              18.92                     NaN               829.0
+     2025-10                      67.00            1.00                        327.86               7.23                     NaN               829.0
+     2025-11                      67.00            0.00                        338.15              10.29                     NaN               829.0
+     2025-12                      69.00            2.00                        339.98               1.83                     NaN               829.0
+     2026-01                      71.00            2.00                        331.77              -8.21                     NaN               829.0
+     2026-02                      74.00            3.00                        335.37               3.60                     NaN               829.0
+     2026-03                      75.30            1.30                        350.21              14.84                     NaN               829.0
+     2026-04                      76.20            0.90                        350.21               0.00                     NaN               829.0
+     2026-05                      78.00            1.80                        378.18              27.97                     NaN               829.0
+     2026-06                      79.60            1.60                        382.96               4.78                     NaN               829.0

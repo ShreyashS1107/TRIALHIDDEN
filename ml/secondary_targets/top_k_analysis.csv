@@ -1,0 +1,9 @@
+top_fraction,k_selected,actual_positives_captured,total_positives,precision,recall,lift_over_prevalence,split
+Top 1%,31,2,22,0.0645,0.0909,8.92,VALIDATION
+Top 5%,153,3,22,0.0196,0.1364,2.71,VALIDATION
+Top 10%,305,4,22,0.0131,0.1818,1.81,VALIDATION
+Top 20%,609,7,22,0.0115,0.3182,1.59,VALIDATION
+Top 1%,38,0,36,0.0,0.0,0.0,TEST_OOT
+Top 5%,190,2,36,0.0105,0.0556,1.11,TEST_OOT
+Top 10%,379,2,36,0.0053,0.0556,0.56,TEST_OOT
+Top 20%,758,3,36,0.004,0.0833,0.42,TEST_OOT

@@ -1,0 +1,100 @@
+========================================================================================
+TARGET LABEL CONSTRUCTION & POINT-IN-TIME AUDIT REPORT
+SIH 2026 Problem Statement SIH26103: IPMD / MoSPI Integrated Project Monitoring Platform
+========================================================================================
+
+1. DATASET OVERVIEW & PREDICTION ARCHITECTURE
+---------------------------------------------
+- Master Ongoing Records (Table 6): 21,555 project-month observations.
+- Total Unique Projects: 2,741 projects.
+- Monthly Observational Window: 15 consecutive months (2025-04 to 2026-06).
+- Forward Prediction Horizon (H): 3 calendar months (t -> t+3).
+- Valid Prediction Months: 12 epochs (2025-04 through 2026-03).
+- Total Candidate Prediction Snapshots: 15,769 rows.
+- Unique Projects in Prediction Pool: 2,635 projects.
+
+2. EXACT TARGET DEFINITIONS
+---------------------------
+PRIMARY TARGET: schedule_delay_3m
+  Meaning: At prediction month t, will the project breach its original completion date
+           within or by the 3-month future evaluation horizon (t+3)?
+  Baseline: original_completion_date (sanctioned baseline schedule).
+  Positive Class (1): Project is actively ongoing at t+3 and t+3 > original_DOC,
+                      OR official revised_DOC at t+3 > original_DOC,
+                      OR completed in Table 3 with actual_completion_date > original_DOC.
+  Negative Class (0): Project is active at t+3 with t+3 <= original_DOC and no revised delay,
+                      OR completed in Table 3 on or before original_DOC.
+  Unlabelled (NaN): Missing original DOC, or project exited before t+3 without Table 3 entry.
+
+SECONDARY TARGET: cost_overrun_3m
+  Meaning: At prediction month t, will the project's reported revised cost exceed its
+           original sanctioned cost within or by the 3-month future evaluation horizon (t+3)?
+  Baseline: original_cost_crore (sanctioned baseline budget).
+  Positive Class (1): revised_cost at t+3 > original_cost,
+                      OR completed in Table 3 with final cost > original_cost.
+  Negative Class (0): revised_cost at t+3 <= original_cost,
+                      OR completed in Table 3 with final cost <= original_cost.
+  Unlabelled (NaN): Missing original/future cost, or unresolved project exit.
+
+3. LABEL DISTRIBUTIONS & CLASS BALANCE
+-------------------------------------
+SCHEDULE DELAY (3-Month Horizon):
+  * Total Prediction Snapshots : 15,769 (100.00%)
+  * Labelled Snapshots         : 11,893 ( 75.42%)
+  * Unlabelled Snapshots       :  3,876 ( 24.58%)
+  * Delayed = 1 (Positive)     :  6,526 ( 54.87% of labelled)
+  * On-Time = 0 (Negative)     :  5,367 ( 45.13% of labelled)
+
+COST OVERRUN (3-Month Horizon):
+  * Total Prediction Snapshots : 15,769 (100.00%)
+  * Labelled Snapshots         : 12,154 ( 77.08%)
+  * Unlabelled Snapshots       :  3,615 ( 22.92%)
+  * Escalation = 1 (Positive)  :  3,768 ( 31.00% of labelled)
+  * Compliant = 0 (Negative)   :  8,386 ( 69.00% of labelled)
+
+4. LABEL STATUS BREAKDOWN & UNLABELLED ANALYSIS
+----------------------------------------------
+Schedule Label Status Breakdown:
+  * breached_original_doc       : 6,309 (40.01%)
+  * on_schedule_within_doc      : 5,023 (31.85%)
+  * unresolved_project_exit     : 3,446 (21.85%)
+  * missing_original_doc        :   430 ( 2.73%)
+  * completed_on_time           :   344 ( 2.18%)
+  * completed_delayed           :   180 ( 1.14%)
+  * revised_doc_delayed         :    37 ( 0.23%)
+
+Cost Label Status Breakdown:
+  * cost_unchanged              : 6,699 (42.48%)
+  * cost_escalated              : 3,583 (22.72%)
+  * unresolved_project_exit     : 3,490 (22.13%)
+  * cost_reduced                : 1,345 ( 8.53%)
+  * completed_cost_compliant    :   342 ( 2.17%)
+  * completed_cost_escalated    :   185 ( 1.17%)
+  * missing_original_cost       :    89 ( 0.56%)
+  * missing_future_cost         :    36 ( 0.23%)
+
+5. POINT-IN-TIME LEAKAGE AUDIT
+------------------------------
+  * Prediction Timestamp Enforcement: Every row strictly represents prediction_month t.
+  * Forward Target Isolation: Target labels inspect strictly the window [t+1, t+3].
+  * No Future Feature Leakage: No feature variables exist in target_dataset.csv.
+  * Feature Engineering Constraint: In the subsequent feature-engineering phase, all inputs
+    must be computed using exclusively data with report_month <= prediction_month.
+  * Zero Temporal Lookahead Violations Detected.
+
+6. DATASET INTEGRITY & QUALITY AUDIT
+------------------------------------
+  * Compound Key Uniqueness (project_id + prediction_month): 0 duplicates (100% Unique).
+  * Temporal Progression Integrity (eval_month == pred_month + 3m): 0 errors.
+  * Future Boundary Conformance (eval_month <= 2026-06): 0 violations.
+  * Label Range Conformance: schedule_delay_3m in {0, 1, NaN}, cost_overrun_3m in {0, 1, NaN}.
+
+7. KNOWN LIMITATIONS & RECOMMENDATIONS FOR NEXT STAGE
+----------------------------------------------------
+  * In July-November 2025, MoSPI PDF Table 6 temporarily reported a focused cohort of ~800 projects,
+    causing 3,446 prediction instances to be safely marked as 'unresolved_project_exit' (NaN)
+    rather than falsely imputing completion or delay.
+  * Class balance for both targets is healthy and representative: ~55/45 for schedule delay
+    and ~31/69 for cost escalation.
+  * Recommendation for Next Stage: Proceed to Point-in-Time Feature Engineering using rolling
+    lag features (t, t-1, t-2) mapped strictly to target_dataset.csv instances.

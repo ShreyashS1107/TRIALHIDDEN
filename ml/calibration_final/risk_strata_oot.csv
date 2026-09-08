@@ -1,0 +1,5 @@
+risk_stratum,prob_range,snapshot_count,pct_of_oot,mean_predicted_prob,observed_delay_rate,actual_delay_count
+LOW,"[0.00, 0.30)",1395,36.84,0.0136,0.0007,1
+MEDIUM,"[0.30, 0.60)",11,0.29,0.3598,0.0,0
+HIGH,"[0.60, 0.80)",60,1.58,0.7113,0.7333,44
+VERY_HIGH,"[0.80, 1.00)",2321,61.29,0.973,0.9401,2182

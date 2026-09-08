@@ -1,0 +1,3 @@
+model_variant,TP,TN,FP,FN,TP_mean_progress,FN_mean_progress,FP_mean_progress,TN_mean_progress,TP_mean_age,FN_mean_age,TP_stagnant_3m_rate,FN_stagnant_3m_rate
+A_Full_Model,2226,1403,157,1,76.57,20.45,90.24,26.65,80.37,38.0,26.4,0.0
+F_Conservative,2015,1168,392,212,78.66,57.01,72.61,20.17,81.19,72.41,26.29,28.12

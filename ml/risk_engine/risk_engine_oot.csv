@@ -1,0 +1,4 @@
+target_outcome,target_label,val_labelled_n,val_pos_count,val_prevalence_pct,oot_labelled_n,oot_pos_count,oot_prevalence_pct,val_roc_auc,val_pr_auc,oot_roc_auc,oot_pr_auc,generalization_gap_auc,generalization_gap_prauc,oot_prec_top_5pct,oot_prec_top_10pct,oot_prec_top_20pct,oot_rec_top_10pct,oot_lift_top_10pct
+schedule_delay_3m,Primary: Schedule Delay (3m),3043,1961,64.44,3787,2227,58.81,0.9858,0.9871,0.9559,0.9509,0.0299,0.0362,0.9842,0.9763,0.9604,0.1661,1.66
+cost_overrun_state_3m,Secondary: Cost Overrun State (3m),3041,932,30.65,3789,1208,31.88,0.9009,0.8964,0.8921,0.8836,0.0087,0.0128,0.9947,0.9974,0.996,0.3129,3.13
+schedule_revision_3m,Secondary: Schedule Revision (3m),3043,41,1.35,3787,45,1.19,0.7602,0.092,0.7466,0.0418,0.0136,0.0502,0.0526,0.0422,0.0224,0.3556,3.55

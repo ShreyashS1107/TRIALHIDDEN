@@ -1,0 +1,55 @@
+{
+    "target_column": "schedule_revision_3m",
+    "target_name": "Schedule Revision Event (3m)",
+    "target_type": "Event (Rare Event)",
+    "selected_model": "Logistic_Regression_Unweighted",
+    "train_rows": 5063,
+    "train_positives": 193,
+    "train_positive_rate_pct": 3.81,
+    "validation_rows": 3043,
+    "validation_positives": 41,
+    "validation_positive_rate_pct": 1.35,
+    "oot_rows": 3787,
+    "oot_positives": 45,
+    "oot_positive_rate_pct": 1.19,
+    "validation_metrics": {
+        "pr_auc": 0.0978,
+        "roc_auc": 0.8192,
+        "brier_score": 0.0202,
+        "log_loss": 0.0892,
+        "f1_at_050": 0.186,
+        "precision_top_10pct": 0.0623,
+        "recall_top_10pct": 0.4634
+    },
+    "oot_metrics": {
+        "pr_auc": 0.0519,
+        "roc_auc": 0.8264,
+        "brier_score": 0.0176,
+        "log_loss": 0.0791,
+        "f1_at_050": 0.093,
+        "precision_top_10pct": 0.0554,
+        "recall_top_10pct": 0.4667
+    },
+    "top_5_features": [
+        {
+            "feature_name": "table_source_t_Table 7: All Ongoing Projects",
+            "importance": 2.126752
+        },
+        {
+            "feature_name": "table_source_t_Table 6: All Ongoing Projects",
+            "importance": 1.505851
+        },
+        {
+            "feature_name": "months_since_last_schedule_revision_t",
+            "importance": 1.423628
+        },
+        {
+            "feature_name": "physical_progress_lag1",
+            "importance": 1.273753
+        },
+        {
+            "feature_name": "project_age_months_t",
+            "importance": 0.956104
+        }
+    ]
+}

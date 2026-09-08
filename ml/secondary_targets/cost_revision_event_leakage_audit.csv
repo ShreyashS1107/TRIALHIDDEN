@@ -1,0 +1,7 @@
+audit_item,status,details
+Max feature report_month <= prediction_month t,PASSED,All 75 features construct state strictly using observations on or before month t.
+No forward filling across prediction boundary,PASSED,Forward fill stops at prediction month t; future project records isolated.
+No target columns used as input features,PASSED,cost_revision_event_3m and all other targets excluded from feature space.
+No actual_completion_date used as feature,PASSED,Only baseline sanctioned dates and as-of-t revisions incorporated.
+No future revised cost used as feature,PASSED,Only revised_cost_t available at month t used in features; future cost used solely for label.
+Preprocessing fitted strictly on Train partition,PASSED,Zero data snooping across Validation or OOT partitions.

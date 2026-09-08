@@ -1,0 +1,115 @@
+========================================================================================
+TARGET FEASIBILITY & LABEL AUDIT REPORT: PAIMANA PROJECT MONITORING
+SIH 2026 Problem Statement SIH26103: IPMD / MoSPI Integrated Project Monitoring
+========================================================================================
+
+1. DATASET INSPECTION & STRUCTURAL AUDIT
+-----------------------------------------
+- Master Dataset (Table 6 All Ongoing): 21,555 rows across 15 months (2025-04 to 2026-06).
+- Unique Projects Monitored in Master: 2,741 projects.
+- Completed Projects Dataset (Table 3): 350 rows, 350 unique projects.
+- Newly Added Projects Dataset (Table 4): 743 rows, 741 unique projects.
+- Overlap: 313 completed projects appear in the ongoing master dataset; 741 newly added projects are integrated into the master dataset.
+- Legacy OCMS Codes: 1,677 distinct codes mapped to 1,736 projects.
+
+2. COMPLETION-DATE INFORMATION AUDIT
+------------------------------------
+- Unique Projects with Original DOC: 2,708 / 2,741 (98.80%)
+- Unique Projects Missing Original DOC: 33 (1.20%)
+- Unique Projects with Revised DOC (latest snapshot): 1,813 / 2,741 (66.14%)
+- Unique Projects with Any Historical Revised DOC: 1,813 / 2,741 (66.14%)
+- Completed Projects with Actual Completion Date: 346 / 350 (98.86%)
+- Earliest & Latest Original Completion Date: 2001-06 to 2056-12
+- Earliest & Latest Revised Completion Date: 2014-03 to 2037-03
+- Formats: Standardized to YYYY-MM across 100% of parsed date columns.
+
+3. SCHEDULE-DELAY TARGET FEASIBILITY
+-----------------------------------
+Analysis of Schedule Delay Label Construction:
+  * Projects Definitively Delayed (Breached Original DOC during active monitoring): 1,636 projects (59.69%)
+  * Projects with Officially Sanctioned Revised Delay (Revised DOC > Original DOC): 1,093 projects (39.88%)
+  * Completed Projects Definitively Delayed (Actual DOC > Original DOC): 70 projects
+  * Completed Projects Definitively On-Time (Actual DOC <= Original DOC): 275 projects
+  * Projects with Uncertain Eventual Outcome (Ongoing, Future DOC beyond June 2026, no revised delay yet): 501 projects (18.28%)
+  * Projects with Missing Original Schedule Baseline: 33 projects (1.20%)
+
+4. COMPARISON OF SCHEDULE-DELAY TARGET DEFINITIONS
+--------------------------------------------------
+Definition A: Actual Completion Date > Original Completion Date
+  - Measurement: Ground-truth final project delivery schedule overrun.
+  - Data Availability: Available ONLY for 350 completed projects in Table 3. NOT available for 2,741 ongoing projects.
+  - Suitability: Insufficient sample size (350 projects total) for training generalized ML models.
+  - Recommendation: Use for ex-post validation cohort, but not sole training label.
+
+Definition B: Revised Completion Date > Original Completion Date
+  - Measurement: Intermediate administrative decision / official rescheduling.
+  - Data Availability: Available in 1,809 projects (or dynamically when revised schedule is sanctioned).
+  - Leakage Risk: HIGH if used as a contemporaneous feature; SAFE if treated as a future target Y(t+H).
+  - Suitability: Moderately suitable as an administrative risk target, but misses unrescheduled delays.
+
+Definition C: Project Breaches Original DOC or Remains Incomplete Beyond Original DOC (Point-in-Time Milestone Delay)
+  - Measurement: Operational delay reality. At time t+H, is actual_progress < 100% while current_date > original_DOC?
+  - Data Availability: Fully constructible across all 21,555 project-month records for any fixed evaluation horizon H.
+  - Leakage Risk: Zero if evaluated strictly at forward horizon (t + H).
+  - Recommendation: RECOMMENDED PRIMARY TARGET for operational monitoring platform.
+
+5. COST-OVERRUN TARGET FEASIBILITY
+----------------------------------
+- Unique Projects with Reliable Original Sanctioned Cost: 2,737 / 2,741 (99.85%)
+- Unique Projects with Reliable Revised Cost (latest snapshot): 2,736 / 2,741 (99.82%)
+- Cost Escalation Projects (Revised Cost > Original Cost): 822 (29.99%)
+- Cost Unchanged Projects (Revised Cost == Original Cost): 1,553 (56.66%)
+- Cost Reduced Projects (Revised Cost < Original Cost): 361 (13.17%)
+- Cost Dynamics: 697 projects (25.43%) exhibit dynamic cost revisions across the 15 monthly reports.
+
+6. COMPARISON OF COST-OVERRUN TARGET DEFINITIONS
+-----------------------------------------------
+Definition A: Revised Cost > Original Cost (Contemporaneous Snapshot)
+  - Measures currently approved cost increase. Creates leakage if used at time t to predict time t status.
+
+Definition B: Future Cost Escalation at Horizon H (Revised_Cost(t+H) > Original_Cost)
+  - Measures whether project budget will escalate within forward window H (e.g. 3 or 6 months ahead).
+  - Highly defensible, actionable for ministry early-warning intervention.
+  - RECOMMENDED SECONDARY TARGET.
+
+7. PREDICTION TIMELINE & POINT-IN-TIME GOVERNANCE
+------------------------------------------------
+- Monitoring Window: 15 monthly epochs (2025-04 to 2026-06).
+- Point-in-Time Principle: At each report month t, features X(t) must strictly incorporate information available at or before month t.
+- Usable Prediction Epochs for Horizon H=3 months: 2025-04 through 2026-03 (12 training/validation slices).
+- Usable Prediction Epochs for Horizon H=6 months: 2025-04 through 2025-12 (9 training/validation slices).
+- Late-Entry Projects: Can enter the prediction pool starting from their intake month (e.g., Table 4 projects).
+- Disappearing Projects: Projects exiting before evaluation horizon must be checked against Table 3 (Completed) to resolve true completion vs reporting hiatus.
+
+8. DATA LEAKAGE AUDIT & FEATURE CLASSIFICATION
+----------------------------------------------
+Column Classification Taxonomy:
+  1. project_id                     : SAFE (Categorical identifier / entity embedding)
+  2. project_name                   : SAFE (Text / keyword signals)
+  3. agency                         : SAFE (Implementing agency categorical)
+  4. legacy_ocms_code               : SAFE (Legacy tracking identifier)
+  5. state                          : SAFE (Geographic / state administrative unit)
+  6. approval_start_date            : SAFE (Historical sanctioned baseline)
+  7. original_completion_date       : SAFE (Historical baseline schedule)
+  8. original_cost_crore            : SAFE (Historical sanctioned baseline budget)
+  9. revised_completion_date (at t) : LEAKAGE-PRONE (Can only reflect revision sanctioned on/before month t; future revisions are TARGET)
+ 10. revised_cost_crore (at t)      : LEAKAGE-PRONE (Can only reflect revision sanctioned on/before month t; future revisions are TARGET)
+ 11. cumulative_expenditure_crore(t): LEAKAGE-PRONE (Must use strictly expenditure reported on/before month t)
+ 12. physical_progress_percent (at t): LEAKAGE-PRONE (Must use strictly progress reported on/before month t)
+ 13. actual_completion_date         : TARGET / OUTCOME (Strictly future ground truth from Table 3; NEVER an input feature)
+ 14. source_file / source_table     : SAFE (Metadata only)
+
+9. CLASS BALANCE ESTIMATION
+---------------------------
+- Schedule Delay (Breached Original DOC in window): ~62.7% Positive (Delayed) vs ~37.3% Negative (On-Time/Ahead)
+- Cost Overrun (Revised > Original Cost): ~30.0% Positive (Escalated) vs ~70.0% Negative (Unchanged/Reduced)
+- Class Distribution Assessment: Both primary and secondary targets exhibit natural, healthy class distributions (neither rare event <1% nor degenerate >95%). No synthetic oversampling is required or permitted.
+
+10. PROJECT-LEVEL VS SNAPSHOT-LEVEL TARGET RECOMMENDATION
+---------------------------------------------------------
+Concept: SNAPSHOT-LEVEL POINT-IN-TIME PREDICTION (Project i at Reporting Month t)
+Justification:
+  1. Operational Fidelity: A real-world MoSPI monitoring portal runs monthly risk assessments at each reporting epoch.
+  2. Temporal Dynamic Signals: Trajectory velocity (progress rate over last 3 months, expenditure acceleration) changes monthly and provides predictive power.
+  3. Longitudinal Sample Size: Yields ~18,000+ valid point-in-time prediction instances across 15 months, compared to only 2,741 static project rows.
+  4. Avoids Lookahead Bias: Evaluates model performance using temporal rolling-window validation.

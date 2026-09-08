@@ -1,0 +1,34 @@
+metric_category,metric_name,value
+Dataset Dimension,Total Monthly Records,"21,555"
+Dataset Dimension,Unique Projects Monitored,"2,741"
+Dataset Dimension,Total Monthly Epochs,15
+Dataset Dimension,Earliest Epoch,2025-04
+Dataset Dimension,Latest Epoch,2026-06
+Dataset Dimension,Memory Footprint (MB),21.09
+Longitudinal Continuity,Projects Tracked All 15 Months,418 (15.2%)
+Longitudinal Continuity,Projects Tracked 10-14 Months,730 (26.6%)
+Longitudinal Continuity,Projects Tracked 5-9 Months,814 (29.7%)
+Longitudinal Continuity,Projects Tracked 1-4 Months,779 (28.4%)
+Project Cost (₹ Cr),Original Cost Mean,₹1663.60 Cr
+Project Cost (₹ Cr),Original Cost Median,₹636.10 Cr
+Project Cost (₹ Cr),Original Cost IQR (25%-75%),₹298.32 - ₹1388.59 Cr
+Project Cost (₹ Cr),Revised Cost Mean,₹1959.72 Cr
+Project Cost (₹ Cr),Revised Cost Median,₹686.01 Cr
+Cost Escalation,Projects with Cost Escalation (>1.0),822 (30.0%)
+Cost Escalation,Projects with Unchanged Cost (=1.0),"1,553 (56.7%)"
+Cost Escalation,Projects with Cost Reduction (<1.0),361 (13.2%)
+Physical Progress (%),Overall Progress Mean,57.89%
+Physical Progress (%),Overall Progress Median,66.00%
+Physical Progress (%),Projects at 0% Progress,"1,358"
+Physical Progress (%),Projects at >=90% Progress,"5,519"
+Progress Velocity,Average Monthly Progress Velocity,+1.63% / month
+Progress Velocity,Negative Velocity Observations,667 (3.86%)
+Stagnancy,Projects Stagnant >= 3 Months,835 (30.5%)
+Stagnancy,Projects Stagnant >= 6 Months,235 (8.6%)
+Stagnancy,Projects Stagnant >= 9 Months,68 (2.5%)
+Schedule Delay,Projects Delayed (>0 Months),"1,134 (62.7%)"
+Schedule Delay,Projects On-Time (0 Months),630 (34.8%)
+Schedule Delay,Projects Ahead (<0 Months),45 (2.5%)
+Schedule Delay,Median Delay,10.0 months
+Schedule Delay,Mean Delay,19.1 months
+Schedule Delay,Max Recorded Delay,300.0 months

@@ -1,0 +1,80 @@
+feature_name,category,data_type,source_columns,time_window,missing_policy,leakage_status
+approval_start_date,Static Baseline,str,paimana_master_dataset.csv (report_month <= t),Sanctioned baseline known at or before t,Preserve NaN (No artificial imputation / zero filling),SAFE
+original_completion_date,Static Baseline,str,paimana_master_dataset.csv (report_month <= t),Sanctioned baseline known at or before t,Preserve NaN (No artificial imputation / zero filling),SAFE
+original_cost_crore,Static Baseline,float64,paimana_master_dataset.csv (report_month <= t),Sanctioned baseline known at or before t,Preserve NaN (No artificial imputation / zero filling),SAFE
+project_age_months_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+planned_duration_months,Static Baseline,float64,paimana_master_dataset.csv (report_month <= t),Sanctioned baseline known at or before t,Preserve NaN (No artificial imputation / zero filling),SAFE
+original_cost_log,Static Baseline,float64,paimana_master_dataset.csv (report_month <= t),Sanctioned baseline known at or before t,Preserve NaN (No artificial imputation / zero filling),SAFE
+project_size_category,Static Baseline,str,paimana_master_dataset.csv (report_month <= t),Sanctioned baseline known at or before t,Preserve NaN (No artificial imputation / zero filling),SAFE
+physical_progress_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+cumulative_expenditure_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+revised_cost_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+revised_doc_t,Current Snapshot,str,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+cost_escalation_pct_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+expenditure_ratio_pct_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+remaining_physical_progress_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+schedule_slippage_months_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+months_to_original_doc_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+months_to_revised_doc_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+physical_progress_lag1,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+physical_progress_lag2,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+physical_progress_lag3,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+progress_change_1m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+progress_change_2m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+progress_change_3m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+progress_velocity_1m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+progress_velocity_3m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+progress_velocity_6m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+max_progress_to_date_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+min_progress_to_date_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+average_progress_to_date_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+progress_std_to_date_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+cumulative_expenditure_lag1,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+cumulative_expenditure_lag3,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+monthly_expenditure_delta_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+expenditure_change_1m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+expenditure_change_3m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+expenditure_velocity_3m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+expenditure_velocity_6m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+avg_monthly_expenditure_to_date_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+expenditure_growth_rate_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+negative_expenditure_delta_flag_t,Dynamic Trajectory,int64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+stagnant_2m_t,Stagnation Dynamics,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+stagnant_3m_t,Stagnation Dynamics,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+stagnant_6m_t,Stagnation Dynamics,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+months_since_last_progress_increase_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+longest_stagnation_to_date_t,Stagnation Dynamics,int64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+progress_change_last_3m_t,Dynamic Trajectory,float64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+has_cost_revision_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+cost_revision_count_to_date_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+months_since_last_cost_revision_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+largest_cost_revision_pct_to_date_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+cost_reduction_pct_as_of_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+has_revised_schedule_as_of_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+schedule_revision_count_to_date_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+months_since_last_schedule_revision_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+current_schedule_status_as_of_t,Current Snapshot,str,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+months_observed_to_date_t,Observation History,int64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+first_observed_month,Observation History,str,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+months_since_first_observed_t,Observation History,int64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+observation_coverage_ratio_t,Current Snapshot,float64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+consecutive_observation_count_t,Observation History,int64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+months_since_last_observation_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+missing_physical_progress_t,Data Health & Quality Flag,int64,paimana_master_dataset.csv (report_month <= t),Current month t / history <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+missing_expenditure_t,Data Health & Quality Flag,int64,paimana_master_dataset.csv (report_month <= t),Current month t / history <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+missing_revised_cost_t,Data Health & Quality Flag,int64,paimana_master_dataset.csv (report_month <= t),Current month t / history <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+missing_revised_doc_t,Data Health & Quality Flag,int64,paimana_master_dataset.csv (report_month <= t),Current month t / history <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+observation_gap_flag_t,Dynamic Trajectory,int64,paimana_master_dataset.csv (report_month <= t),Historical records strictly <= t,Preserve NaN (No artificial imputation / zero filling),SAFE
+state_active_project_count_t,Point-in-Time Context Aggregate,int64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+state_mean_progress_t,Point-in-Time Context Aggregate,float64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+state_median_progress_t,Point-in-Time Context Aggregate,float64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+state_mean_cost_t,Point-in-Time Context Aggregate,float64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+state_mean_expenditure_ratio_t,Point-in-Time Context Aggregate,float64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+agency_active_project_count_t,Point-in-Time Context Aggregate,int64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+agency_mean_progress_t,Point-in-Time Context Aggregate,float64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+agency_median_progress_t,Point-in-Time Context Aggregate,float64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+agency_mean_cost_t,Point-in-Time Context Aggregate,float64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+agency_mean_expenditure_ratio_t,Point-in-Time Context Aggregate,float64,paimana_master_dataset.csv (report_month <= t),Projects active at prediction month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+reporting_structure_version_t,Current Snapshot,str,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+focused_cohort_indicator_t,Current Snapshot,int64,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE
+table_source_t,Current Snapshot,str,paimana_master_dataset.csv (report_month <= t),Record at month t only,Preserve NaN (No artificial imputation / zero filling),SAFE

@@ -1,0 +1,19 @@
+target,target_name,model_name,val_pr_auc,val_roc_auc,val_brier,val_log_loss,val_f1_at_050,val_f1_at_030,val_prec_top_5pct,val_prec_top_10pct,val_prec_top_20pct,val_rec_top_10pct,is_selected,oot_pr_auc,oot_roc_auc,oot_brier,oot_log_loss,oot_f1_at_050,oot_f1_at_030,oot_prec_top_5pct,oot_prec_top_10pct,oot_prec_top_20pct,oot_rec_top_10pct
+cost_overrun_state_3m,Operational Cost Overrun State (3m),Logistic_Regression_Unweighted,0.8881,0.947,0.0976,0.3088,0.7186,0.7814,0.9739,0.9836,0.9097,0.3219,False,,,,,,,,,,
+cost_overrun_state_3m,Operational Cost Overrun State (3m),Logistic_Regression_Balanced,0.8953,0.9509,0.0842,0.2861,0.8101,0.8008,0.9739,0.9836,0.9113,0.3219,False,,,,,,,,,,
+cost_overrun_state_3m,Operational Cost Overrun State (3m),Random_Forest_Unweighted,0.9908,0.9911,0.0271,0.1473,0.9875,0.9621,1.0,1.0,1.0,0.3273,False,,,,,,,,,,
+cost_overrun_state_3m,Operational Cost Overrun State (3m),Random_Forest_Balanced,0.9914,0.9921,0.0336,0.172,0.9886,0.901,1.0,1.0,1.0,0.3273,True,0.9881,0.9895,0.0386,0.1892,0.9841,0.887,1.0,0.9974,0.9974,0.3129
+cost_overrun_state_3m,Operational Cost Overrun State (3m),HistGBDT_Unweighted,0.9908,0.9905,0.0106,0.0605,0.9848,0.9765,1.0,1.0,1.0,0.3273,False,,,,,,,,,,
+cost_overrun_state_3m,Operational Cost Overrun State (3m),HistGBDT_SampleWeighted,0.9914,0.992,0.0089,0.0507,0.9859,0.9817,1.0,1.0,1.0,0.3273,False,,,,,,,,,,
+cost_revision_event_3m,Cost Revision Event (3m),Logistic_Regression_Unweighted,0.0088,0.5541,0.0451,0.1874,0.0189,0.0094,0.0065,0.0066,0.0082,0.0909,False,,,,,,,,,,
+cost_revision_event_3m,Cost Revision Event (3m),Logistic_Regression_Balanced,0.0146,0.6292,0.2856,0.7853,0.0223,0.0187,0.0131,0.0131,0.0115,0.1818,False,,,,,,,,,,
+cost_revision_event_3m,Cost Revision Event (3m),Random_Forest_Unweighted,0.009,0.5479,0.0228,0.1401,0.0,0.0,0.0065,0.0066,0.0082,0.0909,False,,,,,,,,,,
+cost_revision_event_3m,Cost Revision Event (3m),Random_Forest_Balanced,0.0173,0.5582,0.0488,0.2292,0.0,0.0296,0.0196,0.0131,0.0099,0.1818,False,,,,,,,,,,
+cost_revision_event_3m,Cost Revision Event (3m),HistGBDT_Unweighted,0.0202,0.6059,0.0096,0.0573,0.0,0.0816,0.0196,0.0131,0.0115,0.1818,True,0.0086,0.4394,0.0133,0.0877,0.0,0.0,0.0105,0.0053,0.004,0.0556
+cost_revision_event_3m,Cost Revision Event (3m),HistGBDT_SampleWeighted,0.0173,0.6024,0.0106,0.0606,0.0,0.0351,0.0261,0.0164,0.0164,0.2273,False,,,,,,,,,,
+schedule_revision_3m,Schedule Revision Event (3m),Logistic_Regression_Unweighted,0.0978,0.8192,0.0202,0.0892,0.186,0.1775,0.098,0.0623,0.0443,0.4634,True,0.0519,0.8264,0.0176,0.0791,0.093,0.093,0.0421,0.0554,0.0422,0.4667
+schedule_revision_3m,Schedule Revision Event (3m),Logistic_Regression_Balanced,0.0574,0.7719,0.0923,0.3327,0.0969,0.0969,0.0784,0.0557,0.0476,0.4146,False,,,,,,,,,,
+schedule_revision_3m,Schedule Revision Event (3m),Random_Forest_Unweighted,0.0376,0.7005,0.0179,0.0952,0.0,0.0333,0.0588,0.0492,0.0279,0.3659,False,,,,,,,,,,
+schedule_revision_3m,Schedule Revision Event (3m),Random_Forest_Balanced,0.015,0.4529,0.0366,0.1657,0.0227,0.0377,0.0327,0.0197,0.0099,0.1463,False,,,,,,,,,,
+schedule_revision_3m,Schedule Revision Event (3m),HistGBDT_Unweighted,0.0974,0.8526,0.0133,0.1023,0.0465,0.0455,0.098,0.0557,0.0493,0.4146,False,,,,,,,,,,
+schedule_revision_3m,Schedule Revision Event (3m),HistGBDT_SampleWeighted,0.0648,0.7435,0.0151,0.0991,0.0392,0.0317,0.0719,0.0525,0.0328,0.3902,False,,,,,,,,,,

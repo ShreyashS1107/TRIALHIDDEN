@@ -1,0 +1,80 @@
+feature_name,source_columns,calculation,time_boundary,allowed_information,future_information_used,leakage_status
+approval_start_date,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Sanctioned baseline known at or before t,report_month <= t,None (Strictly <= t),SAFE
+original_completion_date,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Sanctioned baseline known at or before t,report_month <= t,None (Strictly <= t),SAFE
+original_cost_crore,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Sanctioned baseline known at or before t,report_month <= t,None (Strictly <= t),SAFE
+project_age_months_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+planned_duration_months,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Sanctioned baseline known at or before t,report_month <= t,None (Strictly <= t),SAFE
+original_cost_log,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Sanctioned baseline known at or before t,report_month <= t,None (Strictly <= t),SAFE
+project_size_category,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Sanctioned baseline known at or before t,report_month <= t,None (Strictly <= t),SAFE
+physical_progress_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+cumulative_expenditure_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+revised_cost_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+revised_doc_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+cost_escalation_pct_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+expenditure_ratio_pct_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+remaining_physical_progress_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+schedule_slippage_months_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+months_to_original_doc_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+months_to_revised_doc_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+physical_progress_lag1,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+physical_progress_lag2,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+physical_progress_lag3,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+progress_change_1m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+progress_change_2m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+progress_change_3m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+progress_velocity_1m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+progress_velocity_3m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+progress_velocity_6m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+max_progress_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+min_progress_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+average_progress_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+progress_std_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+cumulative_expenditure_lag1,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+cumulative_expenditure_lag3,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+monthly_expenditure_delta_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+expenditure_change_1m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+expenditure_change_3m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+expenditure_velocity_3m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+expenditure_velocity_6m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+avg_monthly_expenditure_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+expenditure_growth_rate_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+negative_expenditure_delta_flag_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+stagnant_2m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+stagnant_3m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+stagnant_6m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+months_since_last_progress_increase_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+longest_stagnation_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+progress_change_last_3m_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+has_cost_revision_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+cost_revision_count_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+months_since_last_cost_revision_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+largest_cost_revision_pct_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+cost_reduction_pct_as_of_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+has_revised_schedule_as_of_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+schedule_revision_count_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+months_since_last_schedule_revision_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+current_schedule_status_as_of_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+months_observed_to_date_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+first_observed_month,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+months_since_first_observed_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+observation_coverage_ratio_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+consecutive_observation_count_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+months_since_last_observation_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+missing_physical_progress_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Current month t / history <= t,report_month <= t,None (Strictly <= t),SAFE
+missing_expenditure_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Current month t / history <= t,report_month <= t,None (Strictly <= t),SAFE
+missing_revised_cost_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Current month t / history <= t,report_month <= t,None (Strictly <= t),SAFE
+missing_revised_doc_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Current month t / history <= t,report_month <= t,None (Strictly <= t),SAFE
+observation_gap_flag_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Historical records strictly <= t,report_month <= t,None (Strictly <= t),SAFE
+state_active_project_count_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+state_mean_progress_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+state_median_progress_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+state_mean_cost_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+state_mean_expenditure_ratio_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+agency_active_project_count_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+agency_mean_progress_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+agency_median_progress_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+agency_mean_cost_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+agency_mean_expenditure_ratio_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Projects active at prediction month t only,report_month <= t,None (Strictly <= t),SAFE
+reporting_structure_version_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+focused_cohort_indicator_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE
+table_source_t,paimana_master_dataset.csv,Derived strictly from records with report_month <= prediction_month,Record at month t only,report_month <= t,None (Strictly <= t),SAFE

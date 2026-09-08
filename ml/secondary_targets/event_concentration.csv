@@ -1,0 +1,21 @@
+entity_type,entity_name,split,event_share_pct
+agency,PAIMANA,TRAIN,5.57
+agency,PGCIL,TRAIN,4.33
+agency,SWR,TRAIN,3.92
+agency,CR,TRAIN,3.92
+agency,SCR,TRAIN,3.51
+agency,Power Grid Corporation of India Limited [POWERGRID],TEST_OOT,22.22
+agency,ministry of housing and urban affairs,TEST_OOT,16.67
+agency,Ministry of Petroleum & Natural Gas,TEST_OOT,11.11
+agency,PAIMANA,TEST_OOT,11.11
+agency,MinistryofPetroleumNaturalGas,TEST_OOT,8.33
+state,RAILWAYS,TRAIN,9.69
+state,MAHARASHTRA CIVIL AVIATION,TRAIN,5.57
+state,MULTI STATE COAL,TRAIN,5.36
+state,UTTAR PRADESH,TRAIN,3.71
+state,ROAD TRANSPORT AND HIGHWAYS,TRAIN,3.71
+state,GUJARAT,TEST_OOT,13.89
+state,ASSAM,TEST_OOT,8.33
+state,MAHARASHTRA,TEST_OOT,8.33
+state,UTTARAKHAND,TEST_OOT,8.33
+state,CHHATTISGARH,TEST_OOT,5.56

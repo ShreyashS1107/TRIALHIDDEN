@@ -1,0 +1,55 @@
+{
+    "target_column": "cost_revision_event_3m",
+    "target_name": "Cost Revision Event (3m)",
+    "target_type": "Event (Rare Event)",
+    "selected_model": "HistGBDT_Unweighted",
+    "train_rows": 5324,
+    "train_positives": 485,
+    "train_positive_rate_pct": 9.11,
+    "validation_rows": 3041,
+    "validation_positives": 22,
+    "validation_positive_rate_pct": 0.72,
+    "oot_rows": 3789,
+    "oot_positives": 36,
+    "oot_positive_rate_pct": 0.95,
+    "validation_metrics": {
+        "pr_auc": 0.0202,
+        "roc_auc": 0.6059,
+        "brier_score": 0.0096,
+        "log_loss": 0.0573,
+        "f1_at_050": 0.0,
+        "precision_top_10pct": 0.0131,
+        "recall_top_10pct": 0.1818
+    },
+    "oot_metrics": {
+        "pr_auc": 0.0086,
+        "roc_auc": 0.4394,
+        "brier_score": 0.0133,
+        "log_loss": 0.0877,
+        "f1_at_050": 0.0,
+        "precision_top_10pct": 0.0053,
+        "recall_top_10pct": 0.0556
+    },
+    "top_5_features": [
+        {
+            "feature_name": "original_cost_crore",
+            "importance": 0.0
+        },
+        {
+            "feature_name": "project_age_months_t",
+            "importance": 0.0
+        },
+        {
+            "feature_name": "planned_duration_months",
+            "importance": 0.0
+        },
+        {
+            "feature_name": "original_cost_log",
+            "importance": 0.0
+        },
+        {
+            "feature_name": "physical_progress_t",
+            "importance": 0.0
+        }
+    ]
+}

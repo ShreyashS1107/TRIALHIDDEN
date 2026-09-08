@@ -1,0 +1,55 @@
+{
+    "target_column": "cost_overrun_state_3m",
+    "target_name": "Operational Cost Overrun State (3m)",
+    "target_type": "State (Persistent)",
+    "selected_model": "Random_Forest_Balanced",
+    "train_rows": 5324,
+    "train_positives": 1628,
+    "train_positive_rate_pct": 30.58,
+    "validation_rows": 3041,
+    "validation_positives": 932,
+    "validation_positive_rate_pct": 30.65,
+    "oot_rows": 3789,
+    "oot_positives": 1208,
+    "oot_positive_rate_pct": 31.88,
+    "validation_metrics": {
+        "pr_auc": 0.9914,
+        "roc_auc": 0.9921,
+        "brier_score": 0.0336,
+        "log_loss": 0.172,
+        "f1_at_050": 0.9886,
+        "precision_top_10pct": 1.0,
+        "recall_top_10pct": 0.3273
+    },
+    "oot_metrics": {
+        "pr_auc": 0.9881,
+        "roc_auc": 0.9895,
+        "brier_score": 0.0386,
+        "log_loss": 0.1892,
+        "f1_at_050": 0.9841,
+        "precision_top_10pct": 0.9974,
+        "recall_top_10pct": 0.3129
+    },
+    "top_5_features": [
+        {
+            "feature_name": "cost_escalation_pct_t",
+            "importance": 0.208614
+        },
+        {
+            "feature_name": "has_cost_revision_t",
+            "importance": 0.15298
+        },
+        {
+            "feature_name": "largest_cost_revision_pct_to_date_t",
+            "importance": 0.132781
+        },
+        {
+            "feature_name": "agency_mean_expenditure_ratio_t",
+            "importance": 0.032891
+        },
+        {
+            "feature_name": "cumulative_expenditure_t",
+            "importance": 0.032784
+        }
+    ]
+}

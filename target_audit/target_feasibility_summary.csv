@@ -1,0 +1,30 @@
+category,metric,value
+Dataset Overview,Master Dataset Total Rows,"21,555"
+Dataset Overview,Master Dataset Unique Projects,"2,741"
+Dataset Overview,Completed Projects Table Rows,350
+Dataset Overview,Completed Projects Table Unique IDs,350
+Dataset Overview,Newly Added Projects Table Rows,743
+Dataset Overview,Newly Added Projects Table Unique IDs,741
+Dataset Overview,Completed Projects Overlapping Master,313
+Completion Date Audit,Unique Projects with Original DOC,"2,708 (98.8%)"
+Completion Date Audit,Unique Projects with Revised DOC (Latest),"1,813 (66.1%)"
+Completion Date Audit,Unique Projects with Any Historical Revised DOC,"1,813 (66.1%)"
+Completion Date Audit,Completed Projects with Actual Completion Date,346 (98.9%)
+Completion Date Audit,Unique Projects Missing Original Completion Date,33 (1.2%)
+Completion Date Audit,Earliest / Latest Original Completion Date,2001-06 to 2056-12
+Completion Date Audit,Earliest / Latest Revised Completion Date,2014-03 to 2037-03
+Schedule Delay Feasibility,Definitively Delayed (Breached Original DOC in window),"1,636 (59.7%)"
+Schedule Delay Feasibility,Officially Rescheduled Delayed (Revised > Original DOC),"1,093 (39.9%)"
+Schedule Delay Feasibility,Completed Table: Actual Delayed,70
+Schedule Delay Feasibility,Completed Table: Actual On-Time,275
+Schedule Delay Feasibility,"Uncertain Outcome (Ongoing, future DOC, no rev delay)",501 (18.3%)
+Cost Overrun Feasibility,Unique Projects with Reliable Original Cost,"2,737 (99.9%)"
+Cost Overrun Feasibility,Unique Projects with Reliable Revised Cost,"2,736 (99.8%)"
+Cost Overrun Feasibility,Projects with Cost Escalation (Revised > Original),822 (30.0%)
+Cost Overrun Feasibility,Projects with Unchanged Cost (Revised == Original),"1,553 (56.7%)"
+Cost Overrun Feasibility,Projects with Cost Reduction (Revised < Original),361 (13.2%)
+Cost Overrun Feasibility,Projects with Dynamically Evolving Revised Cost,697 (25.4%)
+Prediction Timeline,Earliest Available Reporting Month,2025-04
+Prediction Timeline,Latest Available Reporting Month,2026-06
+Prediction Timeline,Total Consecutive Monthly Epochs,15
+Prediction Timeline,Projects Tracked All 15 Epochs,"1,544"

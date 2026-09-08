@@ -1,0 +1,10 @@
+,months_to_original_doc_t,schedule_slippage_months_t,physical_progress_t,remaining_physical_progress_t,project_age_months_t,planned_duration_months,progress_velocity_3m_t,expenditure_ratio_pct_t,cost_escalation_pct_t
+months_to_original_doc_t,1.0,-0.8302,-0.5382,0.5382,-0.4709,0.1872,-0.0019,-0.1372,0.0004
+schedule_slippage_months_t,-0.8302,1.0,0.3255,-0.3255,0.4003,-0.1707,-0.0336,0.0556,0.2424
+physical_progress_t,-0.5382,0.3255,1.0,-1.0,0.4163,0.0781,0.1312,0.2144,0.029
+remaining_physical_progress_t,0.5382,-0.3255,-1.0,1.0,-0.4163,-0.0781,-0.1312,-0.2144,-0.029
+project_age_months_t,-0.4709,0.4003,0.4163,-0.4163,1.0,0.7784,-0.078,0.1159,0.0041
+planned_duration_months,0.1872,-0.1707,0.0781,-0.0781,0.7784,1.0,-0.0874,0.0317,0.0049
+progress_velocity_3m_t,-0.0019,-0.0336,0.1312,-0.1312,-0.078,-0.0874,1.0,0.069,0.0889
+expenditure_ratio_pct_t,-0.1372,0.0556,0.2144,-0.2144,0.1159,0.0317,0.069,1.0,0.0128
+cost_escalation_pct_t,0.0004,0.2424,0.029,-0.029,0.0041,0.0049,0.0889,0.0128,1.0

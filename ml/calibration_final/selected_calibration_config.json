@@ -1,0 +1,36 @@
+{
+    "selected_model": "RF_02",
+    "calibration_method": "Sigmoid_Platt",
+    "underlying_classifier": "RandomForestClassifier(n_estimators=200, max_depth=12, min_samples_leaf=5, max_features=\"sqrt\", random_state=42)",
+    "target": "schedule_delay_3m",
+    "feature_count": 75,
+    "train_rows": 5063,
+    "validation_rows": 3043,
+    "oot_rows": 3787,
+    "validation_metrics": {
+        "uncalibrated_brier": 0.0516,
+        "calibrated_brier": 0.0127,
+        "uncalibrated_ece": 0.151,
+        "calibrated_ece": 0.0099,
+        "calibrated_log_loss": 0.0688,
+        "roc_auc": 0.9891,
+        "pr_auc": 0.991
+    },
+    "oot_metrics": {
+        "uncalibrated_brier": 0.0694,
+        "calibrated_brier": 0.0389,
+        "uncalibrated_ece": 0.1416,
+        "calibrated_ece": 0.0279,
+        "calibrated_log_loss": 0.167,
+        "roc_auc": 0.9723,
+        "pr_auc": 0.9722,
+        "f1_at_030": 0.9638,
+        "precision_at_030": 0.9306,
+        "recall_at_030": 0.9996
+    },
+    "calibration_improvement": {
+        "oot_brier_reduction_pct": 43.95,
+        "oot_ece_reduction_pct": 80.3,
+        "oot_logloss_reduction_pct": 32.9
+    }
+}

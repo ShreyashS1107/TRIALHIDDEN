@@ -1,0 +1,10 @@
+audit_item,status,details
+Max feature report_month <= prediction_month t,PASSED,All 75 features construct state strictly using observations on or before month t.
+No forward filling across prediction boundary,PASSED,Forward fill stops at prediction month t; future project records isolated.
+No future aggregation or global summary leakage,PASSED,All rolling progress and expenditure velocities computed as-of-t.
+No target columns used as input features,PASSED,All 4 target labels excluded from training matrices.
+No actual_completion_date used as feature,PASSED,Only static baseline and as-of-t revised dates used.
+No future revised cost/date used as feature,PASSED,Only revised_cost_t and revised_doc_t available at month t incorporated.
+Preprocessing fitted strictly on Train partition,PASSED,Imputer and Scaler fitted exclusively on Train (2025-04 to 2025-11).
+Class/sample weights derived strictly from Train,PASSED,Balanced weights computed using Train positive rates only.
+Validation and OOT remain untouched during fitting,PASSED,Zero snooping; Validation used for model selection; OOT evaluated once.

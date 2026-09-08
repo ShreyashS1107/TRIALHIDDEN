@@ -1,0 +1,34 @@
+{
+    "selected_model_name": "RF_02",
+    "model_family": "Random Forest",
+    "hyperparameters": {
+        "n_estimators": 200,
+        "max_depth": 12,
+        "min_samples_leaf": 5,
+        "max_features": "sqrt"
+    },
+    "validation_metrics": {
+        "pr_auc": 0.991,
+        "roc_auc": 0.9891,
+        "brier_score": 0.0516,
+        "log_loss": 0.2057,
+        "f1_at_030": 0.9914
+    },
+    "oot_test_metrics": {
+        "pr_auc": 0.9722,
+        "roc_auc": 0.9723,
+        "brier_score": 0.0694,
+        "log_loss": 0.2489,
+        "f1_at_030": 0.9661,
+        "precision_at_030": 0.9349,
+        "recall_at_030": 0.9996
+    },
+    "feature_count": 75,
+    "training_rows": 5063,
+    "validation_rows": 3043,
+    "oot_test_rows": 3787,
+    "random_state": 42,
+    "train_period": "2025-04 to 2025-11",
+    "validation_period": "2025-12 to 2026-01",
+    "oot_period": "2026-02 to 2026-03"
+}

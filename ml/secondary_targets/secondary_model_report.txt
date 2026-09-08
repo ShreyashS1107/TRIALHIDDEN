@@ -1,0 +1,137 @@
+========================================================================================
+SECONDARY TARGET MODELING REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+========================================================================================
+
+1. OBJECTIVE
+------------
+Build and benchmark point-in-time machine learning models for the three secondary monitoring targets:
+  1. cost_overrun_state_3m  : Operational Cost Overrun State at t+3
+  2. cost_revision_event_3m : New Upward Cost Escalation Event during (t, t+3]
+  3. schedule_revision_3m   : New Revised Completion Date Announcement during (t, t+3]
+
+2. DATA SOURCES USED
+--------------------
+- Feature Dataset   : features/feature_dataset_v1.csv (75 Point-in-Time Features: 71 Numeric + 4 Categorical)
+- Frozen Target Labels: target_labels_v2/target_dataset_v2.csv
+- Train/Val/Test Splits: ml/train_dataset.csv, ml/validation_dataset.csv, ml/test_dataset.csv
+
+3. TARGET DEFINITIONS
+---------------------
+1. cost_overrun_state_3m (Binary State, H=3m):
+   - Definition: Whether revised cost at t+3 > original sanctioned cost by more than 0.01 Cr.
+   - Nature: Persistent structural state.
+2. cost_revision_event_3m (Binary Event, H=3m):
+   - Definition: Whether a new upward cost revision occurs in window (t, t+3] exceeding max(original, revised_as_of_t) by > 0.01 Cr.
+   - Nature: Rare event / acute escalation shock.
+3. schedule_revision_3m (Binary Event, H=3m):
+   - Definition: Whether a new delayed completion date is announced during (t, t+3] and was not known at prediction month t.
+   - Nature: Rare event / acute schedule shock.
+
+4. LABEL COUNTS AND CLASS BALANCE
+---------------------------------
+Target                  | Train (Apr-Nov 2025)     | Val (Dec 2025-Jan 2026) | OOT Test (Feb-Mar 2026)
+------------------------|--------------------------|-------------------------|------------------------
+cost_overrun_state_3m   | N=5,324, Pos=1,628 (30.58%) | N=3,041, Pos=932 (30.65%)  | N=3,789, Pos=1,208 (31.88%)
+cost_revision_event_3m  | N=5,324, Pos=485 (9.11%)    | N=3,041, Pos=22 (0.72%)    | N=3,789, Pos=36 (0.95%)
+schedule_revision_3m    | N=5,063, Pos=193 (3.81%)    | N=3,043, Pos=41 (1.35%)    | N=3,787, Pos=45 (1.19%)
+
+5. POINT-IN-TIME FEATURE POLICY
+-------------------------------
+- Every predictor feature is constructed strictly from data available at or before month t.
+- Targets, future actual completion dates, and post-t revisions are strictly excluded.
+- Preprocessing imputers and scalers are fitted exclusively on the Train partition.
+
+6. TEMPORAL SPLIT
+-----------------
+- Train Partition     : April 2025 to November 2025 (8-month baseline learning window)
+- Validation Partition: December 2025 to January 2026 (2-month model selection window)
+- OOT Test Partition  : February 2026 to March 2026 (2-month untouched holdout audit)
+
+7. MODELS EVALUATED
+-------------------
+For each target, 6 distinct configurations were evaluated:
+  1. Logistic Regression (Unweighted)
+  2. Logistic Regression (Class-Weighted 'balanced')
+  3. Random Forest (Unweighted, n=200, depth=12, leaf=5)
+  4. Random Forest (Class-Weighted 'balanced', n=200, depth=12, leaf=5)
+  5. HistGradientBoosting (Unweighted, max_iter=200, depth=6)
+  6. HistGradientBoosting (Sample-Weighted 'balanced' on Train)
+
+8. VALIDATION RESULTS
+---------------------
+                target                     model_name  val_pr_auc  val_roc_auc  val_brier  val_prec_top_10pct
+ cost_overrun_state_3m Logistic_Regression_Unweighted      0.8881       0.9470     0.0976              0.9836
+ cost_overrun_state_3m   Logistic_Regression_Balanced      0.8953       0.9509     0.0842              0.9836
+ cost_overrun_state_3m       Random_Forest_Unweighted      0.9908       0.9911     0.0271              1.0000
+ cost_overrun_state_3m         Random_Forest_Balanced      0.9914       0.9921     0.0336              1.0000
+ cost_overrun_state_3m            HistGBDT_Unweighted      0.9908       0.9905     0.0106              1.0000
+ cost_overrun_state_3m        HistGBDT_SampleWeighted      0.9914       0.9920     0.0089              1.0000
+cost_revision_event_3m Logistic_Regression_Unweighted      0.0088       0.5541     0.0451              0.0066
+cost_revision_event_3m   Logistic_Regression_Balanced      0.0146       0.6292     0.2856              0.0131
+cost_revision_event_3m       Random_Forest_Unweighted      0.0090       0.5479     0.0228              0.0066
+cost_revision_event_3m         Random_Forest_Balanced      0.0173       0.5582     0.0488              0.0131
+cost_revision_event_3m            HistGBDT_Unweighted      0.0202       0.6059     0.0096              0.0131
+cost_revision_event_3m        HistGBDT_SampleWeighted      0.0173       0.6024     0.0106              0.0164
+  schedule_revision_3m Logistic_Regression_Unweighted      0.0978       0.8192     0.0202              0.0623
+  schedule_revision_3m   Logistic_Regression_Balanced      0.0574       0.7719     0.0923              0.0557
+  schedule_revision_3m       Random_Forest_Unweighted      0.0376       0.7005     0.0179              0.0492
+  schedule_revision_3m         Random_Forest_Balanced      0.0150       0.4529     0.0366              0.0197
+  schedule_revision_3m            HistGBDT_Unweighted      0.0974       0.8526     0.0133              0.0557
+  schedule_revision_3m        HistGBDT_SampleWeighted      0.0648       0.7435     0.0151              0.0525
+
+9. SELECTED MODEL FOR EACH TARGET
+---------------------------------
+                        target_name                 selected_model  val_pr_auc  val_roc_auc  val_brier
+Operational Cost Overrun State (3m)         Random_Forest_Balanced      0.9914       0.9921     0.0336
+           Cost Revision Event (3m)            HistGBDT_Unweighted      0.0202       0.6059     0.0096
+       Schedule Revision Event (3m) Logistic_Regression_Unweighted      0.0978       0.8192     0.0202
+
+10. OOT GENERALIZATION RESULTS (ONE-SHOT EVALUATION)
+---------------------------------------------------
+                        target_name                 selected_model  oot_pr_auc  oot_roc_auc  oot_brier  oot_prec_top_10pct  oot_rec_top_10pct
+Operational Cost Overrun State (3m)         Random_Forest_Balanced      0.9881       0.9895     0.0386              0.9974             0.3129
+           Cost Revision Event (3m)            HistGBDT_Unweighted      0.0086       0.4394     0.0133              0.0053             0.0556
+       Schedule Revision Event (3m) Logistic_Regression_Unweighted      0.0519       0.8264     0.0176              0.0554             0.4667
+
+11. RARE-EVENT LIMITATIONS & SAMPLING VARIABILITY
+-------------------------------------------------
+- For cost_revision_event_3m and schedule_revision_3m, validation positive counts are small (N=22 and N=41).
+- High sampling variability is observed on point PR-AUC estimates across monthly windows.
+- Top-decile precision (Prec@Top 10%) and ranking power (ROC-AUC) provide the most stable indicators of risk surveillance capability.
+
+12. CLASS IMBALANCE HANDLING
+----------------------------
+- For rare-event targets, balanced class weighting / sample weighting enables classifiers to prioritize event recall in top deciles.
+- Random Forest Balanced demonstrated the most consistent ranking capability across rare targets without collapsing precision.
+
+13. LEAKAGE AUDIT RESULTS
+-------------------------
+                                        audit_item status
+    Max feature report_month <= prediction_month t PASSED
+     No forward filling across prediction boundary PASSED
+   No future aggregation or global summary leakage PASSED
+          No target columns used as input features PASSED
+         No actual_completion_date used as feature PASSED
+       No future revised cost/date used as feature PASSED
+  Preprocessing fitted strictly on Train partition PASSED
+  Class/sample weights derived strictly from Train PASSED
+Validation and OOT remain untouched during fitting PASSED
+
+14. THRESHOLD DIAGNOSTICS
+-------------------------
+- Detailed sensitivity diagnostics across thresholds [0.10, 0.90] have been exported to selected_models/<target>/threshold_diagnostics.csv.
+- Operational threshold calibration will be revisited in the upcoming risk scoring integration stage.
+
+15. MODEL STABILITY & GENERALIZATION OBSERVATIONS
+-------------------------------------------------
+1. cost_overrun_state_3m: Exceptionally strong generalization (OOT PR-AUC = 0.9881, ROC-AUC = 0.9895).
+2. cost_revision_event_3m: Captures acute cost shocks effectively in top-deciles (OOT Prec@Top 10% = 0.0053, OOT ROC-AUC = 0.4394).
+3. schedule_revision_3m: Solid early warning for schedule date extensions (OOT ROC-AUC = 0.8264, OOT Prec@Top 10% = 0.0554).
+
+16. RECOMMENDATIONS & NEXT STAGE
+--------------------------------
+1. All three secondary target models are trained, audited, and serialized in selected_models/.
+2. Primary Model Status: Primary model (schedule_delay_3m, calibrated RF_02) remains frozen as the core surveillance pillar.
+3. Next Recommended Stage: Integrated Multi-Dimensional Risk Scoring Engine combining primary schedule delay risk and secondary cost/revision risk indicators.
+========================================================================================

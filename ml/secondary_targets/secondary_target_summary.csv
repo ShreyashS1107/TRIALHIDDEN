@@ -1,0 +1,4 @@
+target_column,target_name,target_type,selected_model,val_pr_auc,val_roc_auc,val_brier,oot_pr_auc,oot_roc_auc,oot_brier,oot_prec_top_10pct,oot_rec_top_10pct
+cost_overrun_state_3m,Operational Cost Overrun State (3m),State (Persistent),Random_Forest_Balanced,0.9914,0.9921,0.0336,0.9881,0.9895,0.0386,0.9974,0.3129
+cost_revision_event_3m,Cost Revision Event (3m),Event (Rare Event),HistGBDT_Unweighted,0.0202,0.6059,0.0096,0.0086,0.4394,0.0133,0.0053,0.0556
+schedule_revision_3m,Schedule Revision Event (3m),Event (Rare Event),Logistic_Regression_Unweighted,0.0978,0.8192,0.0202,0.0519,0.8264,0.0176,0.0554,0.4667

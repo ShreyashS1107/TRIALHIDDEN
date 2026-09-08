@@ -1,0 +1,85 @@
+feature_name,importance
+cost_escalation_pct_t,0.208614
+has_cost_revision_t,0.15298
+largest_cost_revision_pct_to_date_t,0.132781
+agency_mean_expenditure_ratio_t,0.032891
+cumulative_expenditure_t,0.032784
+physical_progress_t,0.024053
+remaining_physical_progress_t,0.023525
+project_age_months_t,0.023215
+revised_cost_t,0.021872
+original_cost_log,0.017359
+cumulative_expenditure_lag1,0.017142
+expenditure_ratio_pct_t,0.016936
+original_cost_crore,0.0165
+max_progress_to_date_t,0.015213
+agency_mean_cost_t,0.01488
+min_progress_to_date_t,0.014691
+average_progress_to_date_t,0.014388
+agency_median_progress_t,0.012641
+planned_duration_months,0.011535
+agency_mean_progress_t,0.009863
+agency_active_project_count_t,0.009787
+months_to_original_doc_t,0.009747
+cost_reduction_pct_as_of_t,0.009024
+months_to_revised_doc_t,0.008523
+focused_cohort_indicator_t,0.00793
+schedule_slippage_months_t,0.007363
+reporting_structure_version_t_v2_focused_cohort,0.007332
+reporting_structure_version_t_v1_initial,0.007141
+state_mean_progress_t,0.007028
+physical_progress_lag1,0.006849
+state_active_project_count_t,0.006613
+project_size_category_Small (<150Cr),0.006243
+state_mean_expenditure_ratio_t,0.005911
+state_mean_cost_t,0.005673
+state_median_progress_t,0.005384
+cumulative_expenditure_lag3,0.004993
+avg_monthly_expenditure_to_date_t,0.004678
+current_schedule_status_as_of_t_on_schedule,0.004029
+project_size_category_Medium (150-500Cr),0.003964
+missing_revised_doc_t,0.003502
+has_revised_schedule_as_of_t,0.003498
+current_schedule_status_as_of_t_delayed_rescheduled,0.003307
+monthly_expenditure_delta_t,0.003233
+expenditure_change_1m_t,0.003075
+missing_physical_progress_t,0.00273
+progress_std_to_date_t,0.002602
+physical_progress_lag2,0.002519
+expenditure_growth_rate_t,0.002205
+expenditure_velocity_3m_t,0.002182
+expenditure_change_3m_t,0.00202
+months_since_first_observed_t,0.001961
+months_since_last_cost_revision_t,0.001846
+consecutive_observation_count_t,0.001775
+table_source_t_Table 7: All Ongoing Projects,0.001768
+physical_progress_lag3,0.001702
+months_observed_to_date_t,0.001545
+cost_revision_count_to_date_t,0.001426
+schedule_revision_count_to_date_t,0.00135
+project_size_category_Mega (>1000Cr),0.001239
+progress_change_1m_t,0.001167
+progress_velocity_3m_t,0.000967
+months_since_last_schedule_revision_t,0.000967
+progress_change_3m_t,0.000861
+longest_stagnation_to_date_t,0.000859
+progress_change_2m_t,0.000845
+progress_velocity_1m_t,0.000822
+progress_change_last_3m_t,0.000807
+months_since_last_progress_increase_t,0.000685
+table_source_t_Table 4: All Ongoing Projects,0.000633
+missing_expenditure_t,0.000522
+current_schedule_status_as_of_t_past_due_breached,0.000498
+project_size_category_Large (500-1000Cr),0.000442
+table_source_t_Table 6: All Ongoing Projects,0.000385
+missing_revised_cost_t,0.000354
+expenditure_velocity_6m_t,0.000352
+months_since_last_observation_t,0.000351
+stagnant_2m_t,0.00033
+progress_velocity_6m_t,0.000132
+current_schedule_status_as_of_t_missing_doc,0.000108
+stagnant_3m_t,0.000105
+observation_coverage_ratio_t,0.000102
+observation_gap_flag_t,9.6e-05
+negative_expenditure_delta_flag_t,2.7e-05
+stagnant_6m_t,2.4e-05

@@ -1,0 +1,7 @@
+audit_item,status,details
+Component predictions use information strictly <= month t,PASSED,All 3 underlying models evaluated exclusively on point-in-time snapshot matrices.
+No future target information enters the integrated score,PASSED,Integrated score is a linear combination of frozen model outputs.
+No OOT labels affect weight selection,PASSED,Candidate architectures ranked strictly on Validation set.
+Risk bands do not use OOT outcome rates for construction,PASSED,"Pre-defined fixed communication intervals: [0.00-0.30, 0.30-0.60, 0.60-0.80, 0.80-1.00]."
+Excluded cost_revision_event_3m target is completely absent,PASSED,"Target is excluded from formula, scoring columns, and summaries."
+Existing model artifacts loaded without retraining/overwriting,PASSED,Immutability verified; models loaded in read-only mode.
