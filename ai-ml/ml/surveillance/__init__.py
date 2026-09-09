@@ -1,0 +1,82 @@
+"""
+ML Execution Surveillance Package for SIH26103 (Pillar 2).
+
+Provides modular, deterministic operational surveillance calculations including:
+- Physical Progress Stagnation Stress
+- Progress Velocity Deterioration Stress
+- Expenditure / Progress Divergence Stress
+- Schedule Slippage & Proximity Stress
+- Observation & Reporting Quality Stress
+- Domain-Calibrated Execution-Stress Index (ESI)
+- 4-Tier Early Warning Alert Classification
+- Dominant Stressor Attribution
+- Prescriptive Action Directives
+"""
+
+from .contracts import (
+    ACTION_CRITICAL_PATH_RECALIBRATION,
+    ACTION_DATA_COMPLIANCE_DIRECTIVE,
+    ACTION_FINANCIAL_PHYSICAL_ALIGNMENT_AUDIT,
+    ACTION_INTER_MINISTERIAL_ESCALATION,
+    ACTION_RESOURCE_MOBILIZATION_DIRECTIVE,
+    ACTION_SITE_OBSTACLE_AUDIT,
+    EXECUTION_INDEX_VERSION,
+    KNOWN_TARGET_COLUMNS,
+    ORDERED_ESI_TIERS,
+    ORDERED_PRESCRIPTIVE_ACTIONS,
+    ORDERED_STRESSOR_TIE_BREAK,
+    OUTPUT_SURVEILLANCE_COLUMNS,
+    REQUIRED_SURVEILLANCE_FEATURES,
+    STRESSOR_EXPENDITURE_DIVERGENCE,
+    STRESSOR_PROGRESS_STAGNATION,
+    STRESSOR_REPORTING_FRICTION,
+    STRESSOR_SCHEDULE_SLIPPAGE,
+    STRESSOR_VELOCITY_COLLAPSE,
+    TIER_ATTENTION,
+    TIER_HIGH_PRIORITY,
+    TIER_NOMINAL,
+    TIER_WATCH,
+    WEIGHT_DIVERGENCE,
+    WEIGHT_REPORTING,
+    WEIGHT_SCHEDULE,
+    WEIGHT_STAGNATION,
+    WEIGHT_VELOCITY,
+    InvalidInputError,
+    MissingFeatureError,
+    SurveillanceError,
+)
+from .surveillance_engine import ExecutionSurveillanceEngine
+
+__all__ = [
+    "ExecutionSurveillanceEngine",
+    "EXECUTION_INDEX_VERSION",
+    "REQUIRED_SURVEILLANCE_FEATURES",
+    "KNOWN_TARGET_COLUMNS",
+    "OUTPUT_SURVEILLANCE_COLUMNS",
+    "WEIGHT_STAGNATION",
+    "WEIGHT_VELOCITY",
+    "WEIGHT_DIVERGENCE",
+    "WEIGHT_SCHEDULE",
+    "WEIGHT_REPORTING",
+    "TIER_NOMINAL",
+    "TIER_WATCH",
+    "TIER_ATTENTION",
+    "TIER_HIGH_PRIORITY",
+    "ORDERED_ESI_TIERS",
+    "STRESSOR_PROGRESS_STAGNATION",
+    "STRESSOR_VELOCITY_COLLAPSE",
+    "STRESSOR_EXPENDITURE_DIVERGENCE",
+    "STRESSOR_SCHEDULE_SLIPPAGE",
+    "STRESSOR_REPORTING_FRICTION",
+    "ORDERED_STRESSOR_TIE_BREAK",
+    "ACTION_INTER_MINISTERIAL_ESCALATION",
+    "ACTION_SITE_OBSTACLE_AUDIT",
+    "ACTION_FINANCIAL_PHYSICAL_ALIGNMENT_AUDIT",
+    "ACTION_RESOURCE_MOBILIZATION_DIRECTIVE",
+    "ACTION_CRITICAL_PATH_RECALIBRATION",
+    "ACTION_DATA_COMPLIANCE_DIRECTIVE",
+    "ORDERED_PRESCRIPTIVE_ACTIONS",
+    "SurveillanceError",
+    "MissingFeatureError",
+    "InvalidInputError",
+]
