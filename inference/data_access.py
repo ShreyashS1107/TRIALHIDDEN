@@ -83,8 +83,13 @@ def fetch_historical_project_snapshots(
             params["project_ids"] = list(project_ids)
 
         try:
-            from sqlalchemy import text
-            result = db_session.execute(text(query), params)
+            try:
+                import importlib
+                sa = importlib.import_module('sqlalchemy')
+                stmt = sa.text(query)
+            except (ImportError, AttributeError):
+                stmt = query
+            result = db_session.execute(stmt, params)
             rows = result.fetchall()
             if rows:
                 cols = list(result.keys())
@@ -94,9 +99,13 @@ def fetch_historical_project_snapshots(
         except Exception as e:
             # If standard schema query fails, try direct monthly_snapshots query
             try:
-                from sqlalchemy import text
-                q_direct = "SELECT * FROM monthly_snapshots WHERE report_month < :as_of_month"
-                result = db_session.execute(text(q_direct), params)
+                try:
+                    import importlib
+                    sa = importlib.import_module('sqlalchemy')
+                    stmt_direct = sa.text("SELECT * FROM monthly_snapshots WHERE report_month < :as_of_month")
+                except (ImportError, AttributeError):
+                    stmt_direct = "SELECT * FROM monthly_snapshots WHERE report_month < :as_of_month"
+                result = db_session.execute(stmt_direct, params)
                 rows = result.fetchall()
                 if rows:
                     cols = list(result.keys())
