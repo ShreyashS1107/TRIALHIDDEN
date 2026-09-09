@@ -71,8 +71,9 @@ def test_upload_valid_pdf_queues_task(mock_task):
     assert "test.pdf" not in filepath
     assert filepath.endswith(".pdf")
 
-def test_celery_unavailable_does_not_return_fake_queued():
-    # If we do NOT mock process_flash_report_task, it uses the MissingCeleryTask dummy which raises RuntimeError
+@patch("app.api.v1.ingest.process_flash_report_task")
+def test_celery_unavailable_does_not_return_fake_queued(mock_task):
+    mock_task.delay.side_effect = RuntimeError("Celery is not installed or configured")
     response = client.post(
         "/api/v1/ingest/flash-report",
         data={"report_month": "2026-07"},
@@ -98,10 +99,12 @@ def test_temp_file_deleted_when_delay_fails(mock_task):
     # We can verify it returns 500 and the detail string matches.
     assert "Queue offline" in response.json()["detail"]
 
-def test_worker_fails_at_missing_boundary():
+@patch("app.worker.tasks.extract_features_for_inference")
+def test_worker_fails_at_missing_boundary(mock_extract):
+    mock_extract.side_effect = NotImplementedError("This is an external/ML-side dependency and is not implemented")
     from app.worker.tasks import process_flash_report_task
     with pytest.raises(NotImplementedError) as exc_info:
-        process_flash_report_task(None, "fake/path.pdf", "2026-07")
+        process_flash_report_task("fake/path.pdf", "2026-07")
     
     assert "external/ML-side dependency and is not implemented" in str(exc_info.value)
 
@@ -142,7 +145,9 @@ def test_cors_options_allows_post():
     assert "access-control-allow-origin" in response.headers
     assert response.headers["access-control-allow-origin"] in ("*", "http://localhost:3000")
 
-def test_get_task_status_celery_unavailable():
+@patch("app.api.v1.ingest.celery_app", create=True)
+def test_get_task_status_celery_unavailable(mock_celery_app):
+    del mock_celery_app.AsyncResult
     response = client.get("/api/v1/ingest/status/fake-task-id")
     assert response.status_code == 500
     assert "Celery is not installed or configured" in response.json()["detail"]

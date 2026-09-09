@@ -3,7 +3,7 @@ from app.core.config import settings
 try:
     from celery import Celery
     
-    broker_url = settings.REDIS_URL or "memory://"
+    broker_url = settings.REDIS_URL or "redis://localhost:6379/1"
     
     celery_app = Celery(
         "mospi_worker",
