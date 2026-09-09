@@ -123,3 +123,79 @@ def test_valid_ml_output_mapping(mock_insert):
     count = service.persist_ml_risk_scores(df)
     assert count == 1
     mock_db.execute.assert_called_once()
+
+# --- NEW TESTS FOR POST-AUDIT FIXES ---
+
+def test_cors_options_allows_post():
+    # Test that CORS allows POST (preflight request)
+    response = client.options(
+        "/api/v1/ingest/flash-report",
+        headers={
+            "Origin": "http://localhost:3000",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "Authorization"
+        }
+    )
+    assert response.status_code == 200
+    # The actual Allow-Methods may vary depending on starlette internals,
+    # but verify CORS headers are present indicating it did not reject
+    assert "access-control-allow-origin" in response.headers
+    assert response.headers["access-control-allow-origin"] in ("*", "http://localhost:3000")
+
+def test_get_task_status_celery_unavailable():
+    response = client.get("/api/v1/ingest/status/fake-task-id")
+    assert response.status_code == 500
+    assert "Celery is not installed or configured" in response.json()["detail"]
+
+@patch("app.api.v1.ingest.celery_app")
+def test_get_task_status_success(mock_celery_app):
+    # Mock AsyncResult presence and behavior
+    mock_async_result = MagicMock()
+    mock_async_result.status = "SUCCESS"
+    mock_async_result.result = "Completed 124 records."
+    
+    mock_celery_app.AsyncResult.return_value = mock_async_result
+    
+    response = client.get("/api/v1/ingest/status/fake-task-id")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["task_id"] == "fake-task-id"
+    assert data["status"] == "SUCCESS"
+    assert data["result"] == "Completed 124 records."
+
+@patch("app.api.v1.ingest.celery_app")
+def test_get_task_status_failure(mock_celery_app):
+    mock_async_result = MagicMock()
+    mock_async_result.status = "FAILURE"
+    mock_async_result.result = "ValueError: Missing features"
+    
+    mock_celery_app.AsyncResult.return_value = mock_async_result
+    
+    response = client.get("/api/v1/ingest/status/fake-task-id")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["task_id"] == "fake-task-id"
+    assert data["status"] == "FAILURE"
+    assert "error" in data
+    assert data["error"] == "ValueError: Missing features"
+
+def test_global_exception_handler_not_found():
+    # Force a NotFoundException by adding a dummy route dynamically
+    from app.core.exceptions import NotFoundException
+    @app.get("/dummy_not_found")
+    def dummy_not_found():
+        raise NotFoundException("Custom not found message")
+    
+    response = client.get("/dummy_not_found")
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Custom not found message"
+
+def test_global_exception_handler_validation():
+    from app.core.exceptions import ValidationException
+    @app.get("/dummy_validation")
+    def dummy_validation():
+        raise ValidationException("Custom validation message")
+    
+    response = client.get("/dummy_validation")
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Custom validation message"

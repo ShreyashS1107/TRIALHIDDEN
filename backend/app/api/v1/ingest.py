@@ -3,10 +3,12 @@ import shutil
 import uuid
 import re
 from fastapi import APIRouter, Depends, File, Form, UploadFile, HTTPException, status
+from typing import Dict, Any
 from app.core.security import require_role
 from app.models.enums import UserRoleEnum
 from app.schemas.ingest import IngestionResponse
 from app.worker.tasks import process_flash_report_task
+from app.worker.celery_app import celery_app
 
 router = APIRouter()
 
@@ -62,3 +64,30 @@ def ingest_flash_report(
         report_month=report_month,
         message="Flash Report ingestion, 75-feature extraction, ML scoring, and ESI calculation queued for execution."
     )
+
+@router.get(
+    "/status/{task_id}",
+    summary="Check Task Status",
+    description="Query the status of an asynchronous ingestion task."
+)
+def get_task_status(
+    task_id: str,
+    current_user = Depends(require_role([UserRoleEnum.MOSPI_ADMIN]))
+) -> Dict[str, Any]:
+    # Check if celery_app has AsyncResult (it will not if MissingCelery fallback is active)
+    if not hasattr(celery_app, "AsyncResult"):
+        raise HTTPException(status_code=500, detail="Celery is not installed or configured.")
+        
+    task_result = celery_app.AsyncResult(task_id)
+    
+    response = {
+        "task_id": task_id,
+        "status": task_result.status,
+    }
+    
+    if task_result.status == "FAILURE":
+        response["error"] = str(task_result.result)
+    elif task_result.status == "SUCCESS":
+        response["result"] = task_result.result
+        
+    return response
