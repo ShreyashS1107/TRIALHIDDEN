@@ -43,3 +43,4 @@ __all__ = [
     # Analytical View Model
     "ProjectMonthlyDossier",
 ]
+from app.models.benchmark import OCMSHistoricalBenchmark

@@ -1,4 +1,5 @@
-from typing import Optional
+from typing import Optional, List
+from app.schemas.dossier import ProjectMonthlyDossierResponse
 from fastapi import APIRouter, Depends, Path, Query
 from sqlalchemy.orm import Session
 
@@ -44,6 +45,31 @@ def list_projects(
         is_active=is_active,
     )
 
+
+@router.get(
+    "/compare",
+    response_model=List[ProjectMonthlyDossierResponse],
+    summary="Compare Projects",
+    description="Side-by-side comparison of 2 to 5 infrastructure projects."
+)
+def compare_projects(
+    project_ids: str = Query(..., description="Comma-separated string of project IDs"),
+    report_month: Optional[str] = Query(None, description="Report month (YYYY-MM)"),
+    service: ProjectService = Depends(get_project_service)
+) -> List[ProjectMonthlyDossierResponse]:
+    from fastapi import HTTPException
+    p_ids = [pid.strip() for pid in project_ids.split(",") if pid.strip()]
+    if len(p_ids) < 2 or len(p_ids) > 5:
+        raise HTTPException(status_code=400, detail="Please provide between 2 and 5 project IDs.")
+    
+    results = []
+    for pid in p_ids:
+        try:
+            dossier = service.get_project_dossier(pid, report_month=report_month)
+            results.append(dossier)
+        except Exception:
+            pass
+    return results
 
 @router.get(
     "/{project_id}",
@@ -108,3 +134,4 @@ def get_project_intelligence(
     service: ProjectService = Depends(get_project_service),
 ) -> ProjectIntelligenceResponse:
     return service.get_project_intelligence(project_id)
+

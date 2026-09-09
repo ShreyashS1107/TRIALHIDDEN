@@ -192,7 +192,7 @@ def test_5_project_intelligence_not_found():
 
 def test_6_get_portfolio_summary_default_month():
     """6. GET /api/v1/analytics/summary returns HTTP 200 with dynamic portfolio aggregates."""
-    response = client.get("/api/v1/analytics/summary")
+    response = client.get("/api/v1/portfolio/summary")
     assert response.status_code == 200
     data = response.json()
 
@@ -241,12 +241,12 @@ def test_6_get_portfolio_summary_default_month():
 def test_7_get_portfolio_summary_specific_month():
     """7. GET /api/v1/analytics/summary?report_month=YYYY-MM filters correctly."""
     # First get default to discover a valid month
-    resp_default = client.get("/api/v1/analytics/summary")
+    resp_default = client.get("/api/v1/portfolio/summary")
     assert resp_default.status_code == 200
     target_month = resp_default.json()["latest_report_month"]
 
     if target_month:
-        response = client.get(f"/api/v1/analytics/summary?report_month={target_month}")
+        response = client.get(f"/api/v1/portfolio/summary?report_month={target_month}")
         assert response.status_code == 200
         data = response.json()
         assert data["latest_report_month"] == target_month
@@ -255,7 +255,7 @@ def test_7_get_portfolio_summary_specific_month():
 
 def test_8_get_portfolio_summary_invalid_month_format():
     """8. Invalid report_month query parameter returns HTTP 422 Unprocessable Entity."""
-    response = client.get("/api/v1/analytics/summary?report_month=invalid-date")
+    response = client.get("/api/v1/portfolio/summary?report_month=invalid-date")
     assert response.status_code == 422
 
 
@@ -294,7 +294,7 @@ def test_11_read_only_safety_verification():
         alert_count_before = session.query(func.count(SystemAlert.alert_id)).scalar()
 
         # Execute endpoints
-        client.get("/api/v1/analytics/summary")
+        client.get("/api/v1/portfolio/summary")
         proj = session.query(Project.project_id).first()
         if proj:
             client.get(f"/api/v1/projects/{proj[0]}/intelligence")

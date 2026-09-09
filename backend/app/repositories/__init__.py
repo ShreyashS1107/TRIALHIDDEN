@@ -9,3 +9,4 @@ __all__ = [
     "SurveillanceRepository",
     "AlertRepository",
 ]
+from app.repositories.benchmark import BenchmarkRepository

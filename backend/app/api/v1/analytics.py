@@ -97,23 +97,3 @@ def get_surveillance(
     )
 
 
-@router.get(
-    "/summary",
-    response_model=PortfolioSummaryResponse,
-    summary="Get Portfolio Intelligence Summary",
-    description=(
-        "Retrieve portfolio-level metrics including total and active projects, "
-        "scored project counts, risk band distributions, ESI stress tier distributions, "
-        "system alert counts by severity and status, and latest reporting epochs. "
-        "If report_month is omitted, automatically evaluates the latest available intelligence month."
-    ),
-)
-def get_portfolio_summary(
-    report_month: Optional[str] = Query(
-        None,
-        pattern=r"^\d{4}-\d{2}$",
-        description="Filter metrics to a specific reporting month epoch (YYYY-MM). If omitted, evaluates latest available.",
-    ),
-    service: AnalyticsService = Depends(get_analytics_service),
-) -> PortfolioSummaryResponse:
-    return service.get_portfolio_summary(report_month=report_month)

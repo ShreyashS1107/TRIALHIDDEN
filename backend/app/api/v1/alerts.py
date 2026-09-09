@@ -1,5 +1,7 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, Query
+from app.core.security import require_role
+from app.models.enums import UserRoleEnum
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
@@ -40,6 +42,7 @@ def list_alerts(
         description="Filter by reporting month epoch (YYYY-MM)",
     ),
     service: AlertService = Depends(get_alert_service),
+    current_user = Depends(require_role([UserRoleEnum.MOSPI_ADMIN, UserRoleEnum.NODAL_OFFICER])),
 ) -> PaginatedAlertsResponse:
     return service.get_alerts(
         page=page,

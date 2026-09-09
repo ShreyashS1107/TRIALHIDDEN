@@ -5,6 +5,30 @@ from app.database.session import get_db
 from app.main import app
 from app.models.alert import SystemAlert
 
+
+from app.core.security import get_current_user
+from app.models.user import User
+from app.models.enums import UserRoleEnum
+import uuid
+
+def override_get_current_user():
+    return User(
+        user_id=uuid.uuid4(),
+        email="test@mospi.gov.in",
+        full_name="Test User",
+        role=UserRoleEnum.MOSPI_ADMIN,
+        is_active=True
+    )
+
+
+import pytest
+@pytest.fixture(autouse=True, scope="module")
+def mock_auth_for_module():
+    app.dependency_overrides[get_current_user] = override_get_current_user
+    yield
+    app.dependency_overrides.clear()
+
+
 client = TestClient(app)
 
 
