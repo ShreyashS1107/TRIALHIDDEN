@@ -10,6 +10,8 @@ from app.worker.tasks import process_flash_report_task
 
 router = APIRouter()
 
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB limit
+
 @router.post(
     "/flash-report",
     response_model=IngestionResponse,
@@ -28,10 +30,16 @@ def ingest_flash_report(
     if not re.match(r"^\d{4}-\d{2}$", report_month):
         raise HTTPException(status_code=400, detail="report_month must be in YYYY-MM format.")
 
+    if getattr(file, "size", 0) and getattr(file, "size", 0) > MAX_FILE_SIZE:
+        raise HTTPException(status_code=413, detail="File size exceeds 10MB limit.")
+
     # Save file temporarily to pass to Celery
     temp_dir = "/tmp/mospi_uploads"
     os.makedirs(temp_dir, exist_ok=True)
-    temp_file_path = os.path.join(temp_dir, f"{uuid.uuid4()}_{file.filename}")
+    
+    # PREVENT PATH TRAVERSAL: Ignore user filename, use UUID safely.
+    safe_filename = f"{uuid.uuid4().hex}.pdf"
+    temp_file_path = os.path.join(temp_dir, safe_filename)
     
     try:
         with open(temp_file_path, "wb") as buffer:
@@ -39,8 +47,14 @@ def ingest_flash_report(
     except Exception as e:
         raise HTTPException(status_code=500, detail="Failed to save uploaded file.")
         
-    # Queue task
-    task = process_flash_report_task.delay(temp_file_path, report_month)
+    try:
+        # Queue task
+        task = process_flash_report_task.delay(temp_file_path, report_month)
+    except Exception as e:
+        # CELERY QUEUEING FAILED - CLEAN UP FILE
+        if os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+        raise HTTPException(status_code=500, detail=f"Failed to queue the processing task: {str(e)}")
     
     return IngestionResponse(
         task_id=task.id,

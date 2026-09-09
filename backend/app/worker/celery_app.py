@@ -1,6 +1,5 @@
 from app.core.config import settings
 
-# Fallback gracefully if celery is not installed yet
 try:
     from celery import Celery
     
@@ -21,22 +20,16 @@ try:
         task_track_started=True,
     )
 except ImportError:
-    # Dummy mock for local test collection when celery isn't installed
-    import logging
-    logger = logging.getLogger(__name__)
-    logger.warning("Celery is not installed. Background tasks will be mocked.")
-    
-    class DummyTask:
+    # No silent fallback! Fail explicitly if called.
+    class MissingCeleryTask:
         def delay(self, *args, **kwargs):
-            class DummyAsyncResult:
-                id = "dummy-task-id-no-celery"
-            return DummyAsyncResult()
+            raise RuntimeError("Celery is not installed or configured. Background tasks cannot be queued.")
             
-    class DummyCelery:
+    class MissingCelery:
         def task(self, *args, **kwargs):
             def decorator(func):
-                func.delay = DummyTask().delay
+                func.delay = MissingCeleryTask().delay
                 return func
             return decorator
             
-    celery_app = DummyCelery()
+    celery_app = MissingCelery()
