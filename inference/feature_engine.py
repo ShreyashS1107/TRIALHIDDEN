@@ -14,137 +14,17 @@ import numpy as np
 import pandas as pd
 
 # ==============================================================================
-# EXACT PRODUCTION FEATURE UNIVERSE DEFINITIONS (SOURCE OF TRUTH)
+# EXACT PRODUCTION FEATURE UNIVERSE DEFINITIONS (LOADED DYNAMICALLY)
 # ==============================================================================
-
-CATEGORICAL_FEATURE_NAMES = [
-    'project_size_category',
-    'current_schedule_status_as_of_t',
-    'reporting_structure_version_t',
-    'table_source_t'
-]
-
-NUMERICAL_FEATURE_NAMES = [
-    # Static & Baseline (4)
-    'original_cost_crore',
-    'project_age_months_t',
-    'planned_duration_months',
-    'original_cost_log',
-    
-    # Current Snapshot (9)
-    'physical_progress_t',
-    'cumulative_expenditure_t',
-    'revised_cost_t',
-    'cost_escalation_pct_t',
-    'expenditure_ratio_pct_t',
-    'remaining_physical_progress_t',
-    'schedule_slippage_months_t',
-    'months_to_original_doc_t',
-    'months_to_revised_doc_t',
-    
-    # Progress Dynamics (13)
-    'physical_progress_lag1',
-    'physical_progress_lag2',
-    'physical_progress_lag3',
-    'progress_change_1m_t',
-    'progress_change_2m_t',
-    'progress_change_3m_t',
-    'progress_velocity_1m_t',
-    'progress_velocity_3m_t',
-    'progress_velocity_6m_t',
-    'max_progress_to_date_t',
-    'min_progress_to_date_t',
-    'average_progress_to_date_t',
-    'progress_std_to_date_t',
-    
-    # Expenditure Dynamics (10)
-    'cumulative_expenditure_lag1',
-    'cumulative_expenditure_lag3',
-    'monthly_expenditure_delta_t',
-    'expenditure_change_1m_t',
-    'expenditure_change_3m_t',
-    'expenditure_velocity_3m_t',
-    'expenditure_velocity_6m_t',
-    'avg_monthly_expenditure_to_date_t',
-    'expenditure_growth_rate_t',
-    'negative_expenditure_delta_flag_t',
-    
-    # Stagnation Dynamics (6)
-    'stagnant_2m_t',
-    'stagnant_3m_t',
-    'stagnant_6m_t',
-    'months_since_last_progress_increase_t',
-    'longest_stagnation_to_date_t',
-    'progress_change_last_3m_t',
-    
-    # Cost Evolution (5)
-    'has_cost_revision_t',
-    'cost_revision_count_to_date_t',
-    'months_since_last_cost_revision_t',
-    'largest_cost_revision_pct_to_date_t',
-    'cost_reduction_pct_as_of_t',
-    
-    # Schedule Evolution (3)
-    'has_revised_schedule_as_of_t',
-    'schedule_revision_count_to_date_t',
-    'months_since_last_schedule_revision_t',
-    
-    # Observation History (5)
-    'months_observed_to_date_t',
-    'months_since_first_observed_t',
-    'observation_coverage_ratio_t',
-    'consecutive_observation_count_t',
-    'months_since_last_observation_t',
-    
-    # Data Health & Quality Flags (5)
-    'missing_physical_progress_t',
-    'missing_expenditure_t',
-    'missing_revised_cost_t',
-    'missing_revised_doc_t',
-    'observation_gap_flag_t',
-    
-    # State & Agency Context Aggregates (10)
-    'state_active_project_count_t',
-    'state_mean_progress_t',
-    'state_median_progress_t',
-    'state_mean_cost_t',
-    'state_mean_expenditure_ratio_t',
-    'agency_active_project_count_t',
-    'agency_mean_progress_t',
-    'agency_median_progress_t',
-    'agency_mean_cost_t',
-    'agency_mean_expenditure_ratio_t',
-    
-    # Cohort Context (1)
-    'focused_cohort_indicator_t'
-]
-
-# Exact 75 ML Features Contract (71 Numerical + 4 Categorical)
-PRODUCTION_75_FEATURES = NUMERICAL_FEATURE_NAMES + CATEGORICAL_FEATURE_NAMES
-
-# Excluded Date Strings (Non-features, strictly excluded from ML matrix X)
-RAW_DATE_STRINGS = [
-    'approval_start_date',
-    'original_completion_date',
-    'revised_doc_t',
-    'first_observed_month'
-]
-
-# Exact 12 ESI Input Features Contract (Required by ExecutionSurveillanceEngine)
-ESI_12_INPUT_FEATURES = [
-    'months_since_last_progress_increase_t',
-    'stagnant_3m_t',
-    'remaining_physical_progress_t',
-    'progress_velocity_3m_t',
-    'progress_change_1m_t',
-    'schedule_slippage_months_t',
-    'months_to_original_doc_t',
-    'expenditure_ratio_pct_t',
-    'physical_progress_t',
-    'observation_gap_flag_t',
-    'missing_physical_progress_t',
-    'schedule_revision_count_to_date_t'
-]
+# The inference/__init__.py sets up sys.path to include ai-ml/
+from ml.inference.contracts import (
+    ALL_MODEL_FEATURES as PRODUCTION_75_FEATURES,
+    REQUIRED_CATEGORICAL_FEATURES as CATEGORICAL_FEATURE_NAMES,
+    REQUIRED_NUMERICAL_FEATURES as NUMERICAL_FEATURE_NAMES,
+)
+from ml.surveillance.contracts import (
+    REQUIRED_SURVEILLANCE_FEATURES as ESI_12_INPUT_FEATURES
+)
 
 # ==============================================================================
 # HELPER FUNCTIONS
@@ -663,3 +543,7 @@ def compute_point_in_time_features_for_month(
     esi_df = raw_features_df[ESI_12_INPUT_FEATURES].copy()
 
     return features_df, esi_df, metadata_df
+
+# Excluded Date Strings (Non-features, strictly excluded from ML matrix X)
+RAW_DATE_STRINGS = ['approval_start_date', 'original_completion_date', 'revised_doc_t', 'first_observed_month']
+

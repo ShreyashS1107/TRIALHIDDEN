@@ -28,17 +28,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
-from inference import (
-    extract_features_for_inference,
-    InferenceAdapter,
-    ProductionScorer,
-    compute_execution_stress_index,
-    compute_point_in_time_features_for_month,
-    PRODUCTION_75_FEATURES,
-    NUMERICAL_FEATURE_NAMES,
-    CATEGORICAL_FEATURE_NAMES,
-    ESI_12_INPUT_FEATURES
-)
+from inference.adapter import InferenceAdapter, extract_features_for_inference
+from inference.feature_engine import compute_point_in_time_features_for_month, PRODUCTION_75_FEATURES, NUMERICAL_FEATURE_NAMES, CATEGORICAL_FEATURE_NAMES, ESI_12_INPUT_FEATURES
 from inference.adapter import BANNED_TARGET_COLUMNS, BANNED_OCMS_COLUMNS
 from inference.pdf_extractor import extract_monthly_paimana_pdf
 
@@ -48,11 +39,9 @@ class TestInferenceAdapter(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.base_dir = BASE_DIR
-        cls.sample_pdf = os.path.join(cls.base_dir, "dataset", "FlashReport_June_2026.pdf")
-        if not os.path.exists(cls.sample_pdf):
-            cls.sample_pdf = os.path.join(cls.base_dir, "dataset", "FlashReport_December_2025.pdf")
+        cls.sample_pdf = os.path.join(cls.base_dir, "ai-ml", "dataset", "FlashReport_December_2025.pdf")
 
-        cls.master_csv = os.path.join(cls.base_dir, "data", "paimana_master_dataset.csv")
+        cls.master_csv = os.path.join(cls.base_dir, "ai-ml", "data", "paimana_master_dataset.csv")
         if os.path.exists(cls.master_csv):
             cls.master_df = pd.read_csv(cls.master_csv, dtype=str)
         else:
@@ -204,8 +193,13 @@ class TestInferenceAdapter(unittest.TestCase):
             as_of_month="2026-06"
         )
 
-        scorer = ProductionScorer()
-        ml_scores, esi_scores = scorer.score(features_df, esi_df)
+        from ml.inference.batch_scorer import BatchScorer
+        from ml.surveillance.surveillance_engine import ExecutionSurveillanceEngine
+        ml_scorer = BatchScorer()
+        esi_scorer = ExecutionSurveillanceEngine()
+        
+        ml_scores = ml_scorer.score_batch(features_df)
+        esi_scores = esi_scorer.compute_scores(esi_df)
 
         # ML scores verification
         self.assertEqual(len(ml_scores), len(features_df))

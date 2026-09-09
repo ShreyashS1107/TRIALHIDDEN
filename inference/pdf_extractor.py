@@ -6,20 +6,14 @@ Reuses existing extraction & normalization logic to parse a newly uploaded PAIMA
 """
 
 import os
-import sys
-import re
 import pymupdf
 import pandas as pd
 
-# Ensure repository root is in sys.path
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if BASE_DIR not in sys.path:
-    sys.path.insert(0, BASE_DIR)
-
+# The inference/__init__.py sets up sys.path to include ai-ml/,
+# so we can directly import the authoritative scripts:
 from scripts.detect_table_ranges import detect_pdf_tables, get_report_month_from_doc
 from scripts.normalize_data import normalize_project_record
 from scripts.extract_pdfs import extract_ongoing_legacy, extract_ongoing_modern
-
 
 def extract_monthly_paimana_pdf(
     pdf_path: str,
@@ -49,7 +43,6 @@ def extract_monthly_paimana_pdf(
         if report_month:
             report_month = str(report_month).strip()[:7]
             if detected_month and detected_month != report_month:
-                # Log or warn about mismatch, but honor explicitly passed report_month
                 pass
             final_month = report_month
         else:
