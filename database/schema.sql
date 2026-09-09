@@ -7,7 +7,7 @@ CREATE EXTENSION IF NOT EXISTS "pg_trgm"; -- For fast full-text / trigram fuzzy 
 CREATE TYPE risk_band_enum AS ENUM ('LOW', 'MODERATE', 'HIGH', 'VERY_HIGH');
 CREATE TYPE dominant_component_enum AS ENUM ('Schedule Delay', 'Cost Overrun', 'Schedule Revision');
 CREATE TYPE alert_severity_enum AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL');
-CREATE TYPE alert_source_enum AS ENUM ('ML_ENGINE', 'RULE_ENGINE');
+CREATE TYPE alert_source_enum AS ENUM ('ML_ENGINE', 'RULE_ENGINE', 'EXECUTION_SURVEILLANCE', 'PREDICTIVE_ML');
 CREATE TYPE alert_status_enum AS ENUM ('ACTIVE', 'ACKNOWLEDGED', 'RESOLVED');
 CREATE TYPE user_role_enum AS ENUM ('MOSPI_ADMIN', 'NODAL_OFFICER', 'PUBLIC_VIEWER');
 
@@ -15,6 +15,23 @@ CREATE TYPE user_role_enum AS ENUM ('MOSPI_ADMIN', 'NODAL_OFFICER', 'PUBLIC_VIEW
 -- 2. CANONICAL PROJECTS MASTER TABLE
 -- ============================================================================
 -- Holds immutable or slowly-changing project identity attributes across all reporting months.
+CREATE TYPE esi_tier_enum AS ENUM ('NOMINAL', 'WATCH', 'ATTENTION', 'HIGH_PRIORITY');
+CREATE TYPE dominant_stressor_enum AS ENUM (
+    'Progress Velocity Collapse',
+    'Physical Progress Stagnation',
+    'Expenditure Divergence',
+    'Schedule Slippage Debt',
+    'Reporting Friction'
+);
+CREATE TYPE prescriptive_action_enum AS ENUM (
+    'SITE_OBSTACLE_AUDIT',
+    'FINANCIAL_PHYSICAL_ALIGNMENT_AUDIT',
+    'RESOURCE_MOBILIZATION_DIRECTIVE',
+    'CRITICAL_PATH_RECALIBRATION',
+    'DATA_COMPLIANCE_DIRECTIVE',
+    'INTER_MINISTERIAL_COMMITTEE_ESCALATION'
+);
+
 CREATE TABLE projects (
     project_id VARCHAR(32) PRIMARY KEY,              -- Canonical 6-digit PAIMANA ID (e.g. '105236', '612786')
     project_name TEXT,                               -- Official full infrastructure project title
@@ -243,83 +260,19 @@ SELECT
     r.prev_exp_1m,
     r.months_since_last_progress_increase,
     
-    -- LAYER B: DETERMINISTIC DERIVED METRICS
-    -- 1. Cost Escalation in ₹ Cr
     (r.revised_cost_crore - r.original_cost_crore) AS cost_escalation_crore,
-    
-    -- 2. Cost Escalation in %
-    CASE 
-        WHEN r.original_cost_crore > 0 
-        THEN ROUND(((r.revised_cost_crore - r.original_cost_crore) / r.original_cost_crore * 100.0), 2)
-        ELSE 0.0 
-    END AS cost_escalation_percent,
-    
-    -- 3. Expenditure Ratio %
-    CASE 
-        WHEN r.original_cost_crore > 0 
-        THEN ROUND((r.cumulative_expenditure_crore / r.original_cost_crore * 100.0), 2)
-        ELSE 0.0 
-    END AS expenditure_ratio_percent,
-    
-    -- 4. Remaining Physical Progress %
+    CASE WHEN r.original_cost_crore > 0 THEN ROUND(((r.revised_cost_crore - r.original_cost_crore) / r.original_cost_crore * 100.0), 2) ELSE 0.0 END AS cost_escalation_percent,
+    CASE WHEN r.original_cost_crore > 0 THEN ROUND((r.cumulative_expenditure_crore / r.original_cost_crore * 100.0), 2) ELSE 0.0 END AS expenditure_ratio_percent,
     (100.0 - r.physical_progress_percent) AS remaining_physical_progress,
+    CASE WHEN r.revised_completion_date IS NOT NULL THEN ((CAST(SUBSTRING(r.revised_completion_date, 1, 4) AS INT) - CAST(SUBSTRING(r.original_completion_date, 1, 4) AS INT)) * 12 + (CAST(SUBSTRING(r.revised_completion_date, 6, 2) AS INT) - CAST(SUBSTRING(r.original_completion_date, 6, 2) AS INT))) ELSE 0.0 END AS schedule_slippage_months,
+    ((CAST(SUBSTRING(r.original_completion_date, 1, 4) AS INT) - CAST(SUBSTRING(r.report_month, 1, 4) AS INT)) * 12 + (CAST(SUBSTRING(r.original_completion_date, 6, 2) AS INT) - CAST(SUBSTRING(r.report_month, 6, 2) AS INT))) AS months_to_original_doc,
+    CASE WHEN r.prev_prog_1m IS NOT NULL THEN (r.physical_progress_percent - r.prev_prog_1m) ELSE NULL END AS progress_velocity_1m,
+    CASE WHEN r.prev_prog_3m IS NOT NULL THEN ROUND(((r.physical_progress_percent - r.prev_prog_3m) / 3.0), 2) WHEN r.prev_prog_2m IS NOT NULL THEN ROUND(((r.physical_progress_percent - r.prev_prog_2m) / 2.0), 2) WHEN r.prev_prog_1m IS NOT NULL THEN ROUND(((r.physical_progress_percent - r.prev_prog_1m) / 1.0), 2) ELSE NULL END AS progress_velocity_3m,
+    CASE WHEN r.prev_prog_3m IS NOT NULL AND (r.physical_progress_percent - r.prev_prog_3m = 0.0) THEN 1 ELSE 0 END AS stagnant_3m_flag,
+    CASE WHEN r.original_cost_crore > 0 THEN ROUND(((r.cumulative_expenditure_crore / r.original_cost_crore * 100.0) - r.physical_progress_percent), 2) ELSE 0.0 END AS expenditure_progress_divergence,
+    ((CAST(SUBSTRING(r.report_month, 1, 4) AS INT) - CAST(SUBSTRING(r.approval_start_date, 1, 4) AS INT)) * 12 + (CAST(SUBSTRING(r.report_month, 6, 2) AS INT) - CAST(SUBSTRING(r.approval_start_date, 6, 2) AS INT))) AS project_age_months,
+    ((CAST(SUBSTRING(r.original_completion_date, 1, 4) AS INT) - CAST(SUBSTRING(r.approval_start_date, 1, 4) AS INT)) * 12 + (CAST(SUBSTRING(r.original_completion_date, 6, 2) AS INT) - CAST(SUBSTRING(r.approval_start_date, 6, 2) AS INT))) AS planned_duration_months,
     
-    -- 5. Schedule Slippage in Months
-    CASE 
-        WHEN r.revised_completion_date IS NOT NULL 
-        THEN (
-            (CAST(SUBSTRING(r.revised_completion_date, 1, 4) AS INT) - CAST(SUBSTRING(r.original_completion_date, 1, 4) AS INT)) * 12 +
-            (CAST(SUBSTRING(r.revised_completion_date, 6, 2) AS INT) - CAST(SUBSTRING(r.original_completion_date, 6, 2) AS INT))
-        )
-        ELSE 0.0 
-    END AS schedule_slippage_months,
-    
-    -- 6. Months Remaining to Original Sanctioned Deadline (Negative = Past Due)
-    (
-        (CAST(SUBSTRING(r.original_completion_date, 1, 4) AS INT) - CAST(SUBSTRING(r.report_month, 1, 4) AS INT)) * 12 +
-        (CAST(SUBSTRING(r.original_completion_date, 6, 2) AS INT) - CAST(SUBSTRING(r.report_month, 6, 2) AS INT))
-    ) AS months_to_original_doc,
-    
-    -- 7. 1-Month Progress Velocity (% delta)
-    CASE 
-        WHEN r.prev_prog_1m IS NOT NULL THEN (r.physical_progress_percent - r.prev_prog_1m)
-        ELSE NULL 
-    END AS progress_velocity_1m,
-    
-    -- 8. 3-Month Rolling Average Progress Velocity (% / month)
-    CASE 
-        WHEN r.prev_prog_3m IS NOT NULL THEN ROUND(((r.physical_progress_percent - r.prev_prog_3m) / 3.0), 2)
-        WHEN r.prev_prog_2m IS NOT NULL THEN ROUND(((r.physical_progress_percent - r.prev_prog_2m) / 2.0), 2)
-        WHEN r.prev_prog_1m IS NOT NULL THEN ROUND(((r.physical_progress_percent - r.prev_prog_1m) / 1.0), 2)
-        ELSE NULL 
-    END AS progress_velocity_3m,
-    
-    -- 9. 3-Month Stagnation Indicator Flag (1 = Stagnant)
-    CASE 
-        WHEN r.prev_prog_3m IS NOT NULL AND (r.physical_progress_percent - r.prev_prog_3m = 0.0) THEN 1
-        ELSE 0 
-    END AS stagnant_3m_flag,
-    
-    -- 10. Capital Burn vs Physical Progress Divergence (%)
-    CASE 
-        WHEN r.original_cost_crore > 0 
-        THEN ROUND(((r.cumulative_expenditure_crore / r.original_cost_crore * 100.0) - r.physical_progress_percent), 2)
-        ELSE 0.0 
-    END AS expenditure_progress_divergence,
-    
-    -- 11. Project Age (Months)
-    (
-        (CAST(SUBSTRING(r.report_month, 1, 4) AS INT) - CAST(SUBSTRING(r.approval_start_date, 1, 4) AS INT)) * 12 +
-        (CAST(SUBSTRING(r.report_month, 6, 2) AS INT) - CAST(SUBSTRING(r.approval_start_date, 6, 2) AS INT))
-    ) AS project_age_months,
-
-    -- 12. Planned Duration (Months)
-    (
-        (CAST(SUBSTRING(r.original_completion_date, 1, 4) AS INT) - CAST(SUBSTRING(r.approval_start_date, 1, 4) AS INT)) * 12 +
-        (CAST(SUBSTRING(r.original_completion_date, 6, 2) AS INT) - CAST(SUBSTRING(r.approval_start_date, 6, 2) AS INT))
-    ) AS planned_duration_months,
-
-    -- LAYER C: MACHINE LEARNING RISK SIGNALS (Joined from ml_risk_scores)
     m.schedule_delay_risk,
     m.cost_overrun_risk,
     m.schedule_revision_risk,
@@ -329,22 +282,27 @@ SELECT
     m.schedule_contribution,
     m.cost_contribution,
     m.schedule_revision_contribution,
-    CASE 
-        WHEN m.selected_integrated_risk > 0 
-        THEN ROUND((m.schedule_contribution / m.selected_integrated_risk * 100.0), 2)
-        ELSE 0.0 
-    END AS schedule_contrib_pct,
-    CASE 
-        WHEN m.selected_integrated_risk > 0 
-        THEN ROUND((m.cost_contribution / m.selected_integrated_risk * 100.0), 2)
-        ELSE 0.0 
-    END AS cost_contrib_pct,
-    CASE 
-        WHEN m.selected_integrated_risk > 0 
-        THEN ROUND((m.schedule_revision_contribution / m.selected_integrated_risk * 100.0), 2)
-        ELSE 0.0 
-    END AS schedule_rev_contrib_pct
+    CASE WHEN m.selected_integrated_risk > 0 THEN ROUND((m.schedule_contribution / m.selected_integrated_risk * 100.0), 2) ELSE 0.0 END AS schedule_contrib_pct,
+    CASE WHEN m.selected_integrated_risk > 0 THEN ROUND((m.cost_contribution / m.selected_integrated_risk * 100.0), 2) ELSE 0.0 END AS cost_contrib_pct,
+    CASE WHEN m.selected_integrated_risk > 0 THEN ROUND((m.schedule_revision_contribution / m.selected_integrated_risk * 100.0), 2) ELSE 0.0 END AS schedule_rev_contrib_pct,
+    
+    e.execution_stress_index,
+    e.s_stag,
+    e.s_vel,
+    e.s_sched,
+    e.s_div,
+    e.s_rep,
+    e.flag_stag,
+    e.flag_vel,
+    e.flag_sched,
+    e.flag_div,
+    e.flag_rep,
+    e.total_stress_flags,
+    e.esi_tier,
+    e.dominant_stressor,
+    e.suggested_action,
+    e.execution_index_version
 
 FROM ranked_snapshots r
-LEFT JOIN ml_risk_scores m ON r.project_id = m.project_id AND r.report_month = m.report_month;
-
+LEFT JOIN ml_risk_scores m ON r.project_id = m.project_id AND r.report_month = m.report_month
+LEFT JOIN execution_stress_scores e ON r.project_id = e.project_id AND r.report_month = e.report_month;

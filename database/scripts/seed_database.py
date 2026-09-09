@@ -275,6 +275,44 @@ def seed_execution_stress_scores(conn, csv_path):
     print(f"  Inserted up to {len(data)} execution_stress_scores.")
 
 
+
+def seed_historical_benchmarks(conn, csv_path):
+    print(f"Seeding ocms_historical_benchmarks from {csv_path}...")
+    import pandas as pd
+    from psycopg2.extras import execute_values
+    
+    df = pd.read_csv(csv_path)
+    df = df.replace({pd.NA: None, float('nan'): None})
+    
+    data = []
+    for _, row in df.iterrows():
+        data.append((
+            row['benchmark_level'], row['entity_name'], str(row['year']),
+            row.get('total_completed_projects'), row.get('projects_with_schedule_outcome'),
+            row.get('delay_count'), row.get('delay_rate_pct'),
+            row.get('mean_delay_months'), row.get('median_delay_months'),
+            row.get('projects_with_cost_outcome'), row.get('cost_overrun_count'),
+            row.get('cost_overrun_rate_pct'), row.get('mean_cost_overrun_pct'),
+            row.get('median_cost_overrun_pct'), row.get('total_original_cost_crore'),
+            row.get('total_cumulative_expenditure_crore')
+        ))
+        
+    query = """
+    INSERT INTO ocms_historical_benchmarks (
+        benchmark_level, entity_name, year, total_completed_projects,
+        projects_with_schedule_outcome, delay_count, delay_rate_pct,
+        mean_delay_months, median_delay_months, projects_with_cost_outcome,
+        cost_overrun_count, cost_overrun_rate_pct, mean_cost_overrun_pct,
+        median_cost_overrun_pct, total_original_cost_crore, total_cumulative_expenditure_crore
+    ) VALUES %s ON CONFLICT (benchmark_level, entity_name, year) DO NOTHING;
+    """
+    
+    with conn.cursor() as cur:
+        execute_values(cur, query, data)
+        conn.commit()
+    print(f"  Inserted up to {len(data)} ocms_historical_benchmarks.")
+
+
 if __name__ == '__main__':
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
     master_csv = os.path.join(base_dir, 'ai-ml', 'data', 'paimana_master_dataset.csv')
@@ -283,6 +321,7 @@ if __name__ == '__main__':
     manual_review_csv = os.path.join(base_dir, 'ai-ml', 'reports', 'manual_review.csv')
     ml_risk_scores_csv = os.path.join(base_dir, 'ai-ml', 'ml', 'risk_engine', 'integrated_risk_scores.csv')
     execution_stress_scores_csv = os.path.join(base_dir, 'ai-ml', 'experiments', 'execution_risk', 'execution_stress_scores.csv')
+    historical_benchmarking_csv = os.path.join(base_dir, 'ai-ml', 'historical_priors', 'historical_benchmarking.csv')
 
     print("Starting database seeding process...")
     try:
@@ -292,6 +331,8 @@ if __name__ == '__main__':
         seed_newly_added_projects(conn, newly_added_csv)
         seed_ml_risk_scores(conn, ml_risk_scores_csv)
         seed_data_anomalies_log(conn, manual_review_csv)
+        seed_execution_stress_scores(conn, execution_stress_scores_csv)
+        seed_historical_benchmarks(conn, historical_benchmarking_csv)
         conn.close()
         print("Database seeding completed successfully.")
     except Exception as e:
