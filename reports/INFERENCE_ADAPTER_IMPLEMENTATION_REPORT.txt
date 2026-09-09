@@ -1,0 +1,211 @@
+========================================================================================================================
+PRODUCTION INFERENCE ADAPTER IMPLEMENTATION & VERIFICATION REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Target File: reports/INFERENCE_ADAPTER_IMPLEMENTATION_REPORT.txt
+Status: COMPLETED & FULLY VERIFIED
+========================================================================================================================
+
+ADAPTER_STATUS = IMPLEMENTED
+
+------------------------------------------------------------------------------------------------------------------------
+1. EXACT ADAPTER PATH & MODULE LOCATIONS
+------------------------------------------------------------------------------------------------------------------------
+- Core Adapter Module      : inference/adapter.py
+- Public Functional Entry  : inference.extract_features_for_inference
+- Public Class Interface   : inference.InferenceAdapter
+- Scoring Bridge Engine    : inference.scorer.ProductionScorer
+- ESI Engine Function      : inference.scorer.compute_execution_stress_index
+- Point-in-Time Engine     : inference.feature_engine.compute_point_in_time_features_for_month
+- PDF Extraction Engine    : inference.pdf_extractor.extract_monthly_paimana_pdf
+- Database Access Layer    : inference.data_access.fetch_historical_project_snapshots
+- Comprehensive Test Suite : tests/test_inference_adapter.py
+- Developer Documentation  : docs/INFERENCE_ADAPTER.md
+
+------------------------------------------------------------------------------------------------------------------------
+2. EXACT PUBLIC INTERFACE & SIGNATURES
+------------------------------------------------------------------------------------------------------------------------
+
+Primary Public Functional Interface:
+```python
+def extract_features_for_inference(
+    pdf_path: str,
+    report_month: str,
+    db_session: any = None
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Authoritative AI/ML Public Interface for Production Inference.
+
+    Parameters:
+        pdf_path: Path to the PAIMANA Flash Report PDF file.
+        report_month: Target reporting month epoch in 'YYYY-MM' format.
+        db_session: Database session abstraction (SQLAlchemy session, DataFrame, or query callable).
+
+    Returns:
+        tuple (features_df, esi_df):
+            - features_df: DataFrame with EXACTLY 75 production ML features (71 numerical + 4 categorical)
+            - esi_df: DataFrame with EXACTLY 12 ESI input features
+    """
+```
+
+Object-Oriented Interface with Metadata & Scoring:
+```python
+adapter = InferenceAdapter(db_session=db_session)
+features_df, esi_df, metadata_df = adapter.extract_features(
+    pdf_path=pdf_path,
+    report_month=report_month
+)
+
+scorer = ProductionScorer()
+ml_scores_df, esi_scores_df = scorer.score(features_df, esi_df)
+```
+
+------------------------------------------------------------------------------------------------------------------------
+3. PDF EXTRACTION FLOW
+------------------------------------------------------------------------------------------------------------------------
+1. Ingestion: Accepts single monthly MoSPI PAIMANA Flash Report PDF (e.g. `FlashReport_July_2026.pdf`).
+2. Table Detection: Calls `detect_pdf_tables(doc, filepath)` to find the page boundaries of Table 6 ('All Ongoing Projects').
+3. Layout Routing: Intelligently routes to `extract_ongoing_legacy` (Apr–Jun 2025) or `extract_ongoing_modern` (Jul 2025–Jun 2026).
+4. Record Normalization: Cleans currency (Crores), dates (YYYY-MM), progress [0.00, 100.00]%, and canonical project IDs via `normalize_project_record`.
+5. Deduplication: Ensures 0 duplicate `project_id` entries per extracted monthly batch.
+
+------------------------------------------------------------------------------------------------------------------------
+4. DATABASE LOOKUP FLOW
+------------------------------------------------------------------------------------------------------------------------
+1. Session Decoupling: Accepts SQLAlchemy `Session` / `Connection`, Pandas `DataFrame` (fixtures), or query callables.
+2. Filter Scope: Queries all historical project records strictly with `report_month < as_of_month`.
+3. Efficiency: Filters for `project_id = ANY(:project_ids)` when project list is provided.
+4. Schema Alignment: Seamlessly joins `projects` master table and `monthly_snapshots` time-series facts.
+
+------------------------------------------------------------------------------------------------------------------------
+5. POINT-IN-TIME ENFORCEMENT (ZERO TEMPORAL LEAKAGE)
+------------------------------------------------------------------------------------------------------------------------
+1. Boundary Invariant: All historical lookups enforce `report_month < as_of_month`. Any rows with `report_month >= as_of_month` in the DB session are discarded before computation.
+2. Dynamic Context Aggregation: State and agency statistics (mean progress, median progress, cost, expenditure ratios) are computed dynamically strictly from projects active at month $t$.
+3. Forward-Fill Prohibition: Missing historical lags (e.g. for new project intakes) are preserved as `NaN` without forward-filling across prediction boundaries.
+4. Target Isolation: All 4 prediction target labels (`schedule_delay_3m`, `cost_overrun_state_3m`, `schedule_revision_3m`, `cost_revision_event_3m`) and label metadata are excluded from the feature space.
+
+------------------------------------------------------------------------------------------------------------------------
+6. EXACT 75-FEATURE VALIDATION & CONTRACT CHECK
+------------------------------------------------------------------------------------------------------------------------
+Total Production ML Features: EXACTLY 75 (71 Numerical + 4 Categorical)
+
+A. Categorical Features (4):
+   1. project_size_category
+   2. current_schedule_status_as_of_t
+   3. reporting_structure_version_t
+   4. table_source_t
+
+B. Numerical Features (71):
+   - Static & Baseline (4): original_cost_crore, project_age_months_t, planned_duration_months, original_cost_log.
+   - Current Snapshot (9): physical_progress_t, cumulative_expenditure_t, revised_cost_t, cost_escalation_pct_t,
+     expenditure_ratio_pct_t, remaining_physical_progress_t, schedule_slippage_months_t, months_to_original_doc_t,
+     months_to_revised_doc_t.
+   - Progress Dynamics (13): physical_progress_lag1, physical_progress_lag2, physical_progress_lag3, progress_change_1m_t,
+     progress_change_2m_t, progress_change_3m_t, progress_velocity_1m_t, progress_velocity_3m_t, progress_velocity_6m_t,
+     max_progress_to_date_t, min_progress_to_date_t, average_progress_to_date_t, progress_std_to_date_t.
+   - Expenditure Dynamics (10): cumulative_expenditure_lag1, cumulative_expenditure_lag3, monthly_expenditure_delta_t,
+     expenditure_change_1m_t, expenditure_change_3m_t, expenditure_velocity_3m_t, expenditure_velocity_6m_t,
+     avg_monthly_expenditure_to_date_t, expenditure_growth_rate_t, negative_expenditure_delta_flag_t.
+   - Stagnation Dynamics (6): stagnant_2m_t, stagnant_3m_t, stagnant_6m_t, months_since_last_progress_increase_t,
+     longest_stagnation_to_date_t, progress_change_last_3m_t.
+   - Cost Evolution (5): has_cost_revision_t, cost_revision_count_to_date_t, months_since_last_cost_revision_t,
+     largest_cost_revision_pct_to_date_t, cost_reduction_pct_as_of_t.
+   - Schedule Evolution (3): has_revised_schedule_as_of_t, schedule_revision_count_to_date_t, months_since_last_schedule_revision_t.
+   - Observation History (5): months_observed_to_date_t, months_since_first_observed_t, observation_coverage_ratio_t,
+     consecutive_observation_count_t, months_since_last_observation_t.
+   - Reporting Quality (5): missing_physical_progress_t, missing_expenditure_t, missing_revised_cost_t, missing_revised_doc_t,
+     observation_gap_flag_t.
+   - State & Agency Context Aggregates (10): state_active_project_count_t, state_mean_progress_t, state_median_progress_t,
+     state_mean_cost_t, state_mean_expenditure_ratio_t, agency_active_project_count_t, agency_mean_progress_t,
+     agency_median_progress_t, agency_mean_cost_t, agency_mean_expenditure_ratio_t.
+   - Cohort Indicator (1): focused_cohort_indicator_t.
+
+Contract Verification: 75 ML features = PASS (0 extra, 0 missing, 0 banned).
+
+------------------------------------------------------------------------------------------------------------------------
+7. EXACT 12-ESI-INPUT VALIDATION & CONTRACT CHECK
+------------------------------------------------------------------------------------------------------------------------
+The adapter produces exact 12 operational surveillance inputs matching `scripts/execution_risk/03_execution_stress_index.py`:
+1. `months_since_last_progress_increase_t` ($S_{\text{stag}}$)
+2. `stagnant_3m_t` ($S_{\text{stag}}$)
+3. `remaining_physical_progress_t` ($S_{\text{stag}}$)
+4. `progress_velocity_3m_t` ($S_{\text{vel}}$)
+5. `progress_change_1m_t` ($S_{\text{vel}}$)
+6. `schedule_slippage_months_t` ($S_{\text{sched}}$)
+7. `months_to_original_doc_t` ($S_{\text{sched}}$)
+8. `expenditure_ratio_pct_t` ($S_{\text{div}}$)
+9. `physical_progress_t` ($S_{\text{div}}$)
+10. `observation_gap_flag_t` ($S_{\text{rep}}$)
+11. `missing_physical_progress_t` ($S_{\text{rep}}$)
+12. `schedule_revision_count_to_date_t` ($S_{\text{rep}}$)
+
+Contract Verification: 12 ESI inputs = PASS.
+
+------------------------------------------------------------------------------------------------------------------------
+8. EXISTING REPOSITORY COMPONENTS REUSED
+------------------------------------------------------------------------------------------------------------------------
+1. `scripts/extract_pdfs.py` : PDF page extraction routines (`extract_ongoing_legacy`, `extract_ongoing_modern`).
+2. `scripts/detect_table_ranges.py` : PDF table boundary detection (`detect_pdf_tables`, `get_report_month_from_doc`).
+3. `scripts/normalize_data.py` : Field normalization functions (`normalize_project_record`, `normalize_numeric`, `normalize_date`).
+4. `features/build_features_v1.py` : Standard mathematical formulations for 75 point-in-time features.
+5. `scripts/execution_risk/03_execution_stress_index.py` : 5-dimension ESI calculations and tier boundaries.
+6. Frozen Models :
+   - `ml/calibration_final/models/rf02_calibrated.pkl` (Platt Sigmoid Calibrated Random Forest)
+   - `ml/secondary_targets/selected_models/cost_overrun_state_3m/model.pkl` (Balanced Random Forest)
+   - `ml/secondary_targets/selected_models/schedule_revision_3m/model.pkl` (Regularized Logistic Regression)
+
+------------------------------------------------------------------------------------------------------------------------
+9. TEST RESULTS & EMPIRICAL VERIFICATION PROOFS
+------------------------------------------------------------------------------------------------------------------------
+Test Suite Execution (`python tests/test_inference_adapter.py`):
+- Total Tests Executed : 9 tests
+- Failures / Errors    : 0
+- Execution Result     : PASSED (100% OK)
+
+Summary of Test Cases Verified:
+1. `test_01_extract_features_contract_count`           : PASS (Exact 75 ML + 12 ESI column count & ordering)
+2. `test_02_target_and_metadata_exclusion`              : PASS (Zero target labels or metadata in feature matrix)
+3. `test_03_ocms_historical_priors_exclusion`           : PASS (Zero OCMS historical priors in feature matrix)
+4. `test_04_point_in_time_anti_leakage`                 : PASS (Future synthetic database injection strictly blocked)
+5. `test_05_missing_historical_observations_handling`   : PASS (Graceful handling of zero-history intakes with NaNs)
+6. `test_06_invalid_report_month_handling`              : PASS (Strict regex validation on YYYY-MM input)
+7. `test_07_callable_db_session_handling`               : PASS (Clean support for custom query callbacks)
+8. `test_08_duplicate_project_id_validation`            : PASS (Duplicate project IDs rejected by validation guards)
+9. `test_09_end_to_end_scoring_compatibility`           : PASS (Extracted features successfully scored through models & ESI)
+
+3-Way Specification Reconciliation Audit (`python scripts/backend_spec_audit/audit_specs.py`):
+- All 12 Specification Checks: PASS
+- Status: SPECIFICATION_SUITE_STATUS = CONSISTENT
+
+------------------------------------------------------------------------------------------------------------------------
+10. BACKWARD COMPATIBILITY
+------------------------------------------------------------------------------------------------------------------------
+- Existing batch scripts (`build_features_v1.py`, `model_training.py`, `build_integrated_risk_score.py`) remain completely unaltered and fully functional.
+- Zero breaking changes introduced to existing training datasets or saved artifacts.
+
+------------------------------------------------------------------------------------------------------------------------
+11. EXACT BACKEND INTEGRATION CONTRACT
+------------------------------------------------------------------------------------------------------------------------
+The backend developer only needs to call:
+```python
+from inference import extract_features_for_inference, ProductionScorer
+
+features_df, esi_df = extract_features_for_inference(
+    pdf_path="/path/to/uploaded_report.pdf",
+    report_month="2026-07",
+    db_session=db_session
+)
+
+scorer = ProductionScorer()
+ml_scores_df, esi_scores_df = scorer.score(features_df, esi_df)
+```
+
+========================================================================================================================
+FINAL VERDICT:
+ADAPTER_STATUS = IMPLEMENTED
+75 ML features = PASS
+12 ESI inputs = PASS
+Point-in-time leakage check = PASS
+No OCMS production features = PASS
+Existing pipeline compatibility = PASS
+========================================================================================================================
