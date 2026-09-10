@@ -1,0 +1,902 @@
+[
+  {
+    "project_id": "102000",
+    "project_name": "Reconstruction and widening to 2 lane with paved shoulder from existing chainage km of Naushera Tunnel Total length of tunnel 0.700 km under 31 TF on Akhnoor-Poonch road NH-144A in the UT of Jammu & Kashmir under Project Sampark BRO on EPC mode Package-V Job no NH-144A-J&K-2020-21-104",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 345.14 Cr (2025-06) to 0.0 Cr (2026-01)"
+  },
+  {
+    "project_id": "109700",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 930 Construction of 6-lane Greenfield corridor from Ramnagar to Kacchi Dargah NH-119D",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1113.46 Cr (2026-05) to 104.0 Cr (2026-06)"
+  },
+  {
+    "project_id": "113300",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 876 Assam on EPC Package-6",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 625.64 Cr (2026-02) to 95.0 Cr (2026-03)"
+  },
+  {
+    "project_id": "113300",
+    "project_name": "Assam on EPC Package-6",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 95.0 Cr (2026-03) to 625.64 Cr (2026-04)"
+  },
+  {
+    "project_id": "113300",
+    "project_name": "Assam on EPC Package-6",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 625.64 Cr (2026-03) to 0.0 Cr (2026-04)"
+  },
+  {
+    "project_id": "113300",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 905 Assam on EPC Package-6",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 625.64 Cr (2026-04) to 97.0 Cr (2026-05)"
+  },
+  {
+    "project_id": "118850",
+    "project_name": "Balance work of Widening to 2 Two lane with hard shoulder of Churachandpur to 4A in the State of Manipur on EPC Mode",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 204.12 Cr (2026-03) to 0.0 Cr (2026-04)"
+  },
+  {
+    "project_id": "120250",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1502 Delhi-Amritsar-Katra Expressway Phase-I Pkg-V from Junction with Ambala-Kaithal- Hissar road NH-152 near Kharak Pandwa village to Junction with Patiala-Samana- Multi-States",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1741.86 Cr (2026-03) to 133.0 Cr (2026-04)"
+  },
+  {
+    "project_id": "120250",
+    "project_name": "Delhi-Amritsar-Katra Expressway Phase-I Pkg-V from Junction with Ambala-Kaithal- Hissar road NH-152 near Kharak Pandwa village to Junction with Patiala-Samana- Multi-States",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 133.0 Cr (2026-04) to 1741.86 Cr (2026-05)"
+  },
+  {
+    "project_id": "124470",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1302 134.549",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 618.33 Cr (2026-04) to 120.0 Cr (2026-05)"
+  },
+  {
+    "project_id": "124470",
+    "project_name": "134.549",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 120.0 Cr (2026-05) to 618.33 Cr (2026-06)"
+  },
+  {
+    "project_id": "124470",
+    "project_name": "134.549",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 618.33 Cr (2026-05) to 53.13 Cr (2026-06)"
+  },
+  {
+    "project_id": "12509",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1745 Treatment of landslide zone from location no. 01 to 28 km 62.860 to 152.750 on NH-",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 98.5% (from 98.5% in 2026-05 to 0.0% in 2026-06)"
+  },
+  {
+    "project_id": "12800",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1083 Construction of 2 lane with paved shoulder of Shillong Western Bypass starting from NH-06 near Ladumsaw existing km 60.900 of old NH-40 to NH-106 old NH-44E, Meghalaya on EPC Mode",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 30.0% (from 30.0% in 2025-06 to 0.0% in 2025-12)"
+  },
+  {
+    "project_id": "12800",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1083 Construction of 2 lane with paved shoulder of Shillong Western Bypass starting from NH-06 near Ladumsaw existing km 60.900 of old NH-40 to NH-106 old NH-44E, Meghalaya on EPC Mode",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 620.3 Cr (2025-06) to 91.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "12800",
+    "project_name": "Construction of 2 lane with paved shoulder of Shillong Western Bypass starting from NH-06 near Ladumsaw existing km 60.900 of old NH-40 to NH-106 old NH-44E, Meghalaya on EPC Mode",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 91.0 Cr (2025-12) to 686.03 Cr (2026-01)"
+  },
+  {
+    "project_id": "12800",
+    "project_name": "Construction of 2 lane with paved shoulder of Shillong Western Bypass starting from NH-06 near Ladumsaw existing km 60.900 of old NH-40 to NH-106 old NH-44E, Meghalaya on EPC Mode",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 686.03 Cr (2025-12) to 202.27 Cr (2026-01)"
+  },
+  {
+    "project_id": "12920",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 871 Vairengte Sairang road in the State of Assam under Bharatmala Pariyojna on EPC mode. Project Length 29.360 km under NHO-NE Package-2",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1716.21 Cr (2025-12) to 93.0 Cr (2026-01)"
+  },
+  {
+    "project_id": "12920",
+    "project_name": "Vairengte Sairang road in the State of Assam under Bharatmala Pariyojna on EPC mode. Project Length 29.360 km under NHO-NE Package-2",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 93.0 Cr (2026-01) to 1716.21 Cr (2026-02)"
+  },
+  {
+    "project_id": "131600",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1569 Development to 4-lane with paved shoulder for the road section Talwandi Sabo- Raman road to refinery Road junction with Bathinda Dabwali Road of NH-254 from Punjab. Job No NH-254-PB-2022-23-565",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 30.0% (from 30.0% in 2026-02 to 0.0% in 2026-03)"
+  },
+  {
+    "project_id": "131600",
+    "project_name": "Development to 4-lane with paved shoulder for the road section Talwandi Sabo- Raman road to refinery Road junction with Bathinda Dabwali Road of NH-254 from Punjab. Job No NH-254-PB-2022-23-565",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 546.67 Cr (2026-03) to 0.0 Cr (2026-04)"
+  },
+  {
+    "project_id": "134950",
+    "project_name": "Rehabilitation and up-gradation to 2 lane with paved shoulder from existing chainage Akhnoor-Poonch road NH-144A in the UT of Jammu & Kashmir under Project Sampark BRO on EPC mode Package-VI Job no NH-144A-J&K-2021-22-106",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 395.25 Cr (2026-02) to 139.45 Cr (2026-03)"
+  },
+  {
+    "project_id": "134950",
+    "project_name": "Rehabilitation and up-gradation to 2 lane with paved shoulder from existing chainage Akhnoor-Poonch road NH-144A in the UT of Jammu & Kashmir under Project Sampark BRO on EPC mode Package-VI Job no NH-144A-J&K-2021-22-106",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 395.25 Cr (2026-05) to 156.58 Cr (2026-06)"
+  },
+  {
+    "project_id": "142000",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1464 Construction of 4-Laning of West Serawlg-Sairang section of NH-6 from Existing Silchar - Vairengte - Sairang road in the State of Mizoram under Bharatmala Pariyojna on EPC mode under NHO-NE Package-8",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 875.79 Cr (2026-04) to 130.0 Cr (2026-05)"
+  },
+  {
+    "project_id": "142000",
+    "project_name": "Construction of 4-Laning of West Serawlg-Sairang section of NH-6 from Existing Silchar - Vairengte - Sairang road in the State of Mizoram under Bharatmala Pariyojna on EPC mode under NHO-NE Package-8",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 130.0 Cr (2026-05) to 875.79 Cr (2026-06)"
+  },
+  {
+    "project_id": "142000",
+    "project_name": "Construction of 4-Laning of West Serawlg-Sairang section of NH-6 from Existing Silchar - Vairengte - Sairang road in the State of Mizoram under Bharatmala Pariyojna on EPC mode under NHO-NE Package-8",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 875.79 Cr (2026-05) to 0.0 Cr (2026-06)"
+  },
+  {
+    "project_id": "14380",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 867 Widening/lmprovement to 4-L of Karimgani - sutarkandi section of NH 37 from design Ch 0020 Start of proposed Karimganj Bypass from NH -8 to design Chainage Km Churaibari in the State of Assam on HAM Mode Package-7",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 40.3% (from 40.4% in 2026-05 to 0.06% in 2026-06)"
+  },
+  {
+    "project_id": "14380",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 867 Widening/lmprovement to 4-L of Karimgani - sutarkandi section of NH 37 from design Ch 0020 Start of proposed Karimganj Bypass from NH -8 to design Chainage Km Churaibari in the State of Assam on HAM Mode Package-7",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 791.79 Cr (2026-05) to 100.0 Cr (2026-06)"
+  },
+  {
+    "project_id": "149476",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1337 Rehabilitation/Upgradation of existing Highway to 2LPS/4 lane of Dhawali to Rajoli the",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 31.7% (from 31.71% in 2026-03 to 0.0% in 2026-04)"
+  },
+  {
+    "project_id": "149476",
+    "project_name": "Rehabilitation/Upgradation of existing Highway to 2LPS/4 lane of Dhawali to Rajoli the",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 316.44 Cr (2026-04) to 0.0 Cr (2026-05)"
+  },
+  {
+    "project_id": "151330",
+    "project_name": "Improvement/Widening to 2-L with Paved Shoulder/ 4-Laning of NH-40 section from length 368 m between Shillong-Dawki under JICA ODA Loan assistance Phase-II Pkg- 5 -Balance work",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 107.86 Cr (2025-06) to 0.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "15500",
+    "project_name": "NH-6 Old NH-44 Near Siddeswar Pt.-I Village on Silchar - Churaibari stretch in the State of Assam on EPC Mode under Bharatmala Pariyojana in Economic Corridors Silchar- Churaibari Package-2",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 290.9 Cr (2025-06) to 0.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "160000",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 841 Mallapalle Ch. 176000Package-07",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 987.1 Cr (2026-03) to 94.0 Cr (2026-04)"
+  },
+  {
+    "project_id": "160000",
+    "project_name": "Mallapalle Ch. 176000Package-07",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 94.0 Cr (2026-04) to 987.1 Cr (2026-05)"
+  },
+  {
+    "project_id": "160000",
+    "project_name": "Mallapalle Ch. 176000Package-07",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 987.1 Cr (2026-04) to 319.74 Cr (2026-05)"
+  },
+  {
+    "project_id": "16439",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1321 Six laning with both sides Service Road of Ayodhya Bypass from Design Km 0000",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1123.17 Cr (2026-04) to 121.0 Cr (2026-05)"
+  },
+  {
+    "project_id": "16439",
+    "project_name": "Six laning with both sides Service Road of Ayodhya Bypass from Design Km 0000",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 121.0 Cr (2026-05) to 1123.17 Cr (2026-06)"
+  },
+  {
+    "project_id": "16439",
+    "project_name": "Six laning with both sides Service Road of Ayodhya Bypass from Design Km 0000",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 1123.17 Cr (2026-05) to 141.71 Cr (2026-06)"
+  },
+  {
+    "project_id": "16900",
+    "project_name": "Bypass Green Field and Brownfield 2-LanePS of NH-315 OLD NH-38 in Tinsukia District under NHO- NE Package-4",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 356.65 Cr (2026-02) to 0.0 Cr (2026-03)"
+  },
+  {
+    "project_id": "170700",
+    "project_name": "on NH-30 to Two lane with Paved Shoulder in the State of Andra Pradesh on EPC mode.",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 207.05 Cr (2026-01) to 54.38 Cr (2026-02)"
+  },
+  {
+    "project_id": "188830",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1583 Delhi-Amritsar-Katra Expressway Phase-I Pkg-VII from Junction with Patiala-Bathinda road NH-7 near Bhawanigarh to Junction with Ludhiana-Malerhkotla SH-11 near",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1759.82 Cr (2026-01) to 145.0 Cr (2026-02)"
+  },
+  {
+    "project_id": "188830",
+    "project_name": "Delhi-Amritsar-Katra Expressway Phase-I Pkg-VII from Junction with Patiala-Bathinda road NH-7 near Bhawanigarh to Junction with Ludhiana-Malerhkotla SH-11 near",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 145.0 Cr (2026-02) to 1759.82 Cr (2026-03)"
+  },
+  {
+    "project_id": "188830",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1620 Delhi-Amritsar-Katra Expressway Phase-I Pkg-VII from Junction with Patiala-Bathinda road NH-7 near Bhawanigarh to Junction with Ludhiana-Malerhkotla SH-11 near",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1759.82 Cr (2026-04) to 139.0 Cr (2026-05)"
+  },
+  {
+    "project_id": "22700",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1368 Balance work of Rehabilitation and Up-gradation to 2-lane road with paved shoulders configuration for NH- 965DD from Pacharal-Mandangad-Mhapral-Rajewadi Upto Babasaheb Ambedkar Ch-0000 to 7325 Km length Km 59.725 in the state of Maharashtra on EPC mode. Balance Work",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 93.0% (from 93.0% in 2026-03 to 0.0% in 2026-04)"
+  },
+  {
+    "project_id": "22700",
+    "project_name": "Balance work of Rehabilitation and Up-gradation to 2-lane road with paved shoulders configuration for NH- 965DD from Pacharal-Mandangad-Mhapral-Rajewadi Upto Babasaheb Ambedkar Ch-0000 to 7325 Km length Km 59.725 in the state of Maharashtra on EPC mode. Balance Work",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 388.93 Cr (2026-04) to 0.0 Cr (2026-05)"
+  },
+  {
+    "project_id": "228000",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 783 Polavaram Ch. 260000of [NH-544G] Package-11",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1292.65 Cr (2025-06) to 77.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "228000",
+    "project_name": "Polavaram Ch. 260000of [NH-544G] Package-11",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 77.0 Cr (2025-12) to 1292.65 Cr (2026-01)"
+  },
+  {
+    "project_id": "228000",
+    "project_name": "Polavaram Ch. 260000of [NH-544G] Package-11",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 1292.65 Cr (2025-12) to 255.86 Cr (2026-01)"
+  },
+  {
+    "project_id": "242500",
+    "project_name": "Improvement & widening of existing NH-08 to 4-lane with Paved Shoulder from Tripura on EPC basis under NHO-NE",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 81.54 Cr (2025-06) to 0.0 Cr (2026-01)"
+  },
+  {
+    "project_id": "24320",
+    "project_name": "Construction of 4 lane with paved shoulder Pattan bypass Greenfield bypass from total length 10.900 km on road SrinagarBaramulla Uri NH-01 in the UT of Jammu & Kashmir under Project BEACON, Border Roads Organization BRO on EPC mode. Package-II",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 300.02 Cr (2025-06) to 0.0 Cr (2026-01)"
+  },
+  {
+    "project_id": "244000",
+    "project_name": "NH-765 Package-2",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 111.65 Cr (2025-06) to 0.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "244000",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 794 NH-765 Package-2",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 84.0% (from 84.0% in 2026-01 to 0.0% in 2026-02)"
+  },
+  {
+    "project_id": "244000",
+    "project_name": "NH-765 Package-2",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 244.83 Cr (2026-02) to 0.0 Cr (2026-03)"
+  },
+  {
+    "project_id": "24700",
+    "project_name": "Construction of 2-Lane with paved shoulders of Shillong Western Bypass starting from NH-06 near Ladumsaw existing Km 60.900 of old NH40 to NH106 old NH 44E Meghalaya on EPC Mode Greenfield alignment",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 297.91 Cr (2025-06) to 0.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "249000",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1550",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1539.75 Cr (2026-02) to 133.0 Cr (2026-03)"
+  },
+  {
+    "project_id": "249000",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1550",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 133.0 Cr (2026-03) to 1539.75 Cr (2026-04)"
+  },
+  {
+    "project_id": "262175",
+    "project_name": "Improvement/Up-gradation of existing 2-Lane Road to 4-Lane Divided Highway from Taphukuki to Daili section of Imphal-Kohima road NH-02 Design Chainage from Km",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 218.03 Cr (2025-06) to 0.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "263800",
+    "project_name": "- Sairang road in the State of Assam under Bharatmala Pariyojna on EPC mode Package-1",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 40.4% (from 40.36% in 2025-06 to 0.0% in 2025-12)"
+  },
+  {
+    "project_id": "263800",
+    "project_name": "- Sairang road in the State of Assam under Bharatmala Pariyojna on EPC mode Package-1",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 539.19 Cr (2025-06) to 0.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "26400",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 854 15/AS/2021-22/234",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 535.03 Cr (2025-12) to 92.0 Cr (2026-01)"
+  },
+  {
+    "project_id": "26400",
+    "project_name": "15/AS/2021-22/234",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 92.0 Cr (2026-01) to 535.03 Cr (2026-02)"
+  },
+  {
+    "project_id": "26400",
+    "project_name": "15/AS/2021-22/234",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 535.03 Cr (2026-01) to 161.56 Cr (2026-02)"
+  },
+  {
+    "project_id": "26400",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 853 15/AS/2021-22/234",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 535.03 Cr (2026-05) to 99.0 Cr (2026-06)"
+  },
+  {
+    "project_id": "30050",
+    "project_name": "Rehabilitation and Up gradation to 2-lane with paved shoulder of Keifang Section under Bharatmala Pariyojna on EPC Mode Seling-Dulte - III",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 292.23 Cr (2026-02) to 0.0 Cr (2026-03)"
+  },
+  {
+    "project_id": "34795",
+    "project_name": "Widening to 2 Lane with Hard shoulder of Akegwo-Avangkhu section of NH-202K for mode under NH O-NE",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 100.51 Cr (2025-06) to 0.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "34795",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1569 Widening to 2 Lane with Hard shoulder of Akegwo-Avangkhu section of NH-202K for mode under NH O-NE",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 87.0% (from 87.0% in 2026-04 to 0.0% in 2026-05)"
+  },
+  {
+    "project_id": "34795",
+    "project_name": "Widening to 2 Lane with Hard shoulder of Akegwo-Avangkhu section of NH-202K for mode under NH O-NE",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 430.24 Cr (2026-05) to 0.0 Cr (2026-06)"
+  },
+  {
+    "project_id": "36300",
+    "project_name": "Bara in the State of Rajasthan on EPC Mode.",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 154.89 Cr (2026-02) to 11.56 Cr (2026-03)"
+  },
+  {
+    "project_id": "37000",
+    "project_name": "Balance Works for six laning of Sriperumbudur to karaipettai section of NH-4 New NH- EPC mode underNHDP Phase-V",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 44.6% (from 75.77% in 2026-03 to 31.16% in 2026-04)"
+  },
+  {
+    "project_id": "37000",
+    "project_name": "Balance Works for six laning of Sriperumbudur to karaipettai section of NH-4 New NH- EPC mode underNHDP Phase-V",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 411.16 Cr (2026-03) to 81.11 Cr (2026-04)"
+  },
+  {
+    "project_id": "37000",
+    "project_name": "Construction of Four Lane Nagpur-Katol section of NH-353J including Mitigation EPC Mode",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "PROGRESS_REGRESSION",
+    "severity": "MEDIUM",
+    "flag_reason": "Physical progress dropped by 35.0% (from 35.05% in 2026-05 to 0.0% in 2026-06)"
+  },
+  {
+    "project_id": "37000",
+    "project_name": "Construction of Four Lane Nagpur-Katol section of NH-353J including Mitigation EPC Mode",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 120.44 Cr (2026-05) to 0.0 Cr (2026-06)"
+  },
+  {
+    "project_id": "38760",
+    "project_name": "nos. upgrading of feeder mains, pumping station etc. - Phase II",
+    "report_month": "2025-11",
+    "source_file": "FlashReport_November_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 799.74 Cr (2025-10) to 88.86 Cr (2025-11)"
+  },
+  {
+    "project_id": "39500",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 944 Improvement and Up gradation to four lane with Paved shoulder configuration from 227A near Mehrauna GhatUP Bihar Border to Siwan on the state of Bihar on Hybrid Annuity Model HAM basis",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 1661.25 Cr (2026-01) to 109.0 Cr (2026-02)"
+  },
+  {
+    "project_id": "39500",
+    "project_name": "Improvement and Up gradation to four lane with Paved shoulder configuration from 227A near Mehrauna GhatUP Bihar Border to Siwan on the state of Bihar on Hybrid Annuity Model HAM basis",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 109.0 Cr (2026-02) to 1661.25 Cr (2026-03)"
+  },
+  {
+    "project_id": "39500",
+    "project_name": "Improvement and Up gradation to four lane with Paved shoulder configuration from 227A near Mehrauna GhatUP Bihar Border to Siwan on the state of Bihar on Hybrid Annuity Model HAM basis",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 1661.25 Cr (2026-02) to 0.0 Cr (2026-03)"
+  },
+  {
+    "project_id": "400006",
+    "project_name": "Jharsuguda-Barpali-Sardega Ph II Works- Rail Connectivity for Coal Loading Bulb at Barpali.",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 73.0 Cr (2025-12) to 808.99 Cr (2026-01)"
+  },
+  {
+    "project_id": "400012",
+    "project_name": "Kandla Gorakhpur LPG Pipeline",
+    "report_month": "2025-08",
+    "source_file": "FlashReport_August_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 12.0 Cr (2025-07) to 10088.0 Cr (2025-08)"
+  },
+  {
+    "project_id": "400012",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 342 Kandla Gorakhpur LPG Pipeline",
+    "report_month": "2025-12",
+    "source_file": "FlashReport_December_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 10088.0 Cr (2025-11) to 61.0 Cr (2025-12)"
+  },
+  {
+    "project_id": "400012",
+    "project_name": "Kandla Gorakhpur LPG Pipeline",
+    "report_month": "2026-01",
+    "source_file": "FlashReport_January_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 61.0 Cr (2025-12) to 10088.0 Cr (2026-01)"
+  },
+  {
+    "project_id": "400012",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 357 Kandla Gorakhpur LPG Pipeline",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 10088.0 Cr (2026-01) to 80.0 Cr (2026-02)"
+  },
+  {
+    "project_id": "400012",
+    "project_name": "Kandla Gorakhpur LPG Pipeline",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 80.0 Cr (2026-02) to 10088.0 Cr (2026-03)"
+  },
+  {
+    "project_id": "400012",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 341 Kandla Gorakhpur LPG Pipeline",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 10088.0 Cr (2026-05) to 74.0 Cr (2026-06)"
+  },
+  {
+    "project_id": "400013",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1895 Saturation 4G mobile coverage of Uncovered Villages through USOF",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 26316.0 Cr (2026-01) to 163.0 Cr (2026-02)"
+  },
+  {
+    "project_id": "400013",
+    "project_name": "Saturation 4G mobile coverage of Uncovered Villages through USOF",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 163.0 Cr (2026-02) to 26316.0 Cr (2026-03)"
+  },
+  {
+    "project_id": "400013",
+    "project_name": "Saturation 4G mobile coverage of Uncovered Villages through USOF",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 26316.0 Cr (2026-02) to 9791.8 Cr (2026-03)"
+  },
+  {
+    "project_id": "400022",
+    "project_name": "Taranga Hill-Abu Road via Ambaji",
+    "report_month": "2025-07",
+    "source_file": "FlashReport_July_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 2798.16 Cr (2025-06) to 7.0 Cr (2025-07)"
+  },
+  {
+    "project_id": "400022",
+    "project_name": "Taranga Hill-Abu Road via Ambaji",
+    "report_month": "2025-07",
+    "source_file": "FlashReport_July_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 1103.16 Cr (2025-06) to 7.0 Cr (2025-07)"
+  },
+  {
+    "project_id": "400022",
+    "project_name": "Taranga Hill-Abu Road via Ambaji",
+    "report_month": "2025-08",
+    "source_file": "FlashReport_August_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 7.0 Cr (2025-07) to 2798.0 Cr (2025-08)"
+  },
+  {
+    "project_id": "400033",
+    "project_name": "BHATADI EXPANSION OC",
+    "report_month": "2025-07",
+    "source_file": "FlashReport_July_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 61.33 Cr (2025-06) to 20.52 Cr (2025-07)"
+  },
+  {
+    "project_id": "400045",
+    "project_name": "Proposed 6 nos Road Over Bridge [ROB] at different locations under MCL Talcher Under Deposit Scheme.",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 168.32 Cr (2026-02) to 69.85 Cr (2026-03)"
+  },
+  {
+    "project_id": "400073",
+    "project_name": "KONAR EXPANSION OCP",
+    "report_month": "2026-06",
+    "source_file": "FlashReport_June_2026.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 433.64 Cr (2026-05) to 172.3 Cr (2026-06)"
+  },
+  {
+    "project_id": "400078",
+    "project_name": "New Mundra Panipat Crude Oil Pipeline Multi-States (Gujarat, Haryana,",
+    "report_month": "2025-07",
+    "source_file": "FlashReport_July_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 9028.0 Cr (2025-06) to 12.0 Cr (2025-07)"
+  },
+  {
+    "project_id": "400078",
+    "project_name": "New Mundra Panipat Crude Oil Pipeline Multi-States (Gujarat, Haryana,",
+    "report_month": "2025-07",
+    "source_file": "FlashReport_July_2025.pdf",
+    "flag_category": "EXPENDITURE_DROP",
+    "severity": "MEDIUM",
+    "flag_reason": "Cumulative expenditure dropped from 6734.76 Cr (2025-06) to 12.0 Cr (2025-07)"
+  },
+  {
+    "project_id": "400078",
+    "project_name": "New Mundra Panipat Crude Oil Pipeline Multi-States (Gujarat, Haryana,",
+    "report_month": "2025-09",
+    "source_file": "FlashReport_September_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 48.0 Cr (2025-08) to 9028.0 Cr (2025-09)"
+  },
+  {
+    "project_id": "400081",
+    "project_name": "National Sports University [NSU], Imphal [Manipur] Ministry of Petroleum & Natural Gas Total (1) 906.47 559.27",
+    "report_month": "2025-11",
+    "source_file": "FlashReport_November_2025.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 53.0 Cr (2025-10) to 906.47 Cr (2025-11)"
+  },
+  {
+    "project_id": "400081",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 344 National Sports University [NSU], Imphal [Manipur] Total (1) 906.47 574.12",
+    "report_month": "2026-04",
+    "source_file": "FlashReport_April2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 906.47 Cr (2026-03) to 70.0 Cr (2026-04)"
+  },
+  {
+    "project_id": "400081",
+    "project_name": "National Sports University [NSU], Imphal [Manipur] Ministry of Petroleum & Natural Gas Total (1) 906.47 575.68",
+    "report_month": "2026-05",
+    "source_file": "FlashReport_May2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 70.0 Cr (2026-04) to 906.47 Cr (2026-05)"
+  },
+  {
+    "project_id": "400097",
+    "project_name": "Project Assessment, Infrastructure Monitoring and Analytics for Nation-building 1915 Sardar Sarovar CADWM Project",
+    "report_month": "2026-02",
+    "source_file": "FlashReport_February_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 5021.76 Cr (2026-01) to 164.0 Cr (2026-02)"
+  },
+  {
+    "project_id": "400097",
+    "project_name": "Sardar Sarovar CADWM Project",
+    "report_month": "2026-03",
+    "source_file": "FlashReport_March_2026.pdf",
+    "flag_category": "LARGE_COST_SHIFT",
+    "severity": "MEDIUM",
+    "flag_reason": "Original cost changed significantly from 164.0 Cr (2026-02) to 5021.76 Cr (2026-03)"
+  }
+]

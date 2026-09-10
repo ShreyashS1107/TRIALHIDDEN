@@ -1,0 +1,183 @@
+{
+  "dataset_scale": {
+    "total_project_months": 21555,
+    "unique_projects": 2741,
+    "completed_projects": 350,
+    "newly_added_projects": 743,
+    "months_coverage": 15,
+    "start_month": "2025-04",
+    "end_month": "2026-06",
+    "total_sanctioned_cost_crore": 4553276.37,
+    "total_revised_cost_crore": 5363628.44,
+    "total_expenditure_crore": 3108849.01,
+    "total_cost_escalation_crore": 810352.07,
+    "cost_escalation_percent": 17.8,
+    "total_verified_anomalies": 1868
+  },
+  "model_performance": {
+    "schedule_delay_model": {
+      "algorithm": "RF_02 + Platt Scaling Calibration",
+      "oot_roc_auc": 0.9723,
+      "oot_pr_auc": 0.9722,
+      "brier_score": 0.0389
+    },
+    "cost_overrun_model": {
+      "algorithm": "Balanced Random Forest",
+      "oot_roc_auc": 0.9895,
+      "oot_pr_auc": 0.9881,
+      "brier_score": 0.0386
+    },
+    "schedule_revision_model": {
+      "algorithm": "Penalized Logistic Regression",
+      "oot_roc_auc": 0.8264,
+      "oot_pr_auc": 0.0519,
+      "brier_score": 0.0176
+    },
+    "integrated_risk_formula": "0.50 * Schedule + 0.35 * Cost + 0.15 * SRev",
+    "execution_stress_formula": "0.30 * S_stag + 0.25 * S_vel + 0.20 * S_div + 0.15 * S_sched + 0.10 * S_rep",
+    "non_redundancy_correlation": 0.136,
+    "off_diagonal_divergence_pct": 65.4
+  },
+  "sector_breakdown": [
+    {
+      "sector": "Roads & Highways",
+      "project_count": 1516,
+      "revised_cost_crore": 1391718.97
+    },
+    {
+      "sector": "Urban Infrastructure & Others",
+      "project_count": 497,
+      "revised_cost_crore": 1284640.24
+    },
+    {
+      "sector": "Railways & Metro",
+      "project_count": 236,
+      "revised_cost_crore": 1080619.5
+    },
+    {
+      "sector": "Coal & Mines",
+      "project_count": 145,
+      "revised_cost_crore": 241678.17
+    },
+    {
+      "sector": "Power & Energy",
+      "project_count": 138,
+      "revised_cost_crore": 681050.18
+    },
+    {
+      "sector": "Petroleum & Natural Gas",
+      "project_count": 132,
+      "revised_cost_crore": 568466.22
+    },
+    {
+      "sector": "Civil Aviation",
+      "project_count": 46,
+      "revised_cost_crore": 38247.02
+    },
+    {
+      "sector": "Ports & Shipping",
+      "project_count": 31,
+      "revised_cost_crore": 77208.14
+    }
+  ],
+  "state_breakdown": [
+    {
+      "state": "Maharashtra",
+      "count": 294
+    },
+    {
+      "state": "Uttar Pradesh",
+      "count": 202
+    },
+    {
+      "state": "Andhra Pradesh",
+      "count": 167
+    },
+    {
+      "state": "Gujarat",
+      "count": 167
+    },
+    {
+      "state": "Bihar",
+      "count": 165
+    },
+    {
+      "state": "Karnataka",
+      "count": 152
+    },
+    {
+      "state": "Odisha",
+      "count": 136
+    },
+    {
+      "state": "Madhya Pradesh",
+      "count": 119
+    },
+    {
+      "state": "Jharkhand",
+      "count": 107
+    },
+    {
+      "state": "Assam",
+      "count": 103
+    },
+    {
+      "state": "Chhattisgarh",
+      "count": 100
+    },
+    {
+      "state": "Rajasthan",
+      "count": 97
+    },
+    {
+      "state": "Tamil Nadu",
+      "count": 94
+    },
+    {
+      "state": "West Bengal",
+      "count": 87
+    },
+    {
+      "state": "Telangana",
+      "count": 85
+    }
+  ],
+  "risk_distribution": {
+    "HIGH": 455,
+    "MODERATE": 1169,
+    "LOW": 840,
+    "VERY_HIGH": 277
+  },
+  "esi_distribution": {
+    "WATCH": 692,
+    "NOMINAL": 1885,
+    "ATTENTION": 152,
+    "HIGH_PRIORITY": 12
+  },
+  "pipeline_stages": [
+    {
+      "stage": "1. Extraction",
+      "description": "Multi-layout PyMuPDF table parsing across 15 monthly Flash Reports"
+    },
+    {
+      "stage": "2. Normalization",
+      "description": "Canonical ID cross-referencing, ISO-8601 temporal mapping & \u20b9 Cr precision"
+    },
+    {
+      "stage": "3. Validation",
+      "description": "Strict progress bounds [0-100%], positive cost checks & audit logging"
+    },
+    {
+      "stage": "4. Longitudinal Assembly",
+      "description": "Point-in-time snapshots (21,555 records without historical overwrite)"
+    },
+    {
+      "stage": "5. Predictive ML & ESI",
+      "description": "Calibrated dual-pillar risk scoring and operational execution surveillance"
+    },
+    {
+      "stage": "6. Action Directives",
+      "description": "Deterministic prescriptive intervention matrices for monitoring nodal officers"
+    }
+  ]
+}

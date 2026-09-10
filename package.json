@@ -1,0 +1,14 @@
+{
+  "name": "paimana-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "FRONTEND"
+  ],
+  "scripts": {
+    "dev": "npm --prefix FRONTEND run dev",
+    "build": "npm --prefix FRONTEND run build",
+    "start": "npm --prefix FRONTEND run start",
+    "lint": "npm --prefix FRONTEND run lint"
+  }
+}
