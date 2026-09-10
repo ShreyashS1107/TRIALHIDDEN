@@ -6,7 +6,7 @@ import { ArrowDown, Radio } from 'lucide-react';
 export default function Section17_SecondVideo() {
   return (
     <section className="relative w-full h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-navy-950 border-t border-cyan-500/20">
-      {/* Cinematic Background Video (SIH VIDEO 2.mp4) */}
+      {/* Cinematic Background Video (SIH_VIDEO_2_final.mp4) */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <video
           autoPlay
@@ -15,7 +15,7 @@ export default function Section17_SecondVideo() {
           playsInline
           preload="auto"
           className="w-full h-full object-cover scale-105"
-          src="/videos/SIH%20VIDEO%202.mp4"
+          src="/videos/SIH_VIDEO_2_final.mp4"
         >
           Your browser does not support the video tag.
         </video>

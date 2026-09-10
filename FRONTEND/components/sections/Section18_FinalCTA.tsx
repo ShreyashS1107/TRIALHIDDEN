@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ArrowRight, Shield, Activity, Radio } from 'lucide-react';
 
 export default function Section18_FinalCTA() {
@@ -15,7 +16,7 @@ export default function Section18_FinalCTA() {
           playsInline
           preload="auto"
           className="w-full h-full object-cover scale-105"
-          src="/videos/SIH%20VIDEO.mp4"
+          src="/videos/SIH_VIDEO_1_final.mp4"
         />
         <div className="absolute inset-0 bg-navy-950/80 pointer-events-none" />
       </div>
@@ -47,13 +48,13 @@ export default function Section18_FinalCTA() {
         </div>
 
         {/* Final CTA Button */}
-        <a
-          href="#project-intelligence"
+        <Link
+          href="/project-dossier"
           className="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-xl bg-gradient-to-r from-cyan to-teal text-navy-950 font-extrabold text-sm tracking-wide shadow-glow hover:shadow-cyan/50 hover:scale-105 transition-all"
         >
           <span>ENTER PROJECT INTELLIGENCE</span>
           <ArrowRight className="w-4 h-4" />
-        </a>
+        </Link>
 
         {/* Footer info */}
         <div className="mt-16 pt-8 border-t border-concrete-800/80 text-xs font-mono text-concrete-500 flex flex-col sm:flex-row items-center justify-between gap-4">

@@ -4,12 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ShieldAlert, Cpu, BarChart3, Radio } from 'lucide-react';
 
-interface HeroSectionProps {
-  onExploreClick?: () => void;
-  onRiskClick?: () => void;
-}
-
-export default function HeroSection({ onExploreClick, onRiskClick }: HeroSectionProps) {
+export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -27,7 +22,7 @@ export default function HeroSection({ onExploreClick, onRiskClick }: HeroSection
           playsInline
           preload="auto"
           className="w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out"
-          src="/videos/SIH%20VIDEO.mp4"
+          src="/videos/SIH_VIDEO_1_final.mp4"
         >
           Your browser does not support the video tag.
         </video>
@@ -117,22 +112,20 @@ export default function HeroSection({ onExploreClick, onRiskClick }: HeroSection
             <ArrowRight className="w-4 h-4" />
           </Link>
 
-          <a
-            href="#project-intelligence"
-            onClick={onExploreClick}
+          <Link
+            href="/project-dossier"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-navy-850/90 hover:bg-navy-800 border border-cyan-500/40 text-cyan-300 font-semibold text-sm tracking-wide transition-all backdrop-blur-md hover:border-cyan-400 hover:scale-[1.02]"
           >
             <span>LIVE INTELLIGENCE DOSSIER</span>
-          </a>
+          </Link>
 
-          <a
-            href="#risk-prediction"
-            onClick={onRiskClick}
+          <Link
+            href="/custom-project"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-navy-850/90 hover:bg-navy-800 border border-amber-500/40 text-amber font-semibold text-sm tracking-wide transition-all backdrop-blur-md hover:border-amber-400 hover:scale-[1.02]"
           >
             <ShieldAlert className="w-4 h-4 text-amber" />
-            <span>RISK PREDICTION</span>
-          </a>
+            <span>CUSTOM ASSESSMENT</span>
+          </Link>
         </div>
 
         {/* Quick Micro-Stats Bar */}

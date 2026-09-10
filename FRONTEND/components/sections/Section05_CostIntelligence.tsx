@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { IndianRupee, TrendingUp, AlertCircle, ArrowUpRight, CheckCircle2 } from 'lucide-react';
-import { ProjectDetail, NationalSummary } from '@/lib/api/types';
+import { ProjectDetail, NationalSummary, ProjectSearchRecord } from '@/lib/api/types';
 import { formatIndianNumber } from '@/lib/utils/format';
+import ProjectSearchNav from '@/components/navigation/ProjectSearchNav';
 
 interface Section05Props {
   summary?: NationalSummary | null;
@@ -12,6 +13,7 @@ interface Section05Props {
 
 export default function Section05_CostIntelligence({ summary, projects = [] }: Section05Props) {
   const [selectedProjectId, setSelectedProjectId] = useState<string>('ALL');
+  const [selectedProjectRecord, setSelectedProjectRecord] = useState<ProjectSearchRecord | null>(null);
 
   const activeProject = selectedProjectId === 'ALL'
     ? null
@@ -19,15 +21,15 @@ export default function Section05_CostIntelligence({ summary, projects = [] }: S
 
   const sanctionedCr = activeProject
     ? activeProject.original_cost_crore
-    : (summary?.dataset_scale.total_sanctioned_cost_crore || 4553276.37);
+    : (selectedProjectRecord?.original_cost_crore || summary?.dataset_scale.total_sanctioned_cost_crore || 4553276.37);
 
   const revisedCr = activeProject
     ? activeProject.revised_cost_crore
-    : (summary?.dataset_scale.total_revised_cost_crore || 5363628.44);
+    : (selectedProjectRecord?.revised_cost_crore || selectedProjectRecord?.original_cost_crore || summary?.dataset_scale.total_revised_cost_crore || 5363628.44);
 
   const spentCr = activeProject
     ? activeProject.cumulative_expenditure_crore
-    : (summary?.dataset_scale.total_expenditure_crore || 3108849.01);
+    : (selectedProjectRecord?.cumulative_expenditure_crore || summary?.dataset_scale.total_expenditure_crore || 3108849.01);
 
   const deltaCr = Math.max(0, revisedCr - sanctionedCr);
   const deltaPct = sanctionedCr > 0 ? (deltaCr / sanctionedCr) * 100 : 0;
@@ -40,14 +42,14 @@ export default function Section05_CostIntelligence({ summary, projects = [] }: S
   const revisedPoints = [100, 103, 106, 110, 114, 116, 117.8, 117.8];
 
   return (
-    <section id="cost-intelligence" className="relative w-full py-24 bg-navy-950 border-t border-cyan-500/20">
+    <section id="cost-intelligence" className="relative w-full py-20 bg-navy-950 border-t border-cyan-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-xs font-mono text-cyan-300 mb-3">
               <TrendingUp className="w-3.5 h-3.5" />
-              <span>SECTION 05 • FINANCIAL DIVERGENCE SURVEILLANCE</span>
+              <span>FINANCIAL DIVERGENCE SURVEILLANCE</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               SEE COST PRESSURE
@@ -59,31 +61,34 @@ export default function Section05_CostIntelligence({ summary, projects = [] }: S
           </p>
         </div>
 
-        {/* Portfolio vs Individual Project Selector */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
-          <button
-            onClick={() => setSelectedProjectId('ALL')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border ${
-              selectedProjectId === 'ALL'
-                ? 'bg-cyan-500/20 border-cyan text-white shadow-glow'
-                : 'bg-navy-900 border-concrete-700/50 text-concrete-400 hover:text-white'
-            }`}
-          >
-            ★ COMPLETE NATIONAL PORTFOLIO (2,741 PROJECTS)
-          </button>
-          {projects.slice(0, 6).map((p) => (
-            <button
-              key={p.project_id}
-              onClick={() => setSelectedProjectId(p.project_id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border ${
-                selectedProjectId === p.project_id
-                  ? 'bg-cyan-500/20 border-cyan text-white shadow-glow'
-                  : 'bg-navy-900 border-concrete-700/50 text-concrete-400 hover:text-white'
-              }`}
-            >
-              {p.project_id}: {p.project_name.slice(0, 20)}...
-            </button>
-          ))}
+        {/* Top-Level Project Search & Navigation Control */}
+        <div className="mb-12">
+          <ProjectSearchNav
+            placeholder="Search cost profile by Project ID, Name, Agency or Sector (e.g., 612786, Kadapa, Western DFC)..."
+            selectedProjectId={selectedProjectId}
+            onSelectProject={(p) => {
+              setSelectedProjectRecord(p);
+              setSelectedProjectId(p.project_id);
+            }}
+          />
+
+          {selectedProjectId !== 'ALL' && (
+            <div className="mt-3 flex items-center justify-between text-xs font-mono px-2 py-1.5 rounded-lg bg-navy-900 border border-cyan-500/20 max-w-4xl mx-auto">
+              <span className="text-concrete-300 truncate mr-2">
+                Active Filter: <strong className="text-cyan font-bold">{selectedProjectRecord?.project_name || selectedProjectId}</strong>
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedProjectId('ALL');
+                  setSelectedProjectRecord(null);
+                }}
+                className="text-amber hover:underline text-[11px] font-bold shrink-0"
+              >
+                Reset to National Portfolio Aggregate →
+              </button>
+            </div>
+          )}
         </div>
 
         {/* 3 Core Financial KPI Cards */}

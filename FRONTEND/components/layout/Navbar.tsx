@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Shield, Activity, Search, Menu, X, Cpu, ChevronRight } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
@@ -22,19 +23,16 @@ export default function Navbar({ onOpenAssistant, activeSection }: NavbarProps) 
   }, []);
 
   const navLinks = [
-    { label: 'Overview', href: '/#hero' },
+    { label: 'Overview', href: '/' },
     { label: 'Search Projects', href: '/projects' },
+    { label: 'Project Dossier', href: '/project-dossier' },
+    { label: 'Cost Intelligence', href: '/cost-intelligence' },
+    { label: 'Schedule Intelligence', href: '/schedule-intelligence' },
     { label: 'Custom Project', href: '/custom-project' },
-    { label: 'Infrastructure 3D', href: '/#landscape' },
+    { label: 'Simulation', href: '/simulation' },
     { label: 'Data Foundation', href: '/#data-foundation' },
-    { label: 'Dossier', href: '/#project-intelligence' },
-    { label: 'Risk Prediction', href: '/#risk-prediction' },
-    { label: 'Cost & Schedule', href: '/#cost-intelligence' },
     { label: 'Explainable AI', href: '/#explainable-ai' },
     { label: 'Alerts', href: '/#early-warning' },
-    { label: 'India Map', href: '/#india-map' },
-    { label: 'What-If', href: '/#what-if' },
-    { label: 'Compare', href: '/#comparison' },
   ];
 
   return (
@@ -48,7 +46,7 @@ export default function Navbar({ onOpenAssistant, activeSection }: NavbarProps) 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Brand Logo & Tagline */}
-          <a href="#hero" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-9 h-9 rounded-lg bg-slate-100 dark:bg-navy-800 border border-cyan-600/30 dark:border-cyan-500/40 flex items-center justify-center overflow-hidden shadow-sm dark:shadow-glow">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-teal-500/10" />
               <Shield className="w-5 h-5 text-cyan-600 dark:text-cyan relative z-10 group-hover:scale-110 transition-transform" />
@@ -66,18 +64,18 @@ export default function Navbar({ onOpenAssistant, activeSection }: NavbarProps) 
                 Intelligence for a Flowing Future
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Nav Items */}
           <nav className="hidden xl:flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-concrete-300">
             {navLinks.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className="px-2.5 py-1.5 rounded-md hover:text-cyan-600 dark:hover:text-cyan hover:bg-cyan-500/10 transition-colors tracking-wide"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -115,7 +113,7 @@ export default function Navbar({ onOpenAssistant, activeSection }: NavbarProps) 
         {mobileMenuOpen && (
           <div className="xl:hidden mt-3 pt-3 border-t border-slate-200 dark:border-cyan-500/20 grid grid-cols-2 gap-2 bg-white/95 dark:bg-navy-950/95 p-4 rounded-xl backdrop-blur-xl border border-slate-200 dark:border-cyan-500/30 shadow-xl">
             {navLinks.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
@@ -123,7 +121,7 @@ export default function Navbar({ onOpenAssistant, activeSection }: NavbarProps) 
               >
                 <span>{item.label}</span>
                 <ChevronRight className="w-3 h-3 text-cyan-500/50" />
-              </a>
+              </Link>
             ))}
             <div className="col-span-2 pt-3 mt-1 border-t border-slate-200 dark:border-cyan-500/20 flex justify-between items-center">
               <span className="text-xs text-slate-500 dark:text-concrete-400 font-mono font-bold">THEME</span>

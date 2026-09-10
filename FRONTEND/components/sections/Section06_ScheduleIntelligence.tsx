@@ -1,8 +1,7 @@
-'use client';
-
 import React, { useState } from 'react';
 import { Calendar, Clock, AlertTriangle, CheckCircle, ArrowRight, ShieldAlert } from 'lucide-react';
-import { ProjectDetail } from '@/lib/api/types';
+import { ProjectDetail, ProjectSearchRecord } from '@/lib/api/types';
+import ProjectSearchNav from '@/components/navigation/ProjectSearchNav';
 
 interface Section06Props {
   projects?: ProjectDetail[];
@@ -10,10 +9,13 @@ interface Section06Props {
 
 export default function Section06_ScheduleIntelligence({ projects = [] }: Section06Props) {
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
+  const [customSelectedProject, setCustomSelectedProject] = useState<ProjectSearchRecord | null>(null);
+
   const defaultProj: any = {
     project_id: '400178',
     project_name: 'Western Dedicated Freight Corridor (Phase-II)',
     agency_name: 'DFCCIL',
+    agency: 'DFCCIL',
     state: 'Gujarat / Maharashtra',
     sector: 'Railways',
     approval_start_date: '2020-03',
@@ -26,14 +28,14 @@ export default function Section06_ScheduleIntelligence({ projects = [] }: Sectio
       sanctioned_cost_cr: 38500
     }
   };
-  const activeProj = projects[selectedIdx] || projects[0] || defaultProj;
+  const activeProj = customSelectedProject || projects[selectedIdx] || projects[0] || defaultProj;
 
   const approvalDate = activeProj.approval_start_date || '2021-06';
   const originalDoc = activeProj.original_completion_date || '2024-03';
   const revisedDoc = activeProj.revised_completion_date || activeProj.original_completion_date;
   
   const hasDelay = revisedDoc !== originalDoc;
-  const slippageMonths = activeProj.execution_profile.schedule_slippage_months || (hasDelay ? 14 : 0);
+  const slippageMonths = ('execution_profile' in activeProj && activeProj.execution_profile?.schedule_slippage_months) ? activeProj.execution_profile.schedule_slippage_months : (hasDelay ? 14 : 0);
 
   const timelineMilestones = [
     {
@@ -85,21 +87,28 @@ export default function Section06_ScheduleIntelligence({ projects = [] }: Sectio
           </p>
         </div>
 
-        {/* Project Selector Mini Bar */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
-          {projects.slice(0, 6).map((p, idx) => (
-            <button
-              key={p.project_id}
-              onClick={() => setSelectedIdx(idx)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border ${
-                selectedIdx === idx
-                  ? 'bg-cyan-500/20 border-cyan text-white shadow-glow'
-                  : 'bg-navy-950 border-concrete-700/50 text-concrete-400 hover:text-white'
-              }`}
-            >
-              {p.project_id}: {p.project_name.slice(0, 22)}...
-            </button>
-          ))}
+        {/* Top-Level Project Search & Navigation Control */}
+        <div className="mb-12">
+          <ProjectSearchNav
+            placeholder="Search delivery schedule by Project ID, Name, Agency or Sector (e.g., 612786, Kadapa, Western DFC)..."
+            selectedProjectId={activeProj.project_id}
+            onSelectProject={(p) => setCustomSelectedProject(p)}
+          />
+
+          {customSelectedProject && (
+            <div className="mt-3 flex items-center justify-between text-xs font-mono px-2 py-1.5 rounded-lg bg-navy-900 border border-cyan-500/20 max-w-4xl mx-auto">
+              <span className="text-concrete-300 truncate mr-2">
+                Active Focus: <strong className="text-cyan font-bold">[{activeProj.project_id}] {activeProj.project_name}</strong>
+              </span>
+              <button
+                type="button"
+                onClick={() => setCustomSelectedProject(null)}
+                className="text-amber hover:underline text-[11px] font-bold shrink-0"
+              >
+                Reset to Benchmark Asset →
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Timeline Visual Container */}
@@ -170,7 +179,7 @@ export default function Section06_ScheduleIntelligence({ projects = [] }: Sectio
                 </span>
               </div>
               <span className="text-concrete-400 text-right">
-                Directive: <code className="text-amber">{activeProj.execution_profile?.suggested_action?.directive || 'FIELD_AUDIT_RECOMMENDED'}</code>
+                Directive: <code className="text-amber">{('execution_profile' in activeProj && activeProj.execution_profile?.suggested_action?.directive) ? activeProj.execution_profile.suggested_action.directive : 'FIELD_AUDIT_RECOMMENDED'}</code>
               </span>
             </div>
           )}

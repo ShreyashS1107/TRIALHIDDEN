@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { ProjectDetail } from '@/lib/api/types';
 import { Building2, MapPin, Calendar, IndianRupee, Activity, ShieldAlert, CheckCircle2, ChevronRight, Layers } from 'lucide-react';
 import { formatIndianNumber } from '@/lib/utils/format';
+import ProjectSearchNav from '@/components/navigation/ProjectSearchNav';
 
 interface Section03Props {
   projects: ProjectDetail[];
@@ -27,14 +29,14 @@ export default function Section03_ProjectIntelligence({
   const isHighRisk = activeProj.predictive_risk.risk_band === 'HIGH' || activeProj.predictive_risk.risk_band === 'VERY_HIGH';
 
   return (
-    <section id="project-intelligence" className="relative w-full py-24 bg-navy-950 border-t border-cyan-500/20">
+    <section id="project-intelligence" className="relative w-full py-20 bg-navy-950 border-t border-cyan-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-xs font-mono text-cyan-300 mb-3">
               <Activity className="w-3.5 h-3.5" />
-              <span>SECTION 03 • MONITORED PROJECT DOSSIER</span>
+              <span>MONITORED PROJECT DOSSIER</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               PROJECT INTELLIGENCE DOSSIER
@@ -45,27 +47,19 @@ export default function Section03_ProjectIntelligence({
           </p>
         </div>
 
-        {/* Project Selector Chips */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
-          {projects.slice(0, 8).map((p) => {
-            const isSelected = p.project_id === activeProj.project_id;
-            const isPWarning = p.predictive_risk.risk_band === 'HIGH' || p.predictive_risk.risk_band === 'VERY_HIGH';
-            return (
-              <button
-                key={p.project_id}
-                onClick={() => onSelectProject(p)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-mono whitespace-nowrap transition-all flex items-center gap-2 border ${
-                  isSelected
-                    ? 'bg-cyan-500/20 border-cyan text-white shadow-glow'
-                    : 'bg-navy-900 hover:bg-navy-850 border-concrete-700/50 text-concrete-300'
-                }`}
-              >
-                <span className={`w-2 h-2 rounded-full ${isPWarning ? 'bg-amber animate-pulse' : 'bg-cyan'}`} />
-                <span className="font-bold">{p.project_id}</span>
-                <span className="opacity-70 font-sans truncate max-w-[130px]">{p.project_name}</span>
-              </button>
-            );
-          })}
+        {/* Top-Level Project Search & Navigation Control */}
+        <div className="mb-12">
+          <ProjectSearchNav
+            placeholder="Search project dossier by ID, Name, Agency or Sector (e.g., 612786, Kadapa, Western DFC)..."
+            selectedProjectId={activeProj.project_id}
+            directNavigateToDossier={true}
+            onSelectProject={(p) => {
+              const matched = projects.find((x) => x.project_id === p.project_id);
+              if (matched) {
+                onSelectProject(matched);
+              }
+            }}
+          />
         </div>
 
         {/* Main Dossier Card */}
@@ -276,6 +270,15 @@ export default function Section03_ProjectIntelligence({
                 • Temporal Consistency: <span className="text-healthy">15 Consecutive Snapshots Audited</span>
               </div>
             </div>
+
+            {/* Direct Link to Dynamic Full Dossier */}
+            <Link
+              href={`/projects/${activeProj.project_id}`}
+              className="w-full flex items-center justify-center gap-2 p-4 rounded-xl bg-gradient-to-r from-cyan-500/20 to-teal-500/20 hover:from-cyan-500/30 hover:to-teal-500/30 border border-cyan-500/40 text-cyan-300 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-glow hover:scale-[1.01]"
+            >
+              <span>OPEN COMPLETE PROJECT DOSSIER</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </div>
