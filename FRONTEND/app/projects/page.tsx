@@ -167,7 +167,7 @@ export default function ProjectsSearchPage() {
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight uppercase mb-4">
-            PROJECT INTELLIGENCE
+            PROJECT REGISTRY & INTELLIGENCE
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 dark:text-concrete-300 leading-relaxed">

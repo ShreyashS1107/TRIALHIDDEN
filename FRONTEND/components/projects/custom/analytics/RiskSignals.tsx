@@ -132,11 +132,12 @@ export function RiskSignals({ prediction }: Props) {
                 />
               </div>
 
-              {/* Bottom 2-Column Details: Observed Metric vs Decision-Support Direction */}
+              {/* Bottom Details: WHAT, WHY, IMPACT */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-3 pt-2 text-xs font-mono border-t border-slate-200/60 dark:border-white/5">
-                {/* Observed Metric */}
+                {/* WHAT */}
                 <div className="md:col-span-4 p-2.5 rounded-lg bg-white dark:bg-black/30 border border-slate-200 dark:border-white/5 space-y-1">
                   <div className="text-[10px] text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span className="bg-cyan-500/20 px-1 rounded">WHAT</span>
                     <span>[OBSERVED PROJECT METRIC]</span>
                   </div>
                   <div className="text-slate-900 dark:text-white font-semibold">
@@ -144,9 +145,10 @@ export function RiskSignals({ prediction }: Props) {
                   </div>
                 </div>
 
-                {/* Directional Signal */}
+                {/* WHY */}
                 <div className="md:col-span-8 p-2.5 rounded-lg bg-white dark:bg-black/30 border border-slate-200 dark:border-white/5 space-y-1">
                   <div className="text-[10px] text-amber-600 dark:text-amber-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span className="bg-amber-500/20 px-1 rounded">WHY</span>
                     <span>[DECISION-SUPPORT INTERPRETATION]</span>
                   </div>
                   <div className="text-slate-700 dark:text-slate-300 font-sans leading-relaxed text-[11px]">

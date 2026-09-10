@@ -74,14 +74,19 @@ export function CustomProjectForm({ initialValues, onSubmit, isLoading }: Props)
       if (!formData.project_id.trim()) errs.project_id = 'Project ID or reference code is required';
       if (!formData.agency.trim()) errs.agency = 'Implementing agency is required';
       if (!formData.state.trim()) errs.state = 'State is required';
+      if (!formData.sector || !formData.sector.trim()) errs.sector = 'Infrastructure sector is required';
     }
 
     if (currentStep === 2) {
-      if (!formData.original_cost_crore || Number(formData.original_cost_crore) <= 0) {
+      const orig = Number(formData.original_cost_crore);
+      const rev = Number(formData.revised_cost_crore);
+      if (!orig || orig <= 0) {
         errs.original_cost_crore = 'Approved cost must be a positive number greater than 0';
       }
-      if (Number(formData.revised_cost_crore) < 0) {
+      if (rev < 0) {
         errs.revised_cost_crore = 'Revised cost cannot be negative';
+      } else if (rev > 0 && orig > 0 && rev < orig) {
+        errs.revised_cost_crore = 'Revised cost cannot be less than original sanctioned cost';
       }
     }
 

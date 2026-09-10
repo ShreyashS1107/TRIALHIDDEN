@@ -94,7 +94,7 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
                       href={`/projects/${p.project_id}`}
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-cyan-600 dark:text-cyan hover:underline"
                     >
-                      <span>View</span>
+                      <span>Open Dossier</span>
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                     </Link>
                   </td>

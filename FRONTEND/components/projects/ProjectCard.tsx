@@ -162,7 +162,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         href={`/projects/${project.project_id}`}
         className="w-full py-2.5 px-4 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-700 dark:text-cyan font-mono font-bold text-xs tracking-wider flex items-center justify-center gap-2 transition-all group-hover:border-cyan-500/50 group-hover:shadow-sm"
       >
-        <span>VIEW PROJECT INTELLIGENCE</span>
+        <span>OPEN PROJECT DOSSIER</span>
         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
       </Link>
     </div>

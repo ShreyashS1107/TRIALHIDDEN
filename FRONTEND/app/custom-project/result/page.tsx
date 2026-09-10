@@ -25,6 +25,7 @@ import { AssessmentState } from '@/components/projects/custom/analytics/Assessme
 import { RiskSignals } from '@/components/projects/custom/analytics/RiskSignals';
 import { DecisionSupport } from '@/components/projects/custom/analytics/DecisionSupport';
 import { ModelTransparency } from '@/components/projects/custom/analytics/ModelTransparency';
+import { TrajectoryGraph } from '@/components/projects/custom/analytics/TrajectoryGraph';
 
 const DEFAULT_BENCHMARK_INPUT: CustomProjectInput = {
   project_name: 'Bengaluru High-Speed Airport Metro Link',
@@ -156,9 +157,9 @@ export default function CustomProjectResultPage() {
               <span className="hidden sm:inline-flex items-center text-[10px] font-mono text-slate-500 dark:text-slate-400 px-2.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
                 Prediction generated from PAIMANA trained risk models
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-600 dark:text-purple-400 text-xs font-mono font-bold tracking-wider uppercase animate-pulse">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-600 dark:text-purple-400 text-xs font-mono font-bold tracking-wider uppercase">
                 <Sparkles className="w-3.5 h-3.5" />
-                MODEL PREDICTION
+                TRAINED ML MODEL ({prediction.model_version})
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 text-xs font-mono font-bold tracking-wider uppercase">
                 <FileCheck className="w-3.5 h-3.5" />
@@ -213,7 +214,10 @@ export default function CustomProjectResultPage() {
         {/* SECTION C: DELIVERY SCHEDULE INTELLIGENCE */}
         <ScheduleTimeline input={inputData} prediction={prediction} />
 
-        {/* SECTION D: COST VS PHYSICAL PROGRESS (EXECUTION EFFICIENCY SIGNAL) */}
+        {/* SECTION D: TRAJECTORY GRAPH (PLANNED vs OBSERVED vs PREDICTED) */}
+        <TrajectoryGraph input={inputData} prediction={prediction} />
+
+        {/* SECTION E: COST VS PHYSICAL PROGRESS (EXECUTION EFFICIENCY SIGNAL) */}
         <ExecutionEfficiency input={inputData} prediction={prediction} />
 
         {/* SECTION E: CURRENT MODEL ASSESSMENT STATE */}

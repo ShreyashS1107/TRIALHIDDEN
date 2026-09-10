@@ -26,13 +26,18 @@ export function ModelTransparency({ prediction }: Props) {
             </span>
           </div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-white pt-1">
-            MODEL TRANSPARENCY & ARCHITECTURE
+            HOW PAIMANA ARRIVED AT THIS SCORE — MODEL TRANSPARENCY
           </h3>
         </div>
 
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-          Frozen Production Pipeline
-        </span>
+        <div className="flex flex-col sm:items-end text-xs font-mono text-slate-500 dark:text-slate-400">
+          <span>Frozen Production Pipeline</span>
+          {prediction.timestamp && (
+            <span className="text-[10px] text-cyan-600 dark:text-cyan-400">
+              Evaluated: {new Date(prediction.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Model Spec Grid */}

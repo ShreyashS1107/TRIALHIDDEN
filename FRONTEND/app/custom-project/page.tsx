@@ -4,13 +4,15 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import { CustomProjectForm } from '@/components/projects/custom/CustomProjectForm';
+import { AnalyticalLoadingModal } from '@/components/projects/custom/AnalyticalLoadingModal';
 import { CustomProjectInput, predictCustomProject } from '@/lib/api/predict';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ShieldAlert, RotateCcw } from 'lucide-react';
 
 export default function CustomProjectPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [lastSubmitted, setLastSubmitted] = useState<CustomProjectInput | null>(null);
   const [initialData, setInitialData] = useState<Partial<CustomProjectInput> | undefined>(undefined);
 
   useEffect(() => {
@@ -31,11 +33,14 @@ export default function CustomProjectPage() {
   const handleFormSubmit = async (data: CustomProjectInput) => {
     setIsLoading(true);
     setError(null);
+    setLastSubmitted(data);
 
     try {
-      // Simulate brief network latency for premium scanning effect
-      await new Promise((r) => setTimeout(r, 500));
-      const res = await predictCustomProject(data);
+      // Step through minimum scanning interval for full analytical telemetry visibility
+      const [res] = await Promise.all([
+        predictCustomProject(data),
+        new Promise((r) => setTimeout(r, 1600))
+      ]);
 
       if (typeof window !== 'undefined') {
         const payload = JSON.stringify({ input: data, result: res });
@@ -45,7 +50,7 @@ export default function CustomProjectPage() {
 
       router.push(`/custom-project/result?id=${encodeURIComponent(data.project_id)}`);
     } catch (err: any) {
-      setError(err.message || 'Failed to analyze project assessment');
+      setError(err.message || 'PAIMANA ML INFERENCE ENGINE UNAVAILABLE');
       setIsLoading(false);
     }
   };
@@ -53,6 +58,12 @@ export default function CustomProjectPage() {
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-[#040d13] text-slate-900 dark:text-slate-100 flex flex-col justify-between">
       <Navbar />
+
+      {/* Analytical Telemetry Modal */}
+      <AnalyticalLoadingModal
+        isOpen={isLoading}
+        projectName={lastSubmitted?.project_name || initialData?.project_name || 'Custom Infrastructure Asset'}
+      />
 
       <div className="pt-28 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -72,10 +83,38 @@ export default function CustomProjectPage() {
             </p>
           </div>
 
-          {/* Error Banner */}
+          {/* Explicit Error State */}
           {error && (
-            <div className="max-w-4xl mx-auto p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs font-mono">
-              Error during inference: {error}
+            <div className="max-w-3xl mx-auto p-6 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-slate-900 dark:text-white space-y-4 shadow-lg animate-in fade-in duration-200">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <ShieldAlert className="w-6 h-6" />
+                </div>
+                <div className="space-y-1 flex-1">
+                  <h3 className="text-sm font-bold text-rose-600 dark:text-rose-400 font-mono uppercase tracking-wider">
+                    PAIMANA ML INFERENCE ENGINE UNAVAILABLE
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    Start the ML service and try again. The trained ML pipeline is the sole source of truth; client-side approximation is disabled.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2 border-t border-rose-500/20">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setError(null);
+                    if (lastSubmitted) {
+                      handleFormSubmit(lastSubmitted);
+                    }
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-colors shadow-sm"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>TRY AGAIN</span>
+                </button>
+              </div>
             </div>
           )}
 
