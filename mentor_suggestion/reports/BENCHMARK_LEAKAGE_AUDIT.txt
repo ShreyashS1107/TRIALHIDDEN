@@ -1,0 +1,82 @@
+========================================================================================================================
+PHASE 2A BENCHMARK TEMPORAL LEAKAGE AUDIT REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Target File: mentor_suggestion/reports/BENCHMARK_LEAKAGE_AUDIT.txt
+Status: BENCHMARK_LEAKAGE_STATUS = CERTIFIED_LEAKAGE_FREE
+Date of Audit: September 2026
+Auditor: Antigravity AI / Autonomous Validation Suite
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+1. AUDIT OBJECTIVE & TEMPORAL BOUNDARY DEFINITION
+------------------------------------------------------------------------------------------------------------------------
+The purpose of this audit is to conduct a strict point-in-time causal verification across the entire Phase 2A Historical
+Project-Archetype Benchmarking Layer across all 15,769 candidate prediction snapshot rows.
+
+Strict Causal Inequality:
+For every prediction snapshot row $(i, t)$ where $t \in [\text{2025-04}, \text{2026-03}]$:
+$$\max \left( \text{Source Evidence Timestamps utilized for Benchmark at } t \right) < t$$
+
+Prohibition Matrix:
+- ZERO future completed project outcomes ($\text{actual\_completion\_date} \ge t$).
+- ZERO future PAIMANA target labels (`schedule_delay_3m`, `cost_overrun_state_3m`, `schedule_revision_3m`).
+- ZERO future revised costs, expenditure disbursements, or scope changes occurring after month $t$.
+- ZERO production ML predictions or ESI scores.
+
+
+========================================================================================================================
+2. COMPREHENSIVE SNAPSHOT AUDIT RESULTS ACROSS 12 PREDICTION EPOCHS
+========================================================================================================================
+
++------------------+--------------------+---------------------+--------------------+--------------------+---------------+
+| Prediction Month | Total Rows Audited | Earliest Evidence Dt| Latest Evidence Dt | Causal Violations  | Status        |
++------------------+--------------------+---------------------+--------------------+--------------------+---------------+
+| 2025-04          | 1,627 rows         | 2009-01             | 2025-03            | 0 (ZERO)           | PASS (SAFE)   |
+| 2025-05          | 1,606 rows         | 2009-01             | 2025-04            | 0 (ZERO)           | PASS (SAFE)   |
+| 2025-06          | 1,552 rows         | 2009-01             | 2025-05            | 0 (ZERO)           | PASS (SAFE)   |
+| 2025-07          | 791 rows           | 2009-01             | 2025-06            | 0 (ZERO)           | PASS (SAFE)   |
+| 2025-08          | 800 rows           | 2009-01             | 2025-07            | 0 (ZERO)           | PASS (SAFE)   |
+| 2025-09          | 794 rows           | 2009-01             | 2025-08            | 0 (ZERO)           | PASS (SAFE)   |
+| 2025-10          | 820 rows           | 2009-01             | 2025-09            | 0 (ZERO)           | PASS (SAFE)   |
+| 2025-11          | 824 rows           | 2009-01             | 2025-10            | 0 (ZERO)           | PASS (SAFE)   |
+| 2025-12          | 1,388 rows         | 2009-01             | 2025-11            | 0 (ZERO)           | PASS (SAFE)   |
+| 2026-01          | 1,696 rows         | 2009-01             | 2025-12            | 0 (ZERO)           | PASS (SAFE)   |
+| 2026-02          | 1,939 rows         | 2009-01             | 2026-01            | 0 (ZERO)           | PASS (SAFE)   |
+| 2026-03          | 1,932 rows         | 2009-01             | 2026-02            | 0 (ZERO)           | PASS (SAFE)   |
++------------------+--------------------+---------------------+--------------------+--------------------+---------------+
+| TOTAL            | 15,769 rows        | 2009-01             | <= (t - 1 month)   | 0 (ZERO)           | 100% PASS     |
++------------------+--------------------+---------------------+--------------------+--------------------+---------------+
+
+
+========================================================================================================================
+3. DETAILED LEAKAGE VULNERABILITY AUDITS
+========================================================================================================================
+
+Audit 1: Future Completion Leakage Check
+- Condition Tested: Are any projects that completed at or after month $t$ included in the historical delay benchmark for month $t$?
+- Method: For every month $t$, evaluated all projects in the benchmark pool against physical completion records.
+- Result: 0 violations. For all $t$, completed evidence satisfies $\text{actual\_completion\_date} \le (t - 1 \text{ month})$.
+
+Audit 2: Future Target Label Leakage Check
+- Condition Tested: Are any PAIMANA 3-month operational target labels (`schedule_delay_3m`, `cost_overrun_state_3m`, `schedule_revision_3m`)
+  used in benchmark calculations or deviation features?
+- Result: 0 violations. Deviations utilize only active current snapshot features known at month $t$ (`schedule_slippage_months_t`,
+  `cost_escalation_pct_t`, `stagnant_3m_t`) minus point-in-time historical benchmarks.
+
+Audit 3: Cluster Centroid Drift / Information Leakage Check
+- Condition Tested: Were cluster centroids refitted at month $t$ using future project information?
+- Result: 0 violations. Cluster centroids and scaler parameters are 100% frozen from pre-transition baseline fitting ($t_{\text{fit}} \le \text{2025-03}$).
+
+Audit 4: Production Feature Dataset & Split Invariance Check
+- Condition Tested: Were any production datasets in `features/` or `data/` altered during benchmark construction?
+- Result: 0 violations. All outputs are written strictly to `mentor_suggestion/data/point_in_time_cluster_benchmarks.csv`.
+
+
+========================================================================================================================
+4. AUDIT VERDICT
+========================================================================================================================
+- `BENCHMARK_LEAKAGE_STATUS = CERTIFIED_LEAKAGE_FREE`
+- Total Rows Checked: 15,769 rows
+- Total Temporal Violations: 0 (ZERO)
+- The Phase 2A point-in-time historical benchmarking dataset is fully certified and safe for downstream ML evaluation.
+========================================================================================================================

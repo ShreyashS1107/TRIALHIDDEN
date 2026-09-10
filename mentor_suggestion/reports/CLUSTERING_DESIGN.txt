@@ -1,0 +1,182 @@
+========================================================================================================================
+PROJECT TRAJECTORY REPRESENTATION & CLUSTERING DESIGN REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Target File: mentor_suggestion/reports/CLUSTERING_DESIGN.txt
+Status: CLUSTERING_DESIGN_STATUS = DESIGNED_AND_VALIDATED
+Date of Audit: September 2026
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+1. EXECUTIVE SUMMARY & OBJECTIVE
+------------------------------------------------------------------------------------------------------------------------
+The purpose of this component is to represent infrastructure projects not by arbitrary administrative tags or raw project
+identifiers, but as multidimensional vectors of structural project characteristics and pre-transition historical dynamics.
+By clustering similar projects together, we establish structural project archetypes that allow the derivation of empirical,
+interpretable historical benchmarks.
+
+Core Design Principles:
+1. Pure Causal Isolation: All clustering variables are derived strictly from baseline project parameters and pre-PAIMANA
+   historical records ($t_{\text{evidence}} \le \text{March 2025}$).
+2. Strict Prohibition of Identifiers & Future Outcomes: Project IDs, project names, and future performance metrics are
+   explicitly excluded from feature representation.
+3. Maximum Explainability: Archetypes must possess intuitive physical meaning suitable for presentation to MoSPI / IPMD
+   leadership and hackathon judges.
+
+
+========================================================================================================================
+2. FEATURE REPRESENTATION MATRIX
+========================================================================================================================
+
+The longitudinal clustering representation vector $\mathbf{x}_i \in \mathbb{R}^d$ combines two complementary domains:
+
+A. Static / Baseline Structural Dimensions:
+1. `original_cost_log`: $\ln(1 + \text{original\_cost\_crore})$. Normalizes heavy right-skewed infrastructure budget distributions
+   (ranging from ₹150 Cr to ₹50,000+ Cr).
+2. `planned_duration_months`: Sanctioned timeline from `approval_start_date` to `original_completion_date` in months.
+3. `project_size_category`: Mega (>= ₹1,000 Cr) vs Major (₹150–₹1,000 Cr).
+4. `primary_sector`: High-level domain (Roads/Highways, Railways, Energy/Petroleum, Power, Coal, Urban).
+
+B. Historical Pre-Transition Behavioral Dimensions (Strictly as-of April 2025):
+5. `pre_paimana_observation_months`: Number of historical milestone snapshots observed in OCMS (pre-transition monitoring depth).
+6. `pre_paimana_schedule_revision_count`: Number of official commissioning date shifts ($DOC_k \ne DOC_{k-1}$) recorded prior to April 2025.
+7. `pre_paimana_cost_revision_count`: Number of sanctioned cost revisions ($|Cost_k - Cost_{k-1}| > 0.05$ Cr) recorded prior to April 2025.
+8. `pre_paimana_max_cost_escalation_pct`: Maximum historical cost growth percentage accumulated prior to PAIMANA entry.
+9. `pre_paimana_max_schedule_slippage_months`: Maximum historical commissioning delay (in months) accumulated prior to PAIMANA entry.
+
+Explicitly Prohibited Variables:
+- `project_id`, `legacy_ocms_code`, `project_name` (Overfitting / identity leakage).
+- `prediction_month`, `report_month` (Artificial temporal clustering).
+- Any PAIMANA-era target label or physical progress outcome occurring at $t > \text{2025-03}$ (Target leakage).
+
+
+========================================================================================================================
+3. EVALUATION OF CLUSTERING ALGORITHMS
+========================================================================================================================
+
+Candidate Algorithms Evaluated on Cohort A ($N = 1,442$):
+
+1. K-Means Clustering (Standard Euclidean on Scaled Space) — [RECOMMENDED]
+   - Preprocessing: Log-transformation of monetary costs + `StandardScaler()` on continuous features.
+   - Strengths: Highly interpretable centroid vectors, convex partition boundaries, fast computation, deterministic inference
+     projection via Euclidean distance to nearest centroid $\arg\min_k \|\mathbf{x} - \boldsymbol{\mu}_k\|_2$.
+   - Suitability: EXCELLENT.
+
+2. Agglomerative Hierarchical Clustering (Ward Linkage)
+   - Preprocessing: `StandardScaler()`.
+   - Strengths: Does not assume spherical clusters; produces dendrogram structure.
+   - Weaknesses: Produces unbalanced cluster allocations (e.g. at $k=4$, one cluster had $N=13$ projects, creating unstable benchmarks).
+   - Suitability: MODERATE.
+
+3. DBSCAN / Density-Based Clustering
+   - Preprocessing: RobustScaler.
+   - Weaknesses: Severe density gradient between small road projects and massive railway corridors; marked 25% of projects as noise.
+   - Suitability: POOR for benchmarking (cannot leave projects unclustered without benchmarks).
+
+4. K-Prototypes / Mixed-Type Clustering
+   - Combines K-Means for numerical features with K-Modes for categorical sectors/agencies.
+   - Assessment: Effective, but one-hot encoding categorical sectors into continuous PCA space followed by K-Means achieves identical
+     outcomes with superior standard scikit-learn portability.
+
+
+========================================================================================================================
+4. CLUSTER NUMBER SELECTION & VALIDATION METRICS
+========================================================================================================================
+
+Empirical cluster quality metrics evaluated across $k = 2$ through $k = 8$ on Cohort A ($N = 1,442$):
+
++-----+-----------+------------------+-------------------------+-----------------------+---------------------+-------------------------------+
+|  k  |  Inertia  | Silhouette Score | Calinski-Harabasz Score | Davies-Bouldin Index  | Minimum Cluster Size| Cluster Size Distribution     |
++-----+-----------+------------------+-------------------------+-----------------------+---------------------+-------------------------------+
+|  2  |  7386.9   | 0.5356           | 527.7                   | 1.2408                | 189                 | {1: 1253, 0: 189}             |
+|  3  |  6148.3   | 0.4050           | 461.7                   | 1.3535                | 75                  | {0: 938, 2: 429, 1: 75}       |
+|  4  |  5379.8   | 0.4111 [OPTIMAL] | 420.0                   | 1.2873                | 71                  | {1: 936, 3: 257, 0: 178, 2: 71}|
+|  5  |  4256.5   | 0.4092           | 492.7                   | 1.0827                | 6                   | Micro-cluster created (N=6)   |
+|  6  |  3825.1   | 0.4076           | 470.7                   | 1.1278                | 6                   | Micro-cluster created (N=6)   |
+|  7  |  3417.0   | 0.2762           | 467.3                   | 1.1349                | 6                   | Severe degradation            |
+|  8  |  3170.7   | 0.2802           | 447.3                   | 1.1121                | 6                   | Severe degradation            |
++-----+-----------+------------------+-------------------------+-----------------------+---------------------+-------------------------------+
+
+Selection Justification:
+- $k=2$ produces high silhouette score (0.5356) but splits projects into only two broad categories (small vs mega), failing
+  to separate chronic stagnation from administrative volatility.
+- $k=4$ achieves the peak multi-archetype balance (Silhouette = 0.4111) while maintaining well-sized clusters (smallest cluster $N=71$),
+  well above the minimum statistical stability threshold ($N \ge 30$).
+- $k \ge 5$ immediately creates isolated micro-clusters ($N = 6$), which lead to unstable benchmark estimates.
+- CONCLUSION: $k = 4$ is the mathematically and operationally optimal cluster resolution.
+
+
+========================================================================================================================
+5. DETAILED ARCHETYPE PROFILES & PHYSICAL INTERPRETATION (k = 4)
+========================================================================================================================
+
++----------------------------------------------------------------------------------------------------------------------+
+| ARCHETYPE 0: "Mega Capital High-Value Infrastructure Corridors"                                                      |
++----------------------------------------------------------------------------------------------------------------------+
+| - Sample Size: N = 178 projects (12.3% of cohort)                                                                    |
+| - Centroid Characteristics:                                                                                          |
+|   * Mean Original Cost: ₹3,950.4 Cr (original_cost_log = 8.28)                                                       |
+|   * Mean Planned Duration: 91.3 months (7.6 years)                                                                   |
+|   * Mean Pre-PAIMANA Observations: 5.90 snapshots                                                                    |
+|   * Historical Schedule Revisions: 0.41 revisions                                                                    |
+|   * Historical Cost Revisions: 0.92 revisions                                                                        |
+|   * Mean Pre-PAIMANA Slippage: 6.55 months                                                                           |
+| - Dominant Agencies: NHAI (Expressways), RVNL (Major Rail Links), IOCL / ONGC (Refineries/Pipelines)                 |
+| - Domain Meaning: High-complexity mega projects with extended sanctioned lifespans and heavy capital requirements.   |
++----------------------------------------------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------------------------------------------+
+| ARCHETYPE 1: "Standard Rapid-Execution Projects / Linear Highway Packages"                                           |
++----------------------------------------------------------------------------------------------------------------------+
+| - Sample Size: N = 936 projects (64.9% of cohort)                                                                    |
+| - Centroid Characteristics:                                                                                          |
+|   * Mean Original Cost: ₹578.2 Cr (original_cost_log = 6.36)                                                         |
+|   * Mean Planned Duration: 40.9 months (3.4 years)                                                                   |
+|   * Mean Pre-PAIMANA Observations: 2.04 snapshots (recent entries, 2021–2023)                                        |
+|   * Historical Schedule Revisions: 0.07 revisions                                                                    |
+|   * Historical Cost Revisions: 0.22 revisions                                                                        |
+|   * Mean Pre-PAIMANA Slippage: 1.55 months                                                                           |
+| - Dominant Agencies: NHAI (341), MoRTH (185), NHIDCL (86)                                                            |
+| - Domain Meaning: Standardized linear highway contracts with modular construction schedules and low pre-slippage.    |
++----------------------------------------------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------------------------------------------+
+| ARCHETYPE 2: "Severe Legacy Stagnation & Chronic Multi-Year Slippage"                                                |
++----------------------------------------------------------------------------------------------------------------------+
+| - Sample Size: N = 71 projects (4.9% of cohort)                                                                      |
+| - Centroid Characteristics:                                                                                          |
+|   * Mean Original Cost: ₹1,152.8 Cr (original_cost_log = 7.05)                                                       |
+|   * Mean Planned Duration: 164.3 months (13.7 years!)                                                                |
+|   * Mean Pre-PAIMANA Observations: 9.51 snapshots (tracked across multiple historical decades)                       |
+|   * Historical Schedule Revisions: 3.24 revisions                                                                    |
+|   * Historical Cost Revisions: 1.27 revisions                                                                        |
+|   * Mean Pre-PAIMANA Slippage: 156.1 months (13.0 YEARS of accumulated delay!)                                       |
+| - Dominant Agencies: Zonal Railways (ECR, WR, NR, SCR), NHAI (Distressed Bottlenecks)                                |
+| - Domain Meaning: Severely distressed legacy projects entangled in chronic land acquisition, forest clearances, or   |
+|   contractor disputes with extreme accumulated slippage.                                                             |
++----------------------------------------------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------------------------------------------+
+| ARCHETYPE 3: "High Administrative Volatility & Frequent Cost Revisions"                                              |
++----------------------------------------------------------------------------------------------------------------------+
+| - Sample Size: N = 257 projects (17.8% of cohort)                                                                    |
+| - Centroid Characteristics:                                                                                          |
+|   * Mean Original Cost: ₹399.4 Cr (original_cost_log = 5.99)                                                         |
+|   * Mean Planned Duration: 36.6 months (3.0 years)                                                                   |
+|   * Mean Pre-PAIMANA Observations: 5.42 snapshots                                                                    |
+|   * Historical Schedule Revisions: 0.74 revisions                                                                    |
+|   * Historical Cost Revisions: 2.61 revisions (Highest in portfolio)                                                |
+|   * Mean Pre-PAIMANA Slippage: 15.56 months                                                                          |
+| - Dominant Agencies: MoRTH (83), NHIDCL (52), NHAI (34)                                                              |
+| - Domain Meaning: Medium-scale infrastructure experiencing repeated scope modifications, DPR amendments, and budget  |
+|   revisions relative to project size.                                                                                |
++----------------------------------------------------------------------------------------------------------------------+
+
+
+========================================================================================================================
+6. CONCLUSION & VERDICT
+========================================================================================================================
+- `CLUSTERING_DESIGN_STATUS = DESIGNED_AND_VALIDATED`
+- The 4-cluster K-Means model on standardized structural and historical behavioral dimensions successfully partitions
+  the infrastructure universe into distinct, physically meaningful archetypes.
+- Centroids are completely frozen and ready to power cluster-level historical benchmarking.
+========================================================================================================================

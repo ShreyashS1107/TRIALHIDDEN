@@ -1,0 +1,114 @@
+================================================================================
+MENTOR SUGGESTION: FINAL STRATEGIC DECISION & EXPERIMENTAL SUMMARY
+Longitudinal OCMS–PAIMANA Project-Similarity & Historical Benchmarking
+================================================================================
+Date: 2026-09-10
+Repository: SIH26103 / mentor_suggestion
+Final Evaluation Status: COMPLETE
+
+--------------------------------------------------------------------------------
+A. MENTOR HYPOTHESIS & MOTIVATION
+--------------------------------------------------------------------------------
+The initial OCMS enrichment experiment tested injecting broad agency-level and
+sector-level historical priors directly into the predictive ML models. That earlier
+approach did not yield incremental predictive value because broad sector averages
+obscured individual project execution dynamics.
+
+The mentor suggested an alternative, project-similarity approach:
+Instead of broad historical aggregates, identify projects that have longitudinal
+continuity between the legacy OCMS (2011–2025) and active PAIMANA (2025–2026) eras.
+By clustering projects on their pre-transition physical and financial characteristics,
+the system could establish distinct project archetypes and derive point-in-time
+historical benchmarks to test for incremental predictive value.
+
+--------------------------------------------------------------------------------
+B. PHASE 1: COHORT SELECTION & PROJECT-ARCHETYPE CLUSTERING
+--------------------------------------------------------------------------------
+- Cohort Selection: From 2,741 total PAIMANA projects, exactly 1,442 unique projects
+  with comprehensive longitudinal OCMS history (Cohort A) were identified.
+- Representation: Projects were represented using 6 normalized pre-transition
+  characteristics (original cost, planned duration, pre-PAIMANA slippage, cost revisions,
+  schedule revisions, and expenditure velocity).
+- Stability & Validation: Standardized K-Means established an optimal, highly stable
+  K = 4 archetype partitioning:
+  * Silhouette Score: 0.4174 (vs K=3: 0.3541, K=5: 0.3812)
+  * Calinski-Harabasz Index: 570.64 | Davies-Bouldin Index: 1.2146
+  * Seed Stability (ARI): 0.9992 ± 0.0022
+  * 100-Iteration Bootstrap ARI: 0.9779 ± 0.0105
+- The 4 Discovered Physical Project Archetypes:
+  1. Cluster 0: High Administrative Cost-Revision Volatility (N=252, 17.5%)
+  2. Cluster 1: Standard Rapid-Execution / Linear Infrastructure (N=946, 65.6%)
+  3. Cluster 2: Severe Legacy Stagnation & Chronic Slippage (N=69, 4.8%)
+  4. Cluster 3: Mega Capital High-Value Infrastructure (N=175, 12.1%)
+
+--------------------------------------------------------------------------------
+C. PHASE 2A: POINT-IN-TIME HISTORICAL ARCHETYPE BENCHMARKING
+--------------------------------------------------------------------------------
+- Snapshot Coverage: 15,769 prediction snapshots across 12 monthly prediction epochs
+  (Apr 2025 through Mar 2026).
+- Strict Point-in-Time Constraint: For every prediction at month T, all archetype
+  statistics were derived strictly from historical evidence available prior to month T
+  (T_evidence < T_prediction).
+- Temporal Causal Leakage Audit: ZERO violations (15,769 / 15,769 rows certified).
+- Archetype Outcome Differences Established:
+  * Cluster 0: 10.5% historical completion delay rate, 99.2% pre-transition cost revisions.
+  * Cluster 1: 77.2% delay rate, 26.0 months median delay (tracking national baseline).
+  * Cluster 2: 251.0 months (~20.9 years) median historical delay, 100.0% revision rate.
+  * Cluster 3: ₹7,588 Cr mean budget, 95.6 months planned duration, 0.0m early slippage.
+
+--------------------------------------------------------------------------------
+D. PHASE 2B: CONTROLLED PREDICTIVE ML EXPERIMENT RESULTS
+--------------------------------------------------------------------------------
+A strictly controlled predictive experiment was executed comparing Model A (frozen
+75-feature PAIMANA-only baseline) against Model B (PAIMANA + 6 mathematically
+audited, point-in-time safe archetype benchmark features).
+
+Evaluated across the frozen Out-of-Time (OOT) test period (Feb–Mar 2026, 3,871 snapshots):
+
+Target                   Model A (PAIMANA)    Model B (+ Benchmarks)    Delta (B - A)    Empirical Finding
+-----------------------  -------------------  ------------------------  ---------------  -------------------------------------------
+Schedule Delay (3m)      0.9722 PR-AUC        0.9713 PR-AUC             -0.0009          No lift; PAIMANA baseline strictly superior
+Cost Overrun State (3m)  0.9881 PR-AUC        0.9881 PR-AUC             ~0.0000          Exact tie; 0 incremental discrimination
+Schedule Revision (3m)   0.0519 PR-AUC        0.0641 PR-AUC             +0.0121          Modest PR lift, but calibration worsened
+
+Calibration Analysis on OOT Test Split:
+- Schedule Delay: Model A Brier = 0.0391 | Model B Brier = 0.0394 (Model B slightly worse)
+- Schedule Revision: Model A Brier = 0.0176 | Model B Brier = 0.0212 (Model B significantly worse; ECE worsened from 0.0202 to 0.0236)
+
+Feature Ablation & Redundancy Insights:
+- Schedule Delay & Cost Overrun are dominated by real-time PAIMANA features
+  (`months_to_original_doc_t`, `cost_escalation_pct_t`, `current_schedule_status`).
+- Broad historical archetype outcome rates added zero predictive signal (Delta <= 0).
+- The minor PR-AUC lift in schedule revision was driven entirely by the static legacy
+  linkage flag (`is_legacy_linked`), not archetype benchmarking, and resulted in
+  overconfident probability calibration on non-revising legacy projects.
+
+--------------------------------------------------------------------------------
+E. FINAL EXPERIMENTAL DECISION
+--------------------------------------------------------------------------------
+BENCHMARK_LAYER_DECISION = NO_CLEAR_INCREMENTAL_VALUE
+
+Under the controlled out-of-time experiment, archetype-based OCMS historical
+benchmark features did not provide clear incremental predictive value beyond the
+frozen PAIMANA-only feature set.
+
+--------------------------------------------------------------------------------
+F. PRODUCTION ML DECISION
+--------------------------------------------------------------------------------
+PRODUCTION_ML_CHANGE = NO
+
+Do NOT add benchmark features to the frozen 75-feature production ML model.
+Retain the champion PAIMANA-only production models (RF_02 Calibrated, Balanced RF,
+Logistic Regression L2).
+
+--------------------------------------------------------------------------------
+G. CONTEXTUAL BENCHMARKING & DECISION-SUPPORT DECISION
+--------------------------------------------------------------------------------
+Retain the OCMS longitudinal layer:
+  OCMS Longitudinal Data -> Project Archetypes (K=4) -> Historical Peer Benchmarks
+
+as a separate historical intelligence, explainability, and contextual decision-support
+layer within the MoSPI executive dashboard. This provides human project officers
+with valuable peer reference baselines without contaminating the automated ML
+predictive pipeline.
+================================================================================

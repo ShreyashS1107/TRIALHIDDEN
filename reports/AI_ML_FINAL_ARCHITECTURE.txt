@@ -1,0 +1,124 @@
+================================================================================
+SIH26103: FINAL AI/ML SYSTEM ARCHITECTURE SPECIFICATION
+MoSPI / IPMD Integrated Project-Monitoring & Risk Intelligence Platform
+================================================================================
+Date: 2026-09-10
+Status: FROZEN & PRODUCTION-READY
+Repository: SIH26103
+
+--------------------------------------------------------------------------------
+1. EXECUTIVE ARCHITECTURAL BLUEPRINT
+--------------------------------------------------------------------------------
+The SIH26103 AI/ML platform is architected around a strict separation of concerns,
+dividing project risk intelligence into three distinct, non-overlapping pillars:
+
+```
+                                  PAIMANA
+                                     |
+                    +----------------+----------------+
+                    |                                 |
+                    v                                 v
+              Predictive ML                          ESI
+                    |                                 |
+                    v                                 v
+               Future Risk                     Current Execution
+             (3-Month Ahead)                        Stress
+            
+            
+                       OCMS + Linked PAIMANA
+                                 |
+                                 v
+                         Project Archetypes
+                               (K = 4)
+                                 |
+                                 v
+                       Historical Benchmarks
+                                 |
+                                 v
+                       Context / Benchmarking
+                     (Executive Decision Support)
+```
+
+--------------------------------------------------------------------------------
+2. THE THREE CORE ARCHITECTURAL PILLARS
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+PILLAR 1: PREDICTIVE ML ENGINE (Future Risk Forecasting)
+--------------------------------------------------------------------------------
+- Purpose: Answers "What is likely to happen to this project 3 months in the future?"
+- Data Source: Frozen PAIMANA longitudinal monthly flash reporting dataset.
+- Feature Universe: EXACTLY 75 point-in-time production features:
+  * 71 Numerical Features (physical progress velocities, expenditure ratios,
+    schedule slippage, project age, agency macro aggregations, lag features).
+  * 4 Categorical Features (`project_size_category`, `current_schedule_status_as_of_t`,
+    `reporting_structure_version_t`, `table_source_t`).
+  * 0 raw date strings, 0 target metadata labels, 0 future outcomes.
+- Models & Performance (Out-of-Time Test Set: Feb–Mar 2026):
+  1. Schedule Delay (`schedule_delay_3m`):
+     * Model: Random Forest (200 trees, depth=12) + Sigmoid Calibration.
+     * OOT PR-AUC: 0.9722 | OOT ROC-AUC: 0.9723 | OOT Brier: 0.0391.
+  2. Cost Overrun State (`cost_overrun_state_3m`):
+     * Model: Balanced Random Forest (200 trees, depth=12, balanced weights).
+     * OOT PR-AUC: 0.9881 | OOT ROC-AUC: 0.9895 | OOT Brier: 0.0386.
+  3. Schedule Revision Event (`schedule_revision_3m`):
+     * Model: L2-Regularized Logistic Regression (C=1.0).
+     * OOT PR-AUC: 0.0519 | OOT ROC-AUC: 0.8264 | OOT Brier: 0.0176.
+- Operational Role: Automatically alerts ministry executives to emerging risks
+  3 months before formal milestone breaches occur.
+
+--------------------------------------------------------------------------------
+PILLAR 2: EXECUTION STRESS INDEX (ESI - Current Surveillance)
+--------------------------------------------------------------------------------
+- Purpose: Answers "What observable execution friction and bottlenecks are occurring right now?"
+- Nature: 100% Deterministic engineering index (Rule-based & transparent).
+- Inputs: Current snapshot physical-financial divergence, milestone slippage,
+  expenditure-to-progress ratios, and reporting anomalies.
+- Independence Rule: ESI is NEVER fed into the Predictive ML models.
+  * Preserves ML objectivity and avoids circular feature contamination.
+  * Allows ESI to act as an independent, deterministic operational health check.
+
+--------------------------------------------------------------------------------
+PILLAR 3: PROJECT ARCHETYPES & PEER BENCHMARKS (Historical Context)
+--------------------------------------------------------------------------------
+- Purpose: Answers "How does this project compare against similar historical projects?"
+- Foundation: 1,442 comprehensively linked longitudinal projects spanning OCMS (2011–2025)
+  and PAIMANA (2025–2026).
+- Clustering Model: Standardized K-Means (K = 4, Silhouette = 0.4174, ARI = 0.9992).
+- The 4 Discovered Physical Project Archetypes:
+  1. Cluster 0: High Administrative Cost-Revision Volatility (N=252)
+  2. Cluster 1: Standard Rapid-Execution / Linear Infrastructure (N=946)
+  3. Cluster 2: Severe Legacy Stagnation & Chronic Slippage (N=69, median delay 251.0m)
+  4. Cluster 3: Mega Capital High-Value Infrastructure (N=175, mean cost ₹7,588 Cr)
+- Independence Rule: OCMS archetype benchmark features are NOT fed into production ML.
+  * Controlled Phase 2B experiments proved benchmarks add zero incremental out-of-time
+    predictive lift over the 75 PAIMANA features.
+  * Preserved as an executive explainability layer in the dashboard to provide peer
+    context, expected duration baselines, and historical variance indicators.
+
+--------------------------------------------------------------------------------
+3. DATA FLOW & INFERENCE LIFECYCLE
+--------------------------------------------------------------------------------
+When a new monthly MoSPI project report arrives:
+
+1. Ingestion & Transformation:
+   - Automated parser extracts tabular records into standardized schema.
+   - 75 point-in-time PAIMANA features are computed strictly using data as-of month T.
+
+2. Parallel Processing Streams:
+   - Stream A (ML Scoring): 75 features -> ML Pipelines -> Calibrated 3-month forward probabilities.
+   - Stream B (ESI Surveillance): Real-time metrics -> Deterministic formula -> Current ESI score.
+   - Stream C (Archetype Context): Project characteristics -> K-Means model -> Archetype assignment
+     -> Historical peer benchmark comparison.
+
+3. Unified Dashboard Presentation:
+   - Executive UI presents Predictive Risk (Future), ESI Stress (Present), and
+     Archetype Benchmarks (Past Context) side-by-side without cross-contamination.
+
+--------------------------------------------------------------------------------
+4. PRODUCTION INTEGRITY & FREEZE GUARANTEE
+--------------------------------------------------------------------------------
+- Production Feature Universe: Frozen at 75 features (features/feature_dictionary_v1.csv).
+- Production Datasets & Labels: Frozen with verified SHA-256 integrity.
+- Zero Leakage Architecture: All models operate strictly under point-in-time constraints.
+================================================================================

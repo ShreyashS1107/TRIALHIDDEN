@@ -1,0 +1,101 @@
+========================================================================================================================
+PHASE 1 CLUSTERING TEMPORAL LEAKAGE AUDIT REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Target File: mentor_suggestion/reports/CLUSTERING_LEAKAGE_AUDIT.txt
+Status: CLUSTERING_LEAKAGE_STATUS = CERTIFIED_LEAKAGE_FREE
+Date of Audit: September 2026
+Auditor: Antigravity AI / Autonomous Validation Suite
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+1. AUDIT OBJECTIVE & TEMPORAL BOUNDARY DEFINITION
+------------------------------------------------------------------------------------------------------------------------
+The objective of this audit is to verify that Phase 1 of the Project-Similarity Clustering pipeline adheres strictly to
+the point-in-time causal isolation boundary.
+
+Operational Temporal Boundary:
+- Transition Cutoff Instant: $t_{\text{boundary}} = \text{2025-03-31}$ (Pre-PAIMANA boundary).
+- Prediction Era: $t_{\text{prediction}} \in [\text{April 2025}, \text{June 2026}]$.
+- Causal Constraint: 100% of information utilized to construct project profiles, compute feature scaling, fit K-Means
+  centroids, and assign project archetypes MUST originate strictly from evidence published at or before $t_{\text{boundary}}$.
+
+
+========================================================================================================================
+2. INPUT VARIABLE LEAKAGE VERIFICATION TABLE
+========================================================================================================================
+
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| Variable Name                           | Category            | Source Dataset    | Temporal Evidence   | Leakage Status|
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `original_cost_crore`                   | Static Baseline     | PAIMANA Master /  | Sanctioned baseline | PASS (SAFE)   |
+|                                         |                     | OCMS Table 6      | at project inception|               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `original_cost_log`                     | Static Baseline     | Mathematical      | Evaluated from      | PASS (SAFE)   |
+|                                         |                     | Transform         | `original_cost_cr`  |               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `planned_duration_months`               | Static Baseline     | PAIMANA Master /  | (orig_doc - start)  | PASS (SAFE)   |
+|                                         |                     | OCMS Table 6      | at project inception|               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `project_size_category`                 | Static Baseline     | Derived Indicator | Cost threshold rule | PASS (SAFE)   |
+|                                         |                     |                   | (>= 1,000 Cr)       |               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `sector`                                | Static Context      | Agency Mapping /  | Administrative domain| PASS (SAFE)  |
+|                                         |                     | Baseline Table    | at inception        |               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `pre_paimana_obs_months`                | Pre-Transition Dyn  | 15 Milestone OCMS | Strictly <= 2025-03 | PASS (SAFE)   |
+|                                         |                     | Flash Reports     | (pre-PAIMANA)       |               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `historical_schedule_revision_count`    | Pre-Transition Dyn  | 15 Milestone OCMS | Shifts in DOC       | PASS (SAFE)   |
+|                                         |                     | Flash Reports     | strictly <= 2025-03 |               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `historical_cost_revision_count`        | Pre-Transition Dyn  | 15 Milestone OCMS | Shifts in Cost      | PASS (SAFE)   |
+|                                         |                     | Flash Reports     | strictly <= 2025-03 |               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `pre_paimana_max_schedule_slippage_m`   | Pre-Transition Dyn  | 15 Milestone OCMS | Max slippage        | PASS (SAFE)   |
+|                                         |                     | Flash Reports     | strictly <= 2025-03 |               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+| `pre_paimana_max_cost_escalation_pct`   | Pre-Transition Dyn  | 15 Milestone OCMS | Max escalation      | PASS (SAFE)   |
+|                                         |                     | Flash Reports     | strictly <= 2025-03 |               |
++-----------------------------------------+---------------------+-------------------+---------------------+---------------+
+
+
+========================================================================================================================
+3. EXPLICIT AUDIT CHECKS & PROHIBITION VERIFICATIONS
+========================================================================================================================
+
+Check 1: Future PAIMANA Target Labels Contamination
+- Audited Targets: `schedule_delay_3m`, `cost_overrun_state_3m`, `schedule_revision_3m`, `cost_revision_event_3m`.
+- Verification: ZERO target columns exist in `clustering_cohort.csv` or `project_clustering_profiles.csv`.
+- Result: 100% PASS (Zero target contamination).
+
+Check 2: Post-Transition Dynamic Variables
+- Audited Variables: Physical progress during 2025–2026, cumulative expenditure in PAIMANA, revised completion dates
+  updated after April 2025.
+- Verification: ZERO post-April 2025 observation values were used in clustering feature construction or centroid fitting.
+- Result: 100% PASS (Zero post-transition dynamic features).
+
+Check 3: Future Completion Status & Exit Information
+- Audited Variables: `paimana_completed_projects.csv`, project completion dates occurring between April 2025 and June 2026.
+- Verification: ZERO future completion dates were accessed by `build_project_clusters.py`.
+- Result: 100% PASS.
+
+Check 4: Production ML Predictions, Weights, or Risk Scores Contamination
+- Audited Variables: Predictions from `best_model_random_forest.joblib`, ESI scores, integrated risk weights.
+- Verification: Clustering pipeline executes as a standalone unsupervised script with zero dependency on production models.
+- Result: 100% PASS.
+
+Check 5: Cross-Split Contamination
+- Split Alignment: The K-Means model is fitted on pre-transition historical profiles ($t \le \text{2025-03}$), which precedes
+  the entire PAIMANA chronological split:
+  * Training Period  : April 2025 – November 2025
+  * Validation Period: December 2025 – January 2026
+  * OOT Test Period  : February 2026 – March 2026
+- Result: ZERO information from the Validation or OOT Test periods could mathematically leak into the clustering centroids.
+
+
+========================================================================================================================
+4. TEMPORAL LEAKAGE AUDIT CONCLUSION
+========================================================================================================================
+- `CLUSTERING_LEAKAGE_STATUS = CERTIFIED_LEAKAGE_FREE`
+- The Phase 1 project-similarity clustering pipeline is 100% mathematically and causally point-in-time safe.
+========================================================================================================================

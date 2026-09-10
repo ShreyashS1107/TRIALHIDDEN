@@ -1,0 +1,200 @@
+{
+  "experiment_name": "SIH26103_Phase1_Project_Similarity_Clustering",
+  "status": "PHASE_1_COMPLETE",
+  "date_created": "September 2026",
+  "cohort_size_N": 1442,
+  "selected_k": 4,
+  "clustering_algorithm": "KMeans(n_clusters=4, random_state=42, n_init=20)",
+  "scaler": "StandardScaler()",
+  "features_selected": [
+    "original_cost_log",
+    "planned_duration_months",
+    "pre_paimana_obs_months",
+    "historical_schedule_revision_count",
+    "historical_cost_revision_count",
+    "pre_paimana_max_schedule_slippage_months"
+  ],
+  "evaluation_metrics_k4": {
+    "silhouette_score": 0.4174,
+    "calinski_harabasz_score": 570.64,
+    "davies_bouldin_score": 1.2146,
+    "inertia": 3949.79
+  },
+  "stability_analysis": {
+    "seed_invariance_mean_ari": 0.99917854682591,
+    "bootstrap_subsample_mean_ari_80pct": 0.9778875721097537,
+    "bootstrap_subsample_95ci": [
+      0.9567795834837275,
+      0.9946127621670293
+    ],
+    "noise_perturbation_mean_ari": 0.9787666062160002
+  },
+  "k_evaluation_table": [
+    {
+      "k": 2,
+      "inertia": 5949.78,
+      "silhouette": 0.5379,
+      "calinski_harabasz": 654.01,
+      "davies_bouldin": 1.1778,
+      "min_cluster_size": 187,
+      "max_cluster_size": 1255,
+      "cluster_sizes": {
+        "1": 1255,
+        "0": 187
+      }
+    },
+    {
+      "k": 3,
+      "inertia": 4711.75,
+      "silhouette": 0.405,
+      "calinski_harabasz": 601.69,
+      "davies_bouldin": 1.2728,
+      "min_cluster_size": 75,
+      "max_cluster_size": 1004,
+      "cluster_sizes": {
+        "0": 1004,
+        "1": 363,
+        "2": 75
+      }
+    },
+    {
+      "k": 4,
+      "inertia": 3949.79,
+      "silhouette": 0.4174,
+      "calinski_harabasz": 570.64,
+      "davies_bouldin": 1.2146,
+      "min_cluster_size": 69,
+      "max_cluster_size": 946,
+      "cluster_sizes": {
+        "1": 946,
+        "0": 252,
+        "3": 175,
+        "2": 69
+      }
+    },
+    {
+      "k": 5,
+      "inertia": 3500.58,
+      "silhouette": 0.4018,
+      "calinski_harabasz": 528.67,
+      "davies_bouldin": 1.1888,
+      "min_cluster_size": 48,
+      "max_cluster_size": 938,
+      "cluster_sizes": {
+        "1": 938,
+        "0": 204,
+        "3": 169,
+        "4": 83,
+        "2": 48
+      }
+    },
+    {
+      "k": 6,
+      "inertia": 3106.6,
+      "silhouette": 0.278,
+      "calinski_harabasz": 512.66,
+      "davies_bouldin": 1.2078,
+      "min_cluster_size": 48,
+      "max_cluster_size": 497,
+      "cluster_sizes": {
+        "5": 497,
+        "1": 467,
+        "0": 201,
+        "3": 146,
+        "4": 83,
+        "2": 48
+      }
+    },
+    {
+      "k": 7,
+      "inertia": 2861.01,
+      "silhouette": 0.2823,
+      "calinski_harabasz": 484.1,
+      "davies_bouldin": 1.1755,
+      "min_cluster_size": 21,
+      "max_cluster_size": 496,
+      "cluster_sizes": {
+        "1": 496,
+        "0": 467,
+        "3": 213,
+        "6": 139,
+        "4": 79,
+        "5": 27,
+        "2": 21
+      }
+    },
+    {
+      "k": 8,
+      "inertia": 2677.45,
+      "silhouette": 0.2844,
+      "calinski_harabasz": 457.12,
+      "davies_bouldin": 1.2803,
+      "min_cluster_size": 22,
+      "max_cluster_size": 476,
+      "cluster_sizes": {
+        "1": 476,
+        "4": 469,
+        "2": 212,
+        "0": 86,
+        "5": 85,
+        "6": 70,
+        "7": 22,
+        "3": 22
+      }
+    }
+  ],
+  "cluster_archetypes": {
+    "0": {
+      "label": "High Administrative Cost-Revision Volatility",
+      "project_count": 252,
+      "percentage": 17.48,
+      "mean_original_cost_crore": 494.61,
+      "median_original_cost_crore": 376.49,
+      "mean_planned_duration_months": 36.65,
+      "mean_pre_paimana_obs_months": 5.49,
+      "mean_historical_schedule_revisions": 0.74,
+      "mean_historical_cost_revisions": 2.64,
+      "mean_pre_paimana_max_slippage_months": 15.71,
+      "mean_distance_to_centroid": 1.7171
+    },
+    "1": {
+      "label": "Standard Rapid-Execution / Linear Infrastructure",
+      "project_count": 946,
+      "percentage": 65.6,
+      "mean_original_cost_crore": 794.95,
+      "median_original_cost_crore": 555.05,
+      "mean_planned_duration_months": 40.91,
+      "mean_pre_paimana_obs_months": 2.04,
+      "mean_historical_schedule_revisions": 0.08,
+      "mean_historical_cost_revisions": 0.22,
+      "mean_pre_paimana_max_slippage_months": 1.61,
+      "mean_distance_to_centroid": 0.9993
+    },
+    "2": {
+      "label": "Severe Legacy Stagnation & Chronic Slippage",
+      "project_count": 69,
+      "percentage": 4.79,
+      "mean_original_cost_crore": 1566.02,
+      "median_original_cost_crore": 1251.11,
+      "mean_planned_duration_months": 153.54,
+      "mean_pre_paimana_obs_months": 9.46,
+      "mean_historical_schedule_revisions": 3.32,
+      "mean_historical_cost_revisions": 1.29,
+      "mean_pre_paimana_max_slippage_months": 159.03,
+      "mean_distance_to_centroid": 3.4508
+    },
+    "3": {
+      "label": "Mega Capital High-Value Infrastructure",
+      "project_count": 175,
+      "percentage": 12.14,
+      "mean_original_cost_crore": 7587.95,
+      "median_original_cost_crore": 3504.21,
+      "mean_planned_duration_months": 95.63,
+      "mean_pre_paimana_obs_months": 6.07,
+      "mean_historical_schedule_revisions": 0.41,
+      "mean_historical_cost_revisions": 0.91,
+      "mean_pre_paimana_max_slippage_months": 7.12,
+      "mean_distance_to_centroid": 2.1633
+    }
+  }
+}

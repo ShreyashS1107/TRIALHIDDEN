@@ -1,0 +1,194 @@
+========================================================================================================================
+MENTOR SUGGESTION IMPLEMENTATION PLAN: PROJECT-SIMILARITY HISTORICAL BENCHMARKING
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Target File: mentor_suggestion/reports/MENTOR_SUGGESTION_IMPLEMENTATION_PLAN.txt
+Status: MENTOR_EXPERIMENT_STATUS = DESIGNED
+Date of Creation: September 2026
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+1. EXECUTIVE SUMMARY & EXPERIMENT OBJECTIVE
+------------------------------------------------------------------------------------------------------------------------
+This document establishes the end-to-end technical implementation plan for evaluating the mentor's recommendation:
+"Utilize overlapping OCMS–PAIMANA projects to construct longitudinal trajectories, cluster projects into distinct physical
+archetypes, derive cluster-level historical benchmarks, and conduct a strictly controlled ML experiment testing whether
+project-similarity benchmarks provide incremental predictive value over the frozen PAIMANA-only baseline."
+
+Strict Experimental Scope:
+- Isolation: All code, data, models, and artifacts will reside exclusively inside `SIH26103/mentor_suggestion/`.
+- Production Invariance: ZERO production ML files (`features/`, `ml/models/`, `data/`, `inference/`) will be altered.
+- Controlled Evaluation: Evaluated under the exact frozen chronological split and target label definitions.
+
+
+========================================================================================================================
+2. ARCHITECTURAL OVERVIEW
+========================================================================================================================
+
+```
++---------------------------------------------------------------------------------------------------+
+| 1. DATA SOURCES & ISOLATION LAYER                                                                 |
+|    - paimana_master_dataset.csv (2,741 projects, 21,555 monthly rows)                             |
+|    - linked_project_history.csv (1,442 continuous projects with pre-PAIMANA trajectories)          |
+|    - historical_completed_projects.csv (2,394 historical completed projects)                     |
++---------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++---------------------------------------------------------------------------------------------------+
+| 2. COHORT A EXTRACTION & TRAJECTORY REPRESENTATION ENGINE                                         |
+|    - Static Baseline: original_cost_log, planned_duration_months, project_size_category, sector   |
+|    - Historical Pre-PAIMANA: observation_months, sched_rev_count, cost_rev_count, max_slippage    |
++---------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++---------------------------------------------------------------------------------------------------+
+| 3. UNSUPERVISED CLUSTERING PIPELINE (FROZEN PRE-TRANSITION)                                       |
+|    - Algorithm: K-Means (k=4) on standardized structural + historical behavioral space             |
+|    - Output: 4 Frozen Centroids (Mega Infra, Rapid Highway, Legacy Stagnant, Volatile Cost Revisions)|
++---------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++---------------------------------------------------------------------------------------------------+
+| 4. POINT-IN-TIME CLUSTER BENCHMARK DERIVATION                                                     |
+|    - Delay rate (smoothed), Median delay months, Centroid distance, Slippage deviation            |
+|    - Causal condition: completed_date < prediction_month (0 leakage violations)                   |
++---------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++---------------------------------------------------------------------------------------------------+
+| 5. CONTROLLED ML EXPERIMENT (CHRONOLOGICAL SPLIT)                                                 |
+|    - MODEL A: Champion Frozen Baseline (PAIMANA-Only, 75 Features)                                |
+|    - MODEL B: Candidate Enriched (PAIMANA 75 + 6 Cluster Benchmark Features = 81 Features)        |
+|    - Targets: schedule_delay_3m, cost_overrun_state_3m, schedule_revision_3m                          |
+|    - Splits: Train (Apr-Nov 2025) | Val (Dec 2025-Jan 2026) | OOT Test (Feb-Mar 2026)          |
++---------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++---------------------------------------------------------------------------------------------------+
+| 6. FINAL DECISION & GOVERNANCE GATEWAY                                                            |
+|    - If Model B > Model A consistently on OOT Test -> Propose for production feature engine v2    |
+|    - If Model B <= Model A -> Retain benchmarks for UI/Analytics, keep ML baseline frozen         |
++---------------------------------------------------------------------------------------------------+
+```
+
+
+========================================================================================================================
+3. STEP-BY-STEP IMPLEMENTATION PHASES
+========================================================================================================================
+
+PHASE 1: Trajectory Dataset & Clustering Pipeline Construction
+- Script: `mentor_suggestion/src/build_clustering_dataset.py`
+- Actions:
+  1. Extract static baseline and pre-PAIMANA trajectory parameters for Cohort A ($N = 1,442$).
+  2. Apply log-transformation to original cost and standard scaling across continuous features.
+  3. Fit K-Means ($k=4$) with fixed `random_state=42`.
+  4. Save frozen cluster model and scaler:
+     * `mentor_suggestion/models/project_cluster_kmeans_k4.joblib`
+     * `mentor_suggestion/models/cluster_feature_scaler.joblib`
+  5. Generate cluster assignment table for all 2,741 PAIMANA projects:
+     * `mentor_suggestion/data/project_cluster_assignments.csv`
+
+PHASE 2: Point-in-Time Benchmark Feature Engine
+- Script: `mentor_suggestion/src/build_benchmark_features.py`
+- Actions:
+  1. For each prediction month $t \in [\text{2025-04}, \text{2026-06}]$:
+     - Filter historical completed projects completed strictly before $t$.
+     - Map completed projects to the nearest archetype cluster.
+     - Compute Beta-smoothed delay rate ($M=5.0$), median delay, and stagnation frequency per cluster.
+  2. For each active project at month $t$:
+     - Compute Euclidean distance to assigned cluster centroid.
+     - Compute benchmark schedule slippage deviation: $\text{slippage}_i(t) - \text{median\_delay}(k, t)$.
+     - Append `is_legacy_linked` flag.
+  3. Output: `mentor_suggestion/data/feature_dataset_paimana_benchmarks.csv` (15,769 snapshot rows, 81 features).
+
+PHASE 3: Point-in-Time Leakage & Data Integrity Audit
+- Script: `mentor_suggestion/src/audit_benchmark_leakage.py`
+- Actions:
+  1. Verify $\max(\text{evidence\_date}) < \text{prediction\_month}$ for 100% of benchmark rows.
+  2. Audit feature distributions for anomalous inf / NaN values.
+  3. Output: `mentor_suggestion/reports/BENCHMARK_LEAKAGE_AUDIT.csv`.
+
+PHASE 4: Controlled ML Experiment Execution
+- Script: `mentor_suggestion/src/run_controlled_experiment.py`
+- Actions:
+  1. Load frozen train (8,814 rows), validation (3,084 rows), and OOT test (3,871 rows) datasets.
+  2. Train MODEL A (PAIMANA-Only 75 Features) using exact production pipelines:
+     - Schedule Delay: Random Forest (`n_estimators=200, max_depth=12, min_samples_leaf=5, max_features='sqrt'`).
+     - Cost Overrun: Balanced Random Forest (`class_weight='balanced'`).
+     - Schedule Revision: L2-Logistic Regression (`C=1.0`).
+  3. Train MODEL B (PAIMANA 75 + 6 Cluster Benchmark Features = 81 Features) using identical hyperparameter grids.
+  4. Evaluate across Validation and OOT Test sets:
+     - PR-AUC, ROC-AUC, Brier score, Precision, Recall, F1, Precision@Top Decile.
+  5. Output:
+     - `mentor_suggestion/reports/EXPERIMENT_ABLATION_RESULTS.csv`
+     - `mentor_suggestion/reports/FEATURE_IMPORTANCES.csv`
+     - `mentor_suggestion/reports/FINAL_EXPERIMENT_REPORT.txt`
+
+PHASE 5: Redundancy & Feature Importance Audit
+- Evaluate feature split gains and SHAP/permutation importances for the 6 benchmark features.
+- Quantify whether `cluster_slippage_deviation_t` or `cluster_distance_to_centroid_t` rank in the top 15 features.
+
+
+========================================================================================================================
+4. DECISION GATEWAY & GOVERNANCE CRITERIA
+========================================================================================================================
+
+The outcome of the experiment will be evaluated against strict pre-registered criteria:
+
+Condition for Success (Promote to Candidate Feature Store):
+- MODEL B achieves statistically meaningful, consistent improvement on OOT Test PR-AUC ($\Delta \text{PR-AUC} \ge +0.0050$)
+  on `schedule_delay_3m` WITHOUT degrading Brier score or calibration.
+- Feature importance analysis confirms that benchmark features provide orthogonal discriminative power.
+
+Condition for Neutral / Negative Result (Retain Exclusively for UI / Analytics):
+- MODEL B yields negligible lift ($\Delta \text{PR-AUC} < +0.0020$) or metric degradation / Brier score inflation.
+- In this scenario:
+  * ML models remain 100% PAIMANA-only.
+  * Cluster archetypes and historical benchmarks are retained exclusively for interactive decision-support dashboards,
+    project profiling, and policy insights.
+
+
+========================================================================================================================
+5. COMPLETE INVENTORY OF FILES TO BE CREATED IN NEXT PHASE
+========================================================================================================================
+
+```
+SIH26103/mentor_suggestion/
+├── README.md                                          [Created in Current Investigation Phase]
+├── reports/
+│   ├── OVERLAP_ANALYSIS.txt                           [Created in Current Investigation Phase]
+│   ├── COHORT_SELECTION_ANALYSIS.txt                  [Created in Current Investigation Phase]
+│   ├── CLUSTERING_DESIGN.txt                          [Created in Current Investigation Phase]
+│   ├── BENCHMARKING_DESIGN.txt                        [Created in Current Investigation Phase]
+│   ├── LEAKAGE_AND_TEMPORAL_DESIGN.txt                [Created in Current Investigation Phase]
+│   ├── MENTOR_SUGGESTION_IMPLEMENTATION_PLAN.txt      [Created in Current Investigation Phase]
+│   ├── BENCHMARK_LEAKAGE_AUDIT.csv                    [To be generated during Phase 3]
+│   ├── EXPERIMENT_ABLATION_RESULTS.csv                [To be generated during Phase 4]
+│   ├── FEATURE_IMPORTANCES.csv                        [To be generated during Phase 4]
+│   └── FINAL_EXPERIMENT_REPORT.txt                    [To be generated during Phase 4]
+│
+├── src/
+│   ├── build_clustering_dataset.py                    [Phase 1 Implementation Script]
+│   ├── build_benchmark_features.py                    [Phase 2 Implementation Script]
+│   ├── audit_benchmark_leakage.py                     [Phase 3 Implementation Script]
+│   └── run_controlled_experiment.py                   [Phase 4 Implementation Script]
+│
+├── models/
+│   ├── project_cluster_kmeans_k4.joblib               [Fitted & Frozen Clustering Model]
+│   └── cluster_feature_scaler.joblib                  [Fitted & Frozen Feature Scaler]
+│
+└── data/
+    ├── project_cluster_assignments.csv                [Project Archetype Allocations]
+    ├── cluster_historical_benchmarks.csv              [Time-Indexed Benchmark Tables]
+    └── feature_dataset_paimana_benchmarks.csv         [Enriched Feature Matrix for ML]
+```
+
+
+========================================================================================================================
+6. PRODUCTION INVARIANCE DECLARATION
+========================================================================================================================
+I hereby certify that:
+1. Zero production datasets in `data/`, `target_labels_v2/`, or `features/` will be modified or overwritten.
+2. Zero production model weights in `ml/models/` will be retrained or altered.
+3. The production inference pipeline and API adapters in `inference/` remain completely untouched.
+4. All work is fully contained within `mentor_suggestion/`.
+========================================================================================================================

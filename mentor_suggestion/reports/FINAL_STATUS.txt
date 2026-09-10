@@ -1,0 +1,43 @@
+================================================================================
+MENTOR-SUGGESTED OCMS PROJECT-SIMILARITY EXPERIMENT: FINAL STATUS
+Repository: SIH26103 / mentor_suggestion
+Date: 2026-09-10
+================================================================================
+
+EXECUTIVE SUMMARY:
+- Phase 1 (Project-Archetype Clustering):
+  * Identified 1,442 comprehensively linked OCMS–PAIMANA projects from 2,741 universe.
+  * Discovered K=4 stable physical archetypes (Silhouette = 0.4174, Bootstrap ARI = 0.9779).
+  * Status: COMPLETE.
+
+- Phase 2A (Point-in-Time Historical Archetype Benchmarks):
+  * Computed point-in-time peer benchmarks across 15,769 snapshots (Apr 2025–Mar 2026).
+  * Audited against temporal leakage: 0 violations.
+  * Status: COMPLETE.
+
+- Phase 2B (Controlled Predictive ML Experiment):
+  * Tested frozen 75-feature PAIMANA baseline against PAIMANA + Valid Benchmarks.
+  * Out-of-Time Test (Feb–Mar 2026):
+    - Schedule Delay: Model A PR = 0.9722 vs Model B PR = 0.9713 (Δ = -0.0009)
+    - Cost Overrun  : Model A PR = 0.9881 vs Model B PR = 0.9881 (Δ = -0.0000)
+    - Schedule Rev  : Model A PR = 0.0519 vs Model B PR = 0.0641 (Δ = +0.0121, Worse Calib)
+  * Feature ablation proved benchmark outcome rates add 0 incremental predictive value.
+  * Status: COMPLETE.
+
+FINAL STRATEGIC DETERMINATION:
+Under the controlled out-of-time experiment, archetype-based OCMS historical benchmark
+features did not provide clear incremental predictive value beyond the frozen PAIMANA-only
+feature set. Therefore, the OCMS archetype layer is retained for historical benchmarking
+and contextual decision support rather than being incorporated into the production ML feature set.
+
+================================================================================
+FINAL VERIFICATION CERTIFICATIONS:
+================================================================================
+PHASE_1_STATUS = COMPLETE
+PHASE_2A_STATUS = COMPLETE
+PHASE_2B_STATUS = COMPLETE
+BENCHMARK_LAYER_DECISION = NO_CLEAR_INCREMENTAL_VALUE
+PRODUCTION_ML_CHANGE = NO
+PRODUCTION_HASH_VIOLATIONS = 0
+TEMPORAL_LEAKAGE_VIOLATIONS = 0
+================================================================================

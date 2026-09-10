@@ -1,0 +1,21 @@
+feature_name,category,data_type,source_columns,time_window,missing_policy,leakage_status
+cluster_id,Project Archetype,int64,clustering_model.joblib (K-Means K=4),Pre-transition baseline (t <= 2025-03),None (100% complete),SAFE (Frozen pre-transition model)
+cluster_label,Project Archetype Context,str,cluster_assignments.csv,Pre-transition baseline (t <= 2025-03),None (100% complete),SAFE (Context label only)
+is_legacy_linked,Data Provenance Indicator,int64,clustering_cohort.csv,Static indicator,None (100% complete),SAFE
+cluster_distance_to_centroid_t,Archetype Typicality,float64,Normalized Euclidean distance to cluster centroid,Point-in-time evaluated as-of t,None (100% complete),SAFE (Distance in frozen space)
+cluster_hist_delay_rate_smoothed_t,Historical Archetype Benchmark,float64,historical_completed_projects.csv (evidence_date < t),Historical completed projects before prediction month t,Empirical Bayes Beta smoothing with M=5.0,SAFE (evidence_date < t)
+cluster_hist_median_delay_months_t,Historical Archetype Benchmark,float64,historical_completed_projects.csv / trajectory profiles,Historical completed projects before prediction month t,Fallback to pre-transition archetype median if N < 10,SAFE (evidence_date < t)
+cluster_hist_mean_delay_months_t,Historical Archetype Benchmark,float64,historical_completed_projects.csv / trajectory profiles,Historical completed projects before prediction month t,Fallback to pre-transition archetype mean if N < 10,SAFE (evidence_date < t)
+cluster_hist_cost_escalation_rate_t,Historical Archetype Benchmark,float64,project_clustering_profiles.csv,Pre-transition historical trajectory records (t <= 2025-03),Preserve rate from cluster trajectory,SAFE (t <= 2025-03)
+cluster_hist_median_cost_escalation_t,Historical Archetype Benchmark,float64,historical_completed_projects.csv,Historical completed projects before prediction month t,Preserve 0.0 baseline,SAFE (evidence_date < t)
+cluster_hist_stagnation_rate_t,Historical Archetype Benchmark,float64,project_clustering_profiles.csv,Pre-transition historical trajectory records (t <= 2025-03),Preserve archetype stagnation frequency,SAFE (t <= 2025-03)
+cluster_hist_schedule_revision_rate_t,Historical Archetype Benchmark,float64,project_clustering_profiles.csv,Pre-transition historical trajectory records (t <= 2025-03),Preserve archetype revision frequency,SAFE (t <= 2025-03)
+cluster_hist_cost_revision_rate_t,Historical Archetype Benchmark,float64,project_clustering_profiles.csv,Pre-transition historical trajectory records (t <= 2025-03),Preserve archetype cost revision frequency,SAFE (t <= 2025-03)
+cluster_slippage_deviation_t,Benchmark Deviation Context,float64,schedule_slippage_months_t - cluster_hist_median_delay_months_t,Current month t vs historical benchmark < t,Preserve NaN if schedule_slippage_months_t is NaN,SAFE (Point-in-time calculation)
+cluster_cost_esc_deviation_t,Benchmark Deviation Context,float64,cost_escalation_pct_t - cluster_hist_median_cost_escalation_t,Current month t vs historical benchmark < t,Preserve NaN if cost_escalation_pct_t is NaN,SAFE (Point-in-time calculation)
+cluster_stagnation_deviation_t,Benchmark Deviation Context,float64,stagnant_3m_t - cluster_hist_stagnation_rate_t,Current month t vs historical benchmark < t,Preserve NaN if stagnant_3m_t is NaN,SAFE (Point-in-time calculation)
+historical_sample_count,Provenance Metadata,int64,Sum of historical completed + trajectory observations,Available evidence count < t,None,SAFE
+earliest_evidence_date,Provenance Metadata,str,Earliest historical completed date used,Global historical start,None,SAFE
+latest_evidence_date,Provenance Metadata,str,Latest historical completed date used,Strictly < prediction_month t,None,SAFE (Verified < t)
+fallback_level,Provenance Metadata,str,Fallback indicator (CLUSTER_SPECIFIC vs TRAJECTORY_ARCHETYPE_FALLBACK),As-of t,None,SAFE
+reliability_tier,Provenance Metadata,str,"HIGH (N>=50), MEDIUM (N>=30), LOW (N<30)",As-of t,None,SAFE

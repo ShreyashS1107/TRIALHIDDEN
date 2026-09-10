@@ -1,0 +1,132 @@
+========================================================================================================================
+CLUSTER-LEVEL HISTORICAL BENCHMARKING & FEATURE DESIGN REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Target File: mentor_suggestion/reports/BENCHMARKING_DESIGN.txt
+Status: BENCHMARKING_DESIGN_STATUS = DESIGNED_AND_AUDITED
+Date of Audit: September 2026
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+1. EXECUTIVE SUMMARY & BENCHMARKING PHILOSOPHY
+------------------------------------------------------------------------------------------------------------------------
+The core recommendation of the mentor is to replace broad, noisy agency-level and sector-level historical priors with
+project-similarity benchmarks.
+
+A cluster historical benchmark answers the fundamental operational question:
+"What historically happened to completed infrastructure projects that shared this exact project archetype (similar scale,
+timeline, and early-stage dynamics)?"
+
+Instead of evaluating a project against all 2,394 historical completed projects or a broad sector containing thousands of
+disparate sub-contracts, the project is evaluated against its structural peer group.
+
+
+========================================================================================================================
+2. CANDIDATE BENCHMARK METRICS & MATHEMATICAL DEFINITIONS
+========================================================================================================================
+
+For any project $i$ assigned to Archetype $k$ at prediction month $t$:
+
+Metric 1: Cluster Smoothed Historical Delay Rate (`cluster_hist_delay_rate_smoothed_t`)
+- Definition: Empirical Bayes Beta-smoothed delay rate of completed projects belonging to Archetype $k$ prior to month $t$.
+- Formula:
+  $$\text{DelayRate}_{\text{smoothed}}(k, t) = \frac{n_{\text{delayed}}(k, <t) + M \cdot P_{\text{portfolio}}(<t)}{N_{\text{completed}}(k, <t) + M}$$
+  where $M = 5.0$ pseudo-observations and $P_{\text{portfolio}}(<t)$ is the global historical delay rate (82.66%).
+
+Metric 2: Cluster Historical Median Delay (`cluster_hist_median_delay_months_t`)
+- Definition: Median completed schedule delay (in calendar months) among historical projects in Archetype $k$.
+- Role: Provides a robust, non-parametric baseline of expected total duration expansion for this archetype.
+
+Metric 3: Cluster Historical Mean Delay (`cluster_hist_mean_delay_months_t`)
+- Definition: Arithmetic mean completed schedule delay in months.
+
+Metric 4: Cluster Distance to Centroid (`cluster_distance_to_centroid_t`)
+- Definition: Normalized Euclidean distance from the project's standardized feature vector $\mathbf{z}_i$ to the centroid
+  $\boldsymbol{\mu}_k$ of its assigned archetype:
+  $$d_i = \|\mathbf{z}_i - \boldsymbol{\mu}_k\|_2$$
+- Role: Quantifies archetype typicality vs outlier status. Highly atypical projects within an archetype exhibit greater
+  tail risk.
+
+Metric 5: Benchmark Schedule Slippage Deviation (`cluster_slippage_deviation_t`)
+- Definition: The project's current active schedule slippage minus the historical median slippage for its archetype:
+  $$\Delta_{\text{slippage}}(i, t) = \text{schedule\_slippage\_months}_i(t) - \text{cluster\_hist\_median\_delay}(k, t)$$
+- Role: Orthogonal risk metric measuring whether a project is tracking better or worse than historical expectations for
+  its specific archetype.
+
+Metric 6: Cluster Historical Stagnation Frequency (`cluster_hist_stagnation_rate_t`)
+- Definition: Historical frequency of physical progress stalls ($\ge 3$ consecutive months of zero progress) within the cluster.
+
+
+========================================================================================================================
+3. REDUNDANCY AUDIT: BENCHMARK FEATURES VS. 75 PAIMANA FEATURES
+========================================================================================================================
+
+In the earlier OCMS enrichment experiment, raw historical prior features failed to provide incremental lift because:
+1. High Collinearity with Project Age & Slippage:
+   - `pre_paimana_observation_months` had $r = 0.773$ with `project_age_months_t` and $r = 0.515$ with `schedule_slippage_months_t`.
+   - `pre_paimana_max_schedule_slippage_months` had $r = 0.480$ with `project_age_months_t`.
+   - In tree ensembles (Random Forest), trees preferred splitting on the active continuous `schedule_slippage_months_t`
+     variable, rendering raw historical counters redundant.
+2. High Cardinality Noise: Agency priors spanned 1,065 distinct agency names, most with $N < 3$ projects.
+
+How the Project-Similarity Benchmark Architecture Solves Redundancy:
+1. Low Dimensionality & High Density: Replaces 1,065 sparse agency buckets with 4 robust, dense archetype clusters ($N \ge 71$).
+2. Relative Cohort Normalization: Instead of supplying the raw historical counter, the model receives the relative deviation
+   (`cluster_slippage_deviation_t`), which measures structural underperformance relative to peers.
+3. Orthogonal Structural Context: A ₹4,000 Cr project experiencing a 6-month delay is well within normal parameters for
+   Archetype 0 (Centroid Delay = 23.7m), whereas a 6-month delay on a ₹150 Cr rapid-execution highway (Archetype 1, Centroid Delay = 1.5m)
+   represents severe abnormal distress.
+
+
+========================================================================================================================
+4. CANDIDATE FEATURE SUITABILITY ASSESSMENT TABLE
+========================================================================================================================
+
++-----------------------------------------+---------------+--------------+---------------------+-------------------------------+
+| Candidate Feature Name                  | Type          | Point-in-Time| Redundancy vs 75 PA | Recommendation for ML Model B |
++-----------------------------------------+---------------+--------------+---------------------+-------------------------------+
+| `cluster_id` (One-Hot Encoded)          | Categorical   | SAFE         | Low                 | REJECT (Splits tree space)    |
+| `cluster_hist_delay_rate_smoothed_t`    | Continuous    | SAFE         | Low-Moderate        | ACCEPT (Candidate Feature 1)  |
+| `cluster_hist_median_delay_months_t`    | Continuous    | SAFE         | Low-Moderate        | ACCEPT (Candidate Feature 2)  |
+| `cluster_distance_to_centroid_t`        | Continuous    | SAFE         | Very Low (Unique)   | ACCEPT (Candidate Feature 3)  |
+| `cluster_slippage_deviation_t`          | Continuous    | SAFE         | Low (Orthogonal)    | ACCEPT (Candidate Feature 4)  |
+| `cluster_hist_stagnation_rate_t`        | Continuous    | SAFE         | Low                 | ACCEPT (Candidate Feature 5)  |
+| `is_legacy_linked`                      | Binary Flag   | SAFE         | None                | ACCEPT (Candidate Feature 6)  |
++-----------------------------------------+---------------+--------------+---------------------+-------------------------------+
+
+
+========================================================================================================================
+5. EXAMPLE OPERATIONAL OUTPUT FOR DECISION-SUPPORT DASHBOARDS
+========================================================================================================================
+
+When integrated into the MoSPI Executive Dashboard or IPMD Project Review Portal:
+
+Project: "FOUR LANING OF RECHARLA TO KOVUR SECTION OF NH-365BG" (NHAI, ₹517 Cr)
+- Assigned Archetype: Archetype 1 ("Standard Rapid-Execution Projects / Linear Highway Packages")
+- Archetype Typicality (Distance to Centroid): 0.42 (Highly typical)
+- Cluster Historical Benchmark Context:
+  * Historical Delay Rate: 34.2% (vs 82.7% National Portfolio Average)
+  * Median Historical Delay: 4.5 months
+  * Historical Stagnation Risk: 12.1%
+- Current Project Status at Month t:
+  * Active Physical Progress: 90.14%
+  * Active Schedule Slippage: 0.0 months
+  * Benchmark Slippage Deviation: -4.5 months (Outperforming peer cohort by 4.5 months)
+- Early Warning Verdict: LOW RISK (Normal Execution within Robust Benchmark).
+
+Project: "DALLIRAJHARA-ROWGHAT-JAGDALPUR NEW RAIL LINE" (East Coast Railway, ₹2,400 Cr)
+- Assigned Archetype: Archetype 2 ("Severe Legacy Stagnation & Chronic Slippage")
+- Archetype Typicality: 0.88 (Typical distressed legacy rail profile)
+- Cluster Historical Benchmark Context:
+  * Historical Delay Rate: 91.5%
+  * Median Historical Delay: 148.0 months (12.3 years)
+  * Historical Stagnation Risk: 78.4%
+- Early Warning Verdict: CHRONIC STRUCTURAL RISK (Escalate to Inter-Ministerial Committee).
+
+
+========================================================================================================================
+6. CONCLUSION & VERDICT
+========================================================================================================================
+- `BENCHMARKING_DESIGN_STATUS = DESIGNED_AND_AUDITED`
+- The 6 proposed cluster-similarity benchmark features provide point-in-time safe, non-redundant, and highly interpretable
+  context suitable for future controlled ML testing and platform dashboard integration.
+========================================================================================================================

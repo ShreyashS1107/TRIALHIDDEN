@@ -1,0 +1,132 @@
+================================================================================
+PHASE 2B: FINAL STRATEGIC RECOMMENDATION & ARCHITECTURAL DECISION
+Mentor-Suggested Project-Archetype Historical Benchmarking Experiment (SIH26103)
+================================================================================
+Date: 2026-09-10
+Repository: SIH26103 / mentor_suggestion
+Final Decision: RETAIN ARCHETYPES AS CONTEXTUAL BENCHMARKING LAYER ONLY
+                DO NOT ADD BENCHMARK FEATURES TO PRODUCTION ML
+
+--------------------------------------------------------------------------------
+1. DIRECT ANSWERS TO THE 12 EVALUATION QUESTIONS
+--------------------------------------------------------------------------------
+
+Q1: Did archetype-based historical benchmarks provide incremental predictive value?
+A1: NO. Across the primary active operational targets (`schedule_delay_3m` and
+    `cost_overrun_state_3m`), adding archetype benchmarks yielded zero or slightly
+    negative incremental predictive value over the frozen 75-feature PAIMANA-only baseline.
+
+Q2: Did they improve OOT PR-AUC?
+A2: NO.
+    - Schedule Delay: OOT PR-AUC dropped from 0.9722 to 0.9713 (Δ = -0.0009).
+    - Cost Overrun: OOT PR-AUC was an exact tie at 0.9881 vs 0.9881 (Δ = -0.0000).
+    - Schedule Revision: OOT PR-AUC showed an apparent lift (+0.0121, 0.0519 to 0.0641)
+      on an extremely rare target (1.19% base rate), but this was driven entirely
+      by a static legacy linkage flag rather than archetype benchmarking.
+
+Q3: Did they improve OOT ROC-AUC?
+A3: NO for primary operational targets.
+    - Schedule Delay: OOT ROC-AUC dropped from 0.9723 to 0.9710 (Δ = -0.0013).
+    - Cost Overrun: OOT ROC-AUC dropped from 0.9895 to 0.9894 (Δ = -0.0001).
+    - Schedule Revision: OOT ROC-AUC moved from 0.8264 to 0.8455 (Δ = +0.0191).
+
+Q4: Did they improve calibration?
+A4: NO. In fact, they degraded probability calibration on Out-of-Time test data:
+    - Schedule Delay: Brier Score worsened from 0.0391 to 0.0394; ECE worsened from
+      0.0302 to 0.0342.
+    - Schedule Revision: Brier Score degraded from 0.0176 to 0.0212 (+0.0036); ECE
+      degraded from 0.0202 to 0.0236 (+0.0034) due to overconfidence on legacy projects.
+
+Q5: Were improvements consistent across targets?
+A5: NO. The archetype benchmarks exhibited zero positive transfer across schedule
+    delay and cost overrun, and inconsistent calibration behavior on schedule revision.
+
+Q6: Which benchmark features contributed useful signal?
+A6: Feature importance and ablation analysis revealed:
+    - Historical outcome rates (delay rate, cost revision rate): Rank #21+ in importance;
+      contributed negligible predictive weight (< 0.9% Gini importance).
+    - Centroid distance / deviations: Added zero discriminative power.
+    - `is_legacy_linked`: Contributed minor correlation with administrative revisions,
+      but degraded probability calibration.
+
+Q7: Were the benchmark features redundant with PAIMANA?
+A7: YES, HIGHLY REDUNDANT. PAIMANA's direct physical/financial progress metrics
+    (`months_to_original_doc_t`, `cost_escalation_pct_t`, `physical_progress_t`,
+    `schedule_slippage_months_t`) already provide direct, real-time measurements
+    of project velocity that strongly dominate broad historical archetype aggregates.
+
+Q8: Was benchmark coverage sufficient?
+A8: PARTIAL. While historical aggregate rates and distance metrics achieved 100%
+    snapshot coverage, dynamic deviation features (`cluster_slippage_deviation_t`)
+    achieved only 32.8% coverage due to missing slippage values in certain PAIMANA tables,
+    rendering them operationally unsuitable for production deployment.
+
+Q9: Did the approach generalize to Feb–Mar 2026?
+A9: NO. On the frozen Feb–Mar 2026 Out-of-Time evaluation period, Model B failed
+    to outperform Model A on the primary targets, confirming that archetype priors
+    do not enhance out-of-time temporal generalization.
+
+Q10: Should benchmark features enter the production ML model?
+A10: NO. Incorporating archetype benchmark features into production ML would add
+     architectural complexity, increase feature store maintenance overhead, and
+     introduce potential failure modes without delivering measurable predictive gains.
+
+Q11: Should OCMS archetypes remain as a contextual benchmarking layer?
+A11: YES, ABSOLUTELY. While archetype benchmarks do not improve automated ML scoring,
+     the 4 project archetypes established in Phase 1 (Silhouette = 0.4174) and the
+     point-in-time peer benchmarks constructed in Phase 2A provide immense descriptive,
+     diagnostic, and decision-support value for human ministry officials and project managers.
+
+Q12: What should be shown to judges?
+A12: Present the system as a principled, three-pillar architecture:
+     1. Pillar 1 (Predictive ML): High-precision, calibrated PAIMANA-only models
+        for future 3-month risk forecasting (Delay PR=0.972, Cost PR=0.988).
+     2. Pillar 2 (Execution Stress Index - ESI): Deterministic index assessing
+        current operational friction and delivery bottlenecks.
+     3. Pillar 3 (Project Archetype & Peer Benchmarking): Longitudinal OCMS–PAIMANA
+        archetype clustering (K=4) that provides contextual benchmarking and historical
+        reference points to help decision-makers interpret why a project is at risk.
+
+--------------------------------------------------------------------------------
+2. SYSTEM ARCHITECTURAL BLUEPRINT
+--------------------------------------------------------------------------------
+The frozen and recommended production architecture remains:
+
+                    PAIMANA Active Monitoring
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+              ▼                               ▼
+     Predictive ML Models          Execution Stress Index (ESI)
+  (75 Production Features)          (Deterministic Stress Engine)
+              │                               │
+              ▼                               ▼
+    3-Month Future Risk             Current Execution Stress
+  (Schedule / Cost / Rev)            (Bottleneck Detection)
+              │                               │
+              └───────────────┬───────────────┘
+                              │
+                              ▼
+                 Unified Risk Intelligence UI
+                              ▲
+                              │ Contextual Decision Support
+                              │ (Peer Comparisons & Baselines)
+                              │
+                    OCMS Longitudinal Linkage
+                              │
+                              ▼
+                 Project Archetypes (K=4)
+                              │
+                              ▼
+                Point-in-Time Peer Benchmarks
+                 (Contextual Layer - NO ML)
+
+--------------------------------------------------------------------------------
+3. FINAL EXECUTIVE CLASSIFICATIONS
+--------------------------------------------------------------------------------
+PHASE_2B_STATUS = COMPLETE
+
+BENCHMARK_LAYER_DECISION = NO_CLEAR_INCREMENTAL_VALUE
+
+PRODUCTION_ML_CHANGE = NO
+================================================================================

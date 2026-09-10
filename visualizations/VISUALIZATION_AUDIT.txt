@@ -1,0 +1,81 @@
+================================================================================
+SIH26103: VISUALIZATION SUITE AUDIT & INTEGRITY VERIFICATION
+================================================================================
+Date: 2026-09-10
+Repository: SIH26103 / visualizations
+
+--------------------------------------------------------------------------------
+1. AUDIT CHECKLIST & METHODOLOGICAL COMPLIANCE
+--------------------------------------------------------------------------------
+[x] 1. Zero Future Information Leakage:
+    - All empirical evaluation curves (ROC, PR, Calibration) were computed strictly
+      on the held-out Out-of-Time test window (Feb–Mar 2026).
+    - Point-in-time features strictly enforced evidence_date < prediction_month.
+
+[x] 2. Zero Production Result Modifications:
+    - All production metric values match the frozen baseline artifacts exactly:
+      * Schedule Delay OOT ROC-AUC = 0.9723, PR-AUC = 0.9722, Brier = 0.0391.
+      * Cost Overrun OOT ROC-AUC = 0.9895, PR-AUC = 0.9881, Brier = 0.0386.
+      * Schedule Revision OOT ROC-AUC = 0.8264, PR-AUC = 0.0519, Brier = 0.0176.
+
+[x] 3. Zero Synthetic Curves Created:
+    - ROC curves (Fig 10), PR curves (Fig 11), and Calibration curves (Fig 12) were
+      generated directly from true prediction probabilities and ground-truth labels
+      across 3,787 OOT snapshot observations. Zero parametric or synthetic curves used.
+
+[x] 4. Accurate Overlap & Cluster Counts:
+    - PAIMANA Universe: 2,741 unique projects.
+    - OCMS Linkage: 1,442 comprehensive matches, 294 boundary, 1,005 unmatched.
+    - K=4 Archetypes: Cluster 0 = 252, Cluster 1 = 946, Cluster 2 = 69, Cluster 3 = 175.
+
+[x] 5. Accurate Semantic Benchmark Representation:
+    - Cluster 0 stagnation was audited as an invalid longitudinal exposure proxy and
+      is explicitly excluded from historical benchmarks (Fig 06).
+    - Historical median delays: Cluster 0 (-23m), Cluster 1 (26m), Cluster 2 (251m),
+      Cluster 3 (0m) vs Global baseline (28m).
+
+[x] 6. Proper Conceptual Distinctions Enforced:
+    - PAIMANA = Current operational monitoring data (2025–2026).
+    - OCMS = Historical context & peer benchmarking (2011–2025).
+    - ML = 3-Month ahead predictive risk forecasting (Probabilistic).
+    - ESI = Real-time operational surveillance index (Deterministic, not a probability).
+    - Historical Benchmarks = Contextual decision-support (NOT production ML features).
+
+[x] 7. Zero Production Files Modified:
+    - Pre-run and post-run SHA-256 hashes verified for all 6 authoritative files.
+    - 0 production hash violations.
+
+--------------------------------------------------------------------------------
+2. GENERATION LOG OF ALL 19 VISUALIZATIONS
+--------------------------------------------------------------------------------
+01. 01_paimana_project_similarity.png         : GENERATED (659 KB) - SUCCESS
+02. 02_ocms_paimana_overlap.png               : GENERATED (343 KB) - SUCCESS
+03. 03_project_archetypes.png                 : GENERATED (720 KB) - SUCCESS
+04. 04_cluster_profile_heatmap.png            : GENERATED (299 KB) - SUCCESS
+05. 05_cluster_stability.png                  : GENERATED (161 KB) - SUCCESS
+06. 06_historical_archetype_benchmarks.png    : GENERATED (369 KB) - SUCCESS
+07. 07_oot_roc_auc.png                        : GENERATED (126 KB) - SUCCESS
+08. 08_oot_pr_auc.png                         : GENERATED (125 KB) - SUCCESS
+09. 09_oot_brier.png                          : GENERATED (124 KB) - SUCCESS
+10. 10_oot_roc_curves.png                     : GENERATED (237 KB) - SUCCESS
+11. 11_oot_pr_curves.png                      : GENERATED (180 KB) - SUCCESS
+12. 12_oot_calibration.png                    : GENERATED (318 KB) - SUCCESS
+13. 13_temporal_generalization.png            : GENERATED (247 KB) - SUCCESS
+14. 14_ocms_benchmark_model_comparison.png   : GENERATED (273 KB) - SUCCESS
+15. 15_ocms_incremental_value.png             : GENERATED (164 KB) - SUCCESS
+16. 16_benchmark_ablation.png                 : GENERATED (188 KB) - SUCCESS
+17. 17_predictive_risk_vs_execution_stress.png: GENERATED (2.46 MB) - SUCCESS
+18. 18_final_ai_ml_architecture.png           : GENERATED (537 KB) - SUCCESS
+19. 19_ai_ml_judge_summary.png                : GENERATED (640 KB) - SUCCESS
+
+Unavailable / Skipped Visualizations Count: 0
+
+--------------------------------------------------------------------------------
+3. FINAL FORMAL CERTIFICATIONS
+--------------------------------------------------------------------------------
+VISUALIZATION_STATUS = COMPLETE
+PRODUCTION_FILES_MODIFIED = 0
+PRODUCTION_RESULTS_CHANGED = 0
+SYNTHETIC_METRICS_USED = 0
+TEMPORAL_LEAKAGE_VIOLATIONS = 0
+================================================================================

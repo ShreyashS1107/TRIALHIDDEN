@@ -1,0 +1,93 @@
+================================================================================
+PHASE 2B: POINT-IN-TIME TEMPORAL LEAKAGE & PRODUCTION INTEGRITY AUDIT
+Phase 2B: Controlled Predictive ML Experiment (SIH26103)
+================================================================================
+Date: 2026-09-10
+Repository: SIH26103 / mentor_suggestion
+Audit Status: PASSED (ZERO LEAKAGE VIOLATIONS / ZERO INTEGRITY BREACHES)
+
+--------------------------------------------------------------------------------
+1. TEMPORAL RULE VERIFICATION (T_evidence < T_prediction)
+--------------------------------------------------------------------------------
+Every benchmark statistic and point-in-time contextual feature utilized during
+Phase 2B training, validation, and out-of-time testing was audited against the
+strict forward-temporal constraint:
+
+  For any prediction snapshot at prediction month T:
+  Evidence Date < Prediction Month T
+
+Audit Findings:
+1. Historical Outcome Pool:
+   - All completed project statistics (historical delay rates, median delay durations,
+     and cost revision rates) were computed exclusively over projects completed
+     prior to the PAIMANA prediction window.
+   - Zero future completed outcomes from active PAIMANA monitoring were allowed
+     into historical benchmark numerators or denominators.
+2. Point-in-Time Trajectory Statistics:
+   - All project-level trajectory metrics (physical progress, slippage, expenditure)
+     were computed strictly using snapshots observed at or prior to epoch T.
+   - Zero future monthly reports, zero future cost revisions, and zero future
+     completion date revisions were accessible at prediction time.
+3. Target Label Isolation:
+   - 3-month forward target labels (`schedule_delay_3m`, `cost_overrun_state_3m`,
+     `schedule_revision_3m`) were strictly isolated from the feature matrix.
+   - Zero target label columns or target metadata were passed into the feature pipeline.
+4. ESI & Risk Engine Independence:
+   - Execution Stress Index (ESI) was completely excluded from all feature sets.
+   - Production risk engine outputs and ML predictions were not used as inputs.
+
+Temporal Leakage Violations Count: 0
+
+--------------------------------------------------------------------------------
+2. DATA SPLIT INTEGRITY & PARTITIONING
+--------------------------------------------------------------------------------
+The temporal split boundaries were maintained exactly as specified:
+
+Split Phase       Chronological Period        Raw Snapshots    Labelled Delay Rows    Labelled Cost Rows    Labelled Rev Rows
+----------------  --------------------------  ---------------  ---------------------  --------------------  -------------------
+Training          Apr 2025 – Nov 2025         8,814            5,063                  5,324                 5,063
+Validation        Dec 2025 – Jan 2026         3,084            3,043                  3,041                 3,043
+Out-of-Time Test  Feb 2026 – Mar 2026         3,871            3,787                  3,789                 3,787
+Total Dataset     12 Monthly Epochs           15,769           11,893                 12,154                11,893
+
+- Random Shuffling: STRICTLY PROHIBITED (None used).
+- Random K-Fold CV: STRICTLY PROHIBITED (None used).
+- Target-Specific Leakage: ZERO across all 15,769 snapshots.
+
+--------------------------------------------------------------------------------
+3. FEATURE PREPROCESSING LEAKAGE AUDIT
+--------------------------------------------------------------------------------
+- Scalers (StandardScaler) and Imputers (SimpleImputer) were fit EXCLUSIVELY on the
+  Training set (Apr–Nov 2025) within scikit-learn `Pipeline` objects.
+- Validation and Out-of-Time Test sets were transformed using the frozen training
+  parameters without re-fitting.
+- Target encoding was not used, eliminating out-of-fold target leakage.
+
+--------------------------------------------------------------------------------
+4. PRODUCTION REPOSITORY IMMUTABILITY AUDIT
+--------------------------------------------------------------------------------
+All Phase 2B experiments, scripts, and artifacts were isolated strictly inside:
+  SIH26103/mentor_suggestion/
+
+The authoritative production baseline files were audited before execution and
+re-audited post-execution:
+- data/paimana_master_dataset.csv          : UNMODIFIED (SHA-256 Verified)
+- data/paimana_completed_projects.csv      : UNMODIFIED (SHA-256 Verified)
+- data/paimana_newly_added_projects.csv    : UNMODIFIED (SHA-256 Verified)
+- target_labels_v2/target_dataset_v2.csv   : UNMODIFIED (SHA-256 Verified)
+- features/feature_dataset_v1.csv          : UNMODIFIED (SHA-256 Verified)
+- ml/models/best_model_random_forest.joblib: UNMODIFIED (SHA-256 Verified)
+
+Production Hash Violations Count: 0
+
+--------------------------------------------------------------------------------
+5. FINAL AUDIT CERTIFICATION
+--------------------------------------------------------------------------------
+The Phase 2B experiment adheres 100% to point-in-time temporal safety standards,
+reproducibility requirements, and production isolation constraints.
+
+AUDIT RESULT: PASSED
+TEMPORAL_LEAKAGE_VIOLATIONS = 0
+PRODUCTION_HASH_VIOLATIONS = 0
+PHASE_2B_STATUS = COMPLETE
+================================================================================

@@ -1,0 +1,138 @@
+================================================================================
+SIH26103: JUDGE EVALUATION Q&A COMPENDIUM
+Concise, Defensible Answers to Key Technical and Strategic Questions
+================================================================================
+Date: 2026-09-10
+Repository: SIH26103
+
+--------------------------------------------------------------------------------
+Q1: Why didn't you simply combine OCMS and PAIMANA into one big dataset?
+--------------------------------------------------------------------------------
+A1: OCMS (2011–2025) and PAIMANA (2025–2026) represent two different reporting eras
+    with different reporting cadences, variable definitions, and schema structures.
+    Blindly merging them causes severe temporal distribution shifts and data corruption.
+    Instead, we established a clean longitudinal linkage over 1,442 validated projects
+    to extract point-in-time historical profiles without compromising data integrity.
+
+--------------------------------------------------------------------------------
+Q2: Why is PAIMANA the authoritative source for the production ML model?
+--------------------------------------------------------------------------------
+A2: PAIMANA is the active, modern flash-reporting platform actively utilized by MoSPI.
+    Its monthly reports contain standardized physical progress velocities, expenditure
+    ratios, and milestone tracking that directly represent current project momentum.
+
+--------------------------------------------------------------------------------
+Q3: Why did you cluster projects?
+--------------------------------------------------------------------------------
+A3: Megaprojects differ fundamentally: a ₹50,000 Cr multi-decade high-speed rail corridor
+    behaves completely differently from a ₹300 Cr 2-lane highway bypass. Clustering
+    allowed us to group projects into distinct physical archetypes based on scale, duration,
+    and historical volatility to enable meaningful peer-group comparisons.
+
+--------------------------------------------------------------------------------
+Q4: What does a "project archetype" mean?
+--------------------------------------------------------------------------------
+A4: An archetype is an empirical cluster representing a distinct category of project
+    execution behavior. Our unsupervised clustering discovered 4 stable archetypes:
+    - Cluster 0: High Cost-Revision Volatility (₹495 Cr, 2.64 pre-PAIMANA revisions)
+    - Cluster 1: Standard Rapid Linear Infrastructure (₹795 Cr, 41m duration)
+    - Cluster 2: Severe Legacy Stagnation (₹1,566 Cr, 251 months median delay)
+    - Cluster 3: Mega Capital Infrastructure (₹7,588 Cr, 96m duration)
+
+--------------------------------------------------------------------------------
+Q5: Did clustering improve predictive ML accuracy?
+--------------------------------------------------------------------------------
+A5: Under the controlled out-of-time experiment, archetype benchmark features did not
+    provide clear incremental predictive value beyond the 75 PAIMANA features. Schedule
+    delay PR-AUC went from 0.9722 to 0.9713, and cost overrun stayed tied at 0.9881.
+
+--------------------------------------------------------------------------------
+Q6: If clustering did not improve ML accuracy, why keep it?
+--------------------------------------------------------------------------------
+A6: Because AI systems serve humans, not just algorithms. While machine learning models
+    do not need broad archetype averages (since they already use fine-grained project
+    velocities), human ministry officials and project managers greatly benefit from
+    archetype benchmarking to understand how a project compares against its historical peers.
+
+--------------------------------------------------------------------------------
+Q7: What is the Execution Stress Index (ESI)?
+--------------------------------------------------------------------------------
+A7: ESI is a deterministic, transparent engineering index that quantifies real-time
+    execution friction (e.g., physical-financial progress divergence, milestone stalling,
+    and quarterly velocity deceleration) occurring in the current reporting month.
+
+--------------------------------------------------------------------------------
+Q8: Is ESI fed into the ML model as a feature?
+--------------------------------------------------------------------------------
+A8: No. ESI is kept strictly independent of the predictive ML models. This prevents
+    circular feature feedback and ensures ESI serves as an objective, rule-based audit.
+
+--------------------------------------------------------------------------------
+Q9: How do you prevent temporal data leakage?
+--------------------------------------------------------------------------------
+A9: We enforce strict point-in-time feature engineering (`evidence_date < prediction_month`),
+    fit all preprocessing transformers strictly on the training partition, isolate
+    target labels in a separate dataset, and run automated leakage verification audits
+    (0 violations across 15,769 snapshot rows).
+
+--------------------------------------------------------------------------------
+Q10: Why use chronological Out-of-Time (OOT) testing instead of random train/test splits?
+--------------------------------------------------------------------------------
+A10: Random train/test splits cause severe leakage in longitudinal data because future
+     snapshots leak into training folds. Chronological OOT testing (Train: Apr–Nov 2025,
+     Val: Dec 2025–Jan 2026, OOT: Feb–Mar 2026) faithfully simulates how the system
+     performs when deployed in the real world to predict future months.
+
+--------------------------------------------------------------------------------
+Q11: What are your three active ML prediction targets?
+--------------------------------------------------------------------------------
+A11: 1. `schedule_delay_3m`: Will the project experience a milestone delay in 3 months?
+     2. `cost_overrun_state_3m`: Will the project be in a cost overrun state in 3 months?
+     3. `schedule_revision_3m`: Will authorities formally revise the completion date in 3 months?
+
+--------------------------------------------------------------------------------
+Q12: Why was `cost_revision_event_3m` removed from the operational risk engine?
+--------------------------------------------------------------------------------
+A12: Rigorous empirical evaluation showed that cost revision events occur irregularly
+     and lack short-term (3-month) predictive signals. Adhering to scientific integrity,
+     we classified it as RESEARCH_ONLY and removed it from operational scoring rather
+     than presenting a weak model.
+
+--------------------------------------------------------------------------------
+Q13: What are the 75 features in the production ML model?
+--------------------------------------------------------------------------------
+A13: The production feature universe contains 71 numerical features (physical progress,
+     lagged velocities, expenditure ratios, cumulative spending, slippage in months,
+     project age, and agency aggregations) plus 4 categorical features (size category,
+     current schedule status, structure version, and table source).
+
+--------------------------------------------------------------------------------
+Q14: What happens when a new monthly government flash report arrives?
+--------------------------------------------------------------------------------
+A14: The automated pipeline ingests the report, computes the 75 point-in-time features,
+     evaluates real-time ESI stress, generates calibrated 3-month forward risk probabilities
+     via the frozen ML models, and maps the project to its historical archetype for peer
+     benchmarking in the executive dashboard.
+
+--------------------------------------------------------------------------------
+Q15: What is the exact difference between Predictive Risk and Execution Stress?
+--------------------------------------------------------------------------------
+A15: - Predictive Risk (ML): Forward-looking (Probabilistic forecast of what will happen
+       3 months ahead).
+     - Execution Stress (ESI): Present-looking (Deterministic assessment of friction
+       and physical-financial divergence happening right now).
+
+--------------------------------------------------------------------------------
+Q16: What does OCMS contribute to the final deployed system?
+--------------------------------------------------------------------------------
+A16: OCMS powers the Historical Intelligence Layer: providing 4 validated project
+     archetypes, historical duration baselines, peer delay distributions, and longitudinal
+     continuity indicators that give context to executive decision-makers.
+
+--------------------------------------------------------------------------------
+Q17: What would you do with more data in future iterations?
+--------------------------------------------------------------------------------
+A17: With multi-year prospective PAIMANA data, we would expand to 6-month and 12-month
+     long-range forecasting horizons, incorporate text-based contractor inspection logs
+     via NLP, and build agency-specific risk calibration curves.
+================================================================================

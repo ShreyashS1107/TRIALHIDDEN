@@ -1,0 +1,212 @@
+================================================================================
+SIH26103: COMPLETE AI/ML SYSTEM GUIDE FOR EVALUATION JUDGES
+Integrated Project-Monitoring & Predictive Risk Intelligence Platform (MoSPI/IPMD)
+================================================================================
+Date: 2026-09-10
+Repository: SIH26103
+Audience: Smart India Hackathon (SIH) Evaluation Panel & Technical Reviewers
+
+--------------------------------------------------------------------------------
+30-SECOND EXPLANATION
+--------------------------------------------------------------------------------
+Our AI/ML system provides three complementary, non-overlapping views of national
+infrastructure health.
+
+1. FUTURE RISK (Predictive ML): Estimates future 3-month schedule delay, cost overrun,
+   and administrative revision risks using a frozen set of 75 point-in-time PAIMANA
+   features, validated on a held-out chronological out-of-time test period (Feb–Mar 2026).
+2. PRESENT HEALTH (Execution Stress Index - ESI): A deterministic, rule-based index
+   measuring physical-financial divergence and real-time execution friction.
+3. HISTORICAL CONTEXT (Project Archetypes & Benchmarking): 1,442 longitudinal projects
+   spanning legacy OCMS and modern PAIMANA were clustered into 4 stable physical archetypes
+   (K=4). A rigorous controlled experiment proved that adding historical benchmark
+   features to the ML model did not provide clear incremental predictive value beyond
+   PAIMANA. Therefore, OCMS is retained as a powerful historical explainability and peer
+   benchmarking layer in the dashboard rather than being forced into production ML.
+
+--------------------------------------------------------------------------------
+SECTION 1: WHAT PROBLEM ARE WE SOLVING?
+--------------------------------------------------------------------------------
+India's Ministry of Statistics and Programme Implementation (MoSPI) monitors thousands
+of central mega-infrastructure projects worth lakhs of crores (railways, highways,
+power plants, ports). Historically, project delays and cost escalations are reported
+only after deadlines are already breached.
+
+Our solution transforms static monthly monitoring into an active predictive early-warning
+system, detecting schedule delays, cost overruns, and revision risks 3 months before
+they manifest, while giving project officers real-time friction scores and historical
+peer comparisons.
+
+--------------------------------------------------------------------------------
+SECTION 2: WHAT DATA DID WE USE?
+--------------------------------------------------------------------------------
+We utilized two comprehensive official government data sources:
+1. PAIMANA (2025–2026): The modern, monthly flash-reporting database covering 2,741
+   active infrastructure projects across 12 monthly snapshots (Apr 2025 – Mar 2026),
+   generating 15,769 total observation snapshots.
+2. OCMS (2011–2025): The legacy Online Computerized Monitoring System database
+   containing historical multi-decade project execution records, archived milestone
+   logs, and completed project outcomes.
+
+--------------------------------------------------------------------------------
+SECTION 3: HOW DID WE CONVERT MONTHLY GOVERNMENT FLASH REPORTS INTO USABLE ML DATA?
+--------------------------------------------------------------------------------
+Government monthly reports arrive as tabular reporting dumps across multiple tables
+(Ongoing Projects, Completed Projects, Newly Added Projects). We built automated
+ingestion pipelines that:
+- Cleaned and harmonized disparate project identifiers, agency codes, and dates.
+- Constructed a longitudinal time-series panel where each row represents a unique
+  (project_id, prediction_month) snapshot.
+- Generated rolling progress velocities, historical revision counts, and lag features.
+
+--------------------------------------------------------------------------------
+SECTION 4: WHY POINT-IN-TIME FEATURES?
+--------------------------------------------------------------------------------
+In a production deployment, when the model makes a prediction on October 1st, it can
+only see information published on or before October 1st. Point-in-time feature
+engineering ensures that all features at month T use exclusively historical and
+concurrent data available at or before epoch T. Future data, post-hoc revisions,
+and future milestone breaches are strictly inaccessible.
+
+--------------------------------------------------------------------------------
+SECTION 5: HOW DID WE PREVENT TEMPORAL DATA LEAKAGE?
+--------------------------------------------------------------------------------
+Temporal leakage occurs when future information accidentally contaminates past predictions.
+We implemented four strict safeguards:
+1. Feature Timestamps: Enforced `max(evidence_date) < prediction_month`.
+2. Transformation Isolation: Preprocessing scalers and median imputers were fitted
+   strictly on the Training period (Apr–Nov 2025) and applied without re-fitting to
+   Validation and Out-of-Time test splits.
+3. Label Isolation: Target variables (3-month forward outcomes) were stored in a separate
+   dataset (`target_dataset_v2.csv`) and never passed into the feature matrix.
+4. Independent Automated Audits: Formal leakage audit scripts verified 15,769 snapshot
+   rows with ZERO leakage violations across all pipeline stages.
+
+--------------------------------------------------------------------------------
+SECTION 6: WHAT DOES THE PREDICTIVE ML MODEL PREDICT?
+--------------------------------------------------------------------------------
+The production ML layer focuses on three active, operationally actionable 3-month
+forward targets:
+1. `schedule_delay_3m`: Binary target indicating whether the project will experience
+   a schedule delay / milestone slippage within the next 3 months.
+2. `cost_overrun_state_3m`: Binary target indicating whether the project will be in an
+   active cost overrun state 3 months into the future.
+3. `schedule_revision_3m`: Binary target indicating whether project authorities will
+   formally revise the sanctioned completion date within the next 3 months.
+
+(Note: `cost_revision_event_3m` was rigorously tested and dropped from the operational
+engine because cost revision events occur irregularly and lack short-term predictive
+signal, adhering to strict scientific honesty.)
+
+--------------------------------------------------------------------------------
+SECTION 7: WHY USE CHRONOLOGICAL TRAIN / VALIDATION / OUT-OF-TIME (OOT) TESTING?
+--------------------------------------------------------------------------------
+Standard random train/test splits (or random K-fold cross-validation) cause severe
+temporal leakage in time-series data because future snapshots leak into past training.
+We implemented a strict, frozen chronological partition:
+- Training Split   : Apr 2025 – Nov 2025 (8,814 snapshots) -> Model fitting.
+- Validation Split : Dec 2025 – Jan 2026 (3,084 snapshots) -> Calibration & thresholding.
+- Out-of-Time Test : Feb 2026 – Mar 2026 (3,871 snapshots) -> True future generalization.
+
+Every performance metric reported to judges is evaluated on the held-out OOT test set.
+
+--------------------------------------------------------------------------------
+SECTION 8: WHAT IS THE ROLE OF THE 75 PAIMANA FEATURES?
+--------------------------------------------------------------------------------
+The frozen production feature store contains exactly 75 point-in-time features:
+- 71 Numerical Features: Physical progress percentage, monthly progress velocity
+  (lag 1, lag 2, lag 3), cumulative expenditure, expenditure-to-progress ratio,
+  schedule slippage in months, project age, months to original completion, and agency
+  macro averages.
+- 4 Categorical Features: Project size category, current schedule status, reporting
+  structure version, and source table.
+These features provide a high-resolution, real-time representation of project momentum.
+
+--------------------------------------------------------------------------------
+SECTION 9: WHAT IS THE EXECUTION STRESS INDEX (ESI)?
+--------------------------------------------------------------------------------
+ESI is a real-time operational surveillance index that evaluates execution friction
+happening *right now*. It combines:
+- Physical vs. financial progress divergence (e.g., spending 80% of budget with only
+  30% physical completion).
+- Chronic milestone stagnation.
+- Velocity deceleration over recent reporting quarters.
+
+--------------------------------------------------------------------------------
+SECTION 10: WHY IS ESI KEPT SEPARATE FROM ML?
+--------------------------------------------------------------------------------
+Predictive ML and ESI serve distinct operational mandates:
+- Predictive ML asks: "What is likely to happen 3 months from now?" (Probabilistic).
+- ESI asks: "What observable stress is occurring right now?" (Deterministic).
+ESI is deliberately NOT fed as an input to the ML models. This prevents circular
+feedback loops and ensures ESI remains an uncorrupted, transparent operational audit.
+
+--------------------------------------------------------------------------------
+SECTION 11: WHAT IS OCMS?
+--------------------------------------------------------------------------------
+OCMS (Online Computerized Monitoring System) is the predecessor database maintained
+by MoSPI prior to 2025. It contains over a decade of historical records on thousands of
+completed, stalled, and commissioned infrastructure projects across India.
+
+--------------------------------------------------------------------------------
+SECTION 12: WHY DID WE INVESTIGATE OCMS?
+--------------------------------------------------------------------------------
+We investigated OCMS to test whether historical multi-decade project data could
+enhance modern PAIMANA predictions by providing historical priors and peer benchmarks.
+
+--------------------------------------------------------------------------------
+SECTION 13: WHAT DID THE INITIAL OCMS ENRICHMENT EXPERIMENT SHOW?
+--------------------------------------------------------------------------------
+Our initial experiment tested injecting broad agency-level and sector-level historical
+priors into the ML models. The result was clear: broad historical aggregates did not
+improve out-of-time predictive accuracy because sector-wide averages obscured individual
+project trajectory dynamics.
+
+--------------------------------------------------------------------------------
+SECTION 14: WHAT DID THE MENTOR-SUGGESTED CLUSTERING EXPERIMENT SHOW?
+--------------------------------------------------------------------------------
+Following the mentor's recommendation, we refined the approach:
+1. Longitudinal Linkage: Identified 1,442 projects with continuous history spanning
+   both OCMS and PAIMANA.
+2. Project Archetype Clustering (Phase 1): Clustered projects into 4 highly stable
+   physical archetypes (K=4, Silhouette=0.4174, Bootstrap ARI=0.9779):
+   - Cluster 0: High Cost-Revision Volatility (₹495 Cr mean cost, 2.64 revisions)
+   - Cluster 1: Standard Rapid Linear Infrastructure (₹795 Cr mean cost, 41m duration)
+   - Cluster 2: Severe Legacy Stagnation (₹1,566 Cr mean cost, 251 months median delay)
+   - Cluster 3: Mega Capital Infrastructure (₹7,588 Cr mean cost, 96m duration)
+3. Controlled ML Experiment (Phase 2B): Added point-in-time archetype benchmarks to
+   the ML pipeline.
+   * Schedule Delay: OOT PR-AUC was 0.9722 (PAIMANA) vs 0.9713 (with Benchmarks).
+   * Cost Overrun  : OOT PR-AUC was 0.9881 (PAIMANA) vs 0.9881 (with Benchmarks).
+   * Schedule Rev  : OOT PR-AUC was 0.0519 vs 0.0641, but calibration worsened (Brier
+     degraded from 0.0176 to 0.0212).
+
+--------------------------------------------------------------------------------
+SECTION 15: WHY IS OCMS RETAINED AS CONTEXT INSTEAD OF AN ML INPUT?
+--------------------------------------------------------------------------------
+Under the controlled out-of-time experiment, archetype-based OCMS historical benchmark
+features did not provide clear incremental predictive value beyond the frozen PAIMANA-only
+feature set. Real-time PAIMANA features already dominate prediction.
+
+Therefore, rather than forcing unhelpful features into the ML model, the OCMS archetype
+layer is retained as a powerful historical benchmarking and contextual decision-support
+tool in the dashboard, enabling human officials to compare active projects against
+historical peer groups.
+
+--------------------------------------------------------------------------------
+SECTION 16: WHAT IS THE FINAL ARCHITECTURE?
+--------------------------------------------------------------------------------
+A principled Three-Pillar Architecture:
+- Pillar 1: Predictive ML -> 3-Month Future Risk Forecasting (75 PAIMANA features).
+- Pillar 2: Execution Stress Index (ESI) -> Current Operational Surveillance.
+- Pillar 3: Project Archetypes & Benchmarks -> Historical Context & Peer Comparisons.
+
+--------------------------------------------------------------------------------
+SECTION 17: WHAT MAKES THIS APPROACH SCIENTIFICALLY ROBUST?
+--------------------------------------------------------------------------------
+1. Zero Data Leakage: Verified point-in-time feature pipeline with 0 temporal violations.
+2. True Chronological Out-of-Time Testing: Evaluated on held-out future months (Feb–Mar 2026).
+3. Production Invariance: 100% SHA-256 verified; zero production code or model tampering.
+4. Scientific Honesty: We reported exact experimental findings without cherry-picking,
+   retaining features where they provide genuine value and rejecting them where they do not.
+================================================================================

@@ -1,0 +1,1443 @@
+project_id,legacy_ocms_code,agency,sector,cluster_id,cluster_label,distance_to_centroid,is_outlier
+060100093,060100093,SECL,COAL,3,Mega Capital High-Value Infrastructure,3.5014,0
+102000,N24001897,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4497,0
+105236,N24001476,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.659,0
+10980,N24001745,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1565,0
+120000,N24001957,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6653,0
+120250,N24001632,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0422,0
+129000,N24001846,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7306,0
+132664,N24001477,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.933,0
+134950,N24001899,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.573,0
+14200,N24001998,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5535,0
+144020,N24002097,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4979,0
+151330,N24001335,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.4145,0
+160000,N24001847,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5289,0
+165500,N24001958,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7602,0
+170700,N24001953,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6065,0
+176000,N24001848,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5028,0
+180100210,180100210,NHPC,POWER,3,Mega Capital High-Value Infrastructure,2.1275,0
+180100221,180100221,NHPC,POWER,3,Mega Capital High-Value Infrastructure,2.1709,0
+180100242,180100242,NTPC,POWER,3,Mega Capital High-Value Infrastructure,2.7417,0
+188830,N24001415,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8757,0
+19220,N24001882,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5114,0
+20223,N24002110,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8095,0
+220100181,220100181,CR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,4.7305,0
+220100188,220100188,NR,RAILWAYS,3,Mega Capital High-Value Infrastructure,9.5619,1
+220100232,220100232,WCR,RAILWAYS,3,Mega Capital High-Value Infrastructure,5.5815,1
+220100257,220100257,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,6.2755,0
+220100265,220100265,SCR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.6948,0
+220100272,220100272,ER,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.3585,0
+220100284,220100284,ECOR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,5.7103,0
+220100303,220100303,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,1.4869,0
+220100305,220100305,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,4.4269,0
+220100314,220100314,WCR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,4.8195,0
+220100328,220100328,ECOR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,7.8356,1
+22700,N24001107,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2492,0
+24000,N24002102,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.485,0
+24300,N24001841,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4986,0
+249000,N24001667,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2486,0
+260860,N24001417,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0519,0
+262175,N24001274,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.222,0
+26400,N24001840,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7131,0
+293000,N24001678,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8935,0
+297700,N24001400,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1098,0
+298500,N24001659,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.7814,0
+33604,N24001482,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4631,0
+342500,N24001665,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9711,0
+34795,N24001976,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5296,0
+362420,N24001420,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8652,0
+372000,N24001903,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0825,0
+37352,N24001867,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2415,0
+37900,N24001902,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1206,0
+38770,N24002093,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1646,0
+400005,N18000337,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,2.0283,0
+400010,N04000078,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.1308,0
+400019,N22000514,UMBRELLA WORK,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.3509,0
+400022,N22000592,NWR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.7997,0
+400023,N22000558,SWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.561,0
+400033,N06000254,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.6526,0
+400035,N16000495,Indian Oil Corporation Limited [IOCL],OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.7126,0
+400043,N16000455,CHENNAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.4551,0
+400073,N06000245,CCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.7862,0
+400074,N06000246,CCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.1177,0
+400077,N16000438,IOCL,PETROLEUM & NATURAL GAS,0,High Administrative Cost-Revision Volatility,1.3468,0
+400078,N16000435,IOCL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.1096,0
+400087,N16000431,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.6327,0
+400119,N16000213,ONGC,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.0327,0
+400120,N16000247,ONGC,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.5684,0
+400138,N06000238,CCL,COAL,3,Mega Capital High-Value Infrastructure,2.2356,0
+400139,N06000237,CCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,2.1137,0
+400141,N10000010,NALCO,COAL,3,Mega Capital High-Value Infrastructure,1.2508,0
+400142,N06000193,NLC,COAL,3,Mega Capital High-Value Infrastructure,2.7983,0
+400144,N06000199,SECL,COAL,3,Mega Capital High-Value Infrastructure,1.4855,0
+400148,N06000148,SECL,COAL,0,High Administrative Cost-Revision Volatility,1.6479,0
+400149,N06000197,SECL,COAL,3,Mega Capital High-Value Infrastructure,1.0363,0
+400150,N06000216,CCL,COAL,3,Mega Capital High-Value Infrastructure,2.3127,0
+400151,N06000218,CCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.1871,0
+400152,N06000233,SECL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.1647,0
+400153,N06000243,CCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.7245,0
+400154,N06000242,CCL,COAL,0,High Administrative Cost-Revision Volatility,1.5777,0
+400155,N06000247,CCL,COAL,3,Mega Capital High-Value Infrastructure,1.6358,0
+400156,N06000217,CCL,COAL,3,Mega Capital High-Value Infrastructure,1.4942,0
+400160,N06000087,CCL,COAL,2,Severe Legacy Stagnation & Chronic Slippage,2.894,0
+400162,N06000184,NCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.2224,0
+400165,N06000249,MCL,COAL,3,Mega Capital High-Value Infrastructure,1.4576,0
+400166,N06000113,MCL,COAL,3,Mega Capital High-Value Infrastructure,1.5426,0
+400167,N16000279,ONGC,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.2909,0
+400168,N16000430,GAIL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.8078,0
+400169,N16000428,ONGC,PETROLEUM & NATURAL GAS,0,High Administrative Cost-Revision Volatility,1.4665,0
+400171,N16000402,HPCL,PETROLEUM & NATURAL GAS,0,High Administrative Cost-Revision Volatility,1.9546,0
+400172,N06000169,ECL,COAL,0,High Administrative Cost-Revision Volatility,1.5756,0
+400173,N06000236,ECL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.7512,0
+400174,N12000095,SAIL,COAL,3,Mega Capital High-Value Infrastructure,2.3426,0
+400177,N06000132,WCL,COAL,3,Mega Capital High-Value Infrastructure,2.1738,0
+400178,N06000222,8.0 MTY,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.0687,0
+400180,N06000244,ECL,COAL,0,High Administrative Cost-Revision Volatility,1.476,0
+400181,N06000170,ECL,COAL,3,Mega Capital High-Value Infrastructure,2.0905,0
+400182,N06000165,ECL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,2.0194,0
+400183,N06000230,MCL,COAL,3,Mega Capital High-Value Infrastructure,1.5744,0
+400185,N06000229,MCL,COAL,3,Mega Capital High-Value Infrastructure,1.4604,0
+400187,N06000167,MCL,COAL,3,Mega Capital High-Value Infrastructure,1.0677,0
+400204,N22000569,NER,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.8839,0
+400205,N22000565,NER,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.0367,0
+400220,N22000489,IRCON,COAL,3,Mega Capital High-Value Infrastructure,0.832,0
+400223,N22000626,SR,RAILWAYS,3,Mega Capital High-Value Infrastructure,3.4485,0
+400231,N06000270,NLC,COAL,3,Mega Capital High-Value Infrastructure,2.8401,0
+400232,N22000521,ECOR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,3.5714,1
+400247,N22000624,ER,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.8052,0
+400253,N22000409,RVNL,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,6.8009,0
+400259,N06000152,NLC,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.9306,0
+400261,N18000275,NTPC,POWER,3,Mega Capital High-Value Infrastructure,1.8322,0
+400271,N22000231,CR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.5039,0
+400275,N22000085,SR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.0718,0
+400277,N22000110,MTP,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,2.9284,0
+400280,N22000028,MRTP,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,3.6678,0
+400291,N22000318,ECOR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.0223,0
+400298,N22000286,SCR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.6806,0
+400299,N10000016,NALCO,COAL,1,Standard Rapid-Execution / Linear Infrastructure,2.5158,1
+400301,N16000234,BPCL,PETROLEUM & NATURAL GAS,0,High Administrative Cost-Revision Volatility,2.3252,0
+400312,N06000223,5.00 MTY,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.6068,0
+400313,N06000163,ECL,COAL,3,Mega Capital High-Value Infrastructure,2.0354,0
+400315,N06000220,ECL,COAL,3,Mega Capital High-Value Infrastructure,1.5002,0
+400321,N06000196,NCL,COAL,3,Mega Capital High-Value Infrastructure,1.7863,0
+400352,N06000240,CCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.9968,0
+400353,N06000209,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.8877,0
+400354,N06000200,SECL,COAL,3,Mega Capital High-Value Infrastructure,1.2409,0
+400369,N06000192,NCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.8276,0
+400392,N06000171,MCL,COAL,3,Mega Capital High-Value Infrastructure,1.2721,0
+400425,N06000098,BCCL,COAL,3,Mega Capital High-Value Infrastructure,2.6056,0
+40380,N24001919,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1354,0
+40430,N24001375,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1665,0
+42250,N24001925,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5346,0
+423500,N24001551,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6977,0
+43060,N24001441,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8121,0
+45700,N24001843,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5546,0
+468100,N24001552,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.8671,0
+503500,N24001550,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0879,0
+50500,N24001963,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7645,0
+50600,N24001926,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.69,0
+50860,N24002106,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8079,0
+51700,N24001394,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6353,0
+52000,N24001338,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5408,0
+55937,N24001123,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3858,0
+59000,N24001438,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2437,0
+602098,N28000130,CPWD EDUCATION,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.9708,0
+602099,N42000008,CPWD EDUCATION,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.8474,0
+602181,N18000325,NHPC,POWER,3,Mega Capital High-Value Infrastructure,1.7688,0
+602182,N18000362,NHPC,POWER,3,Mega Capital High-Value Infrastructure,2.5163,0
+602184,N18000178,National Thermal Power Corporation [NTPC],OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.1256,0
+602185,N18000014,4X130MW,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.1699,0
+602193,N18000010,THDCIL,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,2.1647,0
+602195,N18000042,THDCIL,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.7105,0
+602223,N18000249,PGCIL,POWER,3,Mega Capital High-Value Infrastructure,1.5595,0
+602525,N18000172,CVPPPL,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.7805,0
+602532,N18000278,CVPPPL,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.6087,0
+602535,N18000324,NHPC,POWER,3,Mega Capital High-Value Infrastructure,1.7549,0
+602579,N18000194,SJVN,POWER,3,Mega Capital High-Value Infrastructure,2.6995,0
+602582,N18000291,SJVN,POWER,0,High Administrative Cost-Revision Volatility,1.5636,0
+602593,N18000279,SJVN,POWER,3,Mega Capital High-Value Infrastructure,1.668,0
+602792,N22000572,SECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.4938,0
+602961,N18000364,NTPC,POWER,3,Mega Capital High-Value Infrastructure,2.0438,0
+603293,N18000367,NTPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.3282,0
+604791,N16000379,NRL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.3485,0
+604795,N16000434,CPCL,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,2.5962,0
+604833,N16000503,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.4018,0
+604852,N16000506,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.6587,0
+604853,N16000375,IOCL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.6925,0
+604859,N16000396,IOCL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.0274,0
+604863,N16000331,OIL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.657,0
+605155,N18000363,CVPPPL,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.9432,0
+605156,N18000326,NHPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.9047,0
+605292,N28000142,CPWD EDUCATION,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.9219,0
+606431,N28000140,CPWD EDUCATION,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.6654,0
+607701,N16000414,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.5871,0
+607709,N18000250,PGCIL,POWER,3,Mega Capital High-Value Infrastructure,1.5684,0
+60800,N24001633,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8695,0
+609019,N28000146,CPWD EDUCATION,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.5075,0
+609736,N44000002,Sikkim Universi,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.6712,0
+610315,N28000126,CPWD EDUCATION,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.1505,0
+610984,N16000445,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.4083,0
+611016,N06000195,BCCL,COAL,0,High Administrative Cost-Revision Volatility,1.0185,0
+611017,N06000194,BCCL,COAL,0,High Administrative Cost-Revision Volatility,1.188,0
+611047,N04000107,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.584,0
+611452,N22000434,WR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.4091,0
+611586,N18000344,SJVN,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.633,0
+611735,N18000378,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.7503,0
+611752,N22000585,SCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5441,0
+611849,N22000608,NWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7272,0
+611861,N22000606,NWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5719,0
+611884,N22000604,NWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8356,0
+611917,N16000458,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.887,0
+611943,N22000550,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5512,0
+611945,N22000538,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.681,0
+611947,N18000379,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.7025,0
+611948,N18000374,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.4033,0
+611949,N18000375,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.2348,0
+611951,N18000373,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.6719,0
+611966,N18000377,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.091,0
+611967,N18000380,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.964,0
+611970,N22000540,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9649,0
+611971,N22000541,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4705,0
+612072,N22000532,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2886,0
+612096,N22000206,NFR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,1.9563,0
+612781,N12000132,SAIL,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.6138,0
+612786,N04000106,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.8698,0
+612787,N04000108,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.7383,0
+612788,N04000105,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.7339,0
+612790,N16000509,MANGALORE REFIN,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.649,0
+612791,N04000109,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.7335,0
+612815,N22000573,SECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3639,0
+612819,N06000269,NLC India Limited [NLCIL],OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.2423,0
+612885,N42000001,RITES OF HIGHER,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.2825,0
+612894,N42000011,CPWD,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.4626,0
+613793,N06000191,ECL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.0035,0
+613798,N06000123,SECL,COAL,0,High Administrative Cost-Revision Volatility,1.9635,0
+613799,N06000135,SECL,COAL,0,High Administrative Cost-Revision Volatility,2.1896,0
+613800,N06000232,SECL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.479,0
+613801,N06000164,SECL,COAL,0,High Administrative Cost-Revision Volatility,1.6035,0
+613802,N06000125,SECL,COAL,0,High Administrative Cost-Revision Volatility,2.1195,0
+613803,N06000166,SECL,COAL,0,High Administrative Cost-Revision Volatility,1.1807,0
+613804,N06000250,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.7764,0
+613808,N06000096,BCCL,COAL,0,High Administrative Cost-Revision Volatility,2.2836,0
+615183,N06000208,NCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.809,0
+615184,N06000251,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.1419,0
+615185,N06000257,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.8737,0
+615186,N06000206,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.8932,0
+615187,N06000260,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.3677,0
+615188,N06000255,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.4971,0
+615189,N06000253,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.5069,0
+615190,N06000252,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.0343,0
+615192,N06000264,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.9966,0
+615193,N06000112,MCL,COAL,3,Mega Capital High-Value Infrastructure,2.7398,0
+615194,N06000265,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.6083,0
+615195,N06000266,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.2826,0
+615199,N06000267,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.0991,0
+615206,N06000183,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.4113,0
+615349,N06000241,CCL,COAL,0,High Administrative Cost-Revision Volatility,1.8256,0
+615818,N06000259,SCCL,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.9449,0
+615822,N06000239,CCL,COAL,0,High Administrative Cost-Revision Volatility,1.912,0
+615843,N06000186,CCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.3818,0
+615857,N06000203,SCCL,COAL,0,High Administrative Cost-Revision Volatility,1.4183,0
+615858,N06000213,SCCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.8927,0
+615860,N06000202,SCCL,COAL,0,High Administrative Cost-Revision Volatility,1.394,0
+615861,N06000211,SCCL,COAL,0,High Administrative Cost-Revision Volatility,1.3925,0
+615862,N06000258,SCCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.9152,0
+615863,N06000204,SCCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.5182,0
+615865,N06000214,SCCL,COAL,0,High Administrative Cost-Revision Volatility,1.391,0
+615914,N06000205,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.4685,0
+615918,N06000256,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.6684,0
+615982,N06000154,3.5 MTY,COAL,0,High Administrative Cost-Revision Volatility,1.3514,0
+616044,N06000179,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.5799,0
+616050,N06000226,WCL,COAL,0,High Administrative Cost-Revision Volatility,1.5875,0
+616223,N06000219,WCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.8615,0
+616234,N06000045,SECL,COAL,0,High Administrative Cost-Revision Volatility,3.2159,0
+616600,N30000027,BUIDCO,COAL,0,High Administrative Cost-Revision Volatility,1.1257,0
+616604,N30000042,KMDA,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.7324,0
+616611,N30000051,BUIDCO,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.6856,0
+616612,N30000050,BUIDCO,COAL,0,High Administrative Cost-Revision Volatility,0.9575,0
+616615,N30000026,BUIDCO,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.5637,0
+616616,N30000035,BUIDCO,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.2687,0
+616858,N16000450,OIL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.2255,0
+617253,N12000129,SAIL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.607,0
+617254,N12000134,SAIL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.6969,0
+617255,N12000131,SAIL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.5197,0
+617256,N12000133,SAIL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.4575,0
+617280,N10000015,Central Public Works Department (CPWD),OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.6833,0
+617302,N16000275,GAIL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.7358,0
+617886,N24001465,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8424,0
+617887,N24001411,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4227,0
+617891,N24001866,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1811,0
+617892,N24001297,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.1106,0
+617897,N24001879,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7757,0
+617900,N24001530,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.297,0
+617901,N24001528,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0554,0
+617904,N24001862,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8666,0
+617905,N24001865,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8936,0
+617906,N24002118,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9428,0
+617911,N24000513,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.5911,1
+617913,N24000987,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5478,0
+617915,N24002019,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6976,0
+617917,N24001883,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.49,0
+617919,N24001227,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8406,0
+617921,N24001858,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7198,0
+617924,N24001860,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6611,0
+617925,N24001861,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2534,0
+617929,N24000781,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0653,0
+617930,N24001859,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5803,0
+617934,N24001112,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1663,0
+617935,N24001938,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7753,0
+617936,N24000981,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.041,0
+617940,N24002004,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4462,0
+617944,N24001132,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1394,0
+617946,N24000584,MoRTH,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.0662,0
+617947,N24000585,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.4583,0
+617948,N24001134,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3139,0
+617954,N24001937,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8339,0
+617955,N24002012,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5987,0
+617957,N24002120,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8593,0
+617958,N24001876,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4539,0
+617959,N24001875,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4918,0
+617960,N24000874,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1091,0
+617961,N24000579,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.302,0
+617965,N24001904,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1827,0
+617966,N24000382,MoRTH,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.5791,0
+617968,N24000779,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.9764,0
+617970,N24000775,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5618,0
+617973,N24001228,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2239,0
+617975,N24000820,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0817,0
+617980,N24000994,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0476,0
+617982,N24000988,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6129,0
+617984,N24000989,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0683,0
+617989,N24001450,PAIMANA,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.8173,0
+617990,N24002025,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9525,0
+618002,N24001418,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3208,0
+618009,N24000331,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.0401,0
+618011,N24001527,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4687,0
+618020,N24001965,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5997,0
+618023,N24001961,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4057,0
+618024,N24001960,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8906,0
+618025,N24000997,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.7031,0
+618026,N24000996,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.021,0
+618029,N24001941,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7415,0
+618030,N24001940,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.255,0
+618031,N24002011,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5107,0
+618037,N24001934,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5732,0
+618045,N24001962,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1992,0
+618050,N24001422,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5215,0
+618055,N24002016,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0111,0
+618056,N24002121,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.464,0
+618057,N24001997,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1593,0
+618060,N24001923,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7618,0
+618063,N24001587,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8272,0
+618068,N24002020,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2956,0
+618070,N24001369,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2549,0
+618071,N24001442,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4944,0
+618072,N24001466,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6692,0
+618074,N24001870,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4753,0
+618075,N24002031,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.588,0
+618081,N24002115,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5748,0
+618082,N24001479,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4308,0
+618084,N24001922,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3251,0
+618087,N24001944,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0217,0
+618090,N24001002,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5395,0
+618093,N24001927,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5558,0
+618094,N24001106,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.0626,0
+618097,N24001057,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.9538,0
+618098,N24001908,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2687,0
+618104,N24002007,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5875,0
+618105,N24002010,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5717,0
+618106,N24002009,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4845,0
+618108,N24002014,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0962,0
+618109,N24001948,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7331,0
+618110,N24001469,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9536,0
+618111,N24002015,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5629,0
+618121,N24001878,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5493,0
+618124,N24002116,NUHKHAS TO ETAH SECTION,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.6657,0
+618133,N24000983,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0956,0
+618153,N24000979,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.1836,0
+618172,N24001122,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2565,0
+618175,N24001884,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6145,0
+618177,N24001060,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2129,0
+618186,N24002003,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.462,0
+618190,N24002005,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4617,0
+618191,N24001951,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5708,0
+618192,N24001942,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5343,0
+618194,N24000937,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1846,0
+618196,N24002008,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4583,0
+618197,N24002001,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5932,0
+618200,N24001928,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7249,0
+618204,N24001999,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5328,0
+618216,N24001915,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0798,0
+618217,N24001916,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8529,0
+618222,N24002119,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4442,0
+618226,N24001898,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8701,0
+618227,N24001850,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8607,0
+618228,N24001201,MoRTH,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.1428,0
+618229,N24001462,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9985,0
+618230,N24001470,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6971,0
+618231,N24001447,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5311,0
+618233,N24001421,MoRTH,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,1.8575,0
+618234,N24000943,MoRTH,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.1326,0
+618237,N24000969,105/700 TO 127.500 OF NH-214,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.5026,0
+618238,N24000964,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6512,0
+618240,N24001461,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.465,0
+618246,N24001877,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1422,0
+618258,N24001956,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7762,0
+618259,N24001386,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3945,0
+618265,N24001457,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1786,0
+618266,N24001471,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6611,0
+618282,N24002023,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8449,0
+618283,N24002022,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6681,0
+618285,N24001368,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7988,0
+618286,N24001434,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7404,0
+618289,N24001246,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6057,0
+618290,N24001258,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6345,0
+618291,N24001257,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3246,0
+618292,N24001255,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1447,0
+618293,N24001288,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0635,0
+618296,N24001287,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2322,0
+618297,N24001282,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9346,0
+618302,N24001332,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0543,0
+618303,N24001331,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1282,0
+618325,N24001537,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0234,0
+618329,N24001281,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.362,0
+618330,N24001263,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8303,0
+618337,N24001416,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3092,0
+618342,N24001278,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2425,0
+618345,N24001730,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5833,0
+618346,N24001270,PKG- 2A,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.2194,0
+618347,N24001269,PKG- IB,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.2349,0
+618351,N24001971,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6411,0
+618352,N24001970,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6221,0
+618353,N24001969,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6499,0
+618355,N24001403,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6329,0
+618356,N24001354,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6031,0
+618357,N24001436,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5107,0
+618358,N24001437,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4216,0
+618362,N24001358,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3214,0
+618363,N24001359,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.618,0
+618371,N24001831,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7158,0
+618372,N24001544,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4931,0
+618373,N24001326,NHIDCL,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,1.2419,0
+618375,N24001334,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8319,0
+618376,N24001314,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7984,0
+618379,N24000861,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6243,0
+618380,N24000857,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.0804,0
+618381,N24000863,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6286,0
+618382,N24000864,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.4609,0
+618383,N24000865,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.1479,0
+618384,N24000862,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1405,0
+618388,N24001974,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7256,0
+618389,N24001473,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.952,0
+618390,N24000855,TUNNEL WORK,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.9266,0
+618394,N24001264,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6109,0
+618398,N24001266,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2613,0
+618399,N24001395,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6449,0
+618406,N24000868,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.6552,0
+618407,N24001543,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0975,0
+618408,N24001348,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6799,0
+618409,N24001345,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6306,0
+618410,N24001344,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.416,0
+618411,N24001914,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2115,0
+618412,N24001256,NHIDCL,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,2.1894,0
+618413,N24001912,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2172,0
+618414,N24001406,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1813,0
+618415,N24001350,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3768,0
+618416,N24001349,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2506,0
+618418,N24001474,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2874,0
+618423,N24000763,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0758,0
+618427,N24001261,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1943,0
+618429,N24001262,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5168,0
+618430,N24001251,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1701,0
+618431,N24001252,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.75,0
+618432,N24001390,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2593,0
+618433,N24001393,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2336,0
+618434,N24000946,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.1266,0
+618435,N24000438,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.9982,0
+618436,N24000431,NHIDCL,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,5.0772,0
+618437,N24000583,NHIDCL,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.8202,0
+618438,N24000582,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.4078,0
+618443,N24000319,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.8795,0
+618446,N24001337,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.7577,0
+618449,N24001336,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1877,0
+618450,N24001327,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.447,0
+618454,N24002030,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5422,0
+618456,N24001568,CH. 388.420 TO CH. 419.000,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.6446,0
+618457,N24001567,CH. 292.950 TO CH. 319.400,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.7684,0
+618458,N24001612,CH. 419.000 TO CH.427.300,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.0665,0
+618463,N24000834,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.7803,0
+618465,N24001789,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0286,0
+618468,N24001504,GANJAD - TALSARI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.8298,0
+618469,N24001506,SHIRSAD - MASVAN,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.5038,0
+618470,N24001507,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8085,0
+618471,N24001521,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6575,0
+618472,N24001508,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9535,0
+618473,N24001608,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2643,0
+618475,N24001985,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2229,0
+618476,N24001821,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.671,0
+618477,N24001720,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5684,0
+618478,N24001718,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4085,0
+618479,N24001717,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6777,0
+618481,N24001719,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.9228,0
+618495,N24002061,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4243,0
+618497,N24002060,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7641,0
+618498,N24001731,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.363,0
+618500,N24001772,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3657,0
+618501,N24001443,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2894,0
+618502,N24001444,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4465,0
+618503,N24001445,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.206,0
+618504,N24001446,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2709,0
+618505,N24002058,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6815,0
+618509,N24001777,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2449,0
+618512,N24001486,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2912,0
+618513,N24001546,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6707,0
+618514,N24001493,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1054,0
+618515,N24001679,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9226,0
+618516,N24001598,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8373,0
+618517,N24001994,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0015,0
+618519,N24001968,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8453,0
+618521,N24001723,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2338,0
+618523,N24000738,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.8712,0
+618527,N24001301,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,1.7541,0
+618529,N24001826,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4942,0
+618530,N24000182,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,2.4907,0
+618531,N24001703,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3555,0
+618532,N24001700,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3709,0
+618533,N24000515,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,4.9831,1
+618537,N24002104,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1158,0
+618541,N24001511,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5224,0
+618543,N24001627,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.8513,0
+618544,N24001622,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.854,0
+618545,N24001621,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2394,0
+618546,N24001620,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4792,0
+618547,N24002059,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7964,0
+618548,N24000717,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.1714,0
+618550,N24001619,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0993,0
+618552,N24001637,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0543,0
+618553,N24001852,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5101,0
+618554,N24001853,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3618,0
+618555,N24000442,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5675,0
+618557,N24002071,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6667,0
+618558,N24001555,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2834,0
+618559,N24001556,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3221,0
+618560,N24002082,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4933,0
+618563,N24001606,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5407,0
+618566,N24002096,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2243,0
+618569,N24002063,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1041,0
+618570,N24001702,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1085,0
+618571,N24002064,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6031,0
+618575,N24001548,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4327,0
+618576,N24001545,National Highways Authority of India [NHAI],OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.777,0
+618578,N24001773,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9839,0
+618580,N24001535,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5801,0
+618581,N24001693,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2446,0
+618588,N24001798,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2862,0
+618589,N24002045,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1543,0
+618590,N24002046,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2177,0
+618594,N24001609,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4266,0
+618595,N24001664,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0499,0
+618596,N24001660,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5965,0
+618597,N24001661,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6077,0
+618598,N24001652,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0217,0
+618599,N24001658,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,1.9366,0
+618601,N24001655,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,1.9657,0
+618602,N24001656,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4109,0
+618603,N24001653,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.7022,0
+618604,N24001648,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3475,0
+618605,N24001651,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5077,0
+618606,N24001649,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6242,0
+618607,N24001657,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4924,0
+618608,N24002113,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8043,0
+618610,N24002075,PUNJAB HARYANA BORDER,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.5947,0
+618612,N24001563,PHASE-I) (AJ/DRGB-PACKAGE-6,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.4229,0
+618613,N24001564,PHASE-I) (AJ/DRGB-PACKAGE-7,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.718,0
+618614,N24001790,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7418,0
+618615,N24001794,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7565,0
+618617,N24001640,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7301,0
+618618,N24002076,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2772,0
+618621,N24002070,TEJAJINAGAR TO BALWARA,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.7849,0
+618622,N24001767,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5494,0
+618630,N24001676,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4693,0
+618632,N24001626,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.537,0
+618634,N24001819,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6401,0
+618635,N24001818,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.404,0
+618637,N24001804,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0088,0
+618639,N24001611,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1073,0
+618642,N24001595,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5769,0
+618644,N24001854,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8006,0
+618645,N24002056,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.758,0
+618647,N24002091,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6377,0
+618654,N24001967,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.998,0
+618663,N24002077,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6684,0
+618664,N24001614,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.73,0
+618665,N24001615,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7619,0
+618673,N24001593,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.07,0
+618674,N24001588,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.892,0
+618675,N24002017,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8714,0
+618676,N24001669,PACKAGE ? OD-1,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.2351,0
+618681,N24001838,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4855,0
+618687,N24002068,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5393,0
+618689,N24001746,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5003,0
+618693,N24000656,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.4334,0
+618694,N24001766,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5806,0
+618695,N24001762,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.727,0
+618700,N24001824,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1088,0
+618701,N24002067,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2145,0
+618702,N24001425,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2047,0
+618708,N24002074,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8357,0
+618709,N24001989,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6325,0
+618710,N24001830,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1698,0
+618711,N24001629,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7883,0
+618722,N24002036,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1616,0
+618723,N24002040,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0163,0
+618735,N24001759,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5323,0
+618738,N24002062,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6163,0
+618739,N24002065,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9244,0
+618740,N24002066,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9801,0
+618741,N24001697,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8909,0
+618744,N24002084,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7309,0
+618745,N24002114,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7368,0
+618751,N24001921,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4729,0
+618756,N24001605,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6379,0
+618759,N24001849,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6028,0
+618760,N24001638,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.304,0
+618761,N24001754,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.3444,0
+618764,N24001639,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.7405,0
+618765,N24002083,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2915,0
+618770,N24001729,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7339,0
+618771,N24001820,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9032,0
+618772,N24001988,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5441,0
+618774,N24001712,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,3.2425,1
+618777,N24001986,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8506,0
+618778,N24001823,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.103,0
+618779,N24001795,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5107,0
+618785,N24001630,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9077,0
+618787,N24001785,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0632,0
+618788,N24002043,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6169,0
+618789,N24001631,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9222,0
+618792,N24002042,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8833,0
+618794,N24001644,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2943,0
+618795,N24001642,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8909,0
+618796,N24000795,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6416,0
+618798,N24002095,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.446,0
+618799,N24001599,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8251,0
+618800,N24002109,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8689,0
+618803,N24001856,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.1715,0
+618804,N24000811,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.3961,0
+618807,N24001979,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4501,0
+618809,N24002101,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5456,0
+618810,N24002100,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6723,0
+618819,N24001647,National Highways Authority of India [NHAI],OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.6802,0
+618820,N24002079,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6091,0
+618821,N24002080,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6188,0
+618825,N24001750,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2282,0
+618826,N24001980,DESIGN CHAINAGE KM 0.000,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.6246,0
+618827,N24001983,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6637,0
+618828,N24002053,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.823,0
+618829,N24001590,National Highways Authority of India [NHAI],OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.6573,0
+618830,N24002054,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9243,0
+618833,N24000592,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.7786,0
+618834,N24001827,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3573,0
+618835,N24001792,National Highways Authority of India [NHAI],OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.4342,0
+618836,N24001834,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5375,0
+618837,N24001835,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.927,0
+618838,N24001558,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.35,0
+618839,N24000696,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.978,0
+618840,N24000480,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,2.444,0
+618841,N24001699,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6468,0
+618845,N24001429,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.776,0
+618847,N24001431,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1278,0
+618849,N24001809,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4997,0
+618850,N24000613,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.7751,0
+618852,N24001810,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1024,0
+618854,N24001306,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3112,0
+618855,N24001727,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3537,0
+618856,N24002094,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8127,0
+618859,N24001732,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.274,0
+618861,N24001709,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5015,0
+618864,N24001851,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5664,0
+618878,N24002050,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.472,0
+618883,N24002086,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1049,0
+618884,N24002087,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9849,0
+618885,N24002089,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.482,0
+618887,N24001687,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8748,0
+618888,N24002052,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7694,0
+618889,N24001808,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7974,0
+618890,N24002051,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4936,0
+618894,N24001602,NEW NH-83,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.4513,0
+618895,N24001601,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6086,0
+618896,N24001680,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.851,0
+618897,N24000708,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,3.5059,0
+618902,N24000723,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.702,0
+618903,N24000665,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3968,0
+618904,N24000187,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,3.0589,0
+618906,N24001643,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4201,0
+618908,N24002081,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3452,0
+618909,N24000788,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4898,0
+618910,N24001749,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4218,0
+618911,N24002090,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4552,0
+618913,N24000739,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.0082,0
+618915,N24001304,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5572,0
+618916,N24001305,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5603,0
+618919,N24001984,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6237,0
+618921,N24002049,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1041,0
+618925,N24001738,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7392,0
+618935,N24002044,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5713,0
+618936,N24001635,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.766,0
+618937,N24001799,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7064,0
+618938,N24001796,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5957,0
+618942,N24001677,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0312,0
+618945,N24001522,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7893,0
+618946,N24002057,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9841,0
+618947,N24001596,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8953,0
+618949,N24002055,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9667,0
+618951,N24001589,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3251,0
+618952,N24000714,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.1364,0
+618953,N24001371,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6947,0
+618955,N24000813,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,4.2333,0
+618960,N24002105,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9249,0
+618968,N24001735,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.395,1
+618969,N24001628,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2381,0
+618970,N24001734,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8397,0
+619003,N24000852,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.528,1
+619010,N24002027,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4682,0
+619013,N24000320,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.7669,0
+619038,N24001396,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6414,0
+619042,N24001907,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2517,0
+619059,N24000765,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1533,0
+619063,N24001557,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0027,0
+619064,N24001786,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7555,0
+619068,N24002048,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4007,0
+619071,N24001681,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1877,0
+619072,N24001674,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8173,0
+619078,N24000726,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.0961,0
+619087,N24002035,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3092,0
+619089,N24001547,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1314,0
+619090,N24001781,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2022,0
+619094,N24001694,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8209,0
+619095,N24001607,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9941,0
+619096,N24000462,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.094,0
+619098,N24000784,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.9815,0
+619109,N24001668,PACKAGE ? OD-3,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.7458,0
+619111,N24001837,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7179,0
+619112,N24001836,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3936,0
+619118,N24000619,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,1.7736,0
+619119,N24000715,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.6207,0
+619122,N24001771,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9352,0
+619129,N24001721,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7243,0
+619130,N24002111,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.025,0
+619131,N24000826,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.4382,0
+619132,N24001774,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9288,0
+619134,N24002098,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0602,0
+619138,N24001682,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7295,0
+619140,N24001981,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9263,0
+619141,N24002033,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6031,0
+619146,N24000569,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.9296,0
+619147,N24001793,PKG- III,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.5591,0
+619149,N24001495,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6024,0
+619152,N24000507,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.6391,0
+619153,N24001812,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3394,0
+619155,N24001526,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8315,0
+619157,N24000734,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.6424,0
+619158,N24000733,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.7544,0
+619162,N24001753,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3511,0
+619163,N24001502,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4237,0
+619168,N24001733,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9982,0
+626030,N24001419,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8412,0
+63117,N24001484,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6258,0
+64535,N24001901,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3256,0
+67880,N24001917,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8416,0
+68617,N24001323,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3503,0
+69000,N24001082,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4909,0
+696890,N24001515,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9311,0
+69875,N24001978,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4704,0
+701101,N04000082,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.5264,0
+701105,N04000095,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.262,0
+701107,N04000091,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.7675,0
+701121,N04000103,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.6833,0
+701126,N04000099,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.7808,0
+701127,N04000101,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.3683,0
+701128,N04000104,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.6107,0
+701167,N28000150,CPWD FOR HEALTH,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.4582,0
+701171,N21000031,HITES,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.0752,0
+701173,N21000032,HITES,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.8752,0
+701228,N16000285,GAIL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.5384,0
+701263,N16000513,HPCLRRL(JV),CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,3.15,0
+701289,N16000412,IOCL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.7398,0
+701324,N16000386,IOCL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.0656,0
+701329,N16000409,IOCL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.2674,0
+701343,N16000388,GAIL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.8908,0
+701344,N16000391,GAIL,PETROLEUM & NATURAL GAS,0,High Administrative Cost-Revision Volatility,1.8226,0
+701346,N16000439,IGGL,COAL,3,Mega Capital High-Value Infrastructure,2.11,0
+701349,N16000394,NRL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.6027,0
+701350,N16000449,OIL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.422,0
+701354,N16000398,GAIL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,2.5235,0
+701415,N30000002,PPA,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.6474,0
+701565,N25000072,IWAI,COAL,3,Mega Capital High-Value Infrastructure,2.1166,0
+702625,N28000124,MPMRCL,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,1.5749,0
+702626,N28000125,MPMRCL,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,1.5114,0
+702627,N28000148,PATNA METRO RAI,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,1.7902,0
+702628,N28000144,LMRCL,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.8163,0
+702629,N28000145,LMRCL,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.3738,0
+702630,N28000138,AMR,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,1.7789,0
+702631,N28000137,AMR,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,1.402,0
+702632,N28000135,DMRC,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.0832,0
+702633,N28000134,NCRTC,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.2009,0
+702635,N28000058,BMRCL,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,2.7816,0
+702637,N28000086,MMRCL,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,2.8388,0
+702639,N28000122,AMR,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,3.148,0
+702658,N28000155,NMRCL,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.8089,0
+702665,N28000151,BMRCL,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,1.8911,0
+703585,N22000543,NCRTC,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.6172,0
+703586,N22000542,NCRTC,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.0046,0
+705237,N22000464,DFCC,COAL,3,Mega Capital High-Value Infrastructure,3.472,0
+705357,N22000615,CR,RAILWAYS,3,Mega Capital High-Value Infrastructure,5.5592,1
+705362,N22000181,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,1.6079,0
+705368,N22000177,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.0472,0
+705373,N22000476,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,5.8615,0
+705385,N22000219,ER,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.9767,0
+705392,N22000124,Northeast Frontier Railway [NFR],OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,5.5746,1
+705401,N22000208,NFR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,1.3548,0
+705419,N22000148,NCR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.6802,0
+705424,N22000467,NR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.8879,0
+705428,N22000273,RVNL - II,OTHER CENTRAL SECTOR,2,Severe Legacy Stagnation & Chronic Slippage,5.9653,0
+705429,N22000406,RVNL - II,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.5426,0
+705432,N22000102,Indian Railway Construction International Limited [IRCON],OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,4.5732,1
+705433,N22000602,RVNL - II,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.7767,0
+705437,N22000032,South Central Railway [SCR] - II,OTHER CENTRAL SECTOR,2,Severe Legacy Stagnation & Chronic Slippage,1.7819,0
+705450,N22000207,NFR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.0048,0
+705453,N22000139,WR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.6488,0
+705454,N22000138,WR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.6067,0
+705457,N22000120,WR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.6155,0
+705458,N22000142,WR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,4.0248,0
+705479,N22000480,SECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,0.8572,0
+705482,N22000158,NCR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.73,0
+705490,N22000299,SWR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.8597,0
+705491,N22000308,SWR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.9399,0
+705492,N22000486,SWR,RAILWAYS,3,Mega Capital High-Value Infrastructure,5.666,1
+705494,N22000279,SWR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,5.2661,0
+705495,N22000258,SWR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.815,0
+705496,N22000256,SWR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,6.1753,0
+705498,N22000233,CR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.5826,0
+705500,N22000250,CR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.7435,0
+705502,N22000356,CR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.6976,0
+705503,N22000359,CR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.4591,0
+705504,N22000360,CR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.5011,0
+705505,N22000362,76 KM,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,2.1033,0
+705506,N22000361,160 KM,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,2.3606,0
+705507,N22000358,CR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.4175,0
+705510,N22000316,ECOR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,1.2693,0
+705511,N22000376,ECOR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.6389,0
+705512,N22000377,ECOR,RAILWAYS,3,Mega Capital High-Value Infrastructure,3.0047,0
+705513,N22000379,ECOR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.7441,0
+705514,N22000380,ECOR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.244,0
+705515,N22000381,ECOR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.8564,0
+705526,N22000329,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.5507,0
+705527,N22000472,ECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.4609,0
+705528,N22000473,ECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.2723,0
+705562,N22000134,NER,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,1.9718,0
+705567,N22000468,NER,RAILWAYS,3,Mega Capital High-Value Infrastructure,3.1019,0
+705572,N22000388,Northeast Frontier Railway [NFR],OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.4172,0
+705583,N22000281,CAO/C/NR,OTHER CENTRAL SECTOR,2,Severe Legacy Stagnation & Chronic Slippage,1.6148,0
+705588,N22000583,NR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2336,0
+705598,N22000496,NCR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.2973,0
+705608,N22000495,NCR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.0816,0
+705610,N22000587,SCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.841,0
+705612,N22000261,SCR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.8549,0
+705613,N22000367,SCR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.4243,0
+705616,N22000484,SECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.1689,0
+705617,N22000420,SECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.2722,0
+705628,N22000396,SER,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.3178,0
+705629,N22000506,SER,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5044,0
+705632,N22000586,SCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6035,0
+705633,N22000368,SCR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.3361,0
+705635,N22000399,SR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,1.6914,0
+705638,N22000620,SR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.9538,0
+705639,N22000619,SR,RAILWAYS,3,Mega Capital High-Value Infrastructure,3.4301,0
+705648,N22000369,RVNL,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.5385,0
+705650,N22000297,RVNL,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,1.9875,0
+705659,N22000554,WCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.7743,0
+705660,N22000351,WCR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.6328,0
+705661,N22000416,WCR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.7827,0
+705662,N22000333,SWR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.9534,0
+705663,N22000621,SWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0106,0
+705667,N22000501,273.80 KM,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.2493,0
+705668,N22000595,RVNL,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.8092,0
+705728,N22000463,NHSRCL,COAL,3,Mega Capital High-Value Infrastructure,3.3632,0
+705730,N22000111,RVNL,RAILWAYS,3,Mega Capital High-Value Infrastructure,3.0589,0
+705735,N22000513,CR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6699,0
+705741,N22000517,ECOR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.2733,0
+705742,N22000516,ECOR,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.6333,0
+705752,N22000593,NWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6791,0
+705761,N22000559,SWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6496,0
+705763,N22000601,RVNL,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.9644,0
+705764,N22000503,WR,RAILWAYS,0,High Administrative Cost-Revision Volatility,1.4756,0
+705765,N22000611,ECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5185,0
+705766,N22000546,NCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2136,0
+705771,N22000563,NCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1444,0
+705772,N22000544,NCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.7396,0
+705774,N22000562,NCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8876,0
+705777,N22000564,NCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3629,0
+705780,N22000598,RVNL,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.662,0
+705782,N22000590,NR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9171,0
+705783,N22000584,PAIMANA,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,2.1437,0
+705785,N22000508,SER,RAILWAYS,0,High Administrative Cost-Revision Volatility,1.8401,0
+705799,N22000629,MRIDC,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.9794,0
+705918,N22000545,NCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1234,0
+705919,N22000553,NCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9291,0
+705933,N22000536,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1264,0
+706718,N04000100,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.7431,0
+706724,N04000083,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.2946,0
+706757,N22000622,WR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,4.2682,0
+706759,N22000350,ECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.3759,0
+706763,N22000535,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9925,0
+706776,N22000108,MTP,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,2.952,0
+706777,N22000109,RVNL,RAILWAYS,3,Mega Capital High-Value Infrastructure,3.5143,0
+706779,N22000092,MRTP,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,2.2146,0
+706780,N22000627,MRVC,RAILWAYS,3,Mega Capital High-Value Infrastructure,2.9001,0
+706811,N12000124,NMDC,COAL,3,Mega Capital High-Value Infrastructure,1.3551,0
+706835,N22000557,SWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3666,0
+706837,N22000529,ECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0925,0
+706854,N22000580,SECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5765,0
+706860,N22000524,ECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4909,0
+706866,N22000607,NWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6496,0
+709747,N18000297,SJVN,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.0647,0
+709749,N26000114,BSNL,COAL,0,High Administrative Cost-Revision Volatility,1.1537,0
+709752,N16000432,HPCL,PETROLEUM & NATURAL GAS,0,High Administrative Cost-Revision Volatility,1.6175,0
+709753,N16000478,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.5646,0
+709754,N16000484,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.4356,0
+709755,N16000494,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.5076,0
+709757,N16000497,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.4784,0
+709758,N16000498,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.8749,0
+709759,N16000512,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.5046,0
+709766,N16000485,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.5915,0
+709770,N16000488,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.7302,0
+709771,N16000487,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.2388,0
+709772,N16000491,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.1845,0
+709774,N16000437,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.4717,0
+709776,N16000441,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.8458,0
+709777,N16000453,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.0642,0
+709778,N16000454,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.6126,0
+709779,N16000457,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.3364,0
+709780,N16000504,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.7071,0
+709781,N16000505,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.8812,0
+709782,N16000456,NMIA,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.2062,0
+709785,N16000480,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.5537,0
+709811,N22000520,ECOR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1447,0
+709812,N22000539,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4721,0
+709813,N22000551,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8551,0
+709815,N22000574,PB#72/NR/2022-23,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.3259,0
+709816,N22000575,8.8 KM) (PB#72/NR/2022-23,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.187,0
+709817,N22000576,9.2 KM) (PB#72/NR/2022-23,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.187,0
+709818,N22000577,PB#72/NR/2022-23,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.6011,0
+709819,N22000579,SECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6718,0
+709826,N12000127,NMDC,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.3824,0
+709827,N12000130,NMDC,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.81,0
+709830,N10000012,NALCO,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.9385,0
+709831,N10000013,NALCO,COAL,0,High Administrative Cost-Revision Volatility,2.8257,0
+709832,N10000014,PAIMANA,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,2.3585,0
+709838,N16000444,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.2699,0
+709839,N16000470,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.9592,0
+709840,N16000477,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.8416,0
+709841,N16000483,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.166,0
+709842,N16000481,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.1584,0
+709845,N16000514,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.5601,0
+709846,N16000515,ONGC,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.9477,0
+709856,N26000116,BSNL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.5966,0
+709857,N26000117,BSNL,COAL,3,Mega Capital High-Value Infrastructure,2.8861,0
+709859,N28000115,CPWD FOR TELECO,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,2.8298,0
+709864,N16000511,NRL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.6158,0
+709865,N16000510,NRL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.8262,0
+72000,N24001844,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9069,0
+756052,N24001519,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4106,0
+803420,N24001518,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0091,0
+81740,N24001313,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9243,0
+82000,N24001362,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3825,0
+824920,N24001520,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0056,0
+83905,N24001341,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3591,0
+87900,N24001964,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6257,0
+900808,N18000352,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,2.2037,0
+91400,N24001634,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7917,0
+96300,N24001845,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7677,0
+99930,N24002021,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9632,0
+N04000073,N04000073,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,2.0147,0
+N04000074,N04000074,AAI,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,1.3242,0
+N04000076,N04000076,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.198,0
+N04000077,N04000077,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.3738,0
+N04000079,N04000079,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.5281,0
+N04000080,N04000080,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.1533,0
+N04000081,N04000081,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.1858,0
+N04000085,N04000085,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.948,0
+N04000087,N04000087,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.9171,0
+N04000088,N04000088,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.1528,0
+N04000090,N04000090,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.1728,0
+N04000092,N04000092,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.4612,0
+N04000093,N04000093,AAI,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.3923,0
+N04000094,N04000094,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.0137,0
+N04000096,N04000096,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.8779,0
+N04000098,N04000098,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.5214,0
+N04000102,N04000102,AAI,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.2536,0
+N06000104,N06000104,SECL,COAL,3,Mega Capital High-Value Infrastructure,2.6913,0
+N06000161,N06000161,SCCL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,2.0181,0
+N06000189,N06000189,NLC,COAL,3,Mega Capital High-Value Infrastructure,1.9755,0
+N06000198,N06000198,SECL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.0305,0
+N06000210,N06000210,SCCL,COAL,0,High Administrative Cost-Revision Volatility,1.768,0
+N10000011,N10000011,NALCO,COAL,0,High Administrative Cost-Revision Volatility,1.4249,0
+N10000017,N10000017,NALCO,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.9914,0
+N12000122,N12000122,SAIL,COAL,0,High Administrative Cost-Revision Volatility,1.1789,0
+N12000125,N12000125,SAIL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.6303,0
+N16000361,N16000361,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.3255,0
+N16000369,N16000369,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.1781,0
+N16000382,N16000382,IOCL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.312,0
+N16000392,N16000392,HPCL,PETROLEUM & NATURAL GAS,3,Mega Capital High-Value Infrastructure,1.708,0
+N16000411,N16000411,IOCL,PETROLEUM & NATURAL GAS,0,High Administrative Cost-Revision Volatility,1.5688,0
+N16000423,N16000423,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,2.1954,0
+N16000426,N16000426,IOCL,PETROLEUM & NATURAL GAS,0,High Administrative Cost-Revision Volatility,2.4672,0
+N16000429,N16000429,GAIL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.7243,0
+N16000440,N16000440,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.1563,0
+N16000442,N16000442,BPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.682,0
+N16000446,N16000446,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.8796,0
+N16000452,N16000452,BPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.5468,0
+N16000486,N16000486,IOCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.1927,0
+N16000496,N16000496,HPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.6108,0
+N16000499,N16000499,BPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,1.3111,0
+N16000500,N16000500,BPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.4789,0
+N16000507,N16000507,BPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.6217,0
+N16000508,N16000508,BPCL,PETROLEUM & NATURAL GAS,1,Standard Rapid-Execution / Linear Infrastructure,0.4564,0
+N18000142,N18000142,NTPC,POWER,3,Mega Capital High-Value Infrastructure,2.4069,0
+N18000177,N18000177,3X660 MW,COAL,3,Mega Capital High-Value Infrastructure,2.3132,0
+N18000272,N18000272,THDCIL,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,1.6076,0
+N18000286,N18000286,NTPC,POWER,0,High Administrative Cost-Revision Volatility,1.874,0
+N18000293,N18000293,NTPC,POWER,0,High Administrative Cost-Revision Volatility,1.7838,0
+N18000295,N18000295,NTPC,POWER,0,High Administrative Cost-Revision Volatility,1.6025,0
+N18000296,N18000296,NTPC,POWER,0,High Administrative Cost-Revision Volatility,1.8677,0
+N18000319,N18000319,NTPC,POWER,0,High Administrative Cost-Revision Volatility,1.6495,0
+N18000320,N18000320,NTPC,POWER,0,High Administrative Cost-Revision Volatility,1.8465,0
+N18000321,N18000321,NTPC,POWER,0,High Administrative Cost-Revision Volatility,1.8707,0
+N18000322,N18000322,NTPC,POWER,0,High Administrative Cost-Revision Volatility,2.1594,0
+N18000328,N18000328,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.7079,0
+N18000330,N18000330,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.7976,0
+N18000331,N18000331,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.7712,0
+N18000332,N18000332,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.1121,0
+N18000335,N18000335,SJVN,POWER,3,Mega Capital High-Value Infrastructure,2.1865,0
+N18000343,N18000343,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.9296,0
+N18000345,N18000345,NTPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.8101,0
+N18000346,N18000346,NTPC,POWER,3,Mega Capital High-Value Infrastructure,2.2494,0
+N18000347,N18000347,NTPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.471,0
+N18000348,N18000348,NTPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.2154,0
+N18000349,N18000349,NTPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.217,0
+N18000350,N18000350,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.8082,0
+N18000351,N18000351,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.4179,0
+N18000353,N18000353,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.0437,0
+N18000356,N18000356,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.9909,0
+N18000357,N18000357,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.4127,0
+N18000358,N18000358,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.5211,0
+N18000359,N18000359,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.6669,0
+N18000360,N18000360,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,0.7692,0
+N18000361,N18000361,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.6674,0
+N18000365,N18000365,NTPC,POWER,3,Mega Capital High-Value Infrastructure,2.31,0
+N18000366,N18000366,NTPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.3976,0
+N18000368,N18000368,NHPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.302,0
+N18000370,N18000370,NTPC,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.0304,0
+N18000376,N18000376,PGCIL,POWER,1,Standard Rapid-Execution / Linear Infrastructure,1.3886,0
+N21000027,N21000027,HITES,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.5315,0
+N21000029,N21000029,CPWD FOR HEALTH,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.4089,0
+N22000087,N22000087,NFR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.7763,0
+N22000171,N22000171,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,4.0617,0
+N22000183,N22000183,NFR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.0763,0
+N22000274,N22000274,NR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.5854,0
+N22000349,N22000349,ECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.3537,0
+N22000401,N22000401,RVNL,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.5669,0
+N22000417,N22000417,ECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,0.9371,0
+N22000418,N22000418,IRCON,COAL,3,Mega Capital High-Value Infrastructure,1.4566,0
+N22000419,N22000419,ECR,RAILWAYS,2,Severe Legacy Stagnation & Chronic Slippage,2.7732,0
+N22000470,N22000470,NER,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.4832,0
+N22000485,N22000485,SECR,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.2215,0
+N22000502,N22000502,NR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.264,0
+N22000504,N22000504,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1673,0
+N22000505,N22000505,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7644,0
+N22000510,N22000510,SER,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1993,0
+N22000511,N22000511,CR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9308,0
+N22000515,N22000515,CR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7968,0
+N22000518,N22000518,ECOR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6068,0
+N22000519,N22000519,ECOR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3217,0
+N22000522,N22000522,ECOR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6046,0
+N22000523,N22000523,ECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0774,0
+N22000525,N22000525,ECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1011,0
+N22000526,N22000526,ECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5248,0
+N22000528,N22000528,ECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.0824,0
+N22000533,N22000533,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4442,0
+N22000537,N22000537,54.83 KM,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.3696,0
+N22000547,N22000547,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4502,0
+N22000548,N22000548,WR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3429,0
+N22000555,N22000555,SWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.117,0
+N22000556,N22000556,17.98 KM) (PB#29/NR/2022-23,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,4.1256,1
+N22000566,N22000566,NER,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8744,0
+N22000568,N22000568,SR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2826,0
+N22000570,N22000570,NFR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8415,0
+N22000571,N22000571,SER,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1965,0
+N22000589,N22000589,NR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1378,0
+N22000591,N22000591,NR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.6313,0
+N22000594,N22000594,NWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5057,0
+N22000596,N22000596,RVNL,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1203,0
+N22000599,N22000599,RVNL,RAILWAYS,3,Mega Capital High-Value Infrastructure,1.9591,0
+N22000600,N22000600,RVNL,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0191,0
+N22000605,N22000605,NWR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5506,0
+N22000609,N22000609,ER,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,4.9583,1
+N22000610,N22000610,ECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.414,0
+N22000612,N22000612,NCR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7983,0
+N22000613,N22000613,NER,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4921,0
+N22000614,N22000614,NR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.8981,0
+N22000616,N22000616,SECR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,2.3572,0
+N22000618,N22000618,SR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5242,0
+N22000625,N22000625,SR,RAILWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3317,0
+N22000628,N22000628,KOMRCL,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,2.1029,0
+N24000165,N24000165,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.5752,0
+N24000245,N24000245,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6408,0
+N24000247,N24000247,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1217,0
+N24000248,N24000248,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.8398,0
+N24000301,N24000301,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.7407,0
+N24000332,N24000332,MoRTH,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.623,0
+N24000334,N24000334,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.8796,0
+N24000463,N24000463,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,2.3323,0
+N24000465,N24000465,AMR,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.2387,0
+N24000488,N24000488,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,2.0608,0
+N24000531,N24000531,MoRTH,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.7327,0
+N24000560,N24000560,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,2.7207,0
+N24000564,N24000564,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,4.2169,0
+N24000567,N24000567,NHAI,ROAD TRANSPORT & HIGHWAYS,3,Mega Capital High-Value Infrastructure,3.4889,0
+N24000570,N24000570,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.728,0
+N24000576,N24000576,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6565,0
+N24000578,N24000578,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5186,0
+N24000603,N24000603,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.4843,0
+N24000649,N24000649,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.1378,0
+N24000659,N24000659,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.8224,0
+N24000683,N24000683,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.1962,0
+N24000686,N24000686,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1498,0
+N24000688,N24000688,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.8257,0
+N24000697,N24000697,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.75,0
+N24000704,N24000704,NHAI,ROAD TRANSPORT & HIGHWAYS,2,Severe Legacy Stagnation & Chronic Slippage,3.2636,0
+N24000709,N24000709,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.7358,0
+N24000736,N24000736,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.6139,0
+N24000741,N24000741,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.857,0
+N24000742,N24000742,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.7782,0
+N24000743,N24000743,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.7903,0
+N24000745,N24000745,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.7339,0
+N24000749,N24000749,NIMBUTALA TO AUSTIN CREEK,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.558,0
+N24000752,N24000752,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.1728,0
+N24000753,N24000753,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6733,0
+N24000767,N24000767,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.9654,0
+N24000768,N24000768,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.0082,0
+N24000771,N24000771,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.571,0
+N24000772,N24000772,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1538,0
+N24000773,N24000773,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1598,0
+N24000774,N24000774,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.065,0
+N24000776,N24000776,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0904,0
+N24000777,N24000777,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5609,0
+N24000778,N24000778,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5731,0
+N24000780,N24000780,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.7487,0
+N24000782,N24000782,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.7807,0
+N24000798,N24000798,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.5025,0
+N24000821,N24000821,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0519,0
+N24000851,N24000851,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.7443,0
+N24000858,N24000858,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3594,0
+N24000880,N24000880,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.9479,0
+N24000907,N24000907,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.9883,0
+N24000909,N24000909,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3494,0
+N24000910,N24000910,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2222,0
+N24000912,N24000912,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1744,0
+N24000914,N24000914,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6339,0
+N24000917,N24000917,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.313,0
+N24000925,N24000925,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.292,0
+N24000931,N24000931,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6637,0
+N24000980,N24000980,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.9876,0
+N24000982,N24000982,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0512,0
+N24000984,N24000984,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.9854,0
+N24000986,N24000986,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,0.9862,0
+N24000990,N24000990,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0286,0
+N24000993,N24000993,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3409,0
+N24000998,N24000998,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,2.2387,0
+N24001003,N24001003,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2812,0
+N24001008,N24001008,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.5149,0
+N24001013,N24001013,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.7826,0
+N24001017,N24001017,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4387,0
+N24001018,N24001018,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.201,0
+N24001021,N24001021,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1981,0
+N24001022,N24001022,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.056,0
+N24001046,N24001046,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4831,0
+N24001050,N24001050,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3373,0
+N24001058,N24001058,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3799,0
+N24001069,N24001069,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2128,0
+N24001078,N24001078,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.479,0
+N24001079,N24001079,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1755,0
+N24001080,N24001080,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4181,0
+N24001090,N24001090,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1449,0
+N24001092,N24001092,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.585,0
+N24001099,N24001099,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1499,0
+N24001101,N24001101,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2859,0
+N24001102,N24001102,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4874,0
+N24001114,N24001114,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3072,0
+N24001124,N24001124,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0736,0
+N24001125,N24001125,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2565,0
+N24001130,N24001130,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.9559,0
+N24001138,N24001138,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5048,0
+N24001156,N24001156,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3714,0
+N24001157,N24001157,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3635,0
+N24001158,N24001158,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3365,0
+N24001159,N24001159,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.4911,0
+N24001160,N24001160,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2545,0
+N24001161,N24001161,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0922,0
+N24001162,N24001162,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6405,0
+N24001164,N24001164,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1498,0
+N24001165,N24001165,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.9448,0
+N24001166,N24001166,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3792,0
+N24001168,N24001168,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,3.6488,0
+N24001172,N24001172,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1599,0
+N24001173,N24001173,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.743,0
+N24001179,N24001179,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.0978,0
+N24001180,N24001180,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.9123,0
+N24001216,N24001216,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2171,0
+N24001217,N24001217,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1467,0
+N24001221,N24001221,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1843,0
+N24001222,N24001222,MoRTH,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2619,0
+N24001244,N24001244,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.1531,0
+N24001254,N24001254,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3326,0
+N24001259,N24001259,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.2448,0
+N24001271,N24001271,PKG- 2B,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.1932,0
+N24001272,N24001272,PKG- 4A,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.4277,0
+N24001273,N24001273,PKG- 4B,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.3235,0
+N24001286,N24001286,PKG-I,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.23,0
+N24001303,N24001303,NHAI,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.6351,0
+N24001309,N24001309,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5185,0
+N24001317,N24001317,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1708,0
+N24001322,N24001322,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.409,0
+N24001325,N24001325,GREENFIELD ALIGNMENT,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.1013,0
+N24001339,N24001339,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.531,0
+N24001343,N24001343,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6983,0
+N24001353,N24001353,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1825,0
+N24001356,N24001356,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.3187,0
+N24001360,N24001360,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1697,0
+N24001361,N24001361,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9668,0
+N24001363,N24001363,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0075,0
+N24001366,N24001366,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8758,0
+N24001370,N24001370,OLD NH 49,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.3361,0
+N24001381,N24001381,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2684,0
+N24001382,N24001382,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3437,0
+N24001383,N24001383,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1555,0
+N24001387,N24001387,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2854,0
+N24001388,N24001388,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0798,0
+N24001389,N24001389,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0966,0
+N24001391,N24001391,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1078,0
+N24001397,N24001397,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9025,0
+N24001401,N24001401,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.643,0
+N24001402,N24001402,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2296,0
+N24001404,N24001404,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.8902,0
+N24001405,N24001405,NHIDCL,ROAD TRANSPORT & HIGHWAYS,0,High Administrative Cost-Revision Volatility,1.4837,0
+N24001408,N24001408,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.65,0
+N24001424,N24001424,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.7041,0
+N24001426,N24001426,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.207,0
+N24001427,N24001427,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2019,0
+N24001428,N24001428,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5492,0
+N24001430,N24001430,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2269,0
+N24001439,N24001439,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5187,0
+N24001440,N24001440,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5186,0
+N24001448,N24001448,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3933,0
+N24001453,N24001453,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3504,0
+N24001455,N24001455,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2949,0
+N24001456,N24001456,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0328,0
+N24001464,N24001464,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8111,0
+N24001467,N24001467,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1373,0
+N24001468,N24001468,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2643,0
+N24001472,N24001472,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.477,0
+N24001475,N24001475,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4248,0
+N24001480,N24001480,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9382,0
+N24001488,N24001488,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4225,0
+N24001503,N24001503,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7983,0
+N24001505,N24001505,MASVAN - GANJAD,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.001,0
+N24001516,N24001516,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.695,0
+N24001523,N24001523,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4508,0
+N24001524,N24001524,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5773,0
+N24001525,N24001525,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.182,0
+N24001529,N24001529,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3771,0
+N24001532,N24001532,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4937,0
+N24001533,N24001533,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0179,0
+N24001534,N24001534,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8044,0
+N24001536,N24001536,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5224,0
+N24001538,N24001538,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4699,0
+N24001539,N24001539,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2669,0
+N24001540,N24001540,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2802,0
+N24001541,N24001541,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7408,0
+N24001542,N24001542,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4653,0
+N24001553,N24001553,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6356,0
+N24001559,N24001559,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3051,0
+N24001573,N24001573,CH. 247.310 TO CH. 292.950,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.6247,0
+N24001594,N24001594,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,3.5135,1
+N24001600,N24001600,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4121,0
+N24001603,N24001603,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9212,0
+N24001610,N24001610,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.9225,0
+N24001616,N24001616,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4018,0
+N24001618,N24001618,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0554,0
+N24001623,N24001623,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5819,0
+N24001624,N24001624,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3597,0
+N24001625,N24001625,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7332,0
+N24001636,N24001636,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8246,0
+N24001641,N24001641,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.989,0
+N24001650,N24001650,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.7222,0
+N24001654,N24001654,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.8452,0
+N24001662,N24001662,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3468,0
+N24001663,N24001663,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.9487,0
+N24001666,N24001666,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.216,0
+N24001670,N24001670,PACKAGE ? OD-4,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.2354,0
+N24001671,N24001671,PACKAGE ? OD-2,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.2672,0
+N24001673,N24001673,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2742,0
+N24001684,N24001684,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2662,0
+N24001692,N24001692,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3568,0
+N24001696,N24001696,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8191,0
+N24001698,N24001698,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7895,0
+N24001701,N24001701,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.616,0
+N24001704,N24001704,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5736,0
+N24001705,N24001705,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9657,0
+N24001708,N24001708,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2406,0
+N24001711,N24001711,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.862,0
+N24001715,N24001715,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9638,0
+N24001716,N24001716,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2373,0
+N24001722,N24001722,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6285,0
+N24001725,N24001725,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4709,0
+N24001726,N24001726,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6352,0
+N24001736,N24001736,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7072,0
+N24001737,N24001737,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.541,0
+N24001739,N24001739,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0754,0
+N24001744,N24001744,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3469,0
+N24001747,N24001747,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2834,0
+N24001748,N24001748,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2567,0
+N24001755,N24001755,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.139,0
+N24001765,N24001765,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0596,0
+N24001768,N24001768,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5986,0
+N24001770,N24001770,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5104,0
+N24001775,N24001775,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.3936,0
+N24001779,N24001779,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4039,0
+N24001788,N24001788,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2857,0
+N24001797,N24001797,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8229,0
+N24001811,N24001811,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.2285,0
+N24001813,N24001813,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0174,0
+N24001815,N24001815,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5968,0
+N24001817,N24001817,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7629,0
+N24001822,N24001822,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6185,0
+N24001825,N24001825,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1198,0
+N24001828,N24001828,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5037,0
+N24001829,N24001829,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2675,0
+N24001832,N24001832,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4177,0
+N24001833,N24001833,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2439,0
+N24001855,N24001855,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0828,0
+N24001857,N24001857,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.391,0
+N24001863,N24001863,KONGURUKONDA,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.4289,0
+N24001864,N24001864,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4267,0
+N24001868,N24001868,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1478,0
+N24001869,N24001869,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9757,0
+N24001880,N24001880,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5153,0
+N24001885,N24001885,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6759,0
+N24001886,N24001886,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.851,0
+N24001887,N24001887,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8812,0
+N24001888,N24001888,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9087,0
+N24001889,N24001889,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9145,0
+N24001890,N24001890,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9571,0
+N24001891,N24001891,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9272,0
+N24001892,N24001892,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0044,0
+N24001894,N24001894,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0582,0
+N24001895,N24001895,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0609,0
+N24001896,N24001896,00/000) TO GANGAKHED (30/400,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.0731,0
+N24001900,N24001900,BRO,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5854,0
+N24001905,N24001905,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2108,0
+N24001906,N24001906,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2463,0
+N24001909,N24001909,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3151,0
+N24001910,N24001910,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3589,0
+N24001911,N24001911,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.5229,0
+N24001920,N24001920,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0186,0
+N24001924,N24001924,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4571,0
+N24001929,N24001929,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4783,0
+N24001932,N24001932,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6087,0
+N24001935,N24001935,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4836,0
+N24001936,N24001936,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7518,0
+N24001939,N24001939,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4513,0
+N24001943,N24001943,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3106,0
+N24001945,N24001945,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.323,0
+N24001946,N24001946,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0778,0
+N24001947,N24001947,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2458,0
+N24001952,N24001952,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8014,0
+N24001954,N24001954,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4652,0
+N24001955,N24001955,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.724,0
+N24001959,N24001959,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5556,0
+N24001966,N24001966,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5266,0
+N24001972,N24001972,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4501,0
+N24001973,N24001973,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4597,0
+N24001975,N24001975,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4528,0
+N24001982,N24001982,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5853,0
+N24001987,N24001987,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.4156,0
+N24001990,N24001990,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4694,0
+N24001991,N24001991,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7776,0
+N24001992,N24001992,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1982,0
+N24001993,N24001993,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0419,0
+N24001996,N24001996,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4535,0
+N24002000,N24002000,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7218,0
+N24002002,N24002002,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5486,0
+N24002006,N24002006,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2863,0
+N24002013,N24002013,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.8103,0
+N24002018,N24002018,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9435,0
+N24002024,N24002024,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4786,0
+N24002026,N24002026,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4797,0
+N24002028,N24002028,NHIDCL,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5191,0
+N24002029,N24002029,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.6184,0
+N24002032,N24002032,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7883,0
+N24002034,N24002034,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.7912,0
+N24002037,N24002037,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.4597,0
+N24002038,N24002038,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0975,0
+N24002039,N24002039,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.752,0
+N24002041,N24002041,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9821,0
+N24002069,N24002069,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0844,0
+N24002072,N24002072,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.3417,0
+N24002073,N24002073,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2679,0
+N24002078,N24002078,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.5957,0
+N24002085,N24002085,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1007,0
+N24002088,N24002088,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9904,0
+N24002092,N24002092,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.1769,0
+N24002103,N24002103,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2804,0
+N24002107,N24002107,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,0.9175,0
+N24002108,N24002108,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0492,0
+N24002112,N24002112,NHAI,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.2121,0
+N24002117,N24002117,MoRTH,ROAD TRANSPORT & HIGHWAYS,1,Standard Rapid-Execution / Linear Infrastructure,1.0583,0
+N26000115,N26000115,BSNL,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.0554,0
+N26000118,N26000118,BSNL,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.7218,0
+N28000056,N28000056,DMRC,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,3.5116,0
+N28000067,N28000067,CPWD EDUCATION,COAL,0,High Administrative Cost-Revision Volatility,3.1215,0
+N28000071,N28000071,CPWD FOR MHA,OTHER CENTRAL SECTOR,3,Mega Capital High-Value Infrastructure,2.2032,0
+N28000098,N28000098,CPWD FOR HEALTH,COAL,1,Standard Rapid-Execution / Linear Infrastructure,2.4068,1
+N28000100,N28000100,CPWD EDUCATION,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.4703,0
+N28000105,N28000105,NBCC,OTHER CENTRAL SECTOR,2,Severe Legacy Stagnation & Chronic Slippage,3.7733,0
+N28000112,N28000112,CPWD FOR HEALTH,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,2.2474,0
+N28000117,N28000117,CPWD EDUCATION,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,2.0624,0
+N28000121,N28000121,PHASE 1,CIVIL AVIATION,3,Mega Capital High-Value Infrastructure,1.3391,0
+N28000128,N28000128,CPWD,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.5282,0
+N28000129,N28000129,CPWD,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.4832,0
+N28000131,N28000131,CPWD EDUCATION,OTHER CENTRAL SECTOR,2,Severe Legacy Stagnation & Chronic Slippage,3.7579,0
+N28000141,N28000141,CPWD EDUCATION,COAL,1,Standard Rapid-Execution / Linear Infrastructure,0.8586,0
+N28000147,N28000147,CPWD FOR MHA,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.5461,0
+N28000149,N28000149,CPWD,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.2738,0
+N28000153,N28000153,CPWD,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.7244,0
+N28000154,N28000154,CPWD,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.328,0
+N28000156,N28000156,NBCC,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.4276,0
+N30000014,N30000014,DJB,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.2678,0
+N30000021,N30000021,UPJalNigam,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.5851,0
+N30000024,N30000024,UPJalNigam,OTHER CENTRAL SECTOR,0,High Administrative Cost-Revision Volatility,1.0693,0
+N30000032,N30000032,KMDA,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.5047,0
+N30000034,N30000034,KMDA,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.0923,0
+N30000036,N30000036,BUIDCO,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.2864,0
+N30000039,N30000039,BUIDCO,COAL,0,High Administrative Cost-Revision Volatility,1.0848,0
+N30000044,N30000044,BUIDCO,COAL,1,Standard Rapid-Execution / Linear Infrastructure,1.3275,0
+N38000001,N38000001,CPWD,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,1.4541,0
+N42000002,N42000002,CPWD EDUCATION,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.6618,0
+N42000005,N42000005,CPWD EDUCATION,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,0.9271,0
+N42000006,N42000006,PHASE 1A,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.854,0
+N42000007,N42000007,CPWD EDUCATION,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.0143,0
+N42000009,N42000009,CPWD EDUCATION,CIVIL AVIATION,1,Standard Rapid-Execution / Linear Infrastructure,0.9335,0
+N42000010,N42000010,CPWD,CIVIL AVIATION,0,High Administrative Cost-Revision Volatility,1.7624,0
+N45000002,N45000002,CPWD FOR MHA,OTHER CENTRAL SECTOR,1,Standard Rapid-Execution / Linear Infrastructure,1.2286,0

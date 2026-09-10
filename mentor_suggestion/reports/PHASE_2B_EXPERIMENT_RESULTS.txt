@@ -1,0 +1,170 @@
+================================================================================
+PHASE 2B: CONTROLLED ML PREDICTIVE EXPERIMENT RESULTS REPORT
+Comparative Evaluation: Model A (PAIMANA-Only) vs Model B (PAIMANA + Benchmarks)
+================================================================================
+Date: 2026-09-10
+Repository: SIH26103 / mentor_suggestion
+Evaluation Epochs:
+  - Training Period   : Apr 2025 – Nov 2025 (8,814 total snapshots)
+  - Validation Period : Dec 2025 – Jan 2026 (3,084 total snapshots)
+  - Out-of-Time Test  : Feb 2026 – Mar 2026 (3,871 total snapshots)
+Total Modeling Matrix: 15,769 snapshot rows across 2,741 PAIMANA projects.
+
+--------------------------------------------------------------------------------
+1. EXECUTIVE EXPERIMENT OVERVIEW
+--------------------------------------------------------------------------------
+This experiment evaluated whether adding historical project-archetype benchmarks
+(derived from longitudinal OCMS–PAIMANA linked projects) provides incremental
+predictive value beyond the frozen 75-feature PAIMANA-only production baseline.
+
+Experimental Design Safeguards:
+- Production Feature Universe: Exactly 75 features (71 numerical + 4 categorical).
+  Zero modifications to production code, weights, or feature store definitions.
+- Preprocessing: Numerical median imputation + StandardScaler, categorical OneHotEncoder.
+- Temporal Partitioning: Strict forward chronological split (Train -> Val -> OOT).
+- Benchmark Feature Set: 6 mathematically audited, point-in-time safe features.
+- Primary Decision Criterion: Out-of-Time (OOT) generalization on Feb–Mar 2026.
+
+--------------------------------------------------------------------------------
+2. TARGET-BY-TARGET PERFORMANCE COMPARISON
+--------------------------------------------------------------------------------
+
+================================================================================
+TARGET 1: schedule_delay_3m (3-Month Future Schedule Delay)
+================================================================================
+Model Family: RandomForestClassifier (200 trees, max_depth=12, min_samples_leaf=5)
+Calibration: Sigmoid CalibratedClassifierCV fitted strictly on Validation set.
+Sample Sizes: Train = 5,063 (45.45% pos) | Val = 3,043 (64.44% pos) | OOT = 3,787 (58.81% pos)
+
+Metric                     Model A (PAIMANA)    Model B (+ Benchmarks)    Delta (B - A)    Status / Interpretation
+-------------------------  -------------------  ------------------------  ---------------  ------------------------------------
+Validation PR-AUC          0.9910               0.9906                    -0.0004          Negligible degradation
+Validation ROC-AUC         0.9891               0.9889                    -0.0002          Negligible degradation
+Validation Brier Score     0.0134               0.0124                    -0.0010          Slight calibration improvement
+Validation ECE             0.0149               0.0136                    -0.0013          Slight calibration improvement
+
+OOT PR-AUC (Primary)       0.9722               0.9713                    -0.0009          NO IMPROVEMENT (Degrades slightly)
+OOT ROC-AUC                0.9723               0.9710                    -0.0013          NO IMPROVEMENT (Degrades slightly)
+OOT Brier Score            0.0391               0.0394                    +0.0003          Degrades calibration
+OOT Log Loss               0.1710               0.1748                    +0.0038          Degrades log-likelihood
+OOT ECE                    0.0302               0.0342                    +0.0040          Degrades expected calibration error
+
+Precision @ Top Decile     0.9894 (375/379)     0.9974 (378/379)          +0.0079          Minor gain in top 10% confidence
+OOT Precision (Threshold)  0.9345               0.9349                    +0.0004          Identical
+OOT Recall (Threshold)     0.9933               0.9996                    +0.0063          Marginal recall expansion
+OOT F1 Score               0.9630               0.9661                    +0.0031          Tied within noise
+
+Bootstrap 95% CIs (1,000 resamples):
+- Δ OOT PR-AUC : -0.0004 (95% CI: [-0.0020, +0.0014]) -> Interval spans zero; no statistical gain.
+- Δ OOT ROC-AUC: -0.0006 (95% CI: [-0.0019, +0.0008]) -> Interval spans zero; no statistical gain.
+
+
+================================================================================
+TARGET 2: cost_overrun_state_3m (3-Month Future Cost Overrun State)
+================================================================================
+Model Family: Balanced RandomForestClassifier (200 trees, max_depth=12, balanced)
+Sample Sizes: Train = 5,324 (30.58% pos) | Val = 3,041 (30.65% pos) | OOT = 3,789 (31.88% pos)
+
+Metric                     Model A (PAIMANA)    Model B (+ Benchmarks)    Delta (B - A)    Status / Interpretation
+-------------------------  -------------------  ------------------------  ---------------  ------------------------------------
+Validation PR-AUC          0.9914               0.9913                    -0.0001          Identical
+Validation ROC-AUC         0.9921               0.9919                    -0.0002          Identical
+Validation Brier Score     0.0336               0.0330                    -0.0006          Identical
+Validation ECE             0.1365               0.1330                    -0.0035          Identical
+
+OOT PR-AUC (Primary)       0.9881               0.9881                    -0.0000          EXACT TIE (0.0000 gain)
+OOT ROC-AUC                0.9895               0.9894                    -0.0001          EXACT TIE (-0.0001)
+OOT Brier Score            0.0386               0.0373                    -0.0013          Minor improvement
+OOT Log Loss               0.1892               0.1839                    -0.0053          Minor improvement
+OOT ECE                    0.1446               0.1401                    -0.0045          Minor improvement
+
+Precision @ Top Decile     0.9974 (378/379)     0.9974 (378/379)          +0.0000          Identical
+OOT Precision (Threshold)  0.9949               0.9949                    +0.0000          Identical
+OOT Recall (Threshold)     0.9735               0.9743                    +0.0008          Identical
+OOT F1 Score               0.9841               0.9845                    +0.0004          Identical
+
+Bootstrap 95% CIs (1,000 resamples):
+- Δ OOT PR-AUC : -0.0004 (95% CI: [-0.0009, +0.0001]) -> Interval spans zero; zero incremental value.
+- Δ OOT ROC-AUC: -0.0004 (95% CI: [-0.0013, +0.0004]) -> Interval spans zero; zero incremental value.
+
+
+================================================================================
+TARGET 3: schedule_revision_3m (3-Month Future Administrative Schedule Revision)
+================================================================================
+Model Family: LogisticRegression (L2 Penalty, C=1.0, StandardScaler preprocessing)
+Sample Sizes: Train = 5,063 (3.81% pos) | Val = 3,043 (1.35% pos) | OOT = 3,787 (1.19% pos)
+
+Metric                     Model A (PAIMANA)    Model B (+ Benchmarks)    Delta (B - A)    Status / Interpretation
+-------------------------  -------------------  ------------------------  ---------------  ------------------------------------
+Validation PR-AUC          0.0978               0.1230                    +0.0252          Apparent validation lift
+Validation ROC-AUC         0.8192               0.8318                    +0.0126          Apparent validation lift
+Validation Brier Score     0.0202               0.0273                    +0.0071          Degrades calibration
+Validation ECE             0.0260               0.0368                    +0.0108          Degrades calibration
+
+OOT PR-AUC (Primary)       0.0519               0.0641                    +0.0121          Modest PR lift on low base (1.19%)
+OOT ROC-AUC                0.8264               0.8455                    +0.0191          Modest ROC lift
+OOT Brier Score            0.0176               0.0212                    +0.0036          DEGRADES CALIBRATION
+OOT Log Loss               0.0791               0.0843                    +0.0052          DEGRADES LOG-LOSS
+OOT ECE                    0.0202               0.0236                    +0.0034          DEGRADES EXPECTED CALIBRATION
+
+Precision @ Top Decile     0.0556 (21/378)      0.0582 (22/378)           +0.0026          1 additional true positive / 378
+OOT Precision (Threshold)  0.0976               0.0946                    -0.0030          Slightly worse precision
+OOT Recall (Threshold)     0.0889 (4/45)        0.1556 (7/45)             +0.0667          3 additional true positives / 45
+OOT F1 Score               0.0930               0.1176                    +0.0246          Low operational utility (F1=0.118)
+
+Bootstrap 95% CIs (1,000 resamples):
+- Δ OOT PR-AUC : +0.0137 (95% CI: [+0.0049, +0.0303]) -> Positive, but absolute PR remains < 0.07.
+- Δ OOT ROC-AUC: +0.0189 (95% CI: [+0.0113, +0.0267]) -> Positive, driven solely by legacy indicator.
+
+--------------------------------------------------------------------------------
+3. FEATURE IMPORTANCE & REDUNDANCY ANALYSIS
+--------------------------------------------------------------------------------
+
+[SCHEDULE DELAY TOP 10 FEATURES IN MODEL B]
+Rank  Feature Name                                      Importance    Domain / Origin
+----  ------------------------------------------------  ------------  -------------------------------------
+1     months_to_original_doc_t                          0.2552 (25.5%) PAIMANA (Months to original completion)
+2     current_schedule_status_as_of_t_on_schedule       0.1472 (14.7%) PAIMANA (Current schedule status)
+3     current_schedule_status_as_of_t_past_due_breached 0.0885 (8.85%) PAIMANA (Current schedule status)
+4     min_progress_to_date_t                            0.0440 (4.40%) PAIMANA (Historical progress trajectory)
+5     max_progress_to_date_t                            0.0440 (4.40%) PAIMANA (Historical progress trajectory)
+6     average_progress_to_date_t                        0.0429 (4.29%) PAIMANA (Historical progress trajectory)
+7     expenditure_ratio_pct_t                           0.0313 (3.13%) PAIMANA (Financial expenditure velocity)
+8     physical_progress_t                               0.0265 (2.65%) PAIMANA (Physical progress percentage)
+9     remaining_physical_progress_t                     0.0257 (2.57%) PAIMANA (Remaining physical progress)
+10    physical_progress_lag1                            0.0251 (2.51%) PAIMANA (Physical progress velocity lag)
+...
+21    cluster_slippage_deviation_t                      0.0091 (0.91%) BENCHMARK LAYER
+22    cluster_hist_delay_rate_smoothed_t                0.0083 (0.83%) BENCHMARK LAYER
+
+[COST OVERRUN TOP 10 FEATURES IN MODEL B]
+Rank  Feature Name                                      Importance    Domain / Origin
+----  ------------------------------------------------  ------------  -------------------------------------
+1     cost_escalation_pct_t                             0.1798 (18.0%) PAIMANA (Current cost escalation %)
+2     has_cost_revision_t                               0.1591 (15.9%) PAIMANA (Cost revision occurrence)
+3     largest_cost_revision_pct_to_date_t               0.1271 (12.7%) PAIMANA (Max cost revision %)
+4     cumulative_expenditure_t                          0.0359 (3.59%) PAIMANA (Cumulative expenditure)
+5     agency_mean_expenditure_ratio_t                   0.0322 (3.22%) PAIMANA (Agency macro financial ratio)
+6     expenditure_ratio_pct_t                           0.0265 (2.65%) PAIMANA (Expenditure ratio)
+7     project_age_months_t                              0.0228 (2.28%) PAIMANA (Project elapsed age)
+8     revised_cost_t                                    0.0209 (2.09%) PAIMANA (Current revised cost)
+9     remaining_physical_progress_t                     0.0200 (2.00%) PAIMANA (Remaining progress)
+10    original_cost_log                                 0.0180 (1.80%) PAIMANA (Original scale)
+...
+19    cluster_distance_to_centroid_t                    0.0129 (1.29%) BENCHMARK LAYER
+25    cluster_slippage_deviation_t                      0.0089 (0.89%) BENCHMARK LAYER
+
+--------------------------------------------------------------------------------
+4. STATISTICAL & PRACTICAL SIGNIFICANCE SUMMARY
+--------------------------------------------------------------------------------
+1. Schedule Delay: Adding archetype benchmarks produces a slight degradation in
+   OOT PR-AUC (-0.0009) and ROC-AUC (-0.0013) while worsening Brier score (+0.0003).
+   The PAIMANA-only baseline is strictly superior.
+2. Cost Overrun: Model A and Model B are completely tied on OOT PR-AUC (0.9881 vs
+   0.9881) and ROC-AUC (0.9895 vs 0.9894). Benchmark features add zero incremental
+   predictive discrimination.
+3. Schedule Revision: While Model B produces a small statistical PR-AUC increase
+   (+0.0121, 0.0519 -> 0.0641), this gain comes with degraded calibration (Brier:
+   0.0176 -> 0.0212) and yields an operational F1 of only 0.1176. The signal is
+   entirely driven by legacy project status rather than archetype similarity.
+================================================================================

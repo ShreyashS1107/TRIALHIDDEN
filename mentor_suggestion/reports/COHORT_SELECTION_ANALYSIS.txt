@@ -1,0 +1,127 @@
+========================================================================================================================
+COHORT SELECTION & VIABILITY ANALYSIS REPORT
+SIH 2026 Problem Statement SIH26103: MoSPI / IPMD Integrated Project-Monitoring Platform
+Target File: mentor_suggestion/reports/COHORT_SELECTION_ANALYSIS.txt
+Status: COHORT_SELECTION_STATUS = COMPLETED_RECOMMENDATION_MADE
+Date of Audit: September 2026
+========================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------
+1. EXECUTIVE SUMMARY & MENTOR HYPOTHESIS EVALUATION
+------------------------------------------------------------------------------------------------------------------------
+The mentor suggested:
+"Investigate projects that started around 2025 and subsequently appear in the PAIMANA era in 2026, using them to build
+longitudinal trajectories and cluster-level historical benchmarks."
+
+Empirical Findings on Mentor's Specific 2025-Start Cohort:
+1. Feasibility Verdict: INFEASIBLE AS LITERALLY SPECIFIED (Sample Size N = 0).
+2. Root Cause:
+   - PAIMANA monitoring began in April 2025, succeeding the legacy OCMS system.
+   - Projects whose sanction/approval date is in 2025 (N = 130 total in PAIMANA) were newly approved projects.
+   - Consequently, EXACTLY ZERO (0) projects started in 2025 possess pre-PAIMANA historical observation snapshots in OCMS.
+   - Even widening the window to include 2024 starts yields only 4 projects with pre-PAIMANA observations (0.1% portfolio coverage).
+3. Practical Reinterpretation:
+   The mentor's core conceptual intent was to capture "projects active across the 2025 transition boundary with multi-year
+   trajectories spanning both OCMS and PAIMANA." In reality, these projects were sanctioned between 2016 and 2023 and were
+   actively monitored across the 2024–2025 system transition.
+
+We evaluated 5 rigorous candidate cohorts to establish the statistically optimal foundation for project clustering.
+
+
+========================================================================================================================
+2. CANDIDATE COHORT DEFINITIONS
+========================================================================================================================
+
++-------------------------------------------------------------+--------------------------------------------------------+
+| Cohort Identifier                                           | Inclusion Criteria & Operational Definition            |
++-------------------------------------------------------------+--------------------------------------------------------+
+| Cohort A: Comprehensive Overlapping Trajectory Cohort        | All PAIMANA projects with verified deterministic OCMS  |
+| (RECOMMENDED)                                               | linkage AND pre_paimana_observation_months >= 1.       |
+|                                                             | Covers full spectrum of overlapping infrastructure.   |
++-------------------------------------------------------------+--------------------------------------------------------+
+| Cohort B: Strict 2025 Inception Cohort                      | PAIMANA projects with approval_start_date in 2025 AND  |
+| (Mentor Literal Hypothesis)                                 | pre_paimana_observation_months >= 1.                   |
++-------------------------------------------------------------+--------------------------------------------------------+
+| Cohort B2: Transition-Window Inception Cohort               | PAIMANA projects with approval_start_date in 2024–2025 |
+| (Relaxed Mentor Hypothesis)                                 | AND pre_paimana_observation_months >= 1.               |
++-------------------------------------------------------------+--------------------------------------------------------+
+| Cohort C1: Substantial Historical Depth Cohort              | Linked projects with >= 3 pre-PAIMANA milestone snapshot|
+|                                                             | observations (spanning at least 2–3 calendar years).   |
++-------------------------------------------------------------+--------------------------------------------------------+
+| Cohort C2: Deep Multi-Year Historical Cohort                | Linked projects with >= 6 pre-PAIMANA milestone snapshot|
+|                                                             | observations (spanning 5+ calendar years).             |
++-------------------------------------------------------------+--------------------------------------------------------+
+| Cohort D: Balanced Continuity Cohort                        | Linked projects with >= 2 pre-PAIMANA observations AND |
+|                                                             | >= 6 active monthly observations in PAIMANA.           |
++-------------------------------------------------------------+--------------------------------------------------------+
+
+
+========================================================================================================================
+3. COMPREHENSIVE QUANTITATIVE COHORT COMPARISON MATRIX
+========================================================================================================================
+
++-------------------------------------+--------+-----------+------------+------------+-------------+------------+-----------+-----------+------------+
+| Metric / Characteristic             | Cohort | Cohort B  | Cohort B2  | Cohort C1  | Cohort C2   | Cohort D   | Full      | Baseline  | Production |
+|                                     | A (Rec)| (2025 St) | (24-25 St) | (Pre >= 3) | (Pre >= 6)  | (Balanced) | Portfolio | Train     | OOT Test   |
++-------------------------------------+--------+-----------+------------+------------+-------------+------------+-----------+-----------+------------+
+| Unique Project Count (N)            | 1,442  | 0         | 4          | 643        | 272         | 735        | 2,741     | 1,842     | 1,936      |
+| Portfolio Representation (%)        | 52.6%  | 0.0%      | 0.1%       | 23.5%      | 9.9%        | 26.8%      | 100.0%    | 67.2%     | 70.6%      |
+| Mean Pre-PAIMANA Observations (mos) | 3.48   | N/A       | 4.25       | 5.79       | 8.31        | 4.06       | 1.83      | 1.85      | 1.81       |
+| Median Pre-PAIMANA Observations     | 2.0    | N/A       | 3.5        | 5.0        | 8.0         | 3.0        | 1.0       | 1.0       | 1.0        |
+| Max Pre-PAIMANA Observations        | 11.0   | N/A       | 6.0        | 11.0       | 11.0        | 11.0       | 11.0      | 11.0      | 11.0       |
+| Mean PAIMANA Active Months          | 8.6    | N/A       | 9.8        | 8.7        | 9.4         | 11.9       | 7.9       | 8.1       | 7.8        |
+| Train Snapshots (Apr–Nov 2025)      | 6,020  | 0         | 19         | 2,948      | 1,355       | 3,854      | 8,814     | 8,814     | -          |
+| Validation Snapshots (Dec 25–Jan 26)| 1,827  | 0         | 5          | 766        | 341         | 1,427      | 3,084     | -         | -          |
+| OOT Test Snapshots (Feb–Mar 2026)   | 1,867  | 0         | 6          | 770        | 351         | 1,449      | 3,871     | -         | 3,871      |
+| Total Available ML Snapshots        | 9,714  | 0         | 30         | 4,484      | 2,047       | 6,730      | 15,769    | 8,814     | 3,871      |
+| Original Cost Missingness (%)       | 0.0%   | N/A       | 0.0%       | 0.0%       | 0.0%        | 0.0%       | 0.1%      | 0.1%      | 0.1%       |
+| Approval Date Missingness (%)       | 0.3%   | N/A       | 0.0%       | 0.2%       | 0.0%        | 0.0%       | 0.6%      | 0.5%      | 0.6%       |
+| Deterministic Identifier Linkage    | 100%   | 100%      | 100%       | 100%       | 100%        | 100%       | 63.3%     | 63.5%     | 63.1%      |
+| Statistical Power for Clustering    | HIGH   | ZERO      | ZERO       | MODERATE   | LOW-MODERATE| MODERATE   | HIGH      | HIGH      | HIGH       |
++-------------------------------------+--------+-----------+------------+------------+-------------+------------+-----------+-----------+------------+
+
+
+========================================================================================================================
+4. IN-DEPTH COHORT EVALUATION
+========================================================================================================================
+
+Cohort A: Comprehensive Overlapping Trajectory Cohort (N = 1,442) — [RECOMMENDED]
+- Strengths:
+  * Maximizes statistical sample size (1,442 unique projects, 9,714 total ML snapshots).
+  * Encompasses 100% of all verified deterministic OCMS–PAIMANA linked infrastructure.
+  * Zero missingness in original sanctioned costs; 99.7% completeness in baseline dates.
+  * Provides sufficient sample density across key sub-sectors (Highways N=813, Railways N=215, Energy N=260) to support
+    robust, multi-archetype clustering ($k=4$ or $k=5$) without creating micro-clusters ($N < 30$).
+- Limitations:
+  * Approximately 34.6% of projects (501 / 1,442) have exactly 2 pre-PAIMANA snapshots, reflecting projects entering OCMS
+    tables in 2022–2023.
+
+Cohort B & B2: 2025 / 2024–2025 Starts (N = 0 / N = 4) — [REJECTED]
+- Evaluation: Statistically non-viable. Filtering for projects approved in 2025 eliminates all historical depth because
+  projects approved in 2025 did not exist in pre-2025 OCMS archives.
+
+Cohort C1 & C2: Substantial (N = 643) / Deep (N = 272) History Cohorts — [REJECTED FOR PRIMARY CLUSTERING]
+- Strengths: High trajectory depth (mean 5.8 to 8.3 pre-PAIMANA observations).
+- Limitations: Restricting clustering to $N = 643$ or $N = 272$ discards >55% to >80% of overlapping projects, severely
+  reducing portfolio coverage (down to 23.5% and 9.9%), and starving the clustering model of recent highway/road projects.
+
+Cohort D: Balanced Continuity Cohort (N = 735) — [RESERVED AS BENCHMARK VALIDATION SUBSET]
+- Strengths: High dual-regime observation density ($\ge 2$ pre-PAIMANA and $\ge 6$ PAIMANA snapshots; mean 11.9 PAIMANA months).
+- Role: Highly valuable as an in-depth validation cohort to audit cluster trajectory stability across the transition boundary.
+
+
+========================================================================================================================
+5. FINAL RECOMMENDATION & METHODOLOGICAL JUSTIFICATION
+========================================================================================================================
+
+RECOMMENDED COHORT: COHORT A (All 1,442 Comprehensively Linked Overlapping Projects)
+
+Methodological Justification:
+1. Complete Population Coverage: Cohort A captures the entirety of verified multi-year infrastructure in the transition corpus.
+2. Unsupervised Stability: Unsupervised algorithms (K-Means, Hierarchical) require dense spatial distributions to establish
+   reliable centroids and avoid overfitting to small sample outliers. $N = 1,442$ provides the ideal sample size.
+3. Out-of-Time Alignment: In the frozen OOT test split (Feb–Mar 2026), Cohort A accounts for 1,867 candidate prediction snapshots
+   (48.2% of OOT rows), providing substantial statistical power to measure whether cluster benchmark features generalize.
+4. Generalization to Unlinked Inceptions: As designed in the clustering architecture, projects without pre-PAIMANA history
+   (unmatched $N=1,005$) can be projected into the static feature subspace of these 1,442 archetypes at inference time.
+========================================================================================================================

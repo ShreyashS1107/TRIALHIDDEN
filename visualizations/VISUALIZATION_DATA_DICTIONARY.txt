@@ -1,0 +1,138 @@
+================================================================================
+SIH26103: VISUALIZATION DATA DICTIONARY & METRIC PROVENANCE
+================================================================================
+Date: 2026-09-10
+Repository: SIH26103 / visualizations
+
+--------------------------------------------------------------------------------
+1. GLOBAL TIME PERIODS & DATASET PARTITIONS
+--------------------------------------------------------------------------------
+- Training Period (Chronological)   : 2025-04 through 2025-11 (8,814 snapshot rows)
+- Validation Period (Chronological) : 2025-12 through 2026-01 (3,084 snapshot rows)
+- Out-of-Time Test (Chronological)  : 2026-02 through 2026-03 (3,871 snapshot rows)
+- Total PAIMANA Prediction Universe : 15,769 project-month snapshots across 2,741 unique projects
+
+--------------------------------------------------------------------------------
+2. TARGET DEFINITIONS & OPERATIONAL MANDATES
+--------------------------------------------------------------------------------
+1. Target: schedule_delay_3m
+   - Definition: Binary indicator whether project milestone completion date is delayed / rescheduled within the next 3 months.
+   - OOT Class Prevalence: 58.81% (2,227 positive / 3,787 labelled OOT rows).
+   - Champion Model: CalibratedClassifierCV(RandomForestClassifier, method='sigmoid').
+   - Calibrated: YES (Fitted strictly on validation split Dec 2025–Jan 2026).
+   - Production OOT Performance: ROC-AUC = 0.9723, PR-AUC = 0.9722, Brier = 0.0391.
+
+2. Target: cost_overrun_state_3m
+   - Definition: Binary indicator whether cumulative expenditure exceeds sanctioned original cost (cost overrun state) in 3 months.
+   - OOT Class Prevalence: 31.88% (1,208 positive / 3,789 labelled OOT rows).
+   - Champion Model: Balanced RandomForestClassifier (200 trees, max_depth=12, class_weight='balanced').
+   - Calibrated: Inherently calibrated via balanced tree bagging.
+   - Production OOT Performance: ROC-AUC = 0.9895, PR-AUC = 0.9881, Brier = 0.0386.
+
+3. Target: schedule_revision_3m
+   - Definition: Binary indicator whether project authorities formally revise completion date within the next 3 months.
+   - OOT Class Prevalence: 1.19% (45 positive / 3,787 labelled OOT rows).
+   - Champion Model: L2-Regularized Logistic Regression (C=1.0).
+   - Calibrated: Sigmoid logistic odds.
+   - Production OOT Performance: ROC-AUC = 0.8264, PR-AUC = 0.0519, Brier = 0.0176.
+
+--------------------------------------------------------------------------------
+3. DETAILED FIGURE METRIC DICTIONARY
+--------------------------------------------------------------------------------
+
+[FIGURE 01: 01_paimana_project_similarity.png]
+- Category: Descriptive Statistics & Dimensionality Reduction
+- Source Artifact: features/feature_dataset_v1.csv
+- Metrics:
+  * State & Agency Counts: Frequency of latest project snapshots across 2,741 unique PAIMANA projects.
+  * Original Cost: Sanctioned original cost in ₹ Crore (Median = ₹389.0 Cr).
+  * 2D PCA Similarity: First 2 principal components of standardized (cost, duration, progress, expenditure, age).
+
+[FIGURE 02: 02_ocms_paimana_overlap.png]
+- Category: Record Linkage Audit
+- Source Artifacts: data/paimana_master_dataset.csv, mentor_suggestion/data/clustering_cohort.csv
+- Metrics:
+  * Total PAIMANA Projects: 2,741 unique projects.
+  * Legacy OCMS-Tagged: 1,736 projects with populated legacy codes.
+  * Unique Legacy OCMS Codes: 1,677 unique codes.
+  * Cohort A (Comprehensive Longitudinal Match): 1,442 projects (52.6%).
+  * Cohort B (Transition-Boundary Projects): 294 projects (10.7%).
+  * Cohort C (Unmatched Active PAIMANA): 1,005 projects (36.7%).
+
+[FIGURE 03: 03_project_archetypes.png]
+- Category: Unsupervised Clustering & Validation
+- Source Artifacts: mentor_suggestion/clustering/cluster_assignments.csv, clustering_metadata.json
+- Metrics:
+  * K-Means Partitioning: K = 4 clusters across 1,442 Cohort A projects.
+  * Silhouette Score: 0.4174 (vs K=3: 0.3541, K=5: 0.3812).
+  * Calinski-Harabasz Index: 570.64.
+  * Davies-Bouldin Index: 1.2146.
+  * Cluster Sizes: Cluster 0 = 252 (17.5%), Cluster 1 = 946 (65.6%), Cluster 2 = 69 (4.8%), Cluster 3 = 175 (12.1%).
+
+[FIGURE 04: 04_cluster_profile_heatmap.png]
+- Category: Descriptive Archetype Profiling
+- Source Artifact: mentor_suggestion/data/project_clustering_profiles.csv
+- Metrics:
+  * Standardized Z-Score: Mean feature value of cluster minus cohort mean, divided by cohort standard deviation across 6 variables.
+
+[FIGURE 05: 05_cluster_stability.png]
+- Category: Clustering Replication & Robustness Stress Tests
+- Source Artifact: mentor_suggestion/clustering/clustering_metadata.json
+- Metrics:
+  * Random-Seed Invariance: Adjusted Rand Index across 50 random initializations (Mean = 0.9992 ± 0.0022).
+  * Bootstrap Resampling: Adjusted Rand Index across 100 bootstrap iterations (Mean = 0.9779 ± 0.0105).
+  * Noise Robustness: Adjusted Rand Index under 10% Gaussian noise injection (Mean = 0.9788).
+
+[FIGURE 06: 06_historical_archetype_benchmarks.png]
+- Category: Contextual Historical Benchmarking
+- Source Artifact: mentor_suggestion/reports/BENCHMARK_SEMANTIC_AUDIT.txt
+- Metrics & Denominators:
+  * Smoothed Completion Delay Rate: Proportion of pre-PAIMANA historical completed projects delayed (M-estimate smoothing, M=5.0).
+  * Median Delay Duration: Median historical delay in months (Cluster 0: -23.0m, Cluster 1: 26.0m, Cluster 2: 251.0m, Cluster 3: 0.0m, Global: 28.0m).
+  * Historical Schedule Revision Rate: Proportion of projects with >= 1 pre-PAIMANA schedule revision.
+  * Pre-PAIMANA Cost Revision Rate: Proportion of projects with >= 1 pre-PAIMANA cost revision.
+  * Audit Note: Cluster 0 stagnation was audited as an invalid longitudinal proxy and excluded.
+
+[FIGURES 07, 08, 09: 07_oot_roc_auc.png, 08_oot_pr_auc.png, 09_oot_brier.png]
+- Category: Production ML Model Evaluation
+- Source Artifact: reports/AI_ML_FINAL_ARCHITECTURE.txt, mentor_suggestion/reports/PHASE_2B_EXPERIMENT_RESULTS.csv
+- Evaluation Split: Out-of-Time Test Set (Feb–Mar 2026, N = 3,787).
+- Metrics: ROC-AUC, Average Precision (PR-AUC), Brier Score Loss.
+
+[FIGURES 10, 11, 12: 10_oot_roc_curves.png, 11_oot_pr_curves.png, 12_oot_calibration.png]
+- Category: Empirical Test Curves
+- Source Data: Raw predicted probabilities and ground-truth labels on 3,787 OOT snapshots.
+- Metrics: False Positive Rate vs True Positive Rate, Recall vs Precision, Mean Predicted Probability vs Fraction of Positives (10 decile bins).
+
+[FIGURE 13: 13_temporal_generalization.png]
+- Category: Generalization Analysis
+- Source Data: Train (Apr–Nov 2025), Val (Dec 2025–Jan 2026), OOT Feb 2026, OOT Mar 2026.
+- Metrics: Forward temporal partition ROC-AUC trajectory.
+
+[FIGURES 14, 15, 16: 14_ocms_benchmark_model_comparison.png, 15_ocms_incremental_value.png, 16_benchmark_ablation.png]
+- Category: Experimental Machine Learning & Feature Ablations
+- Source Artifact: mentor_suggestion/reports/PHASE_2B_EXPERIMENT_RESULTS.txt, PHASE_2B_FEATURE_ABLATION.txt
+- Configurations:
+  * Config A: PAIMANA Baseline (75 features)
+  * Config B: PAIMANA + Valid Benchmarks (81 features)
+  * Config C: PAIMANA + Outcome Stats Only (78 features)
+  * Config D: PAIMANA + Deviations Only (77 features)
+  * Config E: PAIMANA + Distance & Continuity (77 features)
+  * Config F: Research Diagnostic Cluster ID (76 features)
+- Metrics: Δ OOT PR-AUC with 1,000-sample bootstrap 95% confidence intervals.
+
+[FIGURE 17: 17_predictive_risk_vs_execution_stress.png]
+- Category: Operational Dual-Perspective Surveillance
+- Source Artifacts: ml/risk_engine/integrated_risk_scores.csv, reports/EXECUTION_RISK_OVERLAP_ANALYSIS.txt
+- Metrics: Integrated Predictive Risk (0.0 to 1.0) vs Execution Stress Index (0.0 to 1.0).
+- Statistics: Spearman rank correlation ρ = 0.1360 (Pearson r = 0.1590), 65.4% off-diagonal alert distribution.
+
+[FIGURE 18: 18_final_ai_ml_architecture.png]
+- Category: Technical Architecture Blueprint
+- Source Artifact: reports/AI_ML_FINAL_ARCHITECTURE.txt
+- Components: Pillar 1 (Predictive ML), Pillar 2 (Execution Stress Index), Pillar 3 (Historical Benchmarks), Executive UI.
+
+[FIGURE 19: 19_ai_ml_judge_summary.png]
+- Category: Master Executive Validation Dashboard
+- Source Artifacts: All repo artifacts synthesized.
+================================================================================

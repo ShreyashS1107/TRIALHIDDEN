@@ -1,0 +1,13 @@
+feature,total_rows,available_rows,missing_rows,coverage_pct,train_cov_pct,val_cov_pct,oot_cov_pct,c0_cov_pct,c1_cov_pct,c2_cov_pct,c3_cov_pct
+cluster_hist_delay_rate_smoothed_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_hist_median_delay_months_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_hist_mean_delay_months_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_hist_cost_escalation_rate_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_hist_median_cost_escalation_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_hist_stagnation_rate_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_hist_schedule_revision_rate_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_hist_cost_revision_rate_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_distance_to_centroid_t,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_slippage_deviation_t,15769,5172,10597,32.8,58.68,0.0,0.0,48.94,31.45,36.41,28.59
+is_legacy_linked,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+cluster_id,15769,15769,0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
